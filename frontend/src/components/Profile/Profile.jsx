@@ -7,12 +7,14 @@ import { ProfilePosts } from "./ProfilePosts";
 import { displayContent } from "../../home/Home";
 import { useUser } from "../../context/AuthContext";
 import { getProfile } from "../../Api/profile";
+import { NotFound } from "../NotFound";
 
 export const Profile = ({ id }) => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({});
   const [forceUpdate, setForceUpdate] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const handleProfileViewer = async () => {
     try {
@@ -21,6 +23,9 @@ export const Profile = ({ id }) => {
       }
       setLoading(true);
       const userFetched = await getProfile(id, user.id);
+      if (!userFetched) {
+        return setNotFound(true);
+      }
       setUserData(userFetched);
     } catch (error) {
       const { message } = error;
@@ -46,6 +51,8 @@ export const Profile = ({ id }) => {
     >
       {loading ? (
         <LoadingPage />
+      ) : notFound ? (
+        <NotFound title={"perfil"} />
       ) : userData.username ? (
         <div className="flex flex-col w-full px-2 py-4">
           <div className="flex flex-col w-full border-b gap-4">
@@ -60,7 +67,6 @@ export const Profile = ({ id }) => {
           <ProfilePosts userID={userData.id} />
         </div>
       ) : null}
-      <ToastContainer />
     </div>
   );
 };

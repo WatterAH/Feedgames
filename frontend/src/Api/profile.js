@@ -9,6 +9,8 @@ export const getProfile = async (id, myID) => {
   const resData = await res.json();
   if (res.ok) {
     return resData;
+  } else if (res.status == 404) {
+    return null;
   } else {
     const { message } = resData;
     throw new Error(message);

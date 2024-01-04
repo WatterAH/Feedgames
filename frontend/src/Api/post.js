@@ -21,11 +21,13 @@ export const getPostById = async (id, userId) => {
     )}&userId=${encodeURIComponent(userId)}`
   );
   const resData = await res.json();
-  if (!res.ok) {
+  if (res.ok) {
+    return resData;
+  } else if (res.status == 404) {
+    return null;
+  } else {
     const { message } = resData;
     throw new Error(message);
-  } else {
-    return resData;
   }
 };
 

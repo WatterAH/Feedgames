@@ -2,9 +2,6 @@ import { myPostsIds } from "../database/compoundGet.js";
 import {
   getProfileById,
   getPostById,
-  getFollowers,
-  getFollows,
-  isFollowed,
   getProfileByUsername,
   getPostByTitle,
 } from "../database/simpleGet.js";
@@ -13,12 +10,12 @@ export const getProfile = async (req, res) => {
   try {
     const { id, myID } = req.query;
     const { user, error } = await getProfileById(id);
-    user.follow = user.followers.some(
-      (followers) => followers.id_follower == myID
-    );
     if (error) {
-      return res.status(404).json({ message: "El perfil no existe" });
+      return res.status(404).json({ message: "Not Found" });
     } else {
+      user.follow = user.followers.some(
+        (followers) => followers.id_follower == myID
+      );
       return res.status(200).json(user);
     }
   } catch (error) {
@@ -61,7 +58,7 @@ export const getPost = async (req, res) => {
     let { data: post, error } = await getPostById(postId);
 
     if (error) {
-      return res.status(400).json({ message: "Error al cargar el post" });
+      return res.status(404).json({ message: "Not Found" });
     } else {
       post.isLiked = post.liked.some((like) => like.id_user == userId);
       post.isSaved = post.saved.some((save) => save.id_user == userId);

@@ -41,8 +41,8 @@ export const Home = () => {
   const handleToken = async () => {
     try {
       setLoading(true);
-      const user = await checkAuth();
-      login(user);
+      const data = await checkAuth();
+      login(data);
       nav("/");
     } catch (error) {
       nav("/auth");
@@ -67,8 +67,6 @@ export const Home = () => {
         return <ExploreProfile id={user.id} />;
       case "Saved":
         return <Saved />;
-      case "void":
-        return <SimulateLoading />;
       default:
         return <MainFeed />;
     }

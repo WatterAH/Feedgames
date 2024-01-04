@@ -22,6 +22,8 @@ export const fetchComment = async (commentId) => {
 
   if (res.ok) {
     return resData;
+  } else if (res.status == 404) {
+    return null;
   } else {
     const { message } = error;
     throw new Error(message);

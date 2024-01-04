@@ -14,9 +14,7 @@ export const getComment = async (req, res) => {
     const { commentId } = req.query;
     let { comment, error } = await getCommentById(commentId);
     if (error) {
-      return res
-        .status(400)
-        .json({ message: "El comentario no existe o fue eliminado" });
+      return res.status(404).json({ message: "Not Found" });
     } else {
       const {
         users: { username },

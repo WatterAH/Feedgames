@@ -7,16 +7,21 @@ import { getPostById } from "../../Api/post";
 import { Comments } from "../Comment/Comments";
 import { fetchComments as fetchFunction } from "../../Api/comments";
 import { commentPost as sendFunction } from "../../Api/comments";
+import { NotFound } from "../NotFound";
 
 export const ExplorePost = ({ postId }) => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [post, setPost] = useState({});
+  const [notFound, setNotFound] = useState(false);
 
   const getPost = async () => {
     try {
       setLoading(true);
       const postFetched = await getPostById(postId, user.id);
+      if (!postFetched) {
+        return setNotFound(true);
+      }
       setPost(postFetched);
     } catch (error) {
       const { message } = error;
@@ -42,6 +47,8 @@ export const ExplorePost = ({ postId }) => {
     >
       {loading ? (
         <LoadingPage />
+      ) : notFound ? (
+        <NotFound title={"post"} />
       ) : post.id ? (
         <div className="max-w-2xl w-full mx-auto">
           <Post data={post} />

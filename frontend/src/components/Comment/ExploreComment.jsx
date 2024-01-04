@@ -6,15 +6,20 @@ import { Comment } from "./Comment";
 import { Comments } from "./Comments";
 import { fetchResponses as fetchFunction } from "../../Api/comments";
 import { responseComment as sendFunction } from "../../Api/comments";
+import { NotFound } from "../NotFound";
 
 export const ExploreComment = ({ commentId }) => {
   const [comment, setComment] = useState({});
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const getComment = async () => {
     try {
       setLoading(true);
       const commentFetched = await fetchComment(commentId);
+      if (!commentFetched) {
+        return setNotFound(true);
+      }
       setComment(commentFetched);
     } catch (error) {
       const { message } = error;
@@ -38,6 +43,8 @@ export const ExploreComment = ({ commentId }) => {
     >
       {loading ? (
         <LoadingPage />
+      ) : notFound ? (
+        <NotFound title={"comentario"} />
       ) : comment.comment ? (
         <div className="max-w-2xl w-full mx-auto">
           <Comment comment={comment} />
