@@ -38,14 +38,8 @@ export const likePost = async (req, res) => {
       return res.status(400).json({ message: "Error" });
     } else {
       if (id_user != user_post) {
-        await notify(
-          user_post,
-          false,
-          "Post",
-          id_post,
-          `A ${username} le gusta tu publicación`,
-          0
-        );
+        const text = `A ${username} le gusta tu publicación`;
+        notify(user_post, false, "Post", id_post, text, 0);
         return res.status(200).json({ message: "Te gusta" });
       }
     }
@@ -119,14 +113,8 @@ export const followUser = async (req, res) => {
         .status(400)
         .json({ message: "No se pudo completar la accion" });
     } else {
-      await notify(
-        id_followed,
-        false,
-        "Profile",
-        id_follower,
-        `${username} comenzo a seguirte`,
-        2
-      );
+      const text = `${username} comenzo a seguirte`;
+      notify(id_followed, false, "Profile", id_follower, text, 2);
       return res.status(200).json({ message: "Ahora sigues a este usuario" });
     }
   } catch (error) {

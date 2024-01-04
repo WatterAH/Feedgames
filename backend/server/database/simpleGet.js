@@ -38,9 +38,7 @@ export const getAllPosts = async () => {
 export const getCommentById = async (commentId) => {
   const { data: comment, error } = await supabase
     .from("comments")
-    .select(
-      "*, responses:responses!responses_id_responsed_fkey(id), users(username)"
-    )
+    .select("*, responses!responses_id_responsed_fkey(id), users(username)")
     .eq("id", commentId)
     .single();
   return { comment, error };
@@ -49,9 +47,7 @@ export const getCommentById = async (commentId) => {
 export const getCommentsByIds = async (commentsIds) => {
   const { data: comments, error } = await supabase
     .from("comments")
-    .select(
-      "*, responses:responses!responses_id_responsed_fkey(id), users(username)"
-    )
+    .select("*, responses!responses_id_responsed_fkey(id), users(username)")
     .in("id", commentsIds);
   return { comments, error };
 };
@@ -59,9 +55,7 @@ export const getCommentsByIds = async (commentsIds) => {
 export const getAllComents = async (postId) => {
   const { data: comments, error } = await supabase
     .from("comments")
-    .select(
-      "*, responses:responses!responses_id_responsed_fkey(id), users(username)"
-    )
+    .select("*, responses!responses_id_responsed_fkey(id), users(username)")
     .eq("id_post", postId)
     .eq("response", false)
     .order("order", { ascending: false });
@@ -71,7 +65,7 @@ export const getAllComents = async (postId) => {
 export const getResponses = async (commentId) => {
   const { data: comments, error } = await supabase
     .from("responses")
-    .select("*, comments:comments!responses_id_responsed_fkey()")
+    .select("*, comments!responses_id_responsed_fkey()")
     .eq("id_responsed", commentId);
   return { comments, error };
 };

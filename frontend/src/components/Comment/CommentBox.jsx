@@ -2,68 +2,40 @@ import React, { useState } from "react";
 import { Input } from "../Input";
 import { Button } from "../Button";
 import { toast } from "react-toastify";
-import { useUser } from "../../context/AuthContext";
-import { commentPost, responseComment } from "../../Api/comments";
+import { Loading } from "../Loading";
 
 export const CommentBox = ({
   id_post,
   response,
+  toNotify,
   setComments,
-  id_responsed,
-  user_post,
-  id_user_responsed,
+  sendFunction,
+  comment_res,
 }) => {
-  const { user } = useUser();
   const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleCommentPost = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       setComment("");
-      const body = {
-        id_post,
-        id_user: user.id,
-        name: user.username,
-        comment,
-        response,
-        user_post,
-      };
-      const commented = await commentPost(body);
+      const body = { id_post, comment, response, toNotify, comment_res };
+      const commented = await sendFunction(body);
       setComments((prevComms) => [commented, ...prevComms]);
     } catch (error) {
       const { message } = error;
       toast.error(message, {
         position: toast.POSITION.BOTTOM_CENTER,
       });
-    }
-  };
-
-  const handleResponseComment = async (e) => {
-    e.preventDefault();
-    try {
-      setComment("");
-      const body = {
-        id_post,
-        id_user: user.id,
-        name: user.username,
-        comment,
-        response,
-        id_responsed,
-        id_user_responsed,
-      };
-      const commented = await responseComment(body);
-      setComments((prevComms) => [commented, ...prevComms]);
-    } catch (error) {
-      const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <form
-      onSubmit={response ? handleResponseComment : handleCommentPost}
+      onSubmit={handleSubmit}
       className="flex bottom-10 gap-x-2 items-center"
     >
       <span className="w-3/4 relative">
@@ -73,8 +45,11 @@ export const CommentBox = ({
           onChange={(e) => setComment(e.target.value)}
         />
       </span>
-      <span className="w-1/4">
-        <Button>Enviar</Button>
+      <span className="w-1/4 flex justify-center relative">
+        <Button type="submit" disabled={loading}>
+          {loading ? "" : "Continuar"}
+        </Button>
+        {loading ? <Loading /> : ""}
       </span>
     </form>
   );

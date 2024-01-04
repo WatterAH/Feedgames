@@ -3,8 +3,10 @@ import { useUser } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { Post } from "../Post/Post";
 import { LoadingPage } from "../LoadingPage";
-import { Comments } from "../Comment/Comments";
 import { getPostById } from "../../Api/post";
+import { Comments } from "../Comment/Comments";
+import { fetchComments as fetchFunction } from "../../Api/comments";
+import { commentPost as sendFunction } from "../../Api/comments";
 
 export const ExplorePost = ({ postId }) => {
   const { user } = useUser();
@@ -40,10 +42,19 @@ export const ExplorePost = ({ postId }) => {
     >
       {loading ? (
         <LoadingPage />
-      ) : post.title ? (
+      ) : post.id ? (
         <div className="max-w-2xl w-full mx-auto">
           <Post data={post} />
-          <Comments post_id={post.id} post_user={post.user_id} />
+          <Comments
+            data={{
+              parent_id: postId,
+              post_id: post.id,
+              toNotify: post.user_id,
+              response: false,
+              fetchFunction,
+              sendFunction,
+            }}
+          />
         </div>
       ) : null}
       <ToastContainer />

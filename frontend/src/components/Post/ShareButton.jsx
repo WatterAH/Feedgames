@@ -31,10 +31,7 @@ export const ShareButton = ({ content, data }) => {
 
   return (
     <button className="active:scale-125 transition-transform" onClick={share}>
-      <FontAwesomeIcon
-        icon={faShareFromSquare}
-        className="h-6 text-stone-500"
-      />
+      <FontAwesomeIcon icon={faShareFromSquare} className="h-6 text-teal-500" />
     </button>
   );
 };

@@ -7,44 +7,12 @@ export const deletePostById = async (id_post) => {
   }
 };
 
-export const deleteLikes = async (id_post) => {
-  const { error } = await supabase
-    .from("liked")
-    .delete()
-    .eq("id_post", id_post);
-  if (error) {
-    throw new Error(error);
-  }
-};
-
-export const deleteSaves = async (id_post) => {
-  const { error } = await supabase
-    .from("saved")
-    .delete()
-    .eq("id_post", id_post);
-  if (error) {
-    throw new Error(error);
-  }
-};
-
-export const deleteComments = async (id_post) => {
-  const { error } = await supabase
-    .from("comments")
-    .delete()
-    .eq("id_post", id_post);
-  if (error) {
-    throw new Error(error);
-  }
-};
-
 export const deleteCommentById = async (id_comment) => {
   const { error } = await supabase
     .from("comments")
     .delete()
-    .eq("id", id_comment)
-    .select("*");
+    .eq("id", id_comment);
   if (error) {
-    console.log(error);
     throw new Error(error);
   }
 };
@@ -56,6 +24,13 @@ export const deleteResponses = async (commentId) => {
     .eq("id_comment", commentId);
   if (error) {
     throw new Error(error);
+  }
+};
+
+export const deleteCommentsByIds = async (ids) => {
+  const { error } = await supabase.from("comments").delete().in("id", ids);
+  if (error) {
+    throw new Error(error.message);
   }
 };
 

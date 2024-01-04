@@ -1,6 +1,4 @@
 import React from "react";
-import mc from "../../assets/img/mc.webp";
-
 export const PostContent = ({ data }) => {
   const { content } = data;
   return (

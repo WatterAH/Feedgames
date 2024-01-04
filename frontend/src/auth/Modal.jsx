@@ -17,8 +17,8 @@ export const Modal = () => {
 
   return (
     <>
-      <button onClick={openModal}>
-        <FontAwesomeIcon icon={faCircleInfo} className="text-cyan-700 h-5" />
+      <button onClick={openModal} type="button">
+        <FontAwesomeIcon icon={faCircleInfo} className="text-teal-800 h-5" />
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -52,16 +52,16 @@ export const Modal = () => {
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     <h1 className="font-kalnia text-2xl font-bold">
-                      CraftFeed
+                      ¿Feedgames?
                     </h1>
                   </Dialog.Title>
                   <div className="mt-4">
-                    <p className="text-sm text-gray-500">
-                      CraftFeed es una plataforma única diseñada para la
-                      comunidad de Minecraft. Este espacio te permite explorar,
-                      compartir y descubrir la creatividad ilimitada de la
-                      comunidad de Minecraft a través de una variedad de posts e
-                      interacciones con los usuarios.
+                    <p className="text-base text-gray-500">
+                      Descubre, comparte y conecta con otros apasionados por los
+                      videojuegos en nuestra plataforma. Sigue a tus creadores
+                      favoritos, da likes, comenta y guarda publicaciones para
+                      nunca perderte nada emocionante. Únete a la conversación y
+                      lleva tu experiencia de juego al siguiente nivel.
                     </p>
                   </div>
                   <div className="mt-4">

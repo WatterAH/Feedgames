@@ -2,7 +2,6 @@ import bcryptjs from "bcryptjs";
 import { supabase } from "../database/connection.js";
 import { isCorrectUsername, isStrongPassword } from "../libs/validator.js";
 import { createAccessToken, validateToken } from "../libs/token.js";
-import { editCommentsName, editPostsName } from "../database/simpleEdit.js";
 import { editProfile } from "../database/compundEdit.js";
 
 export const login = async (req, res) => {
@@ -24,9 +23,6 @@ export const login = async (req, res) => {
         const token = await createAccessToken(user);
         res.cookie("token", token, {
           maxAge: 315360000,
-          httpOnly: true,
-          sameSite: "None",
-          secure: true,
         });
         return res.status(200).json(user);
       }
@@ -38,7 +34,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    res.clearCookie("token");
+    res.cookie("token", "", { expires: new Date() });
     return res.status(200).json({ message: "Hasta pronto!" });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
@@ -86,9 +82,6 @@ export const register = async (req, res) => {
       const token = await createAccessToken(user);
       res.cookie("token", token, {
         maxAge: 315360000,
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
       });
       return res.status(200).json(user);
     }
@@ -127,7 +120,7 @@ export const editProfileById = async (req, res) => {
       details = "Sin descripción";
     }
 
-    const { error: errPf } = await editProfile(
+    const { user, error: errPf } = await editProfile(
       id,
       username,
       name,
@@ -139,6 +132,10 @@ export const editProfileById = async (req, res) => {
         .status(400)
         .json({ message: "Nombre de usuario no disponible" });
     } else {
+      const token = await createAccessToken(user);
+      res.cookie("token", token, {
+        maxAge: 315360000,
+      });
       return res.status(200).json({ message: "OK" });
     }
   } catch (error) {

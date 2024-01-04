@@ -9,6 +9,7 @@ import { Explore } from "../components/Explore/Explore";
 import { ExploreProfile } from "../components/Profile/ExploreProfile";
 import { checkAuth } from "../Api/auth";
 import { LoadingPage } from "../components/LoadingPage";
+import { SimulateLoading } from "../components/SimulateLoading";
 
 export let displayContent;
 export let explorerContent;
@@ -66,8 +67,10 @@ export const Home = () => {
         return <ExploreProfile id={user.id} />;
       case "Saved":
         return <Saved />;
+      case "void":
+        return <SimulateLoading />;
       default:
-        break;
+        return <MainFeed />;
     }
   };
 
@@ -78,8 +81,8 @@ export const Home = () => {
   ) : (
     <div className="flex relative dark:bg-black duration-500">
       <section className="lg:w-64 w-full bottom-0 lg:top-0 py-6 px-3 fixed bg-white dark:bg-black duration-500 border-r border-t lg:border-t-0 z-10">
-        <h2 className="text-3xl dark:text-white duration-500 font-bold font-kalnia hidden lg:block">
-          CraftFeed
+        <h2 className="text-3xl text-gray-900 dark:text-white duration-500 font-bold font-kalnia hidden lg:block">
+          Feedgames
         </h2>
         <Menu currentContent={currentContent} />
       </section>

@@ -54,7 +54,10 @@ export const Options = ({ optionsData, setComments }) => {
                   )}
                   onClick={handleDelete}
                 >
-                  <FontAwesomeIcon icon={faTrash} className="mr-2" />
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    className="mr-2 text-red-500"
+                  />
                   Eliminar
                 </a>
               )}

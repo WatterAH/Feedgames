@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { CommentBox } from "./CommentBox";
-import { toast } from "react-toastify";
-import { LoadingPage } from "../LoadingPage";
-import { fetchComments } from "../../Api/comments";
 import { Comment } from "./Comment";
+import { LoadingPage } from "../LoadingPage";
 
-export let userResponse;
-export let id_comment;
-export let force;
-
-export const Comments = ({ post_id, post_user }) => {
+export const Comments = ({ data }) => {
+  const { parent_id, post_id, toNotify, response } = data;
+  const { fetchFunction, sendFunction } = data;
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleCommentsViewer = async () => {
+  const handleFetchComments = async () => {
     try {
       setLoading(true);
-      const commentsFetched = await fetchComments(post_id);
+      const commentsFetched = await fetchFunction(parent_id);
       setComments(commentsFetched);
     } catch (error) {
       const { message } = error;
@@ -29,17 +25,19 @@ export const Comments = ({ post_id, post_user }) => {
   };
 
   useEffect(() => {
-    handleCommentsViewer();
-  }, [post_id]);
+    handleFetchComments();
+  }, [parent_id]);
 
   return (
     <div className="mb-24 lg:mb-0 flex flex-col gap-y-4 p-2">
       <h3 className="font-montserrat text-lg">Comentarios</h3>
       <CommentBox
         id_post={post_id}
-        response={false}
+        response={response}
+        toNotify={toNotify}
         setComments={setComments}
-        user_post={post_user}
+        sendFunction={sendFunction}
+        comment_res={parent_id}
       />
       <section className="flex flex-col gap-5">
         {loading ? (
@@ -53,6 +51,7 @@ export const Comments = ({ post_id, post_user }) => {
                 key={index}
                 comment={comment}
                 setComments={setComments}
+                option={true}
               />
             ))}
           </div>

@@ -36,7 +36,7 @@ export const LikeButton = ({ likeData }) => {
     >
       <FontAwesomeIcon
         icon={liked ? faHeartSolid : faHeartRegular}
-        className="h-6 text-red-400"
+        className="h-6 text-rose-400"
       />
     </button>
   );

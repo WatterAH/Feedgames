@@ -16,7 +16,7 @@ export const ListItem = ({ item, currentContent, newNotify }) => {
         ) : null}
         <FontAwesomeIcon
           icon={currentContent == item.content ? item.solid : item.regular}
-          className="h-5 lg:h-6"
+          className="h-5 lg:h-6 text-gray-800"
         />
         <p className="hidden lg:block">{item.text}</p>
       </Li>

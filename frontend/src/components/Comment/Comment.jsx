@@ -7,7 +7,7 @@ import { Options } from "./Options";
 import { useUser } from "../../context/AuthContext";
 import { formatNumber } from "../../functions/numbers";
 
-export const Comment = ({ comment, setComments }) => {
+export const Comment = ({ comment, setComments, option }) => {
   const { user } = useUser();
   const { responses } = comment;
 
@@ -21,7 +21,7 @@ export const Comment = ({ comment, setComments }) => {
             {formatNumber(responses.length)}
           </p>
         </span>
-        {comment.id_user == user.id ? (
+        {comment.id_user == user.id && option ? (
           <Options optionsData={{ id: comment.id }} setComments={setComments} />
         ) : null}
       </section>

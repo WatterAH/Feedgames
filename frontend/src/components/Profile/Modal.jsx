@@ -7,9 +7,10 @@ import { Loading } from "../Loading";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { editProfile } from "../../Api/profile";
+import { displayContent } from "../../home/Home";
 
 export const Modal = ({ data }) => {
-  const { user } = useUser();
+  const { user, login } = useUser();
   const { closeModal, isOpen, userData } = data;
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(userData.username);
@@ -20,11 +21,16 @@ export const Modal = ({ data }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      await editProfile(user.id, name, username, user.username, details);
-      closeModal();
-      toast.success("Actualiza para ver los cambios", {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      const data = await editProfile(
+        user.id,
+        name,
+        username,
+        user.username,
+        details
+      );
+      login(data);
+      displayContent("void");
+      window.location.reload();
     } catch (error) {
       const { message } = error;
       toast.error(message, {
@@ -48,7 +54,7 @@ export const Modal = ({ data }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/25" />
+            <div className="fixed inset-0 bg-black/30" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">

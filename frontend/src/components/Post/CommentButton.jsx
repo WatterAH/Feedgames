@@ -10,7 +10,7 @@ export const CommentButton = ({ commentData }) => {
       className="active:scale-125 transition-transform"
       onClick={() => explorerContent("Post", id)}
     >
-      <FontAwesomeIcon icon={faComment} className="h-6 text-cyan-600" />
+      <FontAwesomeIcon icon={faComment} className="h-6 text-cyan-300" />
     </button>
   );
 };

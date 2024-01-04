@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://craftfeed.vercel.app",
+    "https://feedgames.vercel.app",
     "http://192.168.1.70:19006",
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

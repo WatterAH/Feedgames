@@ -43,9 +43,10 @@ export const editProfile = async (id, name, username, oldUsername, details) => {
   });
   const resData = await res.json();
 
-  if (!res.ok) {
+  if (res.ok) {
+    return resData;
+  } else {
     const { message } = resData;
     throw new Error(message);
   }
-  return;
 };

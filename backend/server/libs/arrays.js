@@ -1,12 +1,18 @@
 export const findMaxItem = (arr) => {
   const maxItem = Math.max(...arr);
+  if (maxItem == 0) {
+    return -1;
+  }
   return arr.indexOf(maxItem);
 };
 
-export const joinObjects = (index1, index2, arr) => {
-  if (arr[index1].id == arr[index2].id) {
-    return [arr[index1]];
-  } else {
-    return [arr[index1], arr[index2]];
-  }
+export const joinObjects = (arrIndex, arr) => {
+  arr = [arr[arrIndex[0]], arr[arrIndex[1]], arr[arrIndex[2]]];
+  return arr.filter((current) => current != undefined);
+};
+
+export const uniques = (arr) => {
+  return arr.filter((item, index, arr) => {
+    return arr.indexOf(item) === index;
+  });
 };

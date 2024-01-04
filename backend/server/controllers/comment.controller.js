@@ -7,6 +7,7 @@ import {
   getResponses,
 } from "../database/simpleGet.js";
 import { getDate } from "../libs/dates.js";
+import { validateToken } from "../libs/token.js";
 
 export const getComment = async (req, res) => {
   try {
@@ -31,39 +32,32 @@ export const getComment = async (req, res) => {
 
 export const comment = async (req, res) => {
   try {
-    const { id_post, id_user, name, comment, response, user_post } = req.body;
+    const { id_post, comment, response, toNotify } = req.body;
+    const token = req.cookies.token;
     if (!comment.trim()) {
       return res.status(400).json({ message: "Tu comentario esta vacio!" });
     }
+
+    const user = await validateToken(token);
+    if (!user) return res.status(403).json({ message: "Token invalido" });
+    const { id: id_user } = user;
+    const { username: name } = user;
+
     const created_at = getDate();
+
+    const insertData = { id_post, id_user, comment, created_at, response };
     let { data: commented, error } = await supabase
       .from("comments")
-      .insert([
-        {
-          id_post,
-          id_user,
-          comment,
-          created_at,
-          response,
-        },
-      ])
-      .select(
-        "*, responses:responses!responses_id_responsed_fkey(id), users(username)"
-      )
+      .insert([insertData])
+      .select("*, responses!responses_id_responsed_fkey(id), users(username)")
       .single();
 
     if (error) {
       return res.status(400).json({ message: "Error al subir comentario" });
     } else {
-      if (user_post != id_user) {
-        await notify(
-          user_post,
-          false,
-          "Post",
-          id_post,
-          `${name} comento tu publicación`,
-          1
-        );
+      if (toNotify != id_user) {
+        const text = `${name} comento tu publicación`;
+        notify(toNotify, false, "Post", id_post, text, 1);
       }
       const {
         users: { username },
@@ -79,47 +73,37 @@ export const comment = async (req, res) => {
 
 export const response = async (req, res) => {
   try {
-    const { id_post, id_user, name, comment, response } = req.body;
-    const { id_responsed, id_user_responsed } = req.body;
+    const { id_post, comment, response, toNotify } = req.body;
+    const { comment_res } = req.body;
+    const token = req.cookies.token;
     if (!comment.trim()) {
       return res.status(400).json({ message: "Tu comentario esta vacio!" });
     }
+    const user = await validateToken(token);
+    if (!user) return res.status(403).json({ message: "Token invalido" });
+    const { id: id_user } = user;
+    const { username: name } = user;
+
     const created_at = getDate();
+    const insertData = { id_post, id_user, comment, created_at, response };
     let { data: commented, error } = await supabase
       .from("comments")
-      .insert([
-        {
-          id_post,
-          id_user,
-          comment,
-          created_at,
-          response,
-        },
-      ])
+      .insert([insertData])
       .select("*, users(username)")
       .single();
 
     if (error) {
       return res.status(400).json({ message: "Error al subir comentario" });
     } else {
-      const { error } = await supabase.from("responses").insert([
-        {
-          id_comment: commented.id,
-          id_responsed,
-        },
-      ]);
+      const { error } = await supabase
+        .from("responses")
+        .insert([{ id_comment: commented.id, id_responsed: comment_res }]);
       if (error) {
         return res.status(400).json({ message: "Error al subir comentario" });
       } else {
-        if (id_user != id_user_responsed) {
-          await notify(
-            id_user_responsed,
-            false,
-            "Comment",
-            commented.id,
-            `${name} respondió tu comentario`,
-            1
-          );
+        if (id_user != toNotify) {
+          const text = `${name} respondió tu comentario`;
+          notify(toNotify, false, "Comment", comment_res, text, 1);
         }
         commented.responses = [];
         const {

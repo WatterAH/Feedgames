@@ -1,6 +1,6 @@
 import { getUsersExcept } from "../database/compoundGet.js";
 import { getAllPosts } from "../database/simpleGet.js";
-import { findMaxItem, joinObjects } from "../libs/arrays.js";
+import { findMaxItem, joinObjects, uniques } from "../libs/arrays.js";
 import { getRandomElements } from "../libs/random.js";
 
 export const getRandomUsers = async (req, res) => {
@@ -25,9 +25,15 @@ export const loadSuggestions = async (req, res) => {
     let { posts } = await getAllPosts();
     let likeLenghts = posts.map((post) => post.liked.length);
     let savedLengths = posts.map((post) => post.saved.length);
+    let commentsLengths = posts.map((post) => post.comments.length);
+
     const indexMaxLikes = findMaxItem(likeLenghts);
     const indexMaxSaves = findMaxItem(savedLengths);
-    posts = joinObjects(indexMaxLikes, indexMaxSaves, posts);
+    const indexMaxComments = findMaxItem(commentsLengths);
+    const indexs = uniques([indexMaxLikes, indexMaxSaves, indexMaxComments]);
+
+    posts = joinObjects(indexs, posts);
+
     posts = posts.map((post) => {
       const {
         users: { username },
@@ -35,6 +41,7 @@ export const loadSuggestions = async (req, res) => {
       } = post;
       return { ...rest, username };
     });
+
     return res.status(200).json(posts);
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

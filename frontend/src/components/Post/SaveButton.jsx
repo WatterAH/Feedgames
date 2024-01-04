@@ -40,7 +40,7 @@ export const SaveButton = ({ saveData }) => {
     >
       <FontAwesomeIcon
         icon={saved ? bookSolid : bookRegular}
-        className="h-6 text-amber-200"
+        className="h-6 text-orange-200"
       />
     </button>
   );

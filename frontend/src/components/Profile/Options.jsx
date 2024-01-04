@@ -53,12 +53,15 @@ export const Options = ({ openModal, setForceUpdate }) => {
               {({ active }) => (
                 <a
                   className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    active ? "bg-gray-100 text-gray-600" : "text-gray-600",
                     "block px-4 py-2 text-sm hover:cursor-pointer"
                   )}
                   onClick={openModal}
                 >
-                  <FontAwesomeIcon icon={faEdit} className="mr-2" />
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className="mr-2 text-teal-800"
+                  />
                   Editar perfil
                 </a>
               )}
@@ -72,7 +75,10 @@ export const Options = ({ openModal, setForceUpdate }) => {
                   )}
                   onClick={() => setForceUpdate((prev) => !prev)}
                 >
-                  <FontAwesomeIcon icon={faRotate} className="mr-2" />
+                  <FontAwesomeIcon
+                    icon={faRotate}
+                    className="mr-2 text-blue-400"
+                  />
                   Actualizar
                 </a>
               )}
@@ -86,7 +92,10 @@ export const Options = ({ openModal, setForceUpdate }) => {
                   )}
                   onClick={logout}
                 >
-                  <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="mr-2 text-red-500"
+                  />
                   Cerrar sesión
                 </a>
               )}
