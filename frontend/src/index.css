@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rounded-r-7xl {
+  border-top-right-radius: 12rem /* 24px */;
+  border-bottom-right-radius: 12rem /* 24px */;
+}
+
+.font-bold-montserrat {
+  font-weight: 700;
+}
+
+.w-78 {
+  width: 19rem;
+}
