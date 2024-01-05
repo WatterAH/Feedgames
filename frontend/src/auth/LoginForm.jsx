@@ -26,7 +26,6 @@ export const LoginForm = ({ setContent }) => {
     try {
       setLoading(true);
       const userData = await loginApi(username, password);
-      console.log(userData);
       login(userData);
       nav("/");
     } catch (error) {

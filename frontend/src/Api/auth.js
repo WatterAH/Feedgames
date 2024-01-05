@@ -13,7 +13,9 @@ export const loginApi = async (username, password) => {
   const resData = await res.json();
 
   if (res.ok) {
-    return resData;
+    const { user, token } = resData;
+    console.log(token);
+    return user;
   } else {
     throw new Error(resData.message);
   }

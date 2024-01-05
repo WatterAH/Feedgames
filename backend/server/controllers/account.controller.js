@@ -12,7 +12,6 @@ export const login = async (req, res) => {
       .select("*")
       .eq("username", username)
       .single();
-
     if (errorAuth) {
       return res.status(403).json({ message: "Verifica tus credenciales" });
     } else {
@@ -24,7 +23,7 @@ export const login = async (req, res) => {
         res.cookie("token", token, {
           maxAge: 315360000,
         });
-        return res.status(200).json(user);
+        return res.status(200).json({ user, token });
       }
     }
   } catch (error) {
