@@ -6,7 +6,7 @@ export const calculateDate = (obj) => {
       return "Hoy";
     } else {
       const daysPassed = today.day - obj.day;
-      return `Hace ${daysPassed} días`;
+      return daysPassed == 1 ? "Ayer" : `Hace ${daysPassed} días`;
     }
   } else {
     return `${month} ${day}, ${year}`;

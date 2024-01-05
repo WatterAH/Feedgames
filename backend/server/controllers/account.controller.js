@@ -15,17 +15,18 @@ export const login = async (req, res) => {
     if (errorAuth) {
       return res.status(403).json({ message: "Verifica tus credenciales" });
     } else {
-      if (!(await bcryptjs.compare(password, user.password))) {
+      const correctPass = await bcryptjs.compare(password, user.password);
+      if (!correctPass) {
         return res.status(403).json({ message: "Verifica tus credenciales" });
       } else {
         delete user.password;
         const token = await createAccessToken(user);
-        res.cookie("token", token, {
-          maxAge: 315360000,
-          sameSite: "None",
-          secure: true,
-        });
-        return res.status(200).json(user);
+        res
+          .cookie("token", token, {
+            maxAge: 30 * 24 * 60 * 1000,
+          })
+          .status(200)
+          .json(user);
       }
     }
   } catch (error) {

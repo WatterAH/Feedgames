@@ -4,17 +4,13 @@ import { faShareFromSquare } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 
-export const ShareButton = ({ content, data }) => {
-  const URL = "https://craftfeed.vercel.app";
+export const ShareButton = ({ shareData }) => {
+  const URL = "https://feedgames.vercel.app";
 
-  const { id, title } = data;
-  const text =
-    content == "Post"
-      ? "¡Mira este post en CraftFeed!"
-      : "¡Mira este Perfil en CraftFeed!";
+  const { id, title, text, content } = shareData;
+  const link = `${URL}?content=${content}&id=${id}`;
 
   const share = async () => {
-    let link = `${URL}?content=${content}&id=${id}`;
     if (navigator.share) {
       navigator.share({
         title: title,

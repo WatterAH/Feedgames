@@ -6,7 +6,8 @@ import { ShareButton } from "./ShareButton";
 import { formatNumber } from "../../functions/numbers";
 
 export const Actions = ({ data }) => {
-  const { id, isSaved, user_id, saved, isLiked, liked, comments } = data;
+  const { id, isSaved, user_id, saved, isLiked, liked, comments, title } = data;
+  const text = "¡Mira este post en Feedgames!";
   const [savedNum, setSavedNum] = useState(saved.length);
   const [likedNum, setLikedNum] = useState(liked.length);
 
@@ -27,7 +28,7 @@ export const Actions = ({ data }) => {
         </span>
       </section>
       <section>
-        <ShareButton content={"Post"} data={data} />
+        <ShareButton shareData={{ id, title, text, content: "Post" }} />
       </section>
     </div>
   );
