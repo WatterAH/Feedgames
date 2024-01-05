@@ -39,7 +39,7 @@ export const LoginForm = ({ setContent }) => {
   };
 
   return (
-    <section className="sm:mx-auto w-full sm:max-w-sm px-3 sm:px-9 py-4 sm:py-12">
+    <section className="sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12">
       <form className="flex flex-col gap-y-7" onSubmit={handleSubmit}>
         <span className="flex justify-between items-center mb-3">
           <h1 className="text-3xl font-bold">Inicia Sesión</h1>
