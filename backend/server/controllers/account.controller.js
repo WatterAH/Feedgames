@@ -91,12 +91,12 @@ export const register = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const { token } = req.cookies;
     validateToken(token)
       .then((user) => {
         return res.status(200).json(user);
       })
-      .catch((err) => {
+      .catch(() => {
         return res.status(401).json({ message: "Token invalido o expirado" });
       });
   } catch (error) {

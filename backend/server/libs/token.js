@@ -20,7 +20,7 @@ export const validateToken = (token) => {
   try {
     return new Promise((resolve, reject) => {
       if (!token) {
-        return resolve(null);
+        return reject(null);
       }
       jwt.verify(token, process.env.JWT_KEY, (err, user) => {
         if (err) return reject(null);
