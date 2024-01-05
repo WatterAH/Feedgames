@@ -44,8 +44,7 @@ export const checkAuth = async () => {
   });
   const resData = await res.json();
   if (res.ok) {
-    const { user } = resData;
-    return user;
+    return resData;
   } else {
     const { message, token } = resData;
     console.log(token);
