@@ -30,8 +30,8 @@ export const MainFeed = () => {
   }, []);
 
   return (
-    <>
-      <section className="flex-1 flex-col h-full max-w-2xl lg:ml-64">
+    <div className="flex justify-between w-full">
+      <section className="flex-1 flex-col h-full max-w-4xl lg:ml-64">
         <Search></Search>
         <Feed></Feed>
       </section>
@@ -47,6 +47,6 @@ export const MainFeed = () => {
           </div>
         )}
       </section>
-    </>
+    </div>
   );
 };

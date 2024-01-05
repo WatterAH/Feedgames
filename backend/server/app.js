@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import cookie from "cookie-parser";
+import cookieParser from "cookie-parser";
 import { accountRouter } from "./routers/account.router.js";
 import { feedRouter } from "./routers/feed.router.js";
 import { postRouter } from "./routers/post.router.js";
