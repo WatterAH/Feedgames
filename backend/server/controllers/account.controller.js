@@ -24,9 +24,11 @@ export const login = async (req, res) => {
         res
           .cookie("token", token, {
             maxAge: 30 * 24 * 60 * 1000,
+            sameSite: "None",
+            secure: true,
           })
           .status(200)
-          .json(user);
+          .json({ user, token });
       }
     }
   } catch (error) {

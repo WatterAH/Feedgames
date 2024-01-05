@@ -12,7 +12,11 @@ export const loginApi = async (username, password) => {
   });
   const resData = await res.json();
   if (res.ok) {
-    return resData;
+    const { user, token } = resData;
+    document.cookie = `token=${token}; max-age=${
+      30 * 24 * 60 * 60
+    }; secure; sameSite=None`;
+    return user;
   } else {
     throw new Error(resData.message);
   }
