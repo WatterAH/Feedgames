@@ -20,10 +20,10 @@ export const login = async (req, res) => {
       } else {
         delete user.password;
         const token = await createAccessToken(user);
-        res.cookie("token", token, {
+        await res.cookie("token", token, {
           maxAge: 315360000,
         });
-        return res.status(200).json({ user, token });
+        return res.status(200).json(user);
       }
     }
   } catch (error) {

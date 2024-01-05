@@ -26,6 +26,12 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookie());
 app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 app.use(accountRouter);
 app.use(feedRouter);
 app.use(postRouter);
