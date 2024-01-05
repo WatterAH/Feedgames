@@ -44,7 +44,7 @@ export const Home = () => {
       login(data);
       nav("/");
     } catch (error) {
-      nav("/auth");
+      // nav("/auth");
     } finally {
       setLoading(false);
     }
