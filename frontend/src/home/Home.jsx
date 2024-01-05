@@ -9,7 +9,6 @@ import { Explore } from "../components/Explore/Explore";
 import { ExploreProfile } from "../components/Profile/ExploreProfile";
 import { checkAuth } from "../Api/auth";
 import { LoadingPage } from "../components/LoadingPage";
-import { SimulateLoading } from "../components/SimulateLoading";
 
 export let displayContent;
 export let explorerContent;

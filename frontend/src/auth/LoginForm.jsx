@@ -14,7 +14,7 @@ import { loginApi } from "../Api/auth";
 import { Modal } from "./Modal";
 
 export const LoginForm = ({ setContent }) => {
-  const { login } = useUser();
+  const { user, login } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,8 +25,9 @@ export const LoginForm = ({ setContent }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const user = await loginApi(username, password);
-      login(user);
+      const userData = await loginApi(username, password);
+      login(userData);
+      console.log(user);
       nav("/");
     } catch (error) {
       const { message } = error;
