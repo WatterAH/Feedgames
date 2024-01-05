@@ -47,7 +47,7 @@ export const checkAuth = async () => {
     return resData;
   } else {
     const { message, token } = resData;
-    console.log(token);
+    console.log(resData);
     throw new Error(message);
   }
 };
