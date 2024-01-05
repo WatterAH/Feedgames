@@ -42,12 +42,13 @@ export const checkAuth = async () => {
     method: "GET",
     credentials: "include",
   });
-
+  const resData = await res.json();
   if (res.ok) {
-    const user = await res.json();
+    const { user } = resData;
     return user;
   } else {
-    const { message } = await res.json();
+    const { message, token } = resData;
+    console.log(token);
     throw new Error(message);
   }
 };

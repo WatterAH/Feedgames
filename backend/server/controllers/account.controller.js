@@ -97,7 +97,9 @@ export const checkAuth = async (req, res) => {
         return res.status(200).json(user);
       })
       .catch(() => {
-        return res.status(401).json({ message: "Token invalido o expirado" });
+        return res
+          .status(401)
+          .json({ message: "Token invalido o expirado", token });
       });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
