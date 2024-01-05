@@ -16,9 +16,9 @@ export const Auth = () => {
     }
   };
   return (
-    <div className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-gray-100">
+    <div className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 sm:bg-gray-100">
       <div
-        className={`flex items-center justify-center bg-white shadow-xl rounded-xl  sm:mx-auto ${
+        className={`flex items-center shadow-transparent justify-center bg-white sm:shadow-xl rounded-xl  sm:mx-auto ${
           content == "Login" ? "sm:max-w-sm" : "sm:max-w-md"
         } sm:w-full`}
       >

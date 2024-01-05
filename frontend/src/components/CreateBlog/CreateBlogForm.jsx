@@ -18,7 +18,7 @@ export const CreateBlogForm = (props) => {
         <Input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Ingresa el titulo de tu Post"
+          placeholder="Ingresa el titulo de tu post"
         />
       </section>
       <section className="flex flex-col gap-y-2 relative">

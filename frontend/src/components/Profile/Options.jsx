@@ -34,7 +34,7 @@ export const Options = ({ openModal, setForceUpdate }) => {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5">
-          <FontAwesomeIcon icon={faGear} />
+          <FontAwesomeIcon icon={faGear} className="h-6 text-gray-700" />
         </Menu.Button>
       </div>
 

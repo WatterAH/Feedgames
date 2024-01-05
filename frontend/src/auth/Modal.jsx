@@ -51,18 +51,26 @@ export const Modal = () => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    <h1 className="font-kalnia text-2xl font-bold">
-                      ¿Feedgames?
+                    <h1 className="font-montserrat text-lg">
+                      ¿Problemas al Iniciar Sesión?
                     </h1>
                   </Dialog.Title>
                   <div className="mt-4">
                     <p className="text-base text-gray-500">
-                      Descubre, comparte y conecta con otros apasionados por los
-                      videojuegos en nuestra plataforma. Sigue a tus creadores
-                      favoritos, da likes, comenta y guarda publicaciones para
-                      nunca perderte nada emocionante. Únete a la conversación y
-                      lleva tu experiencia de juego al siguiente nivel.
+                      Los usuarios de iOS pueden experimentar problemas al
+                      iniciar sesión debido a una configuración específica de
+                      Safari. Puedes evitar esto siguiendo estos pasos:
                     </p>
+                    <ul className="text-gray-500 list-disc mt-2 pl-4">
+                      <li>Dirígete a Configuración</li>
+                      <li>
+                        Busca la applicación Safari (o tu navegador
+                        predeterminado)
+                      </li>
+                      <li>
+                        Desactiva la opción "Evitar rastreo entre sitios".
+                      </li>
+                    </ul>
                   </div>
                   <div className="mt-4">
                     <Button type="button" onClick={closeModal}>

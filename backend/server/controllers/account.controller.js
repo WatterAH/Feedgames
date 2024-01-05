@@ -21,14 +21,13 @@ export const login = async (req, res) => {
       } else {
         delete user.password;
         const token = await createAccessToken(user);
-        res
-          .cookie("token", token, {
-            maxAge: 30 * 24 * 60 * 1000,
-            sameSite: "None",
-            secure: true,
-          })
-          .status(200)
-          .json({ user, token });
+        res.cookie("token", token, {
+          maxAge: 30 * 24 * 60 * 1000,
+          sameSite: "None",
+          secure: true,
+        });
+
+        return res.status(200).json(user);
       }
     }
   } catch (error) {
@@ -85,7 +84,9 @@ export const register = async (req, res) => {
     } else {
       const token = await createAccessToken(user);
       res.cookie("token", token, {
-        maxAge: 315360000,
+        maxAge: 30 * 24 * 60 * 1000,
+        sameSite: "None",
+        secure: true,
       });
       return res.status(200).json(user);
     }
