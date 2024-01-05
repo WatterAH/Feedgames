@@ -20,8 +20,10 @@ export const login = async (req, res) => {
       } else {
         delete user.password;
         const token = await createAccessToken(user);
-        await res.cookie("token", token, {
+        res.cookie("token", token, {
           maxAge: 315360000,
+          sameSite: "None",
+          secure: true,
         });
         return res.status(200).json(user);
       }
@@ -97,9 +99,7 @@ export const checkAuth = async (req, res) => {
         return res.status(200).json(user);
       })
       .catch(() => {
-        return res
-          .status(401)
-          .json({ message: "Token invalido o expirado", token });
+        return res.status(401).json({ message: "Token invalido o expirado" });
       });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });

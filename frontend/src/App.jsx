@@ -4,8 +4,7 @@ import { Auth } from "./auth/Auth";
 import { Home } from "./home/Home";
 import { UserProvider } from "./context/AuthContext";
 
-export let URL = "https://craftfeed.fly.dev";
-// export let URL = "http://localhost:3000";
+export let URL = import.meta.env.VITE_SERVER_HOST;
 
 export const App = () => {
   return (
