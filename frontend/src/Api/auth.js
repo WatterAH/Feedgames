@@ -11,7 +11,7 @@ export const loginApi = async (username, password) => {
     body: JSON.stringify(body),
   });
   const resData = await res.json();
-
+  console.log(document.cookie);
   if (res.ok) {
     return resData;
   } else {
