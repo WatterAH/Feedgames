@@ -23,7 +23,7 @@ export const validateToken = (token) => {
         return resolve(null);
       }
       jwt.verify(token, process.env.JWT_KEY, (err, user) => {
-        if (err) return resolve(null);
+        if (err) return reject(null);
         return resolve(user);
       });
     });

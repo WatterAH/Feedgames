@@ -92,12 +92,13 @@ export const register = async (req, res) => {
 export const checkAuth = async (req, res) => {
   try {
     const token = req.cookies.token;
-    const user = await validateToken(token);
-    if (!user) {
-      return res.status(401).json({ message: "Token invalido o expirado" });
-    } else {
-      return res.status(200).json(user);
-    }
+    validateToken(token)
+      .then((user) => {
+        return res.status(200).json(user);
+      })
+      .catch((err) => {
+        return res.status(401).json({ message: "Token invalido o expirado" });
+      });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
