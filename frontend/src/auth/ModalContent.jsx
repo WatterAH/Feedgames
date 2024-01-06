@@ -27,6 +27,7 @@ const Issues = () => {
         <li>Dirígete a Configuración</li>
         <li>Busca la applicación Safari (o tu navegador predeterminado)</li>
         <li>Desactiva la opción "Evitar rastreo entre sitios".</li>
+        <li>Recuerda activarla de nuevo cuando salgas de Feedgames</li>
       </ul>
     </>
   );
