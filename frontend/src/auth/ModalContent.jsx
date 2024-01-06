@@ -35,10 +35,12 @@ const Issues = () => {
 const About = () => {
   return (
     <p className="text-base text-gray-500">
-      Descubre, comparte y conecta con otros apasionados por los videojuegos en
-      nuestra plataforma. Sigue a tus creadores favoritos, da likes, comenta y
+      Explora un mundo de videojuegos en nuestra red social. Sigue a tus
+      creadores de contenido favoritos, interactúa con likes y comentarios, y
       guarda publicaciones para no perderte nada emocionante. Únete a la
       conversación y lleva tu experiencia de juego al siguiente nivel.
+      ¡Descubre, conecta y comparte tu pasión por los videojuegos como nunca
+      antes! 🎮
     </p>
   );
 };
