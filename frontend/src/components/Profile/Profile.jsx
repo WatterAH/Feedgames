@@ -13,7 +13,6 @@ export const Profile = ({ id }) => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({});
-  const [forceUpdate, setForceUpdate] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
   const handleProfileViewer = async () => {
@@ -41,7 +40,7 @@ export const Profile = ({ id }) => {
     if (user.id) {
       handleProfileViewer();
     }
-  }, [id, user.id, forceUpdate]);
+  }, [id, user.id]);
 
   return (
     <div
@@ -57,10 +56,7 @@ export const Profile = ({ id }) => {
         <div className="flex flex-col w-full px-2 py-4">
           <div className="flex flex-col w-full border-b gap-4">
             <section className="flex">
-              <ProfileHeader
-                userData={userData}
-                setForceUpdate={setForceUpdate}
-              />
+              <ProfileHeader userData={userData} />
             </section>
             <ProfileDescription userData={userData} />
           </div>

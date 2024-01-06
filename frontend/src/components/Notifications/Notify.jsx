@@ -1,5 +1,8 @@
-import { faComments, faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComments,
+  faHeart,
+  faUserGroup,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Options } from "./Options";
@@ -11,19 +14,23 @@ export const Notify = ({ notify, setOpen, setNotifications }) => {
     const icons = [faHeart, faComments, faUserGroup];
     return icons[int];
   };
+  const handleClick = () => {
+    setOpen(false);
+    explorerContent(content, id_linked);
+  };
+
   return (
-    <div className="flex items-center gap-3 bg-blue-200 hover:bg-blue-100 duration-700 cursor-pointer py-4 px-2 rounded-md shadow-md">
-      <FontAwesomeIcon icon={icon(type)} className="h-6 text-blue-500" />
-      <p
-        className="font-montserrat text-sm md:text-base text-gray-800"
-        onClick={() => {
-          setOpen(false);
-          explorerContent(content, id_linked);
-        }}
+    <div className="relative">
+      <div
+        className="flex items-center gap-3 bg-blue-200 hover:bg-blue-100 duration-700 cursor-pointer py-4 px-2 rounded-md shadow-md"
+        onClick={handleClick}
       >
-        {text}
-      </p>
-      <section className="ml-auto">
+        <FontAwesomeIcon icon={icon(type)} className="h-6 text-blue-500" />
+        <p className="font-montserrat text-sm md:text-base text-gray-800">
+          {text}
+        </p>
+      </div>
+      <section className="ml-auto absolute bottom-4 right-2">
         <Options optionsData={{ id }} setNotifications={setNotifications} />
       </section>
     </div>

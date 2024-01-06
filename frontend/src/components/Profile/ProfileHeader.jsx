@@ -9,7 +9,7 @@ import { Modal } from "./Modal";
 import { ShareButton } from "../Post/ShareButton";
 import { ToastContainer } from "react-toastify";
 
-export const ProfileHeader = ({ userData, setForceUpdate }) => {
+export const ProfileHeader = ({ userData }) => {
   const text = "¡Mira este perfil en Feedgames!";
   const { id, username, name } = userData;
   const { user } = useUser();
@@ -34,9 +34,7 @@ export const ProfileHeader = ({ userData, setForceUpdate }) => {
             <ShareButton
               shareData={{ id, title: username, text, content: "Profile" }}
             />
-            {user.id == id ? (
-              <Options openModal={openModal} setForceUpdate={setForceUpdate} />
-            ) : null}
+            {user.id == id ? <Options openModal={openModal} /> : null}
           </span>
           <Modal data={{ openModal, closeModal, isOpen, userData }} />
         </section>

@@ -17,6 +17,7 @@ export const CreateBlogForm = (props) => {
         <Label>Titulo</Label>
         <Input
           value={title}
+          maxLength={35}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Ingresa el titulo de tu post"
         />

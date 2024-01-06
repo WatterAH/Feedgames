@@ -49,6 +49,7 @@ export const BasicInfo = ({ setContent }) => {
             placeholder="Nombre"
             type="text"
             value={name}
+            maxLength={17}
             onChange={(e) => setName(e.target.value)}
           />
         </span>
@@ -59,6 +60,7 @@ export const BasicInfo = ({ setContent }) => {
             placeholder="Nombre de usuario"
             type="text"
             value={username}
+            maxLength={16}
             onChange={(e) => setUserName(e.target.value)}
           />
         </span>
@@ -70,6 +72,7 @@ export const BasicInfo = ({ setContent }) => {
           placeholder="Hola, soy Sam y me gusta Minecraft."
           type="text"
           value={details}
+          maxLength={50}
           onChange={(e) => setDetails(e.target.value)}
         />
       </span>
@@ -80,6 +83,7 @@ export const BasicInfo = ({ setContent }) => {
           placeholder="myPa$$word10"
           type={`${passwordVisibility ? "text" : "password"}`}
           value={password}
+          maxLength={20}
           onChange={(e) => setPassword(e.target.value)}
         />
         <button

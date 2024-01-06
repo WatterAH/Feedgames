@@ -42,6 +42,7 @@ export const CommentBox = ({
         <Input
           placeholder="Escribe un comentario..."
           value={comment}
+          maxLength={100}
           onChange={(e) => setComment(e.target.value)}
         />
       </span>

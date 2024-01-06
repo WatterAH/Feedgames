@@ -5,7 +5,6 @@ import {
   faEdit,
   faGear,
   faRightFromBracket,
-  faRotate,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../Api/auth";
@@ -15,7 +14,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Options = ({ openModal, setForceUpdate }) => {
+export const Options = ({ openModal }) => {
   const nav = useNavigate();
 
   const logout = async () => {
@@ -63,23 +62,6 @@ export const Options = ({ openModal, setForceUpdate }) => {
                     className="mr-2 text-teal-800"
                   />
                   Editar perfil
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm hover:cursor-pointer"
-                  )}
-                  onClick={() => setForceUpdate((prev) => !prev)}
-                >
-                  <FontAwesomeIcon
-                    icon={faRotate}
-                    className="mr-2 text-blue-400"
-                  />
-                  Actualizar
                 </a>
               )}
             </Menu.Item>

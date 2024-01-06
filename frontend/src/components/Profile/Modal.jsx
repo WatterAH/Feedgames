@@ -82,6 +82,7 @@ export const Modal = ({ data }) => {
                         id="username"
                         placeholder="Nombre de usuario"
                         value={username}
+                        maxLength={16}
                         onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
@@ -91,6 +92,7 @@ export const Modal = ({ data }) => {
                         id="name"
                         placeholder="Nombre"
                         value={name}
+                        maxLength={17}
                         onChange={(e) => setName(e.target.value)}
                       />
                     </div>
@@ -100,6 +102,7 @@ export const Modal = ({ data }) => {
                         id="details"
                         placeholder="Descripción"
                         value={details}
+                        maxLength={50}
                         onChange={(e) => setDetails(e.target.value)}
                       />
                     </div>

@@ -35,7 +35,7 @@ export const CreateTags = (props) => {
         onChange={handleInputChange}
         placeholder="Separadas por espacios"
         type="text"
-        maxLength="17"
+        maxLength={17}
       />
       <div className="flex flex-wrap gap-2 mt-2">
         {props.tags.map((tag, index) => (

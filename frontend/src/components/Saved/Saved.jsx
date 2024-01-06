@@ -33,9 +33,11 @@ export const Saved = () => {
 
   return (
     <div className="flex flex-col h-screen lg:ml-64 gap-y-4 right-0 duration-500 mb-40 lg:mb-0 w-full">
-      <h1 className="text-xl sm:text-2xl p-5 md:text-3xl font-montserrat dark:text-white mx-auto lg:mx-0 border-b">
-        Todas las publicaciones
-      </h1>
+      <header className="flex justify-center lg:justify-normal w-full border-b">
+        <h1 className="text-xl sm:text-2xl p-5 md:text-3xl font-montserrat">
+          Todas las publicaciones
+        </h1>
+      </header>
       {loading ? (
         <LoadingPage />
       ) : savedList.length > 0 ? (
