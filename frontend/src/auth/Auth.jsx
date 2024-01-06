@@ -24,7 +24,7 @@ export const Auth = () => {
       >
         {renderContent()}
       </div>
-      <footer className="absolute bottom-5 left-0 w-full flex justify-center items-center gap-x-3">
+      <footer className="absolute bottom-16 sm:bottom-5 left-0 w-full flex justify-center items-center gap-x-4">
         <Link text={"Acerca de Feedgames"} content={"About"} />
         <Link text={"Aviso para los usuarios de iOS"} content={"Issues"} />
       </footer>
