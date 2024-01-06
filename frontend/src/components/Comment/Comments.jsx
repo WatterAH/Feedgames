@@ -29,7 +29,7 @@ export const Comments = ({ data }) => {
   }, [parent_id]);
 
   return (
-    <div className="mb-24 lg:mb-0 flex flex-col gap-y-4 p-2">
+    <div className="mb-24 lg:mb-10 flex flex-col gap-y-4 p-2">
       <h3 className="font-montserrat text-lg">Comentarios</h3>
       <CommentBox
         id_post={post_id}
