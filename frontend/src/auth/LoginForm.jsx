@@ -11,7 +11,7 @@ import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
 import { faEye as faEyeSolid } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../context/AuthContext";
 import { loginApi } from "../Api/auth";
-import { Modal } from "./Modal";
+import { Header } from "./Header";
 
 export const LoginForm = ({ setContent }) => {
   const { login } = useUser();
@@ -40,11 +40,8 @@ export const LoginForm = ({ setContent }) => {
 
   return (
     <section className="sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12">
-      <form className="flex flex-col gap-y-7" onSubmit={handleSubmit}>
-        <span className="flex justify-between items-center mb-3">
-          <h1 className="text-3xl font-bold">Inicia Sesión</h1>
-          <Modal />
-        </span>
+      <form className="flex flex-col gap-y-5" onSubmit={handleSubmit}>
+        <Header />
         <span className="flex flex-col">
           <Label htmlFor="username">Nombre de usuario</Label>
           <Input
@@ -64,7 +61,7 @@ export const LoginForm = ({ setContent }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button
-              className="absolute bottom-2 right-2 text-gray-400"
+              className="absolute bottom-2 right-2 text-gray-400 active:scale-125 transition-transform"
               type="button"
               onClick={() => setPasswordVisibility(!passwordVisibility)}
             >

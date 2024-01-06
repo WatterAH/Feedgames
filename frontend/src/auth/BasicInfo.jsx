@@ -40,9 +40,9 @@ export const BasicInfo = ({ setContent }) => {
   };
 
   return (
-    <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
-      <section className="flex flex-row gap-3">
-        <span className="flex flex-col">
+    <form className="flex flex-col gap-y-3 mt-6" onSubmit={handleSubmit}>
+      <section className="flex flex-row gap-3 w-full justify-center">
+        <span className="flex flex-col w-full">
           <Label htmlFor="name">Nombre</Label>
           <Input
             id="name"
@@ -53,7 +53,7 @@ export const BasicInfo = ({ setContent }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </span>
-        <span className="flex flex-col">
+        <span className="flex flex-col w-full">
           <Label htmlFor="username">Nombre de usuario</Label>
           <Input
             id="username"
@@ -65,7 +65,7 @@ export const BasicInfo = ({ setContent }) => {
           />
         </span>
       </section>
-      <span>
+      <span className="flex flex-col">
         <Label htmlFor="details">Descripción</Label>
         <Input
           id="details"
@@ -87,7 +87,7 @@ export const BasicInfo = ({ setContent }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button
-          className="absolute bottom-8 right-2 text-gray-400"
+          className="absolute bottom-8 right-2 text-gray-400 active:scale-125 transition-transform"
           type="button"
           onClick={() => setPasswordVisibility(!passwordVisibility)}
         >
