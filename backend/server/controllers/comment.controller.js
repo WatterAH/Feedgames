@@ -30,17 +30,11 @@ export const getComment = async (req, res) => {
 
 export const comment = async (req, res) => {
   try {
+    const { id_user, name } = req.body;
     const { id_post, comment, response, toNotify } = req.body;
-    const token = req.cookies.token;
     if (!comment.trim()) {
       return res.status(400).json({ message: "Tu comentario esta vacio!" });
     }
-
-    const user = await validateToken(token);
-    if (!user) return res.status(403).json({ message: "Token invalido" });
-    const { id: id_user } = user;
-    const { username: name } = user;
-
     const created_at = getDate();
 
     const insertData = { id_post, id_user, comment, created_at, response };
@@ -71,17 +65,9 @@ export const comment = async (req, res) => {
 
 export const response = async (req, res) => {
   try {
+    const { id_user, name } = req.body;
     const { id_post, comment, response, toNotify } = req.body;
     const { comment_res } = req.body;
-    const token = req.cookies.token;
-    if (!comment.trim()) {
-      return res.status(400).json({ message: "Tu comentario esta vacio!" });
-    }
-    const user = await validateToken(token);
-    if (!user) return res.status(403).json({ message: "Token invalido" });
-    const { id: id_user } = user;
-    const { username: name } = user;
-
     const created_at = getDate();
     const insertData = { id_post, id_user, comment, created_at, response };
     let { data: commented, error } = await supabase

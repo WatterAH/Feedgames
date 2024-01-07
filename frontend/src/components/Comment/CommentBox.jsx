@@ -3,6 +3,7 @@ import { Input } from "../Input";
 import { Button } from "../Button";
 import { toast } from "react-toastify";
 import { Loading } from "../Loading";
+import { useUser } from "../../context/AuthContext";
 
 export const CommentBox = ({
   id_post,
@@ -14,13 +15,24 @@ export const CommentBox = ({
 }) => {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
+  const { user } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
       setComment("");
-      const body = { id_post, comment, response, toNotify, comment_res };
+      const id_user = user.id;
+      const name = user.username;
+      const body = {
+        id_post,
+        id_user,
+        name,
+        comment,
+        response,
+        toNotify,
+        comment_res,
+      };
       const commented = await sendFunction(body);
       setComments((prevComms) => [commented, ...prevComms]);
     } catch (error) {
