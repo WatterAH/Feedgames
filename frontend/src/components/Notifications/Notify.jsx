@@ -26,7 +26,7 @@ export const Notify = ({ notify, setOpen, setNotifications }) => {
         onClick={handleClick}
       >
         <FontAwesomeIcon icon={icon(type)} className="h-6 text-blue-500" />
-        <p className="font-montserrat text-sm md:text-base text-gray-800">
+        <p className="font-montserrat text-xs md:text-base text-gray-800">
           {text}
         </p>
       </div>
