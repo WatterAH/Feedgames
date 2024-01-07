@@ -6,6 +6,9 @@ export const calculateDate = (obj) => {
       return "Hoy";
     } else {
       const daysPassed = today.day - obj.day;
+      if (daysPassed < 0) {
+        return "";
+      }
       return daysPassed == 1 ? "Ayer" : `Hace ${daysPassed} días`;
     }
   } else {
@@ -29,9 +32,9 @@ export const getDate = () => {
     "Diciembre",
   ];
   const now = new Date();
-  const day = now.getDate();
-  const month = months[now.getMonth()];
-  const year = now.getFullYear();
+  const day = now.getUTCDate();
+  const month = months[now.getUTCMonth()];
+  const year = now.getUTCFullYear();
 
   return { day, month, year };
 };
