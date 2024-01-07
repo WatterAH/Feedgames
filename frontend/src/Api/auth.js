@@ -1,4 +1,5 @@
 import { URL } from "../App";
+import { getToken } from "../functions/token";
 
 export const loginApi = async (username, password) => {
   const body = { username, password };
@@ -12,7 +13,9 @@ export const loginApi = async (username, password) => {
   });
   const resData = await res.json();
   if (res.ok) {
-    return resData;
+    const { user, token } = resData;
+    document.cookie = `token=${token}; expires=${30 * 24 * 60 * 1000}; secure;`;
+    return user;
   } else {
     throw new Error(resData.message);
   }
@@ -31,14 +34,17 @@ export const registerApi = async (name, username, details, password) => {
   const resData = await res.json();
 
   if (res.ok) {
-    return resData;
+    const { user, token } = resData;
+    document.cookie = `token=${token}; expires=${30 * 24 * 60 * 1000}; secure;`;
+    return user;
   } else {
     throw new Error(resData.message);
   }
 };
 
 export const checkAuth = async () => {
-  const res = await fetch(`${URL}/api/checkAuth`, {
+  const token = getToken();
+  const res = await fetch(`${URL}/api/checkAuth?token=${token}`, {
     method: "GET",
     credentials: "include",
   });
@@ -52,15 +58,6 @@ export const checkAuth = async () => {
 };
 
 export const logoutApi = async () => {
-  const res = await fetch(`${URL}/api/logout`, {
-    method: "GET",
-    credentials: "include",
-  });
-
-  if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
-  }
-  return;
+  return (document.cookie =
+    "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure;");
 };

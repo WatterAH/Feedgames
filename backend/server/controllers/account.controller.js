@@ -21,13 +21,7 @@ export const login = async (req, res) => {
       } else {
         delete user.password;
         const token = await createAccessToken(user);
-        res.cookie("token", token, {
-          maxAge: 30 * 24 * 60 * 1000,
-          sameSite: "None",
-          secure: true,
-        });
-
-        return res.status(200).json(user);
+        return res.status(200).json({ user, token });
       }
     }
   } catch (error) {
@@ -83,12 +77,7 @@ export const register = async (req, res) => {
         .json({ message: "El nombre de usuario ya existe" });
     } else {
       const token = await createAccessToken(user);
-      res.cookie("token", token, {
-        maxAge: 30 * 24 * 60 * 1000,
-        sameSite: "None",
-        secure: true,
-      });
-      return res.status(200).json(user);
+      return res.status(200).json({ user, token });
     }
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
@@ -97,7 +86,7 @@ export const register = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
   try {
-    const { token } = req.cookies;
+    const { token } = req.query;
     validateToken(token)
       .then((user) => {
         return res.status(200).json(user);

@@ -23,7 +23,9 @@ export const validateToken = (token) => {
         return reject(null);
       }
       jwt.verify(token, process.env.JWT_KEY, (err, user) => {
-        if (err) return reject(null);
+        if (err) {
+          return reject(null);
+        }
         return resolve(user);
       });
     });
