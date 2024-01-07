@@ -1,4 +1,5 @@
 import { URL } from "../App";
+import { setCookie } from "../functions/token";
 
 export const getProfile = async (id, myID) => {
   const res = await fetch(
@@ -46,7 +47,7 @@ export const editProfile = async (id, name, username, oldUsername, details) => {
   const resData = await res.json();
   if (res.ok) {
     const { user, token } = resData;
-    document.cookie = `token=${token}; expires=${30 * 24 * 60 * 1000}; secure;`;
+    setCookie(token);
     return user;
   } else {
     const { message } = resData;

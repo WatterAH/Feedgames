@@ -1,5 +1,5 @@
 import { URL } from "../App";
-import { getToken } from "../functions/token";
+import { getToken, setCookie } from "../functions/token";
 
 export const loginApi = async (username, password) => {
   const body = { username, password };
@@ -14,7 +14,7 @@ export const loginApi = async (username, password) => {
   const resData = await res.json();
   if (res.ok) {
     const { user, token } = resData;
-    document.cookie = `token=${token}; expires=${30 * 24 * 60 * 1000}; secure;`;
+    setCookie(token);
     return user;
   } else {
     throw new Error(resData.message);
@@ -35,7 +35,7 @@ export const registerApi = async (name, username, details, password) => {
 
   if (res.ok) {
     const { user, token } = resData;
-    document.cookie = `token=${token}; expires=${30 * 24 * 60 * 1000}; secure;`;
+    setCookie(token);
     return user;
   } else {
     throw new Error(resData.message);
