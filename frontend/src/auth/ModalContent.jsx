@@ -3,8 +3,8 @@ import React from "react";
 export const ModalContent = ({ content }) => {
   const renderContent = () => {
     switch (content) {
-      case "Issues":
-        return <Issues />;
+      case "Privacy":
+        return <Privacy />;
       case "About":
         return <About />;
       default:
@@ -15,19 +15,27 @@ export const ModalContent = ({ content }) => {
   return renderContent();
 };
 
-const Issues = () => {
+const Privacy = () => {
   return (
     <>
       <p className="text-base text-gray-500">
-        Los usuarios de iOS pueden experimentar problemas al iniciar sesión
-        debido a una configuración específica de Safari. Puedes evitar esto
-        siguiendo estos pasos:
+        Este Aviso de Privacidad describe cómo Feedgames recopila, utiliza y
+        protege la información que proporcionas al utilizar nuestra aplicación.
       </p>
       <ul className="text-gray-500 list-disc mt-2 pl-4">
-        <li>Dirígete a Configuración</li>
-        <li>Busca la applicación Safari (o tu navegador predeterminado)</li>
-        <li>Desactiva la opción "Evitar rastreo entre sitios"</li>
-        <li>Recuerda activarla de nuevo cuando salgas de Feedgames</li>
+        <li>
+          Todas las contraseñas están encriptadas para garantizar su
+          confidencialidad y seguridad.
+        </li>
+        <li>
+          Hemos implementado medidas de seguridad avanzadas para prevenir
+          ataques de inyección SQL y proteger la integridad de nuestros
+          sistemas.
+        </li>
+        <li>
+          Monitoreamos las 24 horas del día todos los posts y actividades en la
+          aplicación para asegurar un entorno seguro y respetuoso.
+        </li>
       </ul>
     </>
   );
