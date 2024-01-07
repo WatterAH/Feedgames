@@ -128,10 +128,7 @@ export const editProfileById = async (req, res) => {
         .json({ message: "Nombre de usuario no disponible" });
     } else {
       const token = await createAccessToken(user);
-      res.cookie("token", token, {
-        maxAge: 315360000,
-      });
-      return res.status(200).json({ message: "OK" });
+      return res.status(200).json({ user, token });
     }
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

@@ -44,9 +44,10 @@ export const editProfile = async (id, name, username, oldUsername, details) => {
     body: JSON.stringify(body),
   });
   const resData = await res.json();
-
   if (res.ok) {
-    return resData;
+    const { user, token } = resData;
+    document.cookie = `token=${token}; expires=${30 * 24 * 60 * 1000}; secure;`;
+    return user;
   } else {
     const { message } = resData;
     throw new Error(message);
