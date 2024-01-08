@@ -58,9 +58,5 @@ export const checkAuth = async () => {
 };
 
 export const logoutApi = async () => {
-  const res = await fetch(`${URL}/api/logout`);
-  if (!res.ok) {
-    throw new Error("No se pudo cerrar la sesión");
-  }
-  return;
+  return (document.cookie = `token=; Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=none`);
 };
