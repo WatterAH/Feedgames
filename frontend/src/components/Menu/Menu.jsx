@@ -1,20 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  faWindowRestore as windowSolid,
-  faEdit as editSolid,
-  faBell as bellSolid,
-  faUser as userSolid,
-  faBookmark as bookSolid,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faWindowRestore as windowRegular,
-  faEdit as editRegular,
-  faUser as userRegular,
-  faBell as bellRegular,
-  faBookmark as bookRegular,
-} from "@fortawesome/free-regular-svg-icons";
 import "@theme-toggles/react/css/Classic.css";
-import { displayContent } from "../../home/Home";
 import { ListItem } from "./ListItem";
 import { SlideOver } from "../Notifications/SlideOver";
 import { useUser } from "../../context/AuthContext";
@@ -22,11 +7,33 @@ import {
   hasUnreadNotifications,
   subscribeToNotify,
 } from "../../Api/notifications";
+import {
+  faWindowRestore as windowSolid,
+  faEdit as editSolid,
+  faBell as bellSolid,
+  faUser as userSolid,
+  faBookmark as bookSolid,
+} from "@fortawesome/free-solid-svg-icons";
 
-export const Menu = ({ currentContent }) => {
+import {
+  faWindowRestore as windowRegular,
+  faEdit as editRegular,
+  faUser as userRegular,
+  faBell as bellRegular,
+  faBookmark as bookRegular,
+} from "@fortawesome/free-regular-svg-icons";
+
+export let setPfp;
+
+export const Menu = ({}) => {
   const { user } = useUser();
   const [open, setOpen] = useState(false);
+  const [current, setCurrent] = useState("Inicio");
   let [newNotify, setNewNotify] = useState(false);
+
+  setPfp = () => {
+    setCurrent("Profile");
+  };
 
   useEffect(() => {
     const handleNewNotification = (payload) => {
@@ -41,58 +48,41 @@ export const Menu = ({ currentContent }) => {
     }
   }, [user.id]);
 
-  const menuItems = [
-    {
-      solid: windowSolid,
-      regular: windowRegular,
-      text: "Inicio",
-      content: "Feed",
-      onClick: () => displayContent("Feed"),
-    },
-    {
-      solid: editSolid,
-      regular: editRegular,
-      text: "Crear",
-      content: "Create",
-      onClick: () => displayContent("Create"),
-    },
-    {
-      solid: bellSolid,
-      regular: bellRegular,
-      text: "Notificaciones",
-      content: "Notify",
-      onClick: () => {
-        setOpen(true);
-        setNewNotify(false);
-      },
-    },
-    {
-      solid: bookSolid,
-      regular: bookRegular,
-      text: "Guardado",
-      content: "Saved",
-      onClick: () => displayContent("Saved"),
-    },
-    {
-      solid: userSolid,
-      regular: userRegular,
-      text: "Perfil",
-      content: "Profile",
-      onClick: () => displayContent("Profile"),
-    },
-  ];
-
   return (
     <ul className="lg:mt-10 flex h-3 lg:gap-y-5 flex-row items-center lg:items-stretch justify-between lg:flex-col z-10">
       <SlideOver open={open} setOpen={setOpen} />
-      {menuItems.map((item, index) => (
+      <ListItem
+        link={"/"}
+        text={"Inicio"}
+        setCurrent={setCurrent}
+        icon={current == "Inicio" ? windowSolid : windowRegular}
+      />
+      <ListItem
+        link={"/create"}
+        text={"Crear"}
+        setCurrent={setCurrent}
+        icon={current == "Crear" ? editSolid : editRegular}
+      />
+      <button onClick={() => setOpen(true)}>
         <ListItem
-          key={index}
+          text={"Notificaciones"}
+          setCurrent={setCurrent}
           newNotify={newNotify}
-          item={item}
-          currentContent={currentContent}
-        ></ListItem>
-      ))}
+          icon={current == "Notificaciones" ? bellSolid : bellRegular}
+        />
+      </button>
+      <ListItem
+        link={"/saved"}
+        text={"Guardado"}
+        setCurrent={setCurrent}
+        icon={current == "Guardado" ? bookSolid : bookRegular}
+      />
+      <ListItem
+        link={`/profile/${user.id}`}
+        text={"Perfil"}
+        setCurrent={setCurrent}
+        icon={current == "Profile" ? userSolid : userRegular}
+      />
     </ul>
   );
 };

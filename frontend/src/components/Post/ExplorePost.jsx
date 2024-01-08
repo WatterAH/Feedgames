@@ -8,17 +8,34 @@ import { Comments } from "../Comment/Comments";
 import { fetchComments as fetchFunction } from "../../Api/comments";
 import { commentPost as sendFunction } from "../../Api/comments";
 import { NotFound } from "../NotFound";
+import { useNavigate, useParams } from "react-router-dom";
+import { checkAuth } from "../../Api/auth";
 
-export const ExplorePost = ({ postId }) => {
-  const { user } = useUser();
+export const ExplorePost = () => {
+  const nav = useNavigate();
+  const { id } = useParams();
+  const { user, login } = useUser();
   const [loading, setLoading] = useState(false);
   const [post, setPost] = useState({});
   const [notFound, setNotFound] = useState(false);
 
+  const handleToken = async () => {
+    try {
+      const data = await checkAuth();
+      login(data);
+    } catch (error) {
+      nav("/auth");
+    }
+  };
+
+  useEffect(() => {
+    handleToken();
+  }, []);
+
   const getPost = async () => {
     try {
       setLoading(true);
-      const postFetched = await getPostById(postId, user.id);
+      const postFetched = await getPostById(id, user.id);
       if (!postFetched) {
         return setNotFound(true);
       }
@@ -37,11 +54,11 @@ export const ExplorePost = ({ postId }) => {
     if (user.id) {
       getPost();
     }
-  }, [postId, user.id]);
+  }, [id, user.id]);
 
   return (
     <div
-      className={`py-3 flex flex-col h-screen ${
+      className={`py-5 px-3 w-full lg:ml-64 flex flex-col h-screen ${
         loading ? "justify-center" : ""
       }`}
     >
@@ -54,7 +71,7 @@ export const ExplorePost = ({ postId }) => {
           <Post data={post} />
           <Comments
             data={{
-              parent_id: postId,
+              parent_id: id,
               post_id: post.id,
               toNotify: post.user_id,
               response: false,

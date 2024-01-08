@@ -1,24 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileDescription } from "./ProfileDescription";
 import { ProfilePosts } from "./ProfilePosts";
-import { displayContent } from "../../home/Home";
 import { useUser } from "../../context/AuthContext";
 import { getProfile } from "../../Api/profile";
 import { NotFound } from "../NotFound";
+import { useNavigate, useParams } from "react-router-dom";
+import { setPfp } from "../Menu/Menu";
+import { checkAuth } from "../../Api/auth";
 
-export const Profile = ({ id }) => {
-  const { user } = useUser();
+export const Profile = () => {
+  const nav = useNavigate();
+  const { user, login } = useUser();
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({});
   const [notFound, setNotFound] = useState(false);
 
+  const handleToken = async () => {
+    try {
+      const data = await checkAuth();
+      login(data);
+    } catch (error) {
+      nav("/auth");
+    }
+  };
+
+  useEffect(() => {
+    handleToken();
+  }, []);
+
   const handleProfileViewer = async () => {
     try {
-      if (user.id == id) {
-        displayContent("Profile");
+      if (id == user.id) {
+        setPfp();
       }
       setLoading(true);
       const userFetched = await getProfile(id, user.id);
@@ -44,9 +61,9 @@ export const Profile = ({ id }) => {
 
   return (
     <div
-      className={`flex flex-col items-center ${
-        loading ? "justify-center" : ""
-      } h-screen`}
+      className={`flex flex-col lg:ml-64 px-3 items-center ${
+        loading ? "justify-center" : null
+      } h-screen w-full`}
     >
       {loading ? (
         <LoadingPage />

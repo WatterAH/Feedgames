@@ -28,7 +28,7 @@ export const Actions = ({ data }) => {
         </span>
       </section>
       <section>
-        <ShareButton shareData={{ id, title, text, content: "Post" }} />
+        <ShareButton shareData={{ id, title, text, content: "post" }} />
       </section>
     </div>
   );

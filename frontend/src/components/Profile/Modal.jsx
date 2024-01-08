@@ -7,7 +7,6 @@ import { Loading } from "../Loading";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { editProfile } from "../../Api/profile";
-import { displayContent } from "../../home/Home";
 
 export const Modal = ({ data }) => {
   const { user, login } = useUser();
@@ -29,7 +28,6 @@ export const Modal = ({ data }) => {
         details
       );
       login(data);
-      displayContent("void");
       window.location.reload();
     } catch (error) {
       const { message } = error;

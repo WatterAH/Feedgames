@@ -32,7 +32,7 @@ export const ProfileHeader = ({ userData }) => {
           </h1>
           <span className="flex items-center gap-x-3">
             <ShareButton
-              shareData={{ id, title: username, text, content: "Profile" }}
+              shareData={{ id, title: username, text, content: "profile" }}
             />
             {user.id == id ? <Options openModal={openModal} /> : null}
           </span>

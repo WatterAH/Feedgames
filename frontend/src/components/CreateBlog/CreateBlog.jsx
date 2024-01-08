@@ -3,10 +3,11 @@ import { CreateBlogHeader } from "./CreateBlogHeader";
 import { CreateBlogForm } from "./CreateBlogForm";
 import { useUser } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
-import { displayContent } from "../../home/Home";
 import { createPost } from "../../Api/post";
+import { useNavigate } from "react-router-dom";
 
 export const CreateBlog = () => {
+  const nav = useNavigate();
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
@@ -19,7 +20,7 @@ export const CreateBlog = () => {
     try {
       setLoading(true);
       await createPost(user.id, title, content, tags);
-      displayContent("Feed");
+      nav("/");
     } catch (error) {
       const { message } = error;
       toast.error(message, {

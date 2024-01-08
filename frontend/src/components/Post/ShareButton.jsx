@@ -8,7 +8,7 @@ export const ShareButton = ({ shareData }) => {
   const URL = "https://feedgames.vercel.app";
 
   const { id, title, text, content } = shareData;
-  const link = `${URL}?content=${content}&id=${id}`;
+  const link = `${URL}/${content}/${id}`;
 
   const share = async () => {
     if (navigator.share) {

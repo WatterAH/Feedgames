@@ -9,5 +9,5 @@ export const setCookie = (token) => {
     currentDate.getTime() + 30 * 24 * 60 * 60 * 1000
   );
   const expiresUTC = expirationDate.toUTCString();
-  document.cookie = `token=${token}; expires=${expiresUTC}; secure;`;
+  document.cookie = `token=${token}; expires=${expiresUTC}; path=/; secure; SameSite=none`;
 };

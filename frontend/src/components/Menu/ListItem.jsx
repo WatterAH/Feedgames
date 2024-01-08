@@ -1,25 +1,18 @@
 import React from "react";
 import { Li } from "./Li";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
-export const ListItem = ({ item, currentContent, newNotify }) => {
+export const ListItem = ({ link, icon, text, setCurrent, newNotify }) => {
   return (
-    <button
-      onClick={item.onClick}
-      className={`${
-        currentContent == item.content ? "font-bold" : ""
-      } relative`}
-    >
+    <Link to={link} onClick={() => setCurrent(text)}>
       <Li>
-        {item.content == "Notify" && newNotify ? (
+        {text == "Notificaciones" && newNotify ? (
           <div className="rounded-full bg-red-500 h-4 w-4 absolute top-1 left-7"></div>
         ) : null}
-        <FontAwesomeIcon
-          icon={currentContent == item.content ? item.solid : item.regular}
-          className="h-5 lg:h-6 text-gray-800"
-        />
-        <p className="hidden lg:block">{item.text}</p>
+        <FontAwesomeIcon icon={icon} className="h-5 lg:h-6 text-gray-800" />
+        <p className="hidden lg:block">{text}</p>
       </Li>
-    </button>
+    </Link>
   );
 };

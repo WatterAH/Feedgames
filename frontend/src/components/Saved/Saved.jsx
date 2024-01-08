@@ -4,11 +4,27 @@ import { useUser } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { getMySaved } from "../../Api/actions";
+import { useNavigate } from "react-router-dom";
+import { checkAuth } from "../../Api/auth";
 
 export const Saved = () => {
-  const { user } = useUser();
+  const nav = useNavigate();
+  const { user, login } = useUser();
   const [savedList, setSavedList] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const handleToken = async () => {
+    try {
+      const data = await checkAuth();
+      login(data);
+    } catch (error) {
+      nav("/auth");
+    }
+  };
+
+  useEffect(() => {
+    handleToken();
+  }, []);
 
   const fetchSaved = async () => {
     try {

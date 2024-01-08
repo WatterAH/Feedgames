@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Options } from "./Options";
-import { explorerContent } from "../../home/Home";
+import { Link } from "react-router-dom";
 
 export const Notify = ({ notify, setOpen, setNotifications }) => {
   const { id, id_linked, content, text, type } = notify;
@@ -16,12 +16,12 @@ export const Notify = ({ notify, setOpen, setNotifications }) => {
   };
   const handleClick = () => {
     setOpen(false);
-    explorerContent(content, id_linked);
   };
 
   return (
     <div className="relative">
-      <div
+      <Link
+        to={`/${content}/${id_linked}`}
         className="flex items-center gap-3 bg-blue-200 hover:bg-blue-100 duration-700 cursor-pointer py-4 px-2 rounded-md shadow-md"
         onClick={handleClick}
       >
@@ -29,7 +29,7 @@ export const Notify = ({ notify, setOpen, setNotifications }) => {
         <p className="font-montserrat text-xs md:text-base text-gray-800">
           {text}
         </p>
-      </div>
+      </Link>
       <section className="ml-auto absolute bottom-4 right-2">
         <Options optionsData={{ id }} setNotifications={setNotifications} />
       </section>

@@ -5,10 +5,28 @@ import { Preview } from "../components/Preview/Preview";
 import { toast } from "react-toastify";
 import { LoadingPage } from "../components/LoadingPage";
 import { getTendencyPost } from "../Api/suggestions";
+import { useUser } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { checkAuth } from "../Api/auth";
 
 export const MainFeed = () => {
+  const nav = useNavigate();
+  const { login } = useUser();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const handleToken = async () => {
+    try {
+      const data = await checkAuth();
+      login(data);
+    } catch (error) {
+      nav("/auth");
+    }
+  };
+
+  useEffect(() => {
+    handleToken();
+  }, []);
 
   const loadSuggestions = async () => {
     try {

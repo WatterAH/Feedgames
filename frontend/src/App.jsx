@@ -11,7 +11,7 @@ export const App = () => {
     <UserProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="*" element={<Home />}></Route>
           <Route path="/auth" element={<Auth />}></Route>
         </Routes>
       </BrowserRouter>
