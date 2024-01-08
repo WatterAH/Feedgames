@@ -63,7 +63,13 @@ export const Menu = ({}) => {
         setCurrent={setCurrent}
         icon={current == "Crear" ? editSolid : editRegular}
       />
-      <button onClick={() => setOpen(true)}>
+      <button
+        onClick={() => {
+          setNewNotify(false);
+          setOpen(true);
+        }}
+        className="relative"
+      >
         <ListItem
           text={"Notificaciones"}
           setCurrent={setCurrent}
