@@ -4,7 +4,7 @@ import { Input } from "../Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import { SearchResult } from "./SearchResult";
+import { MapResults } from "./MapResults";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,11 +43,7 @@ export const Search = () => {
         />
       </div>
       {combinedResults.length > 0 && (
-        <div className="absolute top-16 left-14 right-8 bg-white shadow-md p-4 rounded-md flex flex-col gap-y-1">
-          {combinedResults.map((result) => (
-            <SearchResult result={result} key={result.id} />
-          ))}
-        </div>
+        <MapResults combinedResults={combinedResults} />
       )}
     </div>
   );

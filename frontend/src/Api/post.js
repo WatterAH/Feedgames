@@ -1,4 +1,6 @@
 import { URL } from "../App";
+import { supabase } from "../home/Connection";
+import { v4 as uuidv4 } from "uuid";
 
 export const fetchPosts = async (user) => {
   const res = await fetch(
@@ -31,14 +33,14 @@ export const getPostById = async (id, userId) => {
   }
 };
 
-export const createPost = async (user_id, title, content, tags) => {
-  const body = { user_id, title, content, tags };
+export const createPost = async (user_id, content, tags, publicUrl) => {
+  const body = { user_id, content, tags, publicUrl };
   const res = await fetch(`${URL}/api/createNewPost`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
     body: JSON.stringify(body),
   });
   const resData = await res.json();
@@ -48,6 +50,18 @@ export const createPost = async (user_id, title, content, tags) => {
     throw new Error(message);
   }
   return;
+};
+
+export const uploadImage = async (image) => {
+  const uuid = uuidv4();
+  const { error } = await supabase.storage
+    .from("Images")
+    .upload(`images/${uuid}`, image);
+  const { data } = await supabase.storage
+    .from("Images")
+    .getPublicUrl(`images/${uuid}`);
+
+  return { data, error };
 };
 
 export const deletePostById = async (id) => {

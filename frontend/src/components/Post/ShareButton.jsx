@@ -10,7 +10,8 @@ export const ShareButton = ({ shareData }) => {
   const { id, title, text, content } = shareData;
   const link = `${URL}/${content}/${id}`;
 
-  const share = async () => {
+  const share = async (e) => {
+    e.preventDefault();
     if (navigator.share) {
       navigator.share({
         title: title,

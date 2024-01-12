@@ -2,9 +2,7 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { URL } from "../../App";
 import { toast } from "react-toastify";
-import { deleteNotify } from "./SlideOver";
 import { deleteNotificationById } from "../../Api/notifications";
 
 function classNames(...classes) {

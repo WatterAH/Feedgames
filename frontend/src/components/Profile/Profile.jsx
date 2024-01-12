@@ -7,36 +7,17 @@ import { ProfilePosts } from "./ProfilePosts";
 import { useUser } from "../../context/AuthContext";
 import { getProfile } from "../../Api/profile";
 import { NotFound } from "../NotFound";
-import { useNavigate, useParams } from "react-router-dom";
-import { setPfp } from "../Menu/Menu";
-import { checkAuth } from "../../Api/auth";
+import { useParams } from "react-router-dom";
 
 export const Profile = () => {
-  const nav = useNavigate();
-  const { user, login } = useUser();
+  const { user } = useUser();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({});
   const [notFound, setNotFound] = useState(false);
 
-  const handleToken = async () => {
-    try {
-      const data = await checkAuth();
-      login(data);
-    } catch (error) {
-      nav("/auth");
-    }
-  };
-
-  useEffect(() => {
-    handleToken();
-  }, []);
-
   const handleProfileViewer = async () => {
     try {
-      if (id == user.id) {
-        setPfp();
-      }
       setLoading(true);
       const userFetched = await getProfile(id, user.id);
       if (!userFetched) {

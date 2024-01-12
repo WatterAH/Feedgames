@@ -1,28 +1,22 @@
 import React from "react";
 import { calculateDate } from "../../functions/date";
-import { Link } from "react-router-dom";
+import { PostCreator } from "./PostCreator";
+import { PostTitle } from "./PostTitle";
 
 export const PostHeader = ({ data }) => {
-  const { id, user_id, title, username, created_at } = data;
+  const { user_id, user, created_at } = data;
+  const { name, username } = user;
   const date = calculateDate(created_at);
 
   return (
     <header className="flex flex-col gap-2">
-      <span className="flex justify-between">
-        <Link to={`/post/${id}`}>
-          <h1 className="text-2xl font-montserrat hover:underline hover:cursor-pointer">
-            {title}
-          </h1>
-        </Link>
-      </span>
-      <span className="flex justify-between">
-        <p className="text-gray-400 text-sm font-rubik">
-          <Link to={`/profile/${user_id}`}>
-            Por <span className="hover:underline">{username}</span>
-          </Link>
-        </p>
+      <section className="flex items-center justify-between">
+        <span className="flex items-center gap-x-2">
+          <PostTitle name={name} />
+          <PostCreator user_id={user_id} username={username} />
+        </span>
         <p className="text-gray-400 text-xs font-rubik">{date}</p>
-      </span>
+      </section>
     </header>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "@theme-toggles/react/css/Classic.css";
 import { ListItem } from "./ListItem";
-import { SlideOver } from "../Notifications/SlideOver";
+import { SlideOver } from "../SlideOver";
 import { useUser } from "../../context/AuthContext";
 import {
   hasUnreadNotifications,
@@ -10,7 +10,7 @@ import {
 import {
   faWindowRestore as windowSolid,
   faEdit as editSolid,
-  faBell as bellSolid,
+  faComments as commentsSolid,
   faUser as userSolid,
   faBookmark as bookSolid,
 } from "@fortawesome/free-solid-svg-icons";
@@ -18,76 +18,93 @@ import {
 import {
   faWindowRestore as windowRegular,
   faEdit as editRegular,
-  faUser as userRegular,
   faBell as bellRegular,
+  faComments as commentsRegular,
   faBookmark as bookRegular,
+  faUser as userRegular,
 } from "@fortawesome/free-regular-svg-icons";
-
-export let setPfp;
+import { useLocation } from "react-router-dom";
+import { NotificationDot } from "./NotificationDot";
+import { MapNotify } from "../Notifications/MapNotify";
+import { MapUsers } from "../Chats/MapUsers";
 
 export const Menu = ({}) => {
+  const location = useLocation();
+  const path = location.pathname.toLocaleLowerCase();
   const { user } = useUser();
-  const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState("Inicio");
+  const [openNotify, setOpenNotify] = useState(false);
+  const [openChats, setOpenChats] = useState(false);
   let [newNotify, setNewNotify] = useState(false);
-
-  setPfp = () => {
-    setCurrent("Profile");
-  };
 
   useEffect(() => {
     const handleNewNotification = (payload) => {
       setNewNotify(user.id === payload.id_user);
     };
-    subscribeToNotify(handleNewNotification);
-  }, [user.id]);
 
-  useEffect(() => {
-    if (user.id) {
-      hasUnreadNotifications(user.id).then((value) => setNewNotify(value));
-    }
+    const fetchUnreadNotifications = async () => {
+      if (user.id) {
+        const value = await hasUnreadNotifications(user.id);
+        setNewNotify(value);
+      }
+    };
+
+    fetchUnreadNotifications();
+    subscribeToNotify(handleNewNotification);
   }, [user.id]);
 
   return (
     <ul className="lg:mt-10 flex h-3 lg:gap-y-5 flex-row items-center lg:items-stretch justify-between lg:flex-col z-10">
-      <SlideOver open={open} setOpen={setOpen} />
+      <SlideOver
+        open={openNotify}
+        setOpen={setOpenNotify}
+        title={"Centro de notificaciones."}
+        content={<MapNotify open={openNotify} setOpen={setOpenNotify} />}
+      />
+      <SlideOver
+        open={openChats}
+        setOpen={setOpenChats}
+        title={"Amigos"}
+        content={<MapUsers open={openChats} setOpen={setOpenChats} />}
+      />
       <ListItem
         link={"/"}
         text={"Inicio"}
-        setCurrent={setCurrent}
-        icon={current == "Inicio" ? windowSolid : windowRegular}
+        icon={path == "/" ? windowSolid : windowRegular}
       />
       <ListItem
         link={"/create"}
         text={"Crear"}
-        setCurrent={setCurrent}
-        icon={current == "Crear" ? editSolid : editRegular}
+        icon={path == "/create" ? editSolid : editRegular}
       />
       <button
         onClick={() => {
           setNewNotify(false);
-          setOpen(true);
+          setOpenNotify(true);
         }}
         className="relative"
       >
-        <ListItem
-          text={"Notificaciones"}
-          setCurrent={setCurrent}
-          newNotify={newNotify}
-          icon={current == "Notificaciones" ? bellSolid : bellRegular}
-        />
+        {newNotify && <NotificationDot />}
+        <ListItem text={"Notificaciones"} icon={bellRegular} />
       </button>
+      {/* <button
+        onClick={() => {
+          setOpenChats(!openChats);
+        }}
+      >
+        <ListItem
+          text={"Chats"}
+          icon={path.slice(0, 7) == "/direct" ? commentsSolid : commentsRegular}
+        />
+      </button> */}
       <ListItem
         link={"/saved"}
         text={"Guardado"}
-        setCurrent={setCurrent}
-        icon={current == "Guardado" ? bookSolid : bookRegular}
+        icon={path == "/saved" ? bookSolid : bookRegular}
       />
       <ListItem
         link={`/profile/${user.id}`}
         text={"Perfil"}
-        setCurrent={setCurrent}
-        icon={current == "Profile" ? userSolid : userRegular}
+        icon={path == `/profile/${user.id}` ? userSolid : userRegular}
       />
     </ul>
   );

@@ -9,6 +9,7 @@ import { commentRounter } from "./routers/comment.rounter.js";
 import { interactionsRouter } from "./routers/interactions.router.js";
 import { suggestionsRouter } from "./routers/suggestions.router.js";
 import { deleteRouter } from "./routers/delete.router.js";
+import { chatRouter } from "./routers/chat.router.js";
 
 const corsOptions = {
   origin: [
@@ -24,7 +25,7 @@ const corsOptions = {
 const app = express();
 
 //Middlewares
-app.use(cors(corsOptions));
+app.use("*", cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -37,5 +38,6 @@ app.use(commentRounter);
 app.use(interactionsRouter);
 app.use(suggestionsRouter);
 app.use(deleteRouter);
+app.use(chatRouter);
 
 export { app };

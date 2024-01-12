@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { io } from "socket.io-client";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { Menu } from "../components/Menu/Menu";
 import { MainFeed } from "./MainFeed";
 import { Create } from "../components/CreateBlog/Create";
@@ -10,6 +11,10 @@ import { LoadingPage } from "../components/LoadingPage";
 import { ExploreComment } from "../components/Comment/ExploreComment";
 import { ExplorePost } from "../components/Post/ExplorePost";
 import { Profile } from "../components/Profile/Profile";
+import { Direct } from "../components/Chats/Direct";
+import { URL } from "../App";
+
+export let socket;
 
 export const Home = () => {
   const nav = useNavigate();
@@ -21,6 +26,7 @@ export const Home = () => {
       setLoading(true);
       const data = await checkAuth();
       login(data);
+      // socket = io(URL);
     } catch (error) {
       nav("/auth");
     } finally {
@@ -48,6 +54,7 @@ export const Home = () => {
         <Route path="*" element={<MainFeed />} />
         <Route path="/" element={<MainFeed />} />
         <Route path="/create" element={<Create />} />
+        <Route path="/direct/:id" element={<Direct />} />
         <Route path="/saved" element={<Saved />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/post/:id" element={<ExplorePost />} />

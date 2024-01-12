@@ -11,6 +11,14 @@ export const getProfileById = async (userId) => {
   return { user, error };
 };
 
+export const getProfilesByIds = async (usersIds) => {
+  const { data: users, error } = await supabase
+    .from("users")
+    .select("id, name, username")
+    .in("id", usersIds);
+  return { users, error };
+};
+
 export const getProfileByUsername = async (username) => {
   if (!username) {
     return { user: [], error: null };
@@ -26,9 +34,10 @@ export const getAllPosts = async () => {
   const { data: posts, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved!left(id_user), comments(id), users(username)"
+      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name)"
     )
     .order("order", { ascending: false });
+
   if (error) {
     throw new Error(error);
   }
@@ -74,7 +83,7 @@ export const getPostById = async (postId) => {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved!left(id_user), comments(id), users(username)"
+      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name)"
     )
     .eq("id", postId)
     .single();
@@ -88,27 +97,16 @@ export const getPostByTitle = async (title) => {
   const { data: post, error } = await supabase
     .from("posts")
     .select("id, title, content, users(username)")
-    .ilike("title", `${title}%`);
+    .ilike("content", `%${title}%`);
   return { post, error };
 };
 
 export const getPostsByIds = async (postIds) => {
   const { data, error } = await supabase
     .from("posts")
-    .select("*, saved!left(id_user), users(username)")
+    .select("*, saved!left(id_user), user:users(username)")
     .in("id", postIds);
   return { data, error };
-};
-
-export const getLikedById = async (userId) => {
-  const { data, error } = await supabase
-    .from("liked")
-    .select("id_post")
-    .eq("id_user", userId);
-  if (error) {
-    throw new Error(error);
-  }
-  return { data };
 };
 
 export const getSavedById = async (userId) => {
@@ -123,39 +121,17 @@ export const getSavedById = async (userId) => {
 };
 
 export const getFollowers = async (userId) => {
-  const { count, error } = await supabase
+  const { data: followers, error } = await supabase
     .from("follows")
-    .select("*", { count: "exact" })
+    .select("id_follower")
     .eq("id_followed", userId);
-  if (error) {
-    throw new Error(error);
-  }
-  return { followers: count };
+  return { followers, error };
 };
 
 export const getFollows = async (userId) => {
-  const { count, error } = await supabase
+  const { data: follows, error } = await supabase
     .from("follows")
-    .select("*", { count: "exact" })
+    .select("id_followed")
     .eq("id_follower", userId);
-  if (error) {
-    throw new Error(error);
-  }
-  return { follows: count };
-};
-
-export const isFollowed = async (userSearched, userId) => {
-  const { data, error } = await supabase
-    .from("follows")
-    .select("*")
-    .eq("id_follower", userId)
-    .eq("id_followed", userSearched);
-  if (error) {
-    throw new Error(error);
-  }
-  if (data.length > 0) {
-    return { followed: true };
-  } else {
-    return { followed: false };
-  }
+  return { follows, error };
 };

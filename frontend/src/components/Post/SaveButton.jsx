@@ -11,7 +11,8 @@ export const SaveButton = ({ saveData }) => {
   const { id, isSaved, setSavedNum } = saveData;
   const [saved, setSaved] = useState(isSaved);
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     try {
       setSaved(!saved);
       if (!saved) {

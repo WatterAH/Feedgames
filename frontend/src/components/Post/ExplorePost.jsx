@@ -8,29 +8,14 @@ import { Comments } from "../Comment/Comments";
 import { fetchComments as fetchFunction } from "../../Api/comments";
 import { commentPost as sendFunction } from "../../Api/comments";
 import { NotFound } from "../NotFound";
-import { useNavigate, useParams } from "react-router-dom";
-import { checkAuth } from "../../Api/auth";
+import { useParams } from "react-router-dom";
 
 export const ExplorePost = () => {
-  const nav = useNavigate();
   const { id } = useParams();
-  const { user, login } = useUser();
+  const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [post, setPost] = useState({});
   const [notFound, setNotFound] = useState(false);
-
-  const handleToken = async () => {
-    try {
-      const data = await checkAuth();
-      login(data);
-    } catch (error) {
-      nav("/auth");
-    }
-  };
-
-  useEffect(() => {
-    handleToken();
-  }, []);
 
   const getPost = async () => {
     try {
@@ -66,21 +51,23 @@ export const ExplorePost = () => {
         <LoadingPage />
       ) : notFound ? (
         <NotFound title={"post"} />
-      ) : post.id ? (
-        <div className="max-w-2xl w-full mx-auto">
-          <Post data={post} />
-          <Comments
-            data={{
-              parent_id: id,
-              post_id: post.id,
-              toNotify: post.user_id,
-              response: false,
-              fetchFunction,
-              sendFunction,
-            }}
-          />
-        </div>
-      ) : null}
+      ) : (
+        post.id && (
+          <div className="max-w-2xl w-full mx-auto">
+            <Post data={post} />
+            <Comments
+              data={{
+                parent_id: id,
+                post_id: post.id,
+                toNotify: post.user_id,
+                response: false,
+                fetchFunction,
+                sendFunction,
+              }}
+            />
+          </div>
+        )
+      )}
       <ToastContainer />
     </div>
   );

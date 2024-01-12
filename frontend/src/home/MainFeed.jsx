@@ -1,70 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Feed } from "./Feed";
 import { Search } from "../components/Search/Search";
-import { Preview } from "../components/Preview/Preview";
-import { toast } from "react-toastify";
-import { LoadingPage } from "../components/LoadingPage";
-import { getTendencyPost } from "../Api/suggestions";
-import { useUser } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { checkAuth } from "../Api/auth";
+import { Tendency } from "../components/Tendency/Tendency";
 
 export const MainFeed = () => {
-  const nav = useNavigate();
-  const { login } = useUser();
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const handleToken = async () => {
-    try {
-      const data = await checkAuth();
-      login(data);
-    } catch (error) {
-      nav("/auth");
-    }
-  };
-
-  useEffect(() => {
-    handleToken();
-  }, []);
-
-  const loadSuggestions = async () => {
-    try {
-      setLoading(true);
-      const tendencyPost = await getTendencyPost();
-      setPosts(tendencyPost);
-    } catch (error) {
-      const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadSuggestions();
-  }, []);
-
   return (
     <div className="flex justify-between w-full">
       <section className="flex-1 flex-col h-full max-w-4xl lg:ml-64">
-        <Search></Search>
-        <Feed></Feed>
+        <Search />
+        <Feed />
       </section>
-      <section className="hidden md:block p-5">
-        <p className="text-xl mb-5 font-montserrat">En tendencia</p>
-        {loading ? (
-          <LoadingPage />
-        ) : (
-          <div className="flex flex-col gap-y-4">
-            {posts.map((post) => (
-              <Preview key={post.id} post={post} notSave={true} />
-            ))}
-          </div>
-        )}
-      </section>
+      <Tendency />
     </div>
   );
 };

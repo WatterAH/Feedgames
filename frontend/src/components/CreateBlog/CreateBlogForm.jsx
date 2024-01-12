@@ -1,42 +1,29 @@
 import React from "react";
 import { Label } from "../Label";
-import { Input } from "../Input";
 import { TextArea } from "../TextArea";
 import { CreateTags } from "./CreateTags";
 import { Button } from "../Button";
 import { Loading } from "../Loading";
+import { ImageInput } from "./ImageInput";
 
 export const CreateBlogForm = (props) => {
-  const { title, content, image, tags } = props.formData;
-  const { setTitle, setContent, setImage, setTags } = props.alterFormData;
+  const { content, tags } = props.formData;
+  const { setContent, setImage, setTags } = props.alterFormData;
   const { loading } = props.loading;
 
   return (
-    <form className="flex flex-col gap-y-5" onSubmit={props.handlePost}>
-      <section className="flex flex-col gap-y-2">
-        <Label>Titulo</Label>
-        <Input
-          value={title}
-          maxLength={35}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Ingresa el titulo de tu post"
-        />
-      </section>
+    <form
+      className="flex flex-col gap-y-3 px-4 py-2"
+      onSubmit={props.handlePost}
+    >
       <section className="flex flex-col gap-y-2 relative">
-        <Label>Contenido</Label>
         <TextArea content={content} setContent={setContent} />
       </section>
-      {/* <section className="flex flex-col gap-y-2">
-        <Label>Imagen (opcional)</Label>
-        <Input
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          type="file"
-          placeholder="Ingresa el titulo de tu Post"
-        />
-      </section> */}
       <section className="flex flex-col gap-y-2">
-        <Label>Etiquetas</Label>
+        <ImageInput setImage={setImage} />
+      </section>
+      <section className="flex flex-col gap-y-2">
+        <Label>Etiquetas (Opcional) </Label>
         <CreateTags tags={tags} setTags={setTags} />
       </section>
       <span className="flex justify-center relative">

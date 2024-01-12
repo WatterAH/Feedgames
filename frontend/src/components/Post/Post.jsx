@@ -3,14 +3,19 @@ import { PostHeader } from "./PostHeader";
 import { TagsList } from "./TagsList";
 import { Actions } from "./Actions";
 import { PostContent } from "./PostContent";
+import { Link } from "react-router-dom";
 
 export const Post = ({ data }) => {
+  const { id } = data;
   return (
-    <div className="w-full dark:text-white duration-500 p-6 shadow-sm dark:border-neutral-700 border rounded-lg flex flex-col gap-y-5">
+    <Link
+      to={`/post/${id}`}
+      className="w-full duration-700 p-6 shadow-sm border rounded-lg flex flex-col gap-y-4 hover:border-gray-600 hover:cursor-pointer"
+    >
       <PostHeader data={data} />
       <PostContent data={data}></PostContent>
       <TagsList data={data} />
       <Actions data={data} />
-    </div>
+    </Link>
   );
 };

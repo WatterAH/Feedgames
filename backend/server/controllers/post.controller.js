@@ -4,29 +4,20 @@ import { getDate } from "../libs/dates.js";
 
 export const createNewPost = async (req, res) => {
   try {
-    const { user_id, title, content, tags } = req.body;
-    if (!title.trim()) {
-      return res.status(400).json({ message: "El post necesita un titulo" });
-    }
+    let { user_id, content, tags, publicUrl } = req.body;
     if (!content.trim()) {
       return res.status(400).json({ message: "¡No hay post sin contenido!" });
     }
     const created_at = getDate();
-    const { error } = await supabase.from("posts").insert([
-      {
-        user_id,
-        created_at,
-        title,
-        content,
-        tags,
-      },
-    ]);
+    const insertData = { user_id, created_at, content, tags, publicUrl };
+    const { error } = await supabase.from("posts").insert([insertData]);
     if (error) {
       return res.status(400).json({ message: "Error al crear el blog" });
     } else {
       return res.status(200).json({ message: "Has creado un nuevo blog!" });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
@@ -48,13 +39,9 @@ export const loadSaved = async (req, res) => {
           .json({ message: "Error al obtener las publicaciones" });
       } else {
         posts = posts.map((post) => {
-          const {
-            users: { username },
-            saved,
-            ...rest
-          } = post;
+          const { saved, ...rest } = post;
           const isSaved = saved.some((save) => save.id_user == id);
-          return { ...rest, isSaved, username };
+          return { ...rest, isSaved };
         });
 
         return res.status(200).json(posts);

@@ -4,7 +4,12 @@ import {
   notify,
   readAllByIds,
 } from "../database/notifications.js";
-import { insertFollow, stopFollow } from "../database/simpleInsert.js";
+import { getFollowers } from "../database/simpleGet.js";
+import {
+  insertFollow,
+  joinParty,
+  stopFollow,
+} from "../database/simpleInsert.js";
 
 export const getNotifications = async (req, res) => {
   try {
@@ -115,7 +120,7 @@ export const followUser = async (req, res) => {
     } else {
       const text = `${username} comenzo a seguirte`;
       notify(id_followed, false, "Profile", id_follower, text, 2);
-      return res.status(200).json({ message: "Ahora sigues a este usuario" });
+      return res.status(200).json({ message: "OK" });
     }
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

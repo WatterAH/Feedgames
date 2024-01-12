@@ -1,45 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { LoadingPage } from "../LoadingPage";
-import { toast } from "react-toastify";
-import { URL } from "../../App";
-import { useUser } from "../../context/AuthContext";
-import { Notify } from "./Notify";
-import { getMyNotifications } from "../../Api/notifications";
+import { User } from "./User";
 
-export let deleteNotify;
-
-export const SlideOver = ({ open, setOpen }) => {
-  const { user } = useUser();
-  const [loading, setLoading] = useState(false);
-  const [notifications, setNotifications] = useState([]);
-
-  deleteNotify = (id) => {
-    setNotifications(notifications.filter((post) => post.id != id));
-  };
-
-  const handleGetNotifications = async () => {
-    try {
-      setLoading(true);
-      const notificationsFetched = await getMyNotifications(user.id);
-      setNotifications(notificationsFetched);
-    } catch (error) {
-      const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (user.id && open) {
-      handleGetNotifications();
-    }
-  }, [open, user.id]);
-
+export const MenuSlide = ({ open, setOpen }) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -88,34 +52,18 @@ export const SlideOver = ({ open, setOpen }) => {
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
                     </div>
+                    <Dialog.Title className="px-4 pb-4 sm:px-6 border-b">
+                      <h1 className="text-2xl font-montserrat leading-6 text-gray-900">
+                        Amigos
+                      </h1>
+                    </Dialog.Title>
+                    <div className="flex flex-col">
+                      <User />
+                      <User />
+                      <User />
+                    </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                    <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-xl font-semibold leading-6 text-gray-900">
-                        Notificaciones
-                      </Dialog.Title>
-                    </div>
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      {loading ? (
-                        <LoadingPage />
-                      ) : notifications.length == 0 ? (
-                        <p className="text-gray-500 font-montserrat text-lg">
-                          No tienes notificaciones
-                        </p>
-                      ) : (
-                        <div className="flex flex-col gap-3">
-                          {notifications.map((notify) => (
-                            <Notify
-                              key={notify.id}
-                              notify={notify}
-                              setOpen={setOpen}
-                              setNotifications={setNotifications}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl"></div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

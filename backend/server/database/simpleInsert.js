@@ -18,3 +18,14 @@ export const stopFollow = async (id_follower, id_followed) => {
     .eq("id_followed", id_followed);
   return { error };
 };
+
+export const joinParty = async (id_user) => {
+  const { error } = await supabase.from("partys").insert([
+    {
+      id_user,
+    },
+  ]);
+  if (error) {
+    throw new Error(error.message);
+  }
+};

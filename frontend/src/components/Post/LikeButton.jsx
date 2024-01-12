@@ -11,7 +11,8 @@ export const LikeButton = ({ likeData }) => {
   const { id, isLiked, setLikedNum, user_id } = likeData;
   const [liked, setLiked] = useState(isLiked);
 
-  const handleLike = async () => {
+  const handleLike = async (e) => {
+    e.preventDefault();
     try {
       setLiked(!liked);
       if (!liked) {
