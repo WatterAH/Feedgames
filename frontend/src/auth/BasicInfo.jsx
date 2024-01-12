@@ -32,7 +32,7 @@ export const BasicInfo = ({ setContent }) => {
     } catch (error) {
       const { message } = error;
       toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
+        position: toast.POSITION.TOP_CENTER,
       });
     } finally {
       setLoading(false);
