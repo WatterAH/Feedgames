@@ -13,7 +13,6 @@ export const Options = ({ optionsData, setPosts }) => {
   const { id } = optionsData;
 
   const handleDelete = async (e) => {
-    e.preventDefault();
     try {
       await deletePostById(id);
       setPosts((prevPost) => prevPost.filter((post) => post.id != id));
