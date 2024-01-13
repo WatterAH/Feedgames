@@ -101,7 +101,7 @@ export const checkAuth = async (req, res) => {
 
 export const editProfileById = async (req, res) => {
   try {
-    const { id, username, name, changedUsername } = req.body;
+    const { id, username, name } = req.body;
     let { details } = req.body;
     if (!isCorrectUsername(username)) {
       return res.status(400).json({
@@ -119,8 +119,7 @@ export const editProfileById = async (req, res) => {
       id,
       username,
       name,
-      details,
-      changedUsername
+      details
     );
     if (errPf) {
       return res

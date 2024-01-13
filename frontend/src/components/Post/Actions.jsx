@@ -12,7 +12,7 @@ export const Actions = ({ data }) => {
   const [likedNum, setLikedNum] = useState(liked.length);
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center mb-5">
       <section className="flex gap-x-4">
         <span className="flex items-center justify-center gap-1">
           <LikeButton likeData={{ id, isLiked, setLikedNum, user_id }} />

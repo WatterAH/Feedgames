@@ -4,7 +4,7 @@ export const getProfileById = async (userId) => {
   const { data: user, error } = await supabase
     .from("users")
     .select(
-      "id, name, username, details, followed:follows!follows_id_follower_fkey(id_followed), followers:follows!follows_id_followed_fkey(id_follower)"
+      "id, name, username, details, pfp, followed:follows!follows_id_follower_fkey(id_followed), followers:follows!follows_id_followed_fkey(id_follower)"
     )
     .eq("id", userId)
     .single();
@@ -34,7 +34,7 @@ export const getAllPosts = async () => {
   const { data: posts, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name)"
+      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name, pfp)"
     )
     .order("order", { ascending: false });
 
@@ -83,7 +83,7 @@ export const getPostById = async (postId) => {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name)"
+      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name, pfp)"
     )
     .eq("id", postId)
     .single();

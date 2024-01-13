@@ -57,9 +57,7 @@ export const uploadImage = async (image) => {
   const { error } = await supabase.storage
     .from("Images")
     .upload(`images/${uuid}`, image);
-  const { data } = await supabase.storage
-    .from("Images")
-    .getPublicUrl(`images/${uuid}`);
+  const data = `images/${uuid}`
 
   return { data, error };
 };

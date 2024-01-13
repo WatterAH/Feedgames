@@ -20,13 +20,7 @@ export const Modal = ({ data }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await editProfile(
-        user.id,
-        name,
-        username,
-        user.username,
-        details
-      );
+      const data = await editProfile(user.id, name, username, details);
       login(data);
       window.location.reload();
     } catch (error) {
