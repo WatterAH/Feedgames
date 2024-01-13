@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ImageViewer } from "../ImageViewer";
 import default_pfp from "../../assets/img/default.png";
 
-export const ProfilePicture = ({ src, size }) => {
+export const ProfilePicture = ({ src, h, w }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -21,7 +21,7 @@ export const ProfilePicture = ({ src, size }) => {
             : default_pfp
         }
         alt="pfp"
-        className={`rounded-full h-${size} w-${size} cursor-pointer`}
+        className={`rounded-full ${w} ${h} cursor-pointer`}
         onClick={src ? openModal : null}
       />
       <ImageViewer closeModal={closeModal} isOpen={isOpen} src={src} />

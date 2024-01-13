@@ -13,7 +13,7 @@ export const PostHeader = ({ data }) => {
     <header className="flex flex-col gap-2">
       <section className="flex items-center justify-between">
         <span className="flex items-center gap-x-2">
-          <ProfilePicture src={pfp} size={"10"} />
+          <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
           <div>
             <PostTitle name={name} />
             <PostCreator user_id={user_id} username={username} />

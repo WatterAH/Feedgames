@@ -29,7 +29,7 @@ export const ProfileHeader = ({ userData }) => {
       <header className="flex flex-col w-full sm:flex-row sm:justify-between gap-y-4">
         <section className="flex gap-x-3 justify-between items-center">
           <span className="flex items-center gap-2">
-            <ProfilePicture src={pfp} size={"14"} />
+            <ProfilePicture src={pfp} h={"h-14"} w={"w-14"} />
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-montserrat font-semibold">
               {username}
             </h1>
