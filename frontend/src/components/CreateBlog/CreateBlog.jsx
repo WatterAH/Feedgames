@@ -24,7 +24,7 @@ export const CreateBlog = () => {
         if (error) {
           throw new Error("No se pudo subir la imagen");
         }
-        publicUrl = data.publicUrl;
+        publicUrl = data;
       }
       await createPost(user.id, content, tags, publicUrl);
       nav("/");
