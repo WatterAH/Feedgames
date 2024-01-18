@@ -9,7 +9,7 @@ export const createNewPost = async (req, res) => {
     tags = JSON.parse(tags);
     const image = req.file ? req.file : {};
     let publicUrl = null;
-    if (!content.trim() && !image.path) {
+    if (!content.trim() && !image.buffer) {
       return res.status(400).json({ message: "No se permiten posts vacios" });
     }
     if (image.buffer) {
