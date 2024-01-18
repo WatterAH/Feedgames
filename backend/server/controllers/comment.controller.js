@@ -7,7 +7,6 @@ import {
   getResponses,
 } from "../database/simpleGet.js";
 import { getDate } from "../libs/dates.js";
-import { validateToken } from "../libs/token.js";
 
 export const getComment = async (req, res) => {
   try {
@@ -16,11 +15,6 @@ export const getComment = async (req, res) => {
     if (error) {
       return res.status(404).json({ message: "Not Found" });
     } else {
-      const {
-        users: { username },
-        ...rest
-      } = comment;
-      comment = { ...rest, username };
       return res.status(200).json(comment);
     }
   } catch (error) {
@@ -41,7 +35,9 @@ export const comment = async (req, res) => {
     let { data: commented, error } = await supabase
       .from("comments")
       .insert([insertData])
-      .select("*, responses!responses_id_responsed_fkey(id), users(username)")
+      .select(
+        "*, responses!responses_id_responsed_fkey(id), user:users(username, name,pfp)"
+      )
       .single();
 
     if (error) {
@@ -51,11 +47,6 @@ export const comment = async (req, res) => {
         const text = `${name} comento tu publicación`;
         notify(toNotify, false, "Post", id_post, text, 1);
       }
-      const {
-        users: { username },
-        ...rest
-      } = commented;
-      commented = { ...rest, username };
       return res.status(200).json(commented);
     }
   } catch (error) {
@@ -73,7 +64,7 @@ export const response = async (req, res) => {
     let { data: commented, error } = await supabase
       .from("comments")
       .insert([insertData])
-      .select("*, users(username)")
+      .select("*, user:users(username, name, pfp)")
       .single();
 
     if (error) {
@@ -90,11 +81,6 @@ export const response = async (req, res) => {
           notify(toNotify, false, "Comment", comment_res, text, 1);
         }
         commented.responses = [];
-        const {
-          users: { username },
-          ...rest
-        } = commented;
-        commented = { ...rest, username };
         return res.status(200).json(commented);
       }
     }
@@ -112,13 +98,6 @@ export const getCommentsByPostId = async (req, res) => {
         .status(400)
         .json({ message: "Error al cargar los comentarios" });
     } else {
-      comments = comments.map((comment) => {
-        const {
-          users: { username },
-          ...rest
-        } = comment;
-        return { ...rest, username };
-      });
       return res.status(200).json(comments);
     }
   } catch (error) {
@@ -142,13 +121,6 @@ export const getResponsesByCommentId = async (req, res) => {
           .status(400)
           .json({ message: "No se pudieron obtener las respuestas" });
       } else {
-        comments = comments.map((comment) => {
-          const {
-            users: { username },
-            ...rest
-          } = comment;
-          return { ...rest, username };
-        });
         return res.status(200).json(comments);
       }
     }

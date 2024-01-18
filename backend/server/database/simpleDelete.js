@@ -40,3 +40,12 @@ export const deleteNotification = async (id) => {
     throw new Error(error);
   }
 };
+
+export const deleteImage = async (filename, folder) => {
+  const { error } = await supabase.storage
+    .from("Images")
+    .remove(`${folder}/${filename}`);
+  if (error) {
+    throw new Error(error.message);
+  }
+};

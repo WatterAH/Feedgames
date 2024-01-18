@@ -28,7 +28,7 @@ export const Tendency = () => {
   }, []);
 
   return (
-    <section className="hidden md:block p-5">
+    <section className="hidden max-w-xs md:block p-5">
       <p className="text-xl mb-5 font-montserrat">En tendencia</p>
       {loading ? <LoadingPage /> : <TendencyPosts posts={posts} />}
     </section>

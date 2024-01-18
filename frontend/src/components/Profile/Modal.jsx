@@ -7,11 +7,18 @@ import { Loading } from "../Loading";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { editProfile } from "../../Api/profile";
+import { isImage } from "../../functions/validator";
+import default_pfp from "../../assets/img/default.png";
 
 export const Modal = ({ data }) => {
   const { user, login } = useUser();
   const { closeModal, isOpen, userData } = data;
   const [loading, setLoading] = useState(false);
+  const src = userData.pfp
+    ? `https://zptrwdrgobouoriwsfoj.supabase.co/storage/v1/object/public/Images/pfp/${userData.pfp}`
+    : default_pfp;
+  const [pfp, setPfp] = useState(src);
+  const [image, setImage] = useState(null);
   const [username, setUsername] = useState(userData.username);
   const [name, setName] = useState(userData.name);
   const [details, setDetails] = useState(userData.details);
@@ -20,7 +27,7 @@ export const Modal = ({ data }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await editProfile(user.id, name, username, details);
+      const data = await editProfile(user.id, name, username, details, image);
       login(data);
       window.location.reload();
     } catch (error) {
@@ -30,6 +37,23 @@ export const Modal = ({ data }) => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    if (!isImage(file)) {
+      return toast.error("Solo se permiten imágenes", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    setImage(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPfp(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -68,6 +92,26 @@ export const Modal = ({ data }) => {
                     Modo de Edición
                   </Dialog.Title>
                   <form onSubmit={handleSubmit}>
+                    <div className="mt-4 flex items-center gap-x-3">
+                      <img
+                        src={pfp}
+                        alt="pfp"
+                        className="rounded-full w-14 h-14"
+                      />
+                      <label
+                        htmlFor="Image"
+                        className="hover:cursor-pointer text-blue-600"
+                      >
+                        Cambiar foto
+                      </label>
+                      <input
+                        id="Image"
+                        onChange={handleImage}
+                        type="file"
+                        accept="image/png, .jpeg, .jpg, image/gif"
+                        className="hidden"
+                      />
+                    </div>
                     <div className="mt-4">
                       <Label htmlFor="username">Nombre de usuario</Label>
                       <Input

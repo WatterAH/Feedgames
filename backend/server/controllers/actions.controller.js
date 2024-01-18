@@ -31,14 +31,11 @@ export const getProfilePosts = async (req, res) => {
       return res.status(400).json({ message: "Error al cargar los posts" });
     } else {
       posts = posts.map((post) => {
-        const { saved, ...rest } = post;
+        const { liked, saved, ...rest } = post;
+        const isLiked = liked.some((like) => like.id_user == myID);
         const isSaved = saved.some((save) => save.id_user == myID);
-        return {
-          ...rest,
-          isSaved,
-        };
+        return { ...rest, liked, saved, isLiked, isSaved };
       });
-
       return res.status(200).json(posts);
     }
   } catch (error) {

@@ -1,4 +1,4 @@
-export const calculateDate = (obj) => {
+export const calculateDate = (obj, minimize) => {
   const { day, month, year } = obj;
   const today = getDate();
   if (today.month == month) {
@@ -9,10 +9,16 @@ export const calculateDate = (obj) => {
       if (daysPassed < 0) {
         return "";
       }
-      return daysPassed == 1 ? "Ayer" : `Hace ${daysPassed} días`;
+      return daysPassed == 1
+        ? "Ayer"
+        : minimize
+        ? `${daysPassed}d`
+        : `Hace ${daysPassed} días`;
     }
   } else {
-    return `${month} ${day}, ${year}`;
+    return minimize
+      ? `${month.slice(0, 3)}, ${day}`
+      : `${month} ${day}, ${year}`;
   }
 };
 

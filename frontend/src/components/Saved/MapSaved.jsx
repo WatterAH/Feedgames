@@ -3,7 +3,7 @@ import { Preview } from "../Preview/Preview";
 
 export const MapSaved = ({ savedList }) => {
   return (
-    <section className="flex gap-2 px-4 flex-wrap w-full justify-center lg:justify-normal">
+    <section className="flex flex-wrap max-w-lg lg:px-3 justify-center mx-auto gap-2">
       {savedList.map((saved, index) => (
         <Preview key={index} post={saved} savedButton={true} />
       ))}

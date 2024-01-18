@@ -12,13 +12,12 @@ import { ExploreComment } from "../components/Comment/ExploreComment";
 import { ExplorePost } from "../components/Post/ExplorePost";
 import { Profile } from "../components/Profile/Profile";
 import { Direct } from "../components/Chats/Direct";
-import { URL } from "../App";
 
 export let socket;
 
 export const Home = () => {
   const nav = useNavigate();
-  const { login } = useUser();
+  const { login, user } = useUser();
   const [loading, setLoading] = useState(false);
 
   const handleToken = async () => {

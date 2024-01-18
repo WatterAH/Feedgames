@@ -1,20 +1,20 @@
 import React from "react";
+import { Commentator } from "./Commentator";
 import { useUser } from "../../context/AuthContext";
-import { SaveButton } from "../Post/SaveButton";
-import { PreviewCreator } from "./PreviewCreator";
 import { Options } from "../Options";
 import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { toast } from "react-toastify";
-import { deletePostById } from "../../Api/post";
+import { deleteComment } from "../../Api/comments";
 
-export const PreviewHeader = ({ post, userID, notSave, setPosts }) => {
+export const CommentHeader = ({ comment, option, setComments }) => {
   const { user } = useUser();
-  const { id, isSaved } = post;
+  const { id } = comment;
 
   const handleDelete = async () => {
     try {
-      await deletePostById(id);
-      setPosts((prevPost) => prevPost.filter((post) => post.id != id));
+      setComments((prevResponses) =>
+        prevResponses.filter((response) => response.id != id)
+      );
+      await deleteComment(id);
     } catch (error) {
       const { message } = error;
       toast.error(message, {
@@ -33,15 +33,10 @@ export const PreviewHeader = ({ post, userID, notSave, setPosts }) => {
   ];
 
   return (
-    <header className="flex items-center justify-between">
-      <PreviewCreator post={post} />
-      {user.id === userID ? (
+    <header className="flex justify-between gap-x-3">
+      <Commentator comment={comment} />
+      {comment.id_user == user.id && option ? (
         <Options icon_options={faEllipsis} options={options} />
-      ) : null}
-      {!notSave ? (
-        user.id !== userID ? (
-          <SaveButton saveData={{ id: id, isSaved }} />
-        ) : null
       ) : null}
     </header>
   );

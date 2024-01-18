@@ -34,7 +34,11 @@ export const Saved = () => {
   }, [user.id]);
 
   return (
-    <div className="flex flex-col h-screen lg:ml-64 gap-y-4 right-0 duration-500 mb-40 lg:mb-0 w-full">
+    <div
+      className={`flex flex-col h-screen lg:ml-64 gap-y-4 right-0 duration-500 w-full ${
+        savedList.length >= 4 ? "mb-44 lg:mb-10" : "mb-0"
+      }`}
+    >
       <SavedTitle />
       {loading ? (
         <LoadingPage />

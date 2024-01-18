@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useUser } from "../context/AuthContext";
 import { LoadingPage } from "../components/LoadingPage";
 import { fetchPosts } from "../Api/post";
+import { MapPost } from "./MapPost";
 
 export const Feed = () => {
   const { user } = useUser();
@@ -32,13 +33,9 @@ export const Feed = () => {
   }, [user.id]);
 
   return (
-    <div className="flex justify-center h-fit items-center p-6 flex-col gap-y-5 mb-10">
-      {loading ? (
-        <LoadingPage />
-      ) : (
-        posts.map((post) => <Post key={post.id} data={post} />)
-      )}
+    <>
+      <MapPost posts={posts} loading={loading} />
       <ToastContainer />
-    </div>
+    </>
   );
 };

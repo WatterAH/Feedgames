@@ -1,14 +1,12 @@
 import React from "react";
 
 export const PreviewContent = ({ post }) => {
-  const { content, publicUrl } = post;
+  const { content } = post;
   return (
-    <p className="text-xs">
-      {content.slice(0, 160)}
-      {content.length > 160 ? "..." : ""}
-      {publicUrl && (
-        <p className="font-rubik text-sm text-gray-800">+1 imagen</p>
-      )}
-    </p>
+    <div className="flex flex-col gap-y-2">
+      <p className="text-xs">
+        {content.length > 200 ? `${content.slice(0, 200)}...` : content}
+      </p>
+    </div>
   );
 };

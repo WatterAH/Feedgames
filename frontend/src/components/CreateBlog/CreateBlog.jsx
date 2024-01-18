@@ -17,16 +17,8 @@ export const CreateBlog = () => {
   const handlePost = async (e) => {
     e.preventDefault();
     try {
-      let publicUrl;
       setLoading(true);
-      if (image) {
-        const { data, error } = await uploadImage(image);
-        if (error) {
-          throw new Error("No se pudo subir la imagen");
-        }
-        publicUrl = data;
-      }
-      await createPost(user.id, content, tags, publicUrl);
+      await createPost(user.id, content, tags, image);
       nav("/");
     } catch (error) {
       const { message } = error;

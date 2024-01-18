@@ -7,15 +7,13 @@ import { toast } from "react-toastify";
 export const ShareButton = ({ shareData }) => {
   const URL = "https://feedgames.vercel.app";
 
-  const { id, title, text, content } = shareData;
+  const { id, content } = shareData;
   const link = `${URL}/${content}/${id}`;
 
   const share = async (e) => {
     e.preventDefault();
     if (navigator.share) {
       navigator.share({
-        title: title,
-        text,
         url: link,
       });
     } else {

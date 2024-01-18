@@ -3,6 +3,9 @@ import { supabase } from "../database/connection.js";
 import { isCorrectUsername, isStrongPassword } from "../libs/validator.js";
 import { createAccessToken, validateToken } from "../libs/token.js";
 import { editProfile } from "../database/compundEdit.js";
+import { getProfileById } from "../database/simpleGet.js";
+import { deleteImage } from "../database/simpleDelete.js";
+import { uploadImage } from "../database/simpleInsert.js";
 
 export const login = async (req, res) => {
   try {
@@ -102,24 +105,27 @@ export const checkAuth = async (req, res) => {
 export const editProfileById = async (req, res) => {
   try {
     const { id, username, name } = req.body;
-    let { details } = req.body;
-    if (!isCorrectUsername(username)) {
-      return res.status(400).json({
-        message: "Usuario: alfanumérico, ¡#$&/?-_@ permitidos",
-      });
-    }
-    if (!name.trim()) {
-      return res.status(400).json({ message: "Introduce un nombre" });
-    }
-    if (!details.trim()) {
-      details = "Sin descripción";
-    }
+    const details = req.body.details ? req.body.details : "Sin descripción.";
+    const image = req.file ? req.file : {};
+    const {
+      user: { pfp: old_pfp },
+    } = await getProfileById(id);
+    let pfp = old_pfp;
 
+    if (image.buffer) {
+      deleteImage(old_pfp, "pfp");
+      const { filename, error } = await uploadImage(image, "pfp");
+      pfp = filename;
+      if (error) {
+        return res.status(400).json({ message: "No se pudo subir la imagen" });
+      }
+    }
     const { user, error: errPf } = await editProfile(
       id,
       username,
       name,
-      details
+      details,
+      pfp
     );
     if (errPf) {
       return res
@@ -130,6 +136,7 @@ export const editProfileById = async (req, res) => {
       return res.status(200).json({ user, token });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

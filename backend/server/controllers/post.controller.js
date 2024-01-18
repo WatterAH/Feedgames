@@ -1,12 +1,23 @@
 import { supabase } from "../database/connection.js";
 import { getPostsByIds, getSavedById } from "../database/simpleGet.js";
+import { uploadImage } from "../database/simpleInsert.js";
 import { getDate } from "../libs/dates.js";
 
 export const createNewPost = async (req, res) => {
   try {
-    let { user_id, content, tags, publicUrl } = req.body;
-    if (!content.trim()) {
-      return res.status(400).json({ message: "¡No hay post sin contenido!" });
+    let { user_id, content, tags } = req.body;
+    tags = JSON.parse(tags);
+    const image = req.file ? req.file : {};
+    let publicUrl = null;
+    if (!content.trim() && !image.path) {
+      return res.status(400).json({ message: "No se permiten posts vacios" });
+    }
+    if (image.buffer) {
+      const { filename, error } = await uploadImage(image, "images");
+      publicUrl = filename;
+      if (error) {
+        return res.status(400).json({ message: "No se pudo subir la imagen" });
+      }
     }
     const created_at = getDate();
     const insertData = { user_id, created_at, content, tags, publicUrl };

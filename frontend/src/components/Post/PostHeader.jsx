@@ -1,8 +1,8 @@
 import React from "react";
 import { calculateDate } from "../../functions/date";
 import { PostCreator } from "./PostCreator";
-import { PostTitle } from "./PostTitle";
 import { ProfilePicture } from "../Profile/ProfilePicture";
+import { PostDate } from "./PostDate";
 
 export const PostHeader = ({ data }) => {
   const { user_id, user, created_at } = data;
@@ -14,12 +14,9 @@ export const PostHeader = ({ data }) => {
       <section className="flex items-center justify-between">
         <span className="flex items-center gap-x-2">
           <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
-          <div>
-            <PostTitle name={name} />
-            <PostCreator user_id={user_id} username={username} />
-          </div>
+          <PostCreator user_id={user_id} username={username} name={name} />
         </span>
-        <p className="text-gray-400 text-xs font-rubik">{date}</p>
+        <PostDate>{date}</PostDate>
       </section>
     </header>
   );

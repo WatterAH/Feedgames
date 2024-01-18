@@ -45,7 +45,7 @@ export const Comments = ({ data }) => {
         ) : comments.length == 0 ? (
           <p className="font-semibold text-gray-800">No hay comentarios.</p>
         ) : (
-          <div className={`flex flex-col gap-y-5`}>
+          <div className={`flex flex-col gap-y-2`}>
             {comments.map((comment, index) => (
               <Comment
                 key={index}

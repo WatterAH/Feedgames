@@ -35,15 +35,18 @@ export const getProfilePost = async (id, myID) => {
   }
 };
 
-export const editProfile = async (id, name, username, details) => {
-  const body = { id, name, username, details };
+export const editProfile = async (id, name, username, details, image) => {
+  const formData = new FormData();
+  formData.append("id", id);
+  formData.append("name", name);
+  formData.append("username", username);
+  formData.append("details", details);
+  formData.append("image", image);
+
   const res = await fetch(`${URL}/api/editProfileById`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: formData,
   });
   const resData = await res.json();
   if (res.ok) {

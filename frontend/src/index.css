@@ -6,6 +6,10 @@
   width: 19rem;
 }
 
+.h-69 {
+  height: 18rem;
+}
+
 .title {
   background: linear-gradient(to right, rgb(17 94 89), rgb(20 184 166));
   -webkit-background-clip: text;

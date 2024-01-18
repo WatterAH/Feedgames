@@ -33,15 +33,17 @@ export const getPostById = async (id, userId) => {
   }
 };
 
-export const createPost = async (user_id, content, tags, publicUrl) => {
-  const body = { user_id, content, tags, publicUrl };
+export const createPost = async (user_id, content, tags, image) => {
+  const formData = new FormData();
+  formData.append("user_id", user_id);
+  formData.append("content", content);
+  formData.append("tags", JSON.stringify(tags));
+  formData.append("image", image);
+
   const res = await fetch(`${URL}/api/createNewPost`, {
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
+    body: formData,
   });
   const resData = await res.json();
 
