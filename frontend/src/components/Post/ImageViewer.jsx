@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
 export const ImageViewer = ({ isOpen, closeModal, publicUrl }) => {
+  const src = `https://zptrwdrgobouoriwsfoj.supabase.co/storage/v1/object/public/Images/images/${publicUrl}`;
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -30,7 +31,7 @@ export const ImageViewer = ({ isOpen, closeModal, publicUrl }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-h-screen max-w-xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
-                  <img src={publicUrl} alt="Image" className="w-full" />
+                  <img src={src} alt="Image" className="w-full" />
                 </Dialog.Panel>
               </Transition.Child>
             </div>
