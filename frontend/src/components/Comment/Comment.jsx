@@ -29,7 +29,7 @@ export const Comment = ({ comment, setComments, option }) => {
         </div>
       </div>
       <div className="flex items-center justify-end gap-x-2 mt-1">
-        {/* <LikeButton /> */}
+        <LikeButton comment={comment} />
         <ReplyTo comment={comment} />
       </div>
     </div>

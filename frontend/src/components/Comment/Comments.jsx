@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { CommentBox } from "./CommentBox";
 import { Comment } from "./Comment";
 import { LoadingPage } from "../LoadingPage";
+import { useUser } from "../../context/AuthContext";
 
 export const Comments = ({ data }) => {
+  const { user } = useUser();
   const { parent_id, post_id, toNotify, response } = data;
   const { fetchFunction, sendFunction } = data;
   const [comments, setComments] = useState([]);
@@ -12,7 +14,7 @@ export const Comments = ({ data }) => {
   const handleFetchComments = async () => {
     try {
       setLoading(true);
-      const commentsFetched = await fetchFunction(parent_id);
+      const commentsFetched = await fetchFunction(parent_id, user.id);
       setComments(commentsFetched);
     } catch (error) {
       const { message } = error;
@@ -25,8 +27,10 @@ export const Comments = ({ data }) => {
   };
 
   useEffect(() => {
-    handleFetchComments();
-  }, [parent_id]);
+    if (user.id) {
+      handleFetchComments();
+    }
+  }, [parent_id, user.id]);
 
   return (
     <div className="mb-24 lg:mb-10 flex flex-col gap-y-4 p-2">

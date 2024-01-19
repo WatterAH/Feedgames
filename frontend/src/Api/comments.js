@@ -1,8 +1,10 @@
 import { URL } from "../App";
 
-export const fetchComments = async (postId) => {
+export const fetchComments = async (postId, userId) => {
   const res = await fetch(
-    `${URL}/api/getCommentsByPostId?postId=${encodeURIComponent(postId)}`
+    `${URL}/api/getCommentsByPostId?postId=${encodeURIComponent(
+      postId
+    )}&userId=${encodeURIComponent(userId)}`
   );
   const resData = await res.json();
 
@@ -14,9 +16,11 @@ export const fetchComments = async (postId) => {
   }
 };
 
-export const fetchComment = async (commentId) => {
+export const fetchComment = async (commentId, userId) => {
   const res = await fetch(
-    `${URL}/api/getComment?commentId=${encodeURIComponent(commentId)}`
+    `${URL}/api/getComment?commentId=${encodeURIComponent(
+      commentId
+    )}&userId=${encodeURIComponent(userId)}`
   );
   const resData = await res.json();
 
@@ -30,11 +34,11 @@ export const fetchComment = async (commentId) => {
   }
 };
 
-export const fetchResponses = async (commentId) => {
+export const fetchResponses = async (commentId, userId) => {
   const res = await fetch(
     `${URL}/api/getResponsesByCommentId?commentId=${encodeURIComponent(
       commentId
-    )}`
+    )}&userId=${encodeURIComponent(userId)}`
   );
   const resData = await res.json();
 
@@ -99,4 +103,45 @@ export const deleteComment = async (commentId) => {
     const { message } = resData;
     throw new Error(message);
   }
+};
+
+export const likeComment = async (
+  id_user,
+  id_comment,
+  username,
+  user_comment
+) => {
+  const body = { id_user, id_comment, username, user_comment };
+  const res = await fetch(`${URL}/api/likeComment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const resData = await res.json();
+    const { message } = resData;
+    throw new Error(message);
+  }
+  return;
+};
+
+export const dontLikeComment = async (id_user, id_comment) => {
+  const body = { id_user, id_comment };
+  const res = await fetch(`${URL}/api/dontLikeComment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const resData = await res.json();
+    const { message } = resData;
+    throw new Error(message);
+  }
+  return;
 };

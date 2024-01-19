@@ -39,7 +39,7 @@ export const ProfilePosts = ({ userID }) => {
             {posts.length !== 0 ? (
               <MapPost posts={posts} loading={loading} />
             ) : (
-              <h3 className="text-lg sm:text-xl font-montserrat">
+              <h3 className="text-lg sm:text-xl font-montserrat text-center p-3">
                 Este usuario aún no ha publicado nada.
               </h3>
             )}

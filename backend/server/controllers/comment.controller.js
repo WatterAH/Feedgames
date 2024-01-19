@@ -10,11 +10,14 @@ import { getDate } from "../libs/dates.js";
 
 export const getComment = async (req, res) => {
   try {
-    const { commentId } = req.query;
+    const { commentId, userId } = req.query;
     let { comment, error } = await getCommentById(commentId);
     if (error) {
       return res.status(404).json({ message: "Not Found" });
     } else {
+      comment.isLiked = comment.comments_liked.some(
+        (like) => like.id_user == userId
+      );
       return res.status(200).json(comment);
     }
   } catch (error) {
@@ -47,6 +50,8 @@ export const comment = async (req, res) => {
         const text = `${name} comento tu publicación`;
         notify(toNotify, false, "Post", id_post, text, 1);
       }
+      commented.isLiked = false;
+      commented.comments_liked = [];
       return res.status(200).json(commented);
     }
   } catch (error) {
@@ -81,6 +86,8 @@ export const response = async (req, res) => {
           notify(toNotify, false, "Comment", comment_res, text, 1);
         }
         commented.responses = [];
+        commented.isLiked = false;
+        commented.comments_liked = [];
         return res.status(200).json(commented);
       }
     }
@@ -91,13 +98,18 @@ export const response = async (req, res) => {
 
 export const getCommentsByPostId = async (req, res) => {
   try {
-    const { postId } = req.query;
+    const { postId, userId } = req.query;
     let { comments, error } = await getAllComents(postId);
     if (error) {
       return res
         .status(400)
         .json({ message: "Error al cargar los comentarios" });
     } else {
+      comments = comments.map((comment) => {
+        const { comments_liked, ...rest } = comment;
+        const isLiked = comments_liked.some((like) => like.id_user == userId);
+        return { ...rest, comments_liked, isLiked };
+      });
       return res.status(200).json(comments);
     }
   } catch (error) {
@@ -107,7 +119,7 @@ export const getCommentsByPostId = async (req, res) => {
 
 export const getResponsesByCommentId = async (req, res) => {
   try {
-    const { commentId } = req.query;
+    const { commentId, userId } = req.query;
     let { comments: commentsIds, error } = await getResponses(commentId);
     if (error) {
       return res
@@ -121,8 +133,50 @@ export const getResponsesByCommentId = async (req, res) => {
           .status(400)
           .json({ message: "No se pudieron obtener las respuestas" });
       } else {
+        comments = comments.map((comment) => {
+          const { comments_liked, ...rest } = comment;
+          const isLiked = comments_liked.some((like) => like.id_user == userId);
+          return { ...rest, comments_liked, isLiked };
+        });
         return res.status(200).json(comments);
       }
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const likeComment = async (req, res) => {
+  try {
+    const { id_user, id_comment, username, user_comment } = req.body;
+    const insertData = { id_user, id_comment };
+    const { error } = await supabase.from("comments_liked").insert(insertData);
+    if (error) {
+      return res.status(400).json({ message: "Ocurrió un error" });
+    } else {
+      if (id_user != user_comment) {
+        const text = `A ${username} le gustó tu comentario`;
+        notify(user_comment, false, "comment", id_comment, text, 0);
+      }
+      return res.status(200).json({ message: "OK" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const dontLikeComment = async (req, res) => {
+  try {
+    const { id_user, id_comment } = req.body;
+    const { error } = await supabase
+      .from("comments_liked")
+      .delete()
+      .eq("id_user", id_user)
+      .eq("id_comment", id_comment);
+    if (error) {
+      return res.status(400).json({ message: "Ocurrió un error" });
+    } else {
+      return res.status(200).json({ message: "OK" });
     }
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

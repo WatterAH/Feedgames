@@ -8,9 +8,11 @@ import { fetchResponses as fetchFunction } from "../../Api/comments";
 import { responseComment as sendFunction } from "../../Api/comments";
 import { NotFound } from "../NotFound";
 import { useParams } from "react-router-dom";
+import { useUser } from "../../context/AuthContext";
 
 export const ExploreComment = () => {
   const { id } = useParams();
+  const { user } = useUser();
   const [comment, setComment] = useState({});
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
@@ -18,7 +20,7 @@ export const ExploreComment = () => {
   const getComment = async () => {
     try {
       setLoading(true);
-      const commentFetched = await fetchComment(id);
+      const commentFetched = await fetchComment(id, user.id);
       if (!commentFetched) {
         return setNotFound(true);
       }
@@ -34,8 +36,10 @@ export const ExploreComment = () => {
   };
 
   useEffect(() => {
-    getComment();
-  }, [id]);
+    if (user.id) {
+      getComment();
+    }
+  }, [id, user.id]);
 
   return (
     <div
