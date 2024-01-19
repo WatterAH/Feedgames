@@ -9,7 +9,7 @@ export const ReplyTo = ({ comment }) => {
     <Link to={`/comment/${id}`} className="flex items-center gap-x-1">
       <FontAwesomeIcon
         icon={faReply}
-        className="text-gray-500 h-3 hover:scale-125 transition-transform"
+        className="text-gray-500 h-4 hover:scale-125 transition-transform"
       />
       <p className="text-gray-500 text-xs hover:underline">
         {responses.length}
