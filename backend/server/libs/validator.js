@@ -1,7 +1,7 @@
 export const isCorrectUsername = (string) => {
   //El nombre de usuario debe ser alfanumerico
   //Puede tener los sig. caracteres: !#$&/?-_@
-  const regex = /^[a-zA-Z0-9!#$&/?-_@]{1,9}$/;
+  const regex = /^[a-zA-Z0-9!#$&/?.-_@]{1,17}$/;
   return regex.test(string);
 };
 
