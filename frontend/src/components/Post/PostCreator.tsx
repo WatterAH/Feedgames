@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const PostCreator = ({ user_id, username, name }) => {
+interface Props {
+  user_id: string;
+  username: string;
+  name: string;
+}
+
+export const PostCreator: React.FC<Props> = ({ user_id, username, name }) => {
   return (
     <div>
       <h1 className="text-lg font-montserrat">{name}</h1>

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
-import { useUser } from "../../context/AuthContext";
 import { toast } from "react-toastify";
-import { dontLikePost, likePost } from "../../Api/interactions";
+import { useUser } from "../../context/AuthContext";
 
 export const LikeButton = ({ likeData }) => {
   const { user } = useUser();

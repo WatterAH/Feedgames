@@ -1,7 +1,18 @@
+import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-export const ImageViewer = ({ isOpen, closeModal, publicUrl }) => {
+interface Props {
+  isOpen: boolean;
+  closeModal: () => void;
+  publicUrl: string;
+}
+
+export const ImageViewer: React.FC<Props> = ({
+  isOpen,
+  closeModal,
+  publicUrl,
+}) => {
   const src = `https://zptrwdrgobouoriwsfoj.supabase.co/storage/v1/object/public/Images/images/${publicUrl}`;
   return (
     <>
