@@ -7,7 +7,7 @@ import { PostDate } from "./PostDate";
 export const PostHeader = ({ data }) => {
   const { user_id, user, created_at } = data;
   const { name, username, pfp } = user;
-  const date = calculateDate(created_at);
+  const date = calculateDate(created_at, false);
 
   return (
     <header className="flex flex-col gap-2">

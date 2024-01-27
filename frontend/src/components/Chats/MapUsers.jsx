@@ -4,6 +4,9 @@ import { LoadingPage } from "../LoadingPage";
 import { getFriendsById } from "../../Api/chat";
 import { useUser } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 export const MapUsers = ({ setOpen, open }) => {
   const { user } = useUser();
@@ -35,14 +38,23 @@ export const MapUsers = ({ setOpen, open }) => {
     <div className={`${loading ? "mt-5" : "mt-0"}`}>
       {loading ? (
         <LoadingPage />
-      ) : chats.length == 0 ? (
-        <p className="text-gray-500 font-montserrat text-lg">
-          Tus amigos apareceran aquí.
-        </p>
       ) : (
         <div className="flex flex-col gap-3">
-          {chats.map((user) => (
-            <User user={user} setOpen={setOpen} />
+          <Link
+            to={`/r/${"c9202cc2-5e36-41fa-b454-b0e4f8b56312"}`}
+            className="px-4 py-3 border-b flex items-center gap-x-4"
+            onClick={() => setOpen(false)}
+          >
+            <FontAwesomeIcon
+              icon={faGlobe}
+              className="rounded-full text-sky-400 h-10 w-10"
+            />
+            <section>
+              <p className="font-montserrat text-gray-950">Chat global</p>
+            </section>
+          </Link>
+          {chats.map((user, index) => (
+            <User key={index} user={user} setOpen={setOpen} />
           ))}
         </div>
       )}

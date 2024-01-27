@@ -12,12 +12,13 @@ import { ExploreComment } from "../components/Comment/ExploreComment";
 import { ExplorePost } from "../components/Post/ExplorePost";
 import { Profile } from "../components/Profile/Profile";
 import { Direct } from "../components/Chats/Direct";
+import { URL } from "../App";
 
 export let socket;
 
 export const Home = () => {
   const nav = useNavigate();
-  const { login, user } = useUser();
+  const { login } = useUser();
   const [loading, setLoading] = useState(false);
 
   const handleToken = async () => {
@@ -53,7 +54,7 @@ export const Home = () => {
         <Route path="*" element={<MainFeed />} />
         <Route path="/" element={<MainFeed />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/direct/:id" element={<Direct />} />
+        <Route path="/r/:id" element={<Direct />} />
         <Route path="/saved" element={<Saved />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/post/:id" element={<ExplorePost />} />

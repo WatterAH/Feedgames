@@ -1,7 +1,5 @@
 import { URL } from "../App";
 import { setCookie } from "../functions/token";
-import { v4 as uuidv4 } from "uuid";
-import { supabase } from "../home/Connection";
 
 export const getProfile = async (id, myID) => {
   const res = await fetch(
@@ -57,21 +55,4 @@ export const editProfile = async (id, name, username, details, image) => {
     const { message } = resData;
     throw new Error(message);
   }
-};
-
-export const uploadPfp = async (pfp) => {
-  const uuid = uuidv4();
-  const { error } = await supabase.storage
-    .from("Images")
-    .upload(`pfp/${uuid}`, pfp);
-  const data = uuid;
-  return { data, error };
-};
-
-export const updateImage = async (pfp, userId) => {
-  const { error } = await supabase
-    .from("users")
-    .update({ pfp })
-    .eq("id", userId);
-  return { error };
 };

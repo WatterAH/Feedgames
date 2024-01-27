@@ -93,7 +93,7 @@ export const Menu = ({}) => {
       >
         <ListItem
           text={"Chats"}
-          icon={path.slice(0, 7) == "/direct" ? commentsSolid : commentsRegular}
+          icon={path.slice(0, 2) == "/r" ? commentsSolid : commentsRegular}
         />
       </button> */}
       <ListItem

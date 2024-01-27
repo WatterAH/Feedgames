@@ -14,7 +14,7 @@ export const getProfileById = async (userId) => {
 export const getProfilesByIds = async (usersIds) => {
   const { data: users, error } = await supabase
     .from("users")
-    .select("id, name, username")
+    .select("id, name, username, pfp")
     .in("id", usersIds);
   return { users, error };
 };
