@@ -26,7 +26,7 @@ export const Home = () => {
       setLoading(true);
       const data = await checkAuth();
       login(data);
-      // socket = io(URL);
+      socket = io(URL);
     } catch (error) {
       nav("/auth");
     } finally {

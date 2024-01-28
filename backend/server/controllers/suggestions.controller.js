@@ -1,7 +1,7 @@
 import { getAllPosts } from "../database/simpleGet.js";
 import { findMaxItem, joinObjects, uniques } from "../libs/arrays.js";
 
-export const loadSuggestions = async (req, res) => {
+export const loadSuggestions = async (_req, res) => {
   try {
     let { posts } = await getAllPosts();
     let likeLenghts = posts.map((post) => post.liked.length);
