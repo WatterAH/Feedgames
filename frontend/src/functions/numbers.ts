@@ -7,12 +7,13 @@
  * const result = formatNumber(1234567);
  * console.log(result); // "1.2M"
  */
-export const formatNumber = (number: number): string | number => {
-  if (number >= 1e6) {
-    return (number / 1e6).toFixed(1) + "M";
-  } else if (number >= 1e3) {
-    return (number / 1e3).toFixed(1) + "K";
+export const formatNumber = (number: number | undefined): string | number => {
+  const safeNum = number ?? 0;
+  if (safeNum >= 1e6) {
+    return (safeNum / 1e6).toFixed(1) + "M";
+  } else if (safeNum >= 1e3) {
+    return (safeNum / 1e3).toFixed(1) + "K";
   } else {
-    return number;
+    return safeNum;
   }
 };

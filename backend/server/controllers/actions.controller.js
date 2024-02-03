@@ -64,19 +64,13 @@ export const getPost = async (req, res) => {
 export const searchTerm = async (req, res) => {
   try {
     const { searchTerm } = req.query;
-    const [profileRespose, postResponse] = await Promise.all([
-      getProfileByUsername(searchTerm),
-      getPostByTitle(searchTerm),
-    ]);
-    let { user, error: errorProfile } = profileRespose;
-    let { post, error: errorPost } = postResponse;
-    if (errorProfile || errorPost) {
+    let { user, error } = await getProfileByUsername(searchTerm);
+    if (error) {
       return res
         .status(400)
         .json({ message: "No se pudo completar la busqueda" });
     } else {
-      const response = { user, post };
-      return res.status(200).json(response);
+      return res.status(200).json(user);
     }
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

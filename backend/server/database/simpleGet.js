@@ -25,7 +25,7 @@ export const getProfileByUsername = async (username) => {
   }
   const { data: user, error } = await supabase
     .from("users")
-    .select("id, name, username, details")
+    .select("id, name, username, details, pfp")
     .ilike("username", `${username}%`);
   return { user, error };
 };
