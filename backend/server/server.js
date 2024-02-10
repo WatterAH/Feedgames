@@ -3,7 +3,9 @@ import { Server as SocketServer } from "socket.io";
 import http from "http";
 import { joinRoom } from "./sockets/rooms.js";
 import { message } from "./sockets/messages.js";
+
 const server = http.createServer(app);
+
 const io = new SocketServer(server, {
   cors: {
     origin: [
