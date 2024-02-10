@@ -1,7 +1,10 @@
 {
-  "name": "frontend",
+  "name": "feedgames-frontend",
+  "author": "Watter!",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
+  "description": "The definitive social network for gamers. Share, interact and connect with the gaming community. Explore, share and enjoy!",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "tsc": "tsc",

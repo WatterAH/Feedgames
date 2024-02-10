@@ -1,15 +1,14 @@
 {
-  "name": "craftfeed",
-  "version": "1.0.0",
-  "description": "A minimalist blogging app about Minecraft",
+  "name": "feedgames",
+  "author": "Watter!",
+  "version": "2.0.0",
+  "description": "The definitive social network for gamers. Share, interact and connect with the gaming community. Explore, share and enjoy!",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "author": "Watter!",
-  "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "bcryptjs": "^2.4.3",
