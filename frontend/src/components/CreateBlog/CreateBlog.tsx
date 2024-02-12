@@ -23,7 +23,7 @@ export const CreateBlog = () => {
     } catch (error: any) {
       const { message } = error;
       toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
       });
     } finally {
       setLoading(false);

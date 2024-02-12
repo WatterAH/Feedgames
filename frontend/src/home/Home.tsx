@@ -10,6 +10,7 @@ import { LoadingPage } from "../components/LoadingPage";
 import { ExploreComment } from "../components/Comment/ExploreComment";
 import { ExplorePost } from "../components/Post/ExplorePost";
 import { Profile } from "../components/Profile/Profile";
+import logo from "../assets/img/logo.png";
 
 export const Home = () => {
   const nav = useNavigate();
@@ -39,9 +40,12 @@ export const Home = () => {
   ) : (
     <div className="flex relative dark:bg-black duration-500">
       <section className="lg:w-64 w-full bottom-0 lg:top-0 py-6 px-3 fixed bg-white dark:bg-black duration-500 lg:border-r border-t lg:border-t-0 z-10">
-        <h2 className="text-3xl text-gray-900 dark:text-white duration-500 font-bold font-kalnia hidden lg:block">
-          Feedgames
-        </h2>
+        <header className="flex items-center gap-x-2">
+          <img src={logo} alt="logo" className="w-8 h-8 hidden lg:block" />
+          <h2 className="text-3xl text-gray-900 dark:text-white duration-500 font-bold font-kalnia hidden lg:block">
+            Feedgames
+          </h2>
+        </header>
         <Menu />
       </section>
       <Routes>

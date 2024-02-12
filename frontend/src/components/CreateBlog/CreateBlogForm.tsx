@@ -30,7 +30,8 @@ export const CreateBlogForm: React.FC<Props> = ({
       <section className="flex flex-col gap-y-2 relative">
         <TextArea content={content} setContent={setContent} />
       </section>
-      <section className="flex flex-col gap-y-2">
+      <section></section>
+      <section className="flex justify-center gap-x-2">
         <ImageInput setImage={setImage} />
       </section>
       <section className="flex flex-col gap-y-2">

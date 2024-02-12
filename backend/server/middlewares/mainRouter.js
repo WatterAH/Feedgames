@@ -7,6 +7,7 @@ import { commentRounter } from "../routers/comment.rounter.js";
 import { interactionsRouter } from "../routers/interactions.router.js";
 import { suggestionsRouter } from "../routers/suggestions.router.js";
 import { deleteRouter } from "../routers/delete.router.js";
+import { valorantRouter } from "../routers/valorant.router.js";
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use(commentRounter);
 app.use(interactionsRouter);
 app.use(suggestionsRouter);
 app.use(deleteRouter);
+app.use(valorantRouter);
 
 export { app as mainRouter };
