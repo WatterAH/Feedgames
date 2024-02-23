@@ -84,11 +84,6 @@ const TermsOfService = () => {
           contenido.
         </li>
       </ul>
-      <p className="text-base text-gray-500 mt-4">
-        Estos Términos de Servicio están sujetos a cambios en cualquier momento
-        sin previo aviso. Se te notificarán los cambios mediante la publicación
-        de los nuevos Términos de Servicio en esta página.
-      </p>
     </>
   );
 };
