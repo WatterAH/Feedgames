@@ -48,7 +48,7 @@ export const comment = async (req, res) => {
     } else {
       if (toNotify != id_user) {
         const text = `${name} comento tu publicación`;
-        notify(toNotify, false, "Post", id_post, text, 1);
+        notify(toNotify, false, "p", id_post, text, 1);
       }
       commented.isLiked = false;
       commented.comments_liked = [];
@@ -83,7 +83,7 @@ export const response = async (req, res) => {
       } else {
         if (id_user != toNotify) {
           const text = `${name} respondió tu comentario`;
-          notify(toNotify, false, "Comment", comment_res, text, 1);
+          notify(toNotify, false, "c", comment_res, text, 1);
         }
         commented.responses = [];
         commented.isLiked = false;
@@ -156,7 +156,7 @@ export const likeComment = async (req, res) => {
     } else {
       if (id_user != user_comment) {
         const text = `A ${username} le gustó tu comentario`;
-        notify(user_comment, false, "comment", id_comment, text, 0);
+        notify(user_comment, false, "c", id_comment, text, 0);
       }
       return res.status(200).json({ message: "OK" });
     }

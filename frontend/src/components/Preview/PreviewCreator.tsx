@@ -10,9 +10,7 @@ export const PreviewCreator = ({ post }: { post: PostInterface }) => {
     <header>
       <span className="flex gap-x-1">
         <div className="flex items-center gap-x-2">
-          <p className="hover:underline text-gray-400 text-sm font-rubik">
-            @{username}
-          </p>
+          <p className="text-gray-400 text-sm font-rubik">@{username}</p>
           <PreviewDate post={post} />
         </div>
       </span>

@@ -87,9 +87,9 @@ export const Menu = ({}) => {
         icon={path == "/saved" ? bookSolid : bookRegular}
       />
       <ListItem
-        link={`/profile/${user.id}`}
+        link={`/u/${user.id}`}
         text={"Perfil"}
-        icon={path == `/profile/${user.id}` ? userSolid : userRegular}
+        icon={path == `/u/${user.id}` ? userSolid : userRegular}
       />
     </ul>
   );

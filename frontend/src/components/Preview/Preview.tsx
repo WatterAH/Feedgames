@@ -12,8 +12,8 @@ interface Props {
 export const Preview: React.FC<Props> = ({ post, notSave }) => {
   const { id } = post;
   return (
-    <Link to={`/post/${id}`}>
-      <div className="font-montserrat w-full h-32 border flex flex-col rounded-md shadow-sm px-3 py-2 gap-y-1">
+    <Link to={`/p/${id}`}>
+      <div className="font-montserrat w-full h-32 border-b flex flex-col px-3 py-2 gap-y-1">
         <PreviewHeader post={post} notSave={notSave} />
         <PreviewContent post={post} />
       </div>

@@ -58,7 +58,7 @@ export const ExplorePost = () => {
             <Post data={post} />
             <Comments
               data={{
-                parent_id: id,
+                parent_id: id as string,
                 post_id: post.id,
                 toNotify: post.user_id,
                 response: false,

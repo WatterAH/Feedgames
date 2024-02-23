@@ -7,7 +7,7 @@ import { CommentInterface } from "../../interfaces/Comment";
 export const ReplyTo = ({ comment }: { comment: CommentInterface }) => {
   const { id, responses } = comment;
   return (
-    <Link to={`/comment/${id}`} className="flex items-center gap-x-1">
+    <Link to={`/c/${id}`} className="flex items-center gap-x-1">
       <FontAwesomeIcon
         icon={faReply}
         className="text-gray-500 h-4 hover:scale-125 transition-transform"

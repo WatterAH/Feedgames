@@ -10,7 +10,7 @@ interface Props {
 export const CommentButton = ({ commentData }: { commentData: Props }) => {
   const { id } = commentData;
   return (
-    <Link to={`/post/${id}`}>
+    <Link to={`/p/${id}`}>
       <button className="active:scale-125 transition-transform">
         <FontAwesomeIcon icon={faComment} className="h-6 text-cyan-300" />
       </button>

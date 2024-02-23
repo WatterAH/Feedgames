@@ -23,7 +23,7 @@ export const Comment: React.FC<Props> = ({ comment, setComments, option }) => {
   return (
     <div className="w-fit">
       <div className="flex items-center gap-x-2">
-        <Link to={`/profile/${id_user}`}>
+        <Link to={`/u/${id_user}`}>
           <img src={src} alt="pfp" className="rounded-full h-8 w-8" />
         </Link>
         <div className="rounded-xl w-fit py-2 px-3 bg-gray-100">

@@ -4,12 +4,7 @@ import {
   notify,
   readAllByIds,
 } from "../database/notifications.js";
-import { getFollowers } from "../database/simpleGet.js";
-import {
-  insertFollow,
-  joinParty,
-  stopFollow,
-} from "../database/simpleInsert.js";
+import { insertFollow, stopFollow } from "../database/simpleInsert.js";
 
 export const getNotifications = async (req, res) => {
   try {
@@ -44,7 +39,7 @@ export const likePost = async (req, res) => {
     } else {
       if (id_user != user_post) {
         const text = `A ${username} le gusta tu publicación`;
-        notify(user_post, false, "Post", id_post, text, 0);
+        notify(user_post, false, "p", id_post, text, 0);
         return res.status(200).json({ message: "Te gusta" });
       }
     }
@@ -119,7 +114,7 @@ export const followUser = async (req, res) => {
         .json({ message: "No se pudo completar la accion" });
     } else {
       const text = `${username} comenzo a seguirte`;
-      notify(id_followed, false, "Profile", id_follower, text, 2);
+      notify(id_followed, false, "u", id_follower, text, 2);
       return res.status(200).json({ message: "OK" });
     }
   } catch (error) {
