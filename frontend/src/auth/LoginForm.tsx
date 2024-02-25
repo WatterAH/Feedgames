@@ -12,6 +12,8 @@ import { faEye as faEyeSolid } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../context/AuthContext";
 import { loginApi } from "../Api/auth";
 import { Header } from "./Header";
+import { useCookies } from "react-cookie";
+import { getExpirationDate } from "../functions/date";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string>>;
@@ -23,14 +25,22 @@ export const LoginForm: React.FC<Props> = ({ setContent }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [_cookies, setCookie] = useCookies();
   const nav = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const userData = await loginApi(username, password);
-      login(userData);
+      const data = await loginApi(username, password);
+      const { user, token } = data;
+      login(user);
+      setCookie("token", token, {
+        path: "/",
+        expires: getExpirationDate(),
+        secure: true,
+        sameSite: "none",
+      });
       nav("/");
     } catch (error: any) {
       const { message } = error;

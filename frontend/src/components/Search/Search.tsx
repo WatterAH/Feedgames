@@ -32,7 +32,7 @@ export const Search = () => {
         <Input
           onChange={handleSearch}
           type="search"
-          placeholder="Busca personas, publicaciones..."
+          placeholder="Busca personas..."
         />
       </div>
       {resultCondition.length > 0 && <MapResults results={resultCondition} />}

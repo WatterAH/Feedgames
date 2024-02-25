@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import { useUser } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { registerApi } from "../Api/auth";
+import { useCookies } from "react-cookie";
+import { getExpirationDate } from "../functions/date";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string>>;
@@ -24,13 +26,21 @@ export const BasicInfo: React.FC<Props> = ({ setContent }) => {
   const [username, setUserName] = useState("");
   const [details, setDetails] = useState("");
   const [password, setPassword] = useState("");
+  const [_cookies, setCookie] = useCookies();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const user = await registerApi(name, username, details, password);
+      const data = await registerApi(name, username, details, password);
+      const { user, token } = data;
       login(user);
+      setCookie("token", token, {
+        path: "/",
+        expires: getExpirationDate(),
+        secure: true,
+        sameSite: "none",
+      });
       nav("/");
     } catch (error: any) {
       const { message } = error;

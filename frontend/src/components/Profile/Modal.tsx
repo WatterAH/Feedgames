@@ -10,6 +10,8 @@ import { editProfile } from "../../Api/profile";
 import { isImage } from "../../functions/validator";
 import default_pfp from "../../assets/img/default.png";
 import { User } from "../../interfaces/User";
+import { getExpirationDate } from "../../functions/date";
+import { useCookies } from "react-cookie";
 
 interface Props {
   closeModal: () => void;
@@ -28,13 +30,21 @@ export const Modal: React.FC<Props> = ({ closeModal, isOpen, userData }) => {
   const [username, setUsername] = useState(userData.username);
   const [name, setName] = useState(userData.name);
   const [details, setDetails] = useState(userData.details);
+  const [_cookies, setCookie] = useCookies();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setLoading(true);
       const data = await editProfile(user.id, name, username, details, image);
-      login(data);
+      const { user: userData, token } = data;
+      login(userData);
+      setCookie("token", token, {
+        path: "/",
+        expires: getExpirationDate(),
+        secure: true,
+        sameSite: "none",
+      });
       window.location.reload();
     } catch (error: any) {
       const { message } = error;

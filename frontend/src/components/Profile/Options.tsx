@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../Api/auth";
 import { toast } from "react-toastify";
+import riotgames from "../../assets/img/riotgames.svg";
 
 interface Props {
   openModal: () => void;
@@ -69,6 +70,24 @@ export const Options: React.FC<Props> = ({ openModal }) => {
                 </a>
               )}
             </Menu.Item>
+            {/* <Menu.Item>
+              {({ active }) => (
+                <a
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-600" : "text-gray-600",
+                    "px-4 py-2 text-sm hover:cursor-pointer flex items-center"
+                  )}
+                  href="https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid"
+                >
+                  <img
+                    src={riotgames}
+                    alt="riot"
+                    className="h-5 w-5 -ml-1 mr-2"
+                  />
+                  Riot Games
+                </a>
+              )}
+            </Menu.Item> */}
             <Menu.Item>
               {({ active }) => (
                 <a

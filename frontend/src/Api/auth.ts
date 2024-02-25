@@ -1,11 +1,10 @@
 import { URL } from "../App";
-import { getToken, setCookie } from "../functions/token";
 import { User } from "../interfaces/User";
 
 export const loginApi = async (
   username: string,
   password: string
-): Promise<User> => {
+): Promise<{ user: User; token: string }> => {
   const body = { username, password };
   const res = await fetch(`${URL}/api/login`, {
     method: "POST",
@@ -17,9 +16,7 @@ export const loginApi = async (
   });
   const resData = await res.json();
   if (res.ok) {
-    const { user, token }: { user: User; token: string } = resData;
-    setCookie(token);
-    return user;
+    return resData;
   } else {
     throw new Error(resData.message);
   }
@@ -30,7 +27,7 @@ export const registerApi = async (
   username: string,
   details: string,
   password: string
-): Promise<User> => {
+): Promise<{ user: User; token: string }> => {
   const body = { name, username, details, password };
   const res = await fetch(`${URL}/api/register`, {
     method: "POST",
@@ -43,16 +40,13 @@ export const registerApi = async (
   const resData = await res.json();
 
   if (res.ok) {
-    const { user, token }: { user: User; token: string } = resData;
-    setCookie(token);
-    return user;
+    return resData;
   } else {
     throw new Error(resData.message);
   }
 };
 
-export const checkAuth = async (): Promise<User> => {
-  const token = getToken();
+export const checkAuth = async (token: string): Promise<User> => {
   const res = await fetch(`${URL}/api/checkAuth?token=${token}`, {
     method: "GET",
     credentials: "include",

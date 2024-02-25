@@ -26,7 +26,7 @@ import { NotificationDot } from "./NotificationDot";
 import { MapNotify } from "../Notifications/MapNotify";
 import { Notification } from "../../interfaces/Notification";
 
-export const Menu = ({}) => {
+export const Menu = () => {
   const location = useLocation();
   const path = location.pathname.toLocaleLowerCase();
   const { user } = useUser();
@@ -39,7 +39,7 @@ export const Menu = ({}) => {
     };
 
     const fetchUnreadNotifications = async () => {
-      if (user.id) {
+      if (user && user.id) {
         const value = await hasUnreadNotifications(user.id);
         setNewNotify(value);
       }
@@ -47,7 +47,7 @@ export const Menu = ({}) => {
 
     fetchUnreadNotifications();
     subscribeToNotify(handleNewNotification);
-  }, [user.id]);
+  }, [user && user.id]);
 
   return (
     <ul className="lg:mt-10 flex h-3 lg:gap-y-5 flex-row items-center lg:items-stretch justify-between lg:flex-col z-10">

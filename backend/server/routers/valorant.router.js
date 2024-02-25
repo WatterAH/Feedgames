@@ -1,12 +1,10 @@
 import { Router } from "express";
 import {
-  getMatchByUuid,
-  getMatchesIdsByPuuid,
-  getPlayerByName,
+  getPlayerUuid,
+  oauth2_callback,
 } from "../controllers/valorant.controller.js";
 
 export const valorantRouter = Router();
 
-valorantRouter.get("/api/getPlayerByName", getPlayerByName);
-valorantRouter.get("/api/getMatchesIdsByPuuid", getMatchesIdsByPuuid);
-valorantRouter.get("/api/getMatchByUuid", getMatchByUuid);
+valorantRouter.get("/oauth2-callback", oauth2_callback);
+valorantRouter.get("/val/getPlayerUuid", getPlayerUuid);

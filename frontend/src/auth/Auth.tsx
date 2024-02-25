@@ -24,8 +24,8 @@ export const Auth = () => {
       >
         {renderContent()}
         <footer className="w-full flex mt-5 sm:mt-0 mb-4 justify-center items-center gap-x-4">
-          <Link text={"Terminos de servicio."} content={"TermsOfService"} />
-          <Link text={"Aviso de privacidad."} content={"Privacy"} />
+          <Link text={"Terminos de servicio"} content={"TermsOfService"} />
+          <Link text={"Aviso de privacidad"} content={"Privacy"} />
         </footer>
       </div>
     </div>

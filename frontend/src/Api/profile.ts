@@ -1,5 +1,4 @@
 import { URL } from "../App";
-import { setCookie } from "../functions/token";
 import { PostInterface } from "../interfaces/Post";
 import { User } from "../interfaces/User";
 
@@ -47,7 +46,7 @@ export const editProfile = async (
   username: string,
   details: string,
   image: File | null
-): Promise<User> => {
+): Promise<{ user: User; token: string }> => {
   const formData = new FormData();
   formData.append("id", id);
   formData.append("name", name);
@@ -64,9 +63,7 @@ export const editProfile = async (
   });
   const resData = await res.json();
   if (res.ok) {
-    const { user, token } = resData;
-    setCookie(token);
-    return user as User;
+    return resData;
   } else {
     const { message } = resData;
     throw new Error(message);

@@ -10,17 +10,19 @@ import { LoadingPage } from "../components/LoadingPage";
 import { ExploreComment } from "../components/Comment/ExploreComment";
 import { ExplorePost } from "../components/Post/ExplorePost";
 import { Profile } from "../components/Profile/Profile";
+import { useCookies } from "react-cookie";
 import logo from "../assets/img/logov2.png";
 
 export const Home = () => {
   const nav = useNavigate();
   const { login } = useUser();
   const [loading, setLoading] = useState(false);
+  const [cookies] = useCookies();
 
   const handleToken = async () => {
     try {
       setLoading(true);
-      const data = await checkAuth();
+      const data = await checkAuth(cookies.token);
       login(data);
     } catch (error) {
       nav("/auth");

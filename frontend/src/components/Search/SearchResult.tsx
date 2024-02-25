@@ -6,7 +6,7 @@ import { User } from "../../interfaces/User";
 
 export const SearchResult = ({ result }: { result: User }) => {
   return (
-    <Link to={`/profile/${result.id}`}>
+    <Link to={`/u/${result.id}`}>
       <section className="flex flex-col p-1 rounded-md hover:cursor-pointer hover:bg-gray-100 duration-700">
         <SearchResultHeader result={result} />
         <SearchResultDetails result={result} />
