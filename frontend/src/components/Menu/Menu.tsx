@@ -10,7 +10,7 @@ import {
 import {
   faWindowRestore as windowSolid,
   faEdit as editSolid,
-  faBell as bellSolid
+  faBell as bellSolid,
   faUser as userSolid,
   faBookmark as bookSolid,
 } from "@fortawesome/free-solid-svg-icons";
