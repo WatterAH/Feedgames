@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { getTendencyPost } from "../../Api/suggestions";
 import { LoadingPage } from "../LoadingPage";
 import { TendencyPosts } from "./TendencyPosts";
@@ -8,6 +7,7 @@ import { PostInterface } from "../../interfaces/Post";
 export const Tendency = () => {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const loadSuggestions = async () => {
     try {
@@ -15,10 +15,7 @@ export const Tendency = () => {
       const tendencyPost = await getTendencyPost();
       setPosts(tendencyPost);
     } catch (error: any) {
-      const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -31,7 +28,13 @@ export const Tendency = () => {
   return (
     <section className="hidden max-w-xs md:block p-5">
       <p className="text-xl mb-5 font-montserrat">En tendencia</p>
-      {loading ? <LoadingPage /> : <TendencyPosts posts={posts} />}
+      {loading ? (
+        <LoadingPage />
+      ) : error ? (
+        <h1>No se pudieron cargar los posts.</h1>
+      ) : (
+        <TendencyPosts posts={posts} />
+      )}
     </section>
   );
 };

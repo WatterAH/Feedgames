@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { getMySaved } from "../../Api/actions";
 import { SavedTitle } from "./SavedTitle";
 import { NotSaved } from "./NotSaved";
 import { MapSaved } from "./MapSaved";
 import { PostInterface } from "../../interfaces/Post";
+import { ErrorPage } from "../ErrorPage";
 
 export const Saved = () => {
   const { user } = useUser();
   const [savedList, setSavedList] = useState<PostInterface[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchSaved = async () => {
     try {
@@ -19,10 +20,7 @@ export const Saved = () => {
       const savedFetched = await getMySaved(user.id);
       setSavedList(savedFetched);
     } catch (error: any) {
-      const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -43,12 +41,13 @@ export const Saved = () => {
       <SavedTitle />
       {loading ? (
         <LoadingPage />
+      ) : error ? (
+        <ErrorPage />
       ) : savedList.length > 0 ? (
         <MapSaved savedList={savedList} />
       ) : (
         <NotSaved />
       )}
-      <ToastContainer />
     </div>
   );
 };

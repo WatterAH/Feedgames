@@ -1,4 +1,4 @@
-import { User } from "./User";
+import { User, defaultUser } from "./User";
 
 export interface DateObj {
   day: number;
@@ -35,12 +35,5 @@ export const defaultPost: PostInterface = {
   order: "",
   publicUrl: null,
   tags: [],
-  user: {
-    created_at: "",
-    details: "",
-    id: "",
-    name: "",
-    pfp: undefined,
-    username: "",
-  },
+  user: defaultUser,
 };

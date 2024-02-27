@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import { useUser } from "../context/AuthContext";
 import { fetchPosts } from "../Api/post";
 import { MapPost } from "./MapPost";
 import { PostInterface } from "../interfaces/Post";
+import { ErrorPage } from "../components/ErrorPage";
 
 export const Feed = () => {
   const { user } = useUser();
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleFeed = async () => {
     try {
@@ -16,10 +17,7 @@ export const Feed = () => {
       const data = await fetchPosts(user.id);
       setPosts((prevPost) => [...prevPost, ...data]);
     } catch (error: any) {
-      const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -31,10 +29,5 @@ export const Feed = () => {
     }
   }, [user.id]);
 
-  return (
-    <>
-      <MapPost posts={posts} loading={loading} />
-      <ToastContainer />
-    </>
-  );
+  return error ? <ErrorPage /> : <MapPost posts={posts} loading={loading} />;
 };

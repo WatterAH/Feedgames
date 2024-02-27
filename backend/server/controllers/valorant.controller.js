@@ -45,7 +45,8 @@ export const getPlayerUuid = async (req, res) => {
     const response = await fetch(ENDPOINT_URL, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Bearer ${access_token}`,
+        //  TODO: Bearer access
+        Authorization: access_token,
       },
     });
 
