@@ -61,12 +61,12 @@ export const Menu = () => {
       <ListItem
         link={"/"}
         text={"Inicio"}
-        icon={path == "/" ? windowSolid : windowRegular}
+        icon={path == "/" && !openNotify ? windowSolid : windowRegular}
       />
       <ListItem
         link={"/create"}
         text={"Crear"}
-        icon={path == "/create" ? editSolid : editRegular}
+        icon={path == "/create" && !openNotify ? editSolid : editRegular}
       />
       <button
         onClick={() => {
@@ -85,12 +85,12 @@ export const Menu = () => {
       <ListItem
         link={"/saved"}
         text={"Guardado"}
-        icon={path == "/saved" ? bookSolid : bookRegular}
+        icon={path == "/saved" && !openNotify ? bookSolid : bookRegular}
       />
       <ListItem
         link={`/u/${user.id}`}
         text={"Perfil"}
-        icon={path == `/u/${user.id}` ? userSolid : userRegular}
+        icon={path == `/u/${user.id}` && !openNotify ? userSolid : userRegular}
       />
     </ul>
   );
