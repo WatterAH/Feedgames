@@ -10,6 +10,7 @@ import {
 import {
   faWindowRestore as windowSolid,
   faEdit as editSolid,
+  faBell as bellSolid
   faUser as userSolid,
   faBookmark as bookSolid,
 } from "@fortawesome/free-solid-svg-icons";
@@ -77,7 +78,7 @@ export const Menu = () => {
         {newNotify && <NotificationDot />}
         <ListItem
           text={"Notificaciones"}
-          icon={bellRegular}
+          icon={openNotify ? bellSolid : bellRegular}
           link={undefined as unknown as string}
         />
       </button>
