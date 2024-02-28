@@ -2,10 +2,10 @@ import React from "react";
 import { Commentator } from "./Commentator";
 import { useUser } from "../../context/AuthContext";
 import { Options } from "../Options";
-import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { deleteComment } from "../../Api/comments";
 import { toast } from "react-toastify";
 import { CommentInterface } from "../../interfaces/Comment";
+import { EllipsisHorizontalIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   comment: CommentInterface;
@@ -40,7 +40,7 @@ export const CommentHeader: React.FC<Props> = ({
   const options = [
     {
       label: "Eliminar",
-      icon: faTrash,
+      Icon: TrashIcon,
       textColor: "text-red-500",
       onClick: handleDelete,
     },
@@ -50,7 +50,11 @@ export const CommentHeader: React.FC<Props> = ({
     <header className="flex justify-between gap-x-3">
       <Commentator comment={comment} />
       {comment.id_user == user.id && option ? (
-        <Options icon_options={faEllipsis} options={options} />
+        <Options
+          Icon_options={EllipsisHorizontalIcon}
+          options={options}
+          className="h-4 text-gray-700 mt-2"
+        />
       ) : null}
     </header>
   );

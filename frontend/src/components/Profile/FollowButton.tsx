@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { faUserCheck, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { dontFollowUser, followUser } from "../../Api/interactions";
 import { User } from "../../interfaces/User";
+import { UserMinusIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 
 export const FollowButton = ({ userData }: { userData: User }) => {
   const { user } = useUser();
@@ -32,12 +31,11 @@ export const FollowButton = ({ userData }: { userData: User }) => {
       className="active:scale-125 transition-transform"
       onClick={handleFollow}
     >
-      <FontAwesomeIcon
-        icon={followed ? faUserCheck : faUserPlus}
-        className={`h-4 md:h-5 ${
-          followed ? "text-emerald-400" : "text-gray-400"
-        }`}
-      />
+      {followed ? (
+        <UserMinusIcon aria-hidden="true" className="h-6 text-emerald-500" />
+      ) : (
+        <UserPlusIcon aria-hidden="true" className="h-6 text-gray-400" />
+      )}
     </button>
   );
 };

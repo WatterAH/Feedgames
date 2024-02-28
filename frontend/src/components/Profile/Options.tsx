@@ -1,15 +1,14 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-  faGear,
-  faRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../Api/auth";
 import { toast } from "react-toastify";
 import riotgames from "../../assets/img/riotgames.svg";
+import {
+  CogIcon,
+  PencilSquareIcon,
+  ArrowLeftStartOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 
 interface Props {
   openModal: () => void;
@@ -38,7 +37,7 @@ export const Options: React.FC<Props> = ({ openModal }) => {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5">
-          <FontAwesomeIcon icon={faGear} className="h-6 text-gray-700" />
+          <CogIcon aria-hidden="true" className="h-7 text-gray-700 mt-2" />
         </Menu.Button>
       </div>
 
@@ -58,14 +57,11 @@ export const Options: React.FC<Props> = ({ openModal }) => {
                 <a
                   className={classNames(
                     active ? "bg-gray-100 text-gray-600" : "text-gray-600",
-                    "block px-4 py-2 text-sm hover:cursor-pointer"
+                    "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
                   )}
                   onClick={openModal}
                 >
-                  <FontAwesomeIcon
-                    icon={faEdit}
-                    className="mr-2 text-teal-800"
-                  />
+                  <PencilSquareIcon aria-hidden="true" className="h-5 mr-2" />
                   Editar perfil
                 </a>
               )}
@@ -93,13 +89,13 @@ export const Options: React.FC<Props> = ({ openModal }) => {
                 <a
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm hover:cursor-pointer"
+                    "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
                   )}
                   onClick={logout}
                 >
-                  <FontAwesomeIcon
-                    icon={faRightFromBracket}
-                    className="mr-2 text-red-500"
+                  <ArrowLeftStartOnRectangleIcon
+                    aria-hidden="true"
+                    className="text-red-400 h-5 mr-2 -ml-1"
                   />
                   Cerrar sesión
                 </a>

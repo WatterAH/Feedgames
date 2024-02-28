@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { faBookmark as bookRegular } from "@fortawesome/free-regular-svg-icons";
-import { faBookmark as bookSolid } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { BookmarkIcon as BookOut } from "@heroicons/react/24/outline";
+import { BookmarkSlashIcon as BookSolid } from "@heroicons/react/24/solid";
 import { useUser } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import { dontSavePost, savePost } from "../../Api/interactions";
@@ -45,10 +44,11 @@ export const SaveButton = ({ saveData }: { saveData: Props }) => {
       onClick={handleSave}
       className="active:scale-125 transition-transform"
     >
-      <FontAwesomeIcon
-        icon={saved ? bookSolid : bookRegular}
-        className="h-6 text-orange-200"
-      />
+      {saved ? (
+        <BookSolid aria-hidden="true" className="h-6 text-amber-300" />
+      ) : (
+        <BookOut aria-hidden="true" className="h-6 text-amber-300" />
+      )}
     </button>
   );
 };

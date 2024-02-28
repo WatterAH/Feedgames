@@ -1,17 +1,16 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { UserIcon } from "@heroicons/react/24/outline";
 
 interface Option {
   onClick: () => void;
-  icon: IconProp;
+  Icon: typeof UserIcon;
   textColor: string;
   label: string;
 }
 
 interface Props {
-  icon_options: IconProp;
+  Icon_options: typeof UserIcon;
   className?: string;
   options: Option[];
 }
@@ -21,7 +20,7 @@ function classNames(...classes: string[]) {
 }
 
 export const Options: React.FC<Props> = ({
-  icon_options,
+  Icon_options,
   className,
   options,
 }) => {
@@ -29,7 +28,7 @@ export const Options: React.FC<Props> = ({
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5">
-          <FontAwesomeIcon icon={icon_options} className={className} />
+          <Icon_options aria-hidden="true" className={className} />
         </Menu.Button>
       </div>
 
@@ -50,13 +49,13 @@ export const Options: React.FC<Props> = ({
                   <a
                     className={classNames(
                       active ? "bg-gray-100 text-gray-600" : "text-gray-600",
-                      "block px-4 py-2 text-sm hover:cursor-pointer"
+                      "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
                     )}
                     onClick={option.onClick}
                   >
-                    <FontAwesomeIcon
-                      icon={option.icon}
-                      className={`mr-2 ${option.textColor}`}
+                    <option.Icon
+                      aria-hidden="true"
+                      className={`mr-2 h-4 ${option.textColor}`}
                     />
                     {option.label}
                   </a>

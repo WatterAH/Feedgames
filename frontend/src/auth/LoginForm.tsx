@@ -6,14 +6,12 @@ import { Label } from "../components/Label";
 import { Button } from "../components/Button";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
-import { faEye as faEyeSolid } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../context/AuthContext";
 import { loginApi } from "../Api/auth";
 import { Header } from "./Header";
 import { useCookies } from "react-cookie";
 import { getExpirationDate } from "../functions/date";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string>>;
@@ -79,9 +77,11 @@ export const LoginForm: React.FC<Props> = ({ setContent }) => {
               type="button"
               onClick={() => setPasswordVisibility(!passwordVisibility)}
             >
-              <FontAwesomeIcon
-                icon={passwordVisibility ? faEyeSolid : faEyeRegular}
-              />
+              {passwordVisibility ? (
+                <EyeIcon className="h-6 sm:h-5 text-gray-400" />
+              ) : (
+                <EyeSlashIcon className="h-6 sm:h-5 text-gray-400" />
+              )}
             </button>
           </span>
           <button

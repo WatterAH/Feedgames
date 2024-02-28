@@ -1,8 +1,7 @@
 import React from "react";
 import copy from "clipboard-copy";
-import { faShareFromSquare } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   id: string;
@@ -30,8 +29,14 @@ export const ShareButton = ({ shareData }: { shareData: Props }) => {
   };
 
   return (
-    <button className="active:scale-125 transition-transform" onClick={share}>
-      <FontAwesomeIcon icon={faShareFromSquare} className="h-6 text-teal-500" />
-    </button>
+    <>
+      <button className="active:scale-125 transition-transform" onClick={share}>
+        <ArrowTopRightOnSquareIcon
+          aria-hidden="true"
+          className="h-6 text-gray-600"
+        />
+      </button>
+      <ToastContainer />
+    </>
   );
 };

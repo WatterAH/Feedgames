@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { HeartIcon as HeartOut } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { likePost, dontLikePost } from "../../Api/interactions";
@@ -42,10 +41,11 @@ export const LikeButton = ({ likeData }: { likeData: Props }) => {
       onClick={handleLike}
       className="active:scale-125 transition-transform"
     >
-      <FontAwesomeIcon
-        icon={liked ? faHeartSolid : faHeartRegular}
-        className="h-6 text-rose-400"
-      />
+      {liked ? (
+        <HeartSolid aria-hidden="true" className="h-6 text-rose-400" />
+      ) : (
+        <HeartOut aria-hidden="true" className="h-6 text-rose-400" />
+      )}
     </button>
   );
 };

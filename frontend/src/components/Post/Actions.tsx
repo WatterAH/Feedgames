@@ -17,7 +17,7 @@ export const Actions: React.FC<Props> = ({ data }) => {
 
   return (
     <div className="flex justify-between items-center mb-5">
-      <section className="flex gap-x-4">
+      <section className="flex gap-x-3">
         <span className="flex items-center justify-center gap-1">
           <LikeButton likeData={{ id, isLiked, setLikedNum, user_id }} />
           <p className="text-gray-500 text-xs">{formatNumber(likedNum)}</p>
@@ -26,7 +26,7 @@ export const Actions: React.FC<Props> = ({ data }) => {
           <SaveButton saveData={{ id, isSaved, setSavedNum }} />
           <p className="text-gray-500 text-xs">{formatNumber(savedNum)}</p>
         </span>
-        <span className="flex items-center justify-center gap-1">
+        <span className="flex items-center justify-center gap-1 mt-1">
           <CommentButton commentData={{ id }} />
           <p className="text-gray-500 text-xs">{comments.length}</p>
         </span>

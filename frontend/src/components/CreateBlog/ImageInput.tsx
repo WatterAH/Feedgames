@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { faImage } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Label } from "../Label";
 import { toast } from "react-toastify";
 import { ImagePreview } from "./ImagePreview";
 import { isImage } from "../../functions/validator";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
@@ -44,9 +43,9 @@ export const ImageInput: React.FC<Props> = ({ setImage }) => {
       </div>
       <div className="flex justify-center">
         <Label htmlFor="Image">
-          <FontAwesomeIcon
-            icon={faImage}
-            className="text-sky-400 h-5 hover:cursor-pointer"
+          <PhotoIcon
+            aria-hidden="true"
+            className="text-sky-400 h-6 hover:cursor-pointer"
           />
         </Label>
         <input

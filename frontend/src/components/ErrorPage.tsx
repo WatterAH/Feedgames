@@ -1,6 +1,5 @@
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 export const ErrorPage = () => {
   return (
@@ -9,10 +8,7 @@ export const ErrorPage = () => {
         <h1 className="text-3xl">Ocurrio un error</h1>
         <p className="text-xl">Intenta más tarde</p>
       </header>
-      <FontAwesomeIcon
-        icon={faTriangleExclamation}
-        className="text-red-400 h-16 w-16"
-      />
+      <ExclamationTriangleIcon className="text-red-400 h-16 w-16" />
     </div>
   );
 };

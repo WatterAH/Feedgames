@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "../components/Input";
 import { Label } from "../components/Label";
-import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
-import { faEye as faEyeSolid } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../components/Button";
 import { Loading } from "../components/Loading";
 import { toast } from "react-toastify";
@@ -12,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { registerApi } from "../Api/auth";
 import { useCookies } from "react-cookie";
 import { getExpirationDate } from "../functions/date";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string>>;
@@ -104,9 +102,11 @@ export const BasicInfo: React.FC<Props> = ({ setContent }) => {
           type="button"
           onClick={() => setPasswordVisibility(!passwordVisibility)}
         >
-          <FontAwesomeIcon
-            icon={passwordVisibility ? faEyeSolid : faEyeRegular}
-          />
+          {passwordVisibility ? (
+            <EyeIcon className="h-6 sm:h-5 text-gray-400" />
+          ) : (
+            <EyeSlashIcon className="h-6 sm:h-5 text-gray-400" />
+          )}
         </button>
         <button
           type="button"

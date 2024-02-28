@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "../Input";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
+import { BackspaceIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   tags: string[];
@@ -46,7 +45,7 @@ export const CreateTags: React.FC<Props> = ({ setTags, tags }) => {
         {tags.map((tag, index) => (
           <span
             key={index}
-            className="inline-block bg-gray-300 text-gray-700 px-2 py-1 rounded-full text-xs font-rubik tracking-wide uppercase"
+            className="flex items-center bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs font-rubik tracking-wide uppercase"
           >
             {tag}
             <button
@@ -54,10 +53,7 @@ export const CreateTags: React.FC<Props> = ({ setTags, tags }) => {
               type="button"
               onClick={() => handleTagRemove(index)}
             >
-              <FontAwesomeIcon
-                className="text-red-400 h-3"
-                icon={faDeleteLeft}
-              />
+              <BackspaceIcon aria-hidden="true" className="text-red-400 h-4" />
             </button>
           </span>
         ))}

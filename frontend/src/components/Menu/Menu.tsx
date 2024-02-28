@@ -4,24 +4,23 @@ import { ListItem } from "./ListItem";
 import { SlideOver } from "../SlideOver";
 import { useUser } from "../../context/AuthContext";
 import {
+  HomeIcon as HomeOut,
+  PencilSquareIcon as PencilOut,
+  BellAlertIcon as BellOut,
+  BookmarkIcon as BookOut,
+  UserIcon as UserOut,
+} from "@heroicons/react/24/outline";
+import {
+  HomeIcon as HomeSolid,
+  PencilSquareIcon as PencilSolid,
+  BellAlertIcon as BellSolid,
+  BookmarkIcon as BookSolid,
+  UserIcon as UserSolid,
+} from "@heroicons/react/24/solid";
+import {
   hasUnreadNotifications,
   subscribeToNotify,
 } from "../../Api/notifications";
-import {
-  faWindowRestore as windowSolid,
-  faEdit as editSolid,
-  faBell as bellSolid,
-  faUser as userSolid,
-  faBookmark as bookSolid,
-} from "@fortawesome/free-solid-svg-icons";
-
-import {
-  faWindowRestore as windowRegular,
-  faEdit as editRegular,
-  faBell as bellRegular,
-  faBookmark as bookRegular,
-  faUser as userRegular,
-} from "@fortawesome/free-regular-svg-icons";
 import { useLocation } from "react-router-dom";
 import { NotificationDot } from "./NotificationDot";
 import { MapNotify } from "../Notifications/MapNotify";
@@ -61,12 +60,12 @@ export const Menu = () => {
       <ListItem
         link={"/"}
         text={"Inicio"}
-        icon={path == "/" && !openNotify ? windowSolid : windowRegular}
+        Icon={path == "/" && !openNotify ? HomeSolid : HomeOut}
       />
       <ListItem
         link={"/create"}
         text={"Crear"}
-        icon={path == "/create" && !openNotify ? editSolid : editRegular}
+        Icon={path == "/create" && !openNotify ? PencilSolid : PencilOut}
       />
       <button
         onClick={() => {
@@ -78,19 +77,19 @@ export const Menu = () => {
         {newNotify && <NotificationDot />}
         <ListItem
           text={"Notificaciones"}
-          icon={openNotify ? bellSolid : bellRegular}
+          Icon={openNotify ? BellSolid : BellOut}
           link={undefined as unknown as string}
         />
       </button>
       <ListItem
         link={"/saved"}
         text={"Guardado"}
-        icon={path == "/saved" && !openNotify ? bookSolid : bookRegular}
+        Icon={path == "/saved" && !openNotify ? BookSolid : BookOut}
       />
       <ListItem
         link={`/u/${user.id}`}
         text={"Perfil"}
-        icon={path == `/u/${user.id}` && !openNotify ? userSolid : userRegular}
+        Icon={path == `/u/${user.id}` && !openNotify ? UserSolid : UserOut}
       />
     </ul>
   );

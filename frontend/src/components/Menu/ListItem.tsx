@@ -1,20 +1,28 @@
 import React from "react";
 import { Li } from "./Li";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { UserIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   link: string;
-  icon: IconProp;
+  Icon: typeof UserIcon;
   text: string;
 }
 
-export const ListItem: React.FC<Props> = ({ link, icon, text }) => {
+export const ListItem: React.FC<Props> = ({ link, Icon, text }) => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
-    <Link to={link}>
+    <Link to={link} onClick={scrollToTop}>
       <Li>
-        <FontAwesomeIcon icon={icon} className="h-5 lg:h-6 text-gray-800" />
+        <Icon
+          className="h-5 w-5 lg:h-7 lg:w-7 text-gray-800"
+          aria-hidden={true}
+        />
         <p className="hidden lg:block">{text}</p>
       </Li>
     </Link>

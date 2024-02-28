@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Input } from "../Input";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { MapResults } from "./MapResults";
 import { searchFor } from "../../Api/actions";
 import { User } from "../../interfaces/User";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,7 +27,7 @@ export const Search = () => {
   return (
     <div className="relative">
       <div className="p-6 flex items-center gap-x-3">
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
+        <MagnifyingGlassIcon aria-hidden="true" className="h-6" />
         <Input
           onChange={handleSearch}
           type="search"
