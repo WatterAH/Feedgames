@@ -29,3 +29,25 @@ export const searchFor = async (searchTerm: string): Promise<User[]> => {
     throw new Error(message);
   }
 };
+
+export const reportById = async (
+  id: string,
+  type: string,
+  reason: string
+): Promise<void> => {
+  const body = { id, type, reason };
+  const res = await fetch(`${URL}/api/reportById`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const resData = await res.json();
+    const { message } = resData;
+    throw new Error(message);
+  }
+  return;
+};

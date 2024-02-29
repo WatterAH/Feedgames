@@ -3,16 +3,16 @@ import { Menu, Transition } from "@headlessui/react";
 import { UserIcon } from "@heroicons/react/24/outline";
 
 interface Option {
-  onClick: () => void;
+  onClick?: () => void;
   Icon: typeof UserIcon;
-  textColor: string;
-  label: string;
+  textColor?: string;
+  label?: string;
 }
 
 interface Props {
   Icon_options: typeof UserIcon;
   className?: string;
-  options: Option[];
+  options: (Option | null)[];
 }
 
 function classNames(...classes: string[]) {
@@ -43,25 +43,27 @@ export const Options: React.FC<Props> = ({
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {options.map((option, index) => (
-              <Menu.Item key={index}>
-                {({ active }) => (
-                  <a
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-600" : "text-gray-600",
-                      "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
-                    )}
-                    onClick={option.onClick}
-                  >
-                    <option.Icon
-                      aria-hidden="true"
-                      className={`mr-2 h-4 ${option.textColor}`}
-                    />
-                    {option.label}
-                  </a>
-                )}
-              </Menu.Item>
-            ))}
+            {options.map((option, index) =>
+              option == null ? null : (
+                <Menu.Item key={index}>
+                  {({ active }) => (
+                    <a
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-600" : "text-gray-600",
+                        "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
+                      )}
+                      onClick={option.onClick}
+                    >
+                      <option.Icon
+                        aria-hidden="true"
+                        className={`mr-2 h-4 ${option.textColor}`}
+                      />
+                      {option.label}
+                    </a>
+                  )}
+                </Menu.Item>
+              )
+            )}
           </div>
         </Menu.Items>
       </Transition>

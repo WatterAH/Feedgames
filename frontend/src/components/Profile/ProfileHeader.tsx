@@ -4,15 +4,59 @@ import { ProfileFollowers } from "./ProfileFollowers";
 import { ProfileName } from "./ProfileName";
 import { FollowButton } from "./FollowButton";
 import { useUser } from "../../context/AuthContext";
-import { Options } from "./Options";
 import { Modal } from "./Modal";
 import { ProfilePicture } from "./ProfilePicture";
 import { User } from "../../interfaces/User";
+import {
+  ArrowLeftStartOnRectangleIcon,
+  Bars3Icon,
+  FlagIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/24/outline";
+import { Options } from "../Options";
+import { logoutApi } from "../../Api/auth";
+import { useNavigate } from "react-router-dom";
 
-export const ProfileHeader = ({ userData }: { userData: User }) => {
+interface Props {
+  userData: User;
+}
+
+export const ProfileHeader: React.FC<Props> = ({ userData }) => {
+  let [isOpen, setIsOpen] = useState(false);
   const { id, username, name, pfp } = userData;
   const { user } = useUser();
-  let [isOpen, setIsOpen] = useState(false);
+  const nav = useNavigate();
+
+  const logout = () => {
+    logoutApi().then(() => nav("/auth"));
+  };
+
+  const options = [
+    user.id !== id
+      ? {
+          Icon: FlagIcon,
+          textColor: "text-red-400",
+          label: "Reportar perfil",
+          onClick: () => {},
+        }
+      : null,
+    user.id === id
+      ? {
+          Icon: PencilSquareIcon,
+          textColor: "",
+          label: "Editar perfil",
+          onClick: openModal,
+        }
+      : null,
+    user.id === id
+      ? {
+          Icon: ArrowLeftStartOnRectangleIcon,
+          textColor: "text-red-400",
+          label: "Cerrar sesión",
+          onClick: logout,
+        }
+      : null,
+  ];
 
   function closeModal() {
     setIsOpen(false);
@@ -32,7 +76,11 @@ export const ProfileHeader = ({ userData }: { userData: User }) => {
           </h1>
         </span>
         <span className="flex items-center gap-x-1">
-          {user.id == id ? <Options openModal={openModal} /> : null}
+          <Options
+            Icon_options={Bars3Icon}
+            className="h-6 w-6 mt-1"
+            options={options}
+          />
         </span>
         <Modal closeModal={closeModal} isOpen={isOpen} userData={userData} />
       </section>
