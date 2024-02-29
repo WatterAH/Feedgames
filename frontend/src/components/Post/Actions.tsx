@@ -32,7 +32,7 @@ export const Actions: React.FC<Props> = ({ data }) => {
         </span>
       </section>
       <section>
-        <ShareButton shareData={{ id, content: "post" }} />
+        <ShareButton shareData={{ id, content: "p" }} />
       </section>
     </div>
   );
