@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { LikeButton } from "./LikeButton";
 import { CommentButton } from "./CommentButton";
 import { SaveButton } from "./SaveButton";
-import { ShareButton } from "./ShareButton";
 import { formatNumber } from "../../functions/numbers";
 import { PostInterface } from "../../interfaces/Post";
 
@@ -11,7 +10,8 @@ interface Props {
 }
 
 export const Actions: React.FC<Props> = ({ data }) => {
-  const { id, isSaved, user_id, saved, isLiked, liked, comments } = data;
+  const { id, user_id } = data;
+  const { saved, isSaved, liked, isLiked, comments, isCommented } = data;
   const [savedNum, setSavedNum] = useState<number | undefined>(saved.length);
   const [likedNum, setLikedNum] = useState(liked.length);
 
@@ -26,13 +26,12 @@ export const Actions: React.FC<Props> = ({ data }) => {
           <SaveButton saveData={{ id, isSaved, setSavedNum }} />
           <p className="text-gray-500 text-xs">{formatNumber(savedNum)}</p>
         </span>
-        <span className="flex items-center justify-center gap-1 mt-1">
-          <CommentButton commentData={{ id }} />
-          <p className="text-gray-500 text-xs">{comments.length}</p>
-        </span>
       </section>
       <section>
-        <ShareButton shareData={{ id, content: "p" }} />
+        <span className="flex items-center justify-center gap-1">
+          <CommentButton commentData={{ id, isCommented }} />
+          <p className="text-gray-500 text-xs mb-1">{comments.length}</p>
+        </span>
       </section>
     </div>
   );

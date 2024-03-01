@@ -18,7 +18,6 @@ export const oauth2_callback = async (req, res) => {
     const response = await fetch("https://auth.riotgames.com/token", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
         Authorization: auth,
       },
       body: formData,
@@ -40,13 +39,13 @@ export const oauth2_callback = async (req, res) => {
 export const getPlayerUuid = async (req, res) => {
   try {
     const { access_token } = req.query;
-    const ENDPOINT_URL = `https://americas.api.riotgames.com/riot/account/v1/accounts/me?api_key=${process.env.RIOT_API_RSO_KEY}`;
+    const ENDPOINT_URL =
+      "https://americas.api.riotgames.com/riot/account/v1/accounts/me";
 
     const response = await fetch(ENDPOINT_URL, {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        //  TODO: Bearer access
-        Authorization: access_token,
+        "X-Riot-Token": process.env.RIOT_API_RSO_KEY,
+        Authorization: `Bearer ${access_token}`,
       },
     });
 

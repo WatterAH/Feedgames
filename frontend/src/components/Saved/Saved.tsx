@@ -30,6 +30,10 @@ export const Saved = () => {
     if (user.id) {
       fetchSaved();
     }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [user.id]);
 
   return (

@@ -40,6 +40,10 @@ export const ExploreComment = () => {
     if (user.id) {
       getComment();
     }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [id, user.id]);
 
   return (

@@ -39,6 +39,10 @@ export const Profile = () => {
     if (user.id) {
       handleProfileViewer();
     }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [id, user.id]);
 
   return (

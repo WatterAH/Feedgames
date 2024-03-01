@@ -7,15 +7,10 @@ import { useUser } from "../../context/AuthContext";
 import { Modal } from "./Modal";
 import { ProfilePicture } from "./ProfilePicture";
 import { User } from "../../interfaces/User";
-import {
-  ArrowLeftStartOnRectangleIcon,
-  Bars3Icon,
-  FlagIcon,
-  PencilSquareIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import { Options } from "../Options";
-import { logoutApi } from "../../Api/auth";
-import { useNavigate } from "react-router-dom";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { profileOptions } from "./optionsConstant";
 
 interface Props {
   userData: User;
@@ -25,45 +20,12 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
   let [isOpen, setIsOpen] = useState(false);
   const { id, username, name, pfp } = userData;
   const { user } = useUser();
-  const nav = useNavigate();
-
-  const logout = () => {
-    logoutApi().then(() => nav("/auth"));
-  };
-
-  const options = [
-    user.id !== id
-      ? {
-          Icon: FlagIcon,
-          textColor: "text-red-400",
-          label: "Reportar perfil",
-          onClick: () => {},
-        }
-      : null,
-    user.id === id
-      ? {
-          Icon: PencilSquareIcon,
-          textColor: "",
-          label: "Editar perfil",
-          onClick: openModal,
-        }
-      : null,
-    user.id === id
-      ? {
-          Icon: ArrowLeftStartOnRectangleIcon,
-          textColor: "text-red-400",
-          label: "Cerrar sesión",
-          onClick: logout,
-        }
-      : null,
-  ];
+  const options = profileOptions(user, id, () => {
+    setIsOpen(true);
+  });
 
   function closeModal() {
     setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
   }
 
   return (
@@ -74,6 +36,10 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-montserrat font-semibold">
             {username}
           </h1>
+          <CheckBadgeIcon
+            aria-hidden="true"
+            className="text-blue-400 h-5 md:h-7"
+          />
         </span>
         <span className="flex items-center gap-x-1">
           <Options

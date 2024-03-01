@@ -3,12 +3,13 @@ import { Menu, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../Api/auth";
 import { toast } from "react-toastify";
-import riotgames from "../../assets/img/riotgames.svg";
+// import riotgames from "../../assets/img/riotgames.svg";
 import {
   CogIcon,
   PencilSquareIcon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
+import { Modal } from "../Modal";
 
 interface Props {
   openModal: () => void;
@@ -52,20 +53,6 @@ export const Options: React.FC<Props> = ({ openModal }) => {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-600" : "text-gray-600",
-                    "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
-                  )}
-                  onClick={openModal}
-                >
-                  <PencilSquareIcon aria-hidden="true" className="h-5 mr-2" />
-                  Editar perfil
-                </a>
-              )}
-            </Menu.Item>
             {/* <Menu.Item>
               {({ active }) => (
                 <a

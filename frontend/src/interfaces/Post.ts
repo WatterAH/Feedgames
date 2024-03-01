@@ -20,6 +20,7 @@ export interface PostInterface {
   saved: string[];
   isSaved: boolean;
   comments: string[];
+  isCommented: boolean;
 }
 
 export const defaultPost: PostInterface = {
@@ -32,6 +33,7 @@ export const defaultPost: PostInterface = {
   created_at: { day: 1, month: "Enero", year: 2024 },
   isLiked: false,
   isSaved: false,
+  isCommented: false,
   order: "",
   publicUrl: null,
   tags: [],

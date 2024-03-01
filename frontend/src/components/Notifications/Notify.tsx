@@ -51,9 +51,8 @@ export const Notify: React.FC<Props> = ({
 
   const options = [
     {
+      icon: <TrashIcon className="h-4 md:h-5 text-red-400 mr-2" />,
       label: "Eliminar",
-      Icon: TrashIcon,
-      textColor: "text-red-500",
       onClick: handleDelete,
     },
   ];

@@ -1,17 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { UserIcon } from "@heroicons/react/24/outline";
 
 interface Option {
-  onClick?: () => void;
-  Icon: typeof UserIcon;
-  textColor?: string;
-  label?: string;
+  icon: ReactNode;
+  href?: string;
+  onClick: () => void;
+  label: string;
 }
 
 interface Props {
   Icon_options: typeof UserIcon;
-  className?: string;
+  className: string;
   options: (Option | null)[];
 }
 
@@ -41,28 +41,26 @@ export const Options: React.FC<Props> = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {options.map((option, index) =>
-              option == null ? null : (
-                <Menu.Item key={index}>
+            {options.map((option, _index) =>
+              option != null ? (
+                <Menu.Item>
                   {({ active }) => (
                     <a
                       className={classNames(
                         active ? "bg-gray-100 text-gray-600" : "text-gray-600",
                         "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
                       )}
+                      href={option.href}
                       onClick={option.onClick}
                     >
-                      <option.Icon
-                        aria-hidden="true"
-                        className={`mr-2 h-4 ${option.textColor}`}
-                      />
+                      {option.icon}
                       {option.label}
                     </a>
                   )}
                 </Menu.Item>
-              )
+              ) : null
             )}
           </div>
         </Menu.Items>

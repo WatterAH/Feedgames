@@ -40,6 +40,10 @@ export const ExplorePost = () => {
     if (user.id) {
       getPost();
     }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [id, user.id]);
 
   return (

@@ -17,7 +17,7 @@ export const ListItem: React.FC<Props> = ({ link, Icon, text }) => {
     });
   };
   return (
-    <Link to={link} onClick={scrollToTop}>
+    <Link to={link} onClick={text != "Notificaciones" ? scrollToTop : () => {}}>
       <Li>
         <Icon
           className="h-5 w-5 lg:h-7 lg:w-7 text-gray-800"

@@ -1,20 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftIcon as ChatOut } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftIcon as ChatSolid } from "@heroicons/react/24/solid";
 
 interface Props {
   id: string;
+  isCommented: boolean;
 }
 
 export const CommentButton = ({ commentData }: { commentData: Props }) => {
-  const { id } = commentData;
+  const { id, isCommented } = commentData;
   return (
     <Link to={`/p/${id}`}>
       <button className="active:scale-125 transition-transform">
-        <ChatBubbleLeftEllipsisIcon
-          aria-hidden="true"
-          className="h-6 text-cyan-400"
-        />
+        {isCommented ? (
+          <ChatSolid aria-hidden="true" className="h-6 text-cyan-400" />
+        ) : (
+          <ChatOut aria-hidden="true" className="h-6 text-cyan-400" />
+        )}
       </button>
     </Link>
   );

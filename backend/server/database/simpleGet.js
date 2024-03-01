@@ -34,7 +34,7 @@ export const getAllPosts = async () => {
   const { data: posts, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name, pfp)"
+      "*, liked!left(id_user), saved!left(id_user), comments(id, id_user), user:users(username, name, pfp)"
     )
     .order("order", { ascending: false });
 

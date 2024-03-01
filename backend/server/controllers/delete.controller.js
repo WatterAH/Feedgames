@@ -10,7 +10,7 @@ export const deletePost = async (req, res) => {
   try {
     const { id } = req.body;
     await deletePostById(id);
-    return res.status(200).json({ message: "OK" });
+    return res.status(200).end();
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }

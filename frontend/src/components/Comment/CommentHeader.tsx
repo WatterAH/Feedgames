@@ -5,7 +5,8 @@ import { Options } from "../Options";
 import { deleteComment } from "../../Api/comments";
 import { toast } from "react-toastify";
 import { CommentInterface } from "../../interfaces/Comment";
-import { EllipsisHorizontalIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import { optionsComment } from "./optionsConstant";
 
 interface Props {
   comment: CommentInterface;
@@ -19,7 +20,7 @@ export const CommentHeader: React.FC<Props> = ({
   setComments,
 }) => {
   const { user } = useUser();
-  const { id } = comment;
+  const { id, id_user } = comment;
 
   const handleDelete = async () => {
     try {
@@ -37,19 +38,12 @@ export const CommentHeader: React.FC<Props> = ({
     }
   };
 
-  const options = [
-    {
-      label: "Eliminar",
-      Icon: TrashIcon,
-      textColor: "text-red-500",
-      onClick: handleDelete,
-    },
-  ];
+  const options = optionsComment(id_user, user, handleDelete);
 
   return (
     <header className="flex justify-between gap-x-3">
       <Commentator comment={comment} />
-      {comment.id_user == user.id && option ? (
+      {option ? (
         <Options
           Icon_options={EllipsisHorizontalIcon}
           options={options}
