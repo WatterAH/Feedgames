@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const PostContent: React.FC<Props> = ({ data }) => {
-  const { content, publicUrl } = data;
+  let { content, publicUrl } = data;
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -23,7 +23,7 @@ export const PostContent: React.FC<Props> = ({ data }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <p className="font-montserrat text-sm">
+      <p className="font-montserrat text-sm w-fit whitespace-pre-line">
         <MarkDown remarkPlugins={[remarkGfm]}>{content}</MarkDown>
       </p>
       <ImageViewer
