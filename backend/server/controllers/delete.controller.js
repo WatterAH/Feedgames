@@ -3,8 +3,8 @@ import {
   deletePostById,
   deleteNotification,
   deleteCommentsByIds,
-} from "../database/simpleDelete.js";
-import { getResponses } from "../database/simpleGet.js";
+} from "../database/delete.js";
+import { getResponses } from "../database/commentGetter.js";
 
 export const deletePost = async (req, res) => {
   try {

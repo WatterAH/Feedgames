@@ -1,4 +1,4 @@
-import { getAllPosts } from "../database/simpleGet.js";
+import { getAllPosts } from "../database/postGetter.js";
 import { findMaxItem, joinObjects, uniques } from "../libs/arrays.js";
 
 export const loadSuggestions = async (_req, res) => {

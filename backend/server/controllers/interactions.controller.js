@@ -4,7 +4,7 @@ import {
   notify,
   readAllByIds,
 } from "../database/notifications.js";
-import { insertFollow, stopFollow } from "../database/simpleInsert.js";
+import { insertFollow, stopFollow } from "../database/insert.js";
 
 export const getNotifications = async (req, res) => {
   try {

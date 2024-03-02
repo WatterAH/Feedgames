@@ -1,6 +1,6 @@
 import { supabase } from "../database/connection.js";
-import { getPostsByIds, getSavedById } from "../database/simpleGet.js";
-import { uploadImage } from "../database/simpleInsert.js";
+import { getPostsByIds, getSavedById } from "../database/postGetter.js";
+import { uploadImage } from "../database/insert.js";
 import { getDate } from "../libs/dates.js";
 
 export const createNewPost = async (req, res) => {

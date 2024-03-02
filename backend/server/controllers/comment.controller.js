@@ -1,11 +1,11 @@
 import { supabase } from "../database/connection.js";
 import { notify } from "../database/notifications.js";
 import {
-  getAllComents,
   getCommentById,
+  getAllComents,
   getCommentsByIds,
   getResponses,
-} from "../database/simpleGet.js";
+} from "../database/commentGetter.js";
 import { getDate } from "../libs/dates.js";
 
 export const getComment = async (req, res) => {

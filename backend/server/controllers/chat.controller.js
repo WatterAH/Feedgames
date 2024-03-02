@@ -1,8 +1,4 @@
-import {
-  getFollowers,
-  getFollows,
-  getProfilesByIds,
-} from "../database/simpleGet.js";
+import { getFollowers, getFollows } from "../database/profileGetter.js";
 
 export const getFriendsById = async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-import { getAllPosts } from "../database/simpleGet.js";
+import { getAllPosts } from "../database/postGetter.js";
 
 export const loadPosts = async (req, res) => {
   try {

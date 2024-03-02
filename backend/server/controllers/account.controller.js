@@ -2,10 +2,10 @@ import bcryptjs from "bcryptjs";
 import { supabase } from "../database/connection.js";
 import { isCorrectUsername, isStrongPassword } from "../libs/validator.js";
 import { createAccessToken, validateToken } from "../libs/token.js";
-import { editProfile } from "../database/compundEdit.js";
-import { getProfileById } from "../database/simpleGet.js";
-import { deleteImage } from "../database/simpleDelete.js";
-import { uploadImage } from "../database/simpleInsert.js";
+import { editProfile } from "../database/edit.js";
+import { deleteImage } from "../database/delete.js";
+import { uploadImage } from "../database/insert.js";
+import { getProfileById } from "../database/profileGetter.js";
 
 export const login = async (req, res) => {
   try {
