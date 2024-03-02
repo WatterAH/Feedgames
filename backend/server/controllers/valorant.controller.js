@@ -32,7 +32,7 @@ export const oauth2_callback = async (req, res) => {
       return res.redirect(`/val/getPlayerUuid?access_token=${access_token}`);
     }
   } catch (error) {
-    return res.redirect(`http://localhost:5173?error=${error.message}`);
+    return res.redirect(`https://feedgames.vercel.app?error=${error.message}`);
   }
 };
 
@@ -55,10 +55,10 @@ export const getPlayerUuid = async (req, res) => {
     } else {
       const userData = await response.json();
       return res.redirect(
-        `http://localhost:5173?data=${JSON.stringify(userData)}`
+        `https://feedgames.vercel.app?data=${JSON.stringify(userData)}`
       );
     }
   } catch (error) {
-    return res.redirect(`http://localhost:5173?error=${error.message}`);
+    return res.redirect(`https://feedgames.vercel.app?error=${error.message}`);
   }
 };

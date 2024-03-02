@@ -24,31 +24,26 @@ const Privacy = () => {
       </p>
       <ul className="text-gray-500 list-disc mt-2 pl-4">
         <li>
-          Las contraseñas están encriptadas y todas las medidas de seguridad
-          están implementadas para proteger los datos.
+          Las contraseñas se encuentran encriptadas y se han implementado todas
+          las medidas de seguridad necesarias para salvaguardar los datos.
+        </li>
+        <li>
+          Únicamente se recopilan los datos indispensables para la creación de
+          un perfil público, los cuales incluyen: nombre de usuario y nombre.
+          Los detalles adicionales y la foto de perfil son opcionales.
         </li>
         <li>
           Los jugadores deben optar por participar en nuestro servicio para
-          compartir sus estadísticas y datos de juego.
+          compartir sus estadísticas y datos de juego. Sin un registro completo,
+          la opción de compartir no estará disponible.
         </li>
         <li>
-          Solo se recopilan los datos necesarios para generar un perfil público,
-          los cuales incluyen: nombre de usuario y un nombre. Los detalles y la
-          foto de perfil son opcionales.
+          No compartimos los datos de nuestros usuarios con terceros. Sin
+          embargo, es importante tener en cuenta que Feedgames es una red
+          pública y cualquier usuario registrado puede acceder a tu perfil.
         </li>
         <li>
-          Los jugadores deben optar por participar en nuestro servicio para
-          compartir sus estadísticas y datos de juego. Sin registro, la opción
-          de compartir no estará disponible.
-        </li>
-        <li>
-          No compartimos datos de usuarios con terceros, pero ten en cuenta que
-          Feedgames es una red pública y cualquier usuario registrado puede ver
-          tu perfil.
-        </li>
-        <li>
-          Utilizamos una cookie para guardar la sesión del usuario, con una
-          duración de 31 días.
+          Utilizamos cookies para gestionar las sesiones de forma eficiente.
         </li>
       </ul>
     </>
@@ -64,23 +59,22 @@ const TermsOfService = () => {
       </p>
       <ul className="text-gray-500 list-disc mt-2 pl-4">
         <li>
-          Los usuarios deben utilizar la red social de acuerdo con su uso
-          previsto, publicando preguntas, encuestas, imágenes relacionadas con
-          videojuegos o cualquier otro contenido que deseen, siempre y cuando no
-          promueva la discriminación racial, sexual u otros tipos de
-          discriminación.
+          Los usuarios deben utilizar la red social conforme a su propósito
+          original, publicando preguntas, encuestas, imágenes relacionadas con
+          videojuegos u otro contenido pertinente, siempre y cuando no promueva
+          la discriminación racial, sexual u otras formas de discriminación.
         </li>
         <li>
-          Esta plataforma esta en constante crecimiento, lo que pueden incluir
-          mejoras en los requisitos, interfaces y funciones. Sin embargo, nos
-          comprometemos a garantizar la seguridad y protección de los datos de
-          los usuarios, por lo que no deben preocuparse por la pérdida de sus
-          datos durante estos cambios.
+          Esta plataforma se encuentra en constante evolución, lo que puede
+          implicar mejoras en los requisitos, interfaces y funcionalidades. No
+          obstante, nos comprometemos a salvaguardar la seguridad y protección
+          de los datos de los usuarios, por lo que no deberían preocuparse por
+          la pérdida de sus datos durante estos cambios.
         </li>
         <li>
-          El contenido compartido en la red social pertenece a los usuarios, y
-          nosotros lo utilizamos únicamente para mejorar y hacer crecer la
-          plataforma. Los usuarios retienen los derechos de propiedad sobre su
+          El contenido compartido en la red social pertenece a los usuarios y
+          nosotros lo utilizamos exclusivamente para mejorar y hacer crecer la
+          plataforma. Los usuarios conservan los derechos de propiedad sobre su
           contenido.
         </li>
       </ul>
