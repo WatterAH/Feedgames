@@ -10,6 +10,7 @@ interface Props {
 export const PostContent: React.FC<Props> = ({ data }) => {
   const { content, publicUrl } = data;
   let [isOpen, setIsOpen] = useState(false);
+  const lines = content.split("\n");
 
   function closeModal() {
     setIsOpen(false);
@@ -21,7 +22,14 @@ export const PostContent: React.FC<Props> = ({ data }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <p className="font-montserrat text-sm">{content}</p>
+      <p className="font-montserrat text-sm">
+        {lines.map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            {index !== lines.length - 1 && <br />}{" "}
+          </React.Fragment>
+        ))}
+      </p>
       <ImageViewer
         isOpen={isOpen}
         closeModal={closeModal}

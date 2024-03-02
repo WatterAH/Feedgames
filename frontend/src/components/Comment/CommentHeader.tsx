@@ -10,13 +10,13 @@ import { commentOptions } from "./optionsConstant";
 
 interface Props {
   comment: CommentInterface;
-  option: boolean;
+  hasDelete: boolean;
   setComments?: React.Dispatch<React.SetStateAction<CommentInterface[]>>;
 }
 
 export const CommentHeader: React.FC<Props> = ({
   comment,
-  option,
+  hasDelete,
   setComments,
 }) => {
   const { user } = useUser();
@@ -38,18 +38,16 @@ export const CommentHeader: React.FC<Props> = ({
     }
   };
 
-  const options = commentOptions(id_user, id, user, handleDelete);
+  const options = commentOptions(id_user, id, user, handleDelete, hasDelete);
 
   return (
     <header className="flex justify-between gap-x-3">
       <Commentator comment={comment} />
-      {option ? (
-        <Options
-          Icon_options={EllipsisHorizontalIcon}
-          options={options}
-          className="h-4 text-gray-700 mt-2"
-        />
-      ) : null}
+      <Options
+        Icon_options={EllipsisHorizontalIcon}
+        options={options}
+        className="h-4 text-gray-700 mt-2"
+      />
     </header>
   );
 };

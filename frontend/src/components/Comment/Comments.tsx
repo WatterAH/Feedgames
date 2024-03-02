@@ -69,7 +69,7 @@ export const Comments = ({ data }: { data: dataInterface }) => {
                 key={index}
                 comment={comment}
                 setComments={setComments}
-                option={true}
+                hasDelete={true}
               />
             ))}
           </div>

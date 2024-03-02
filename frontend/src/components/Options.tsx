@@ -2,7 +2,7 @@ import React, { Fragment, ReactNode } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { UserIcon } from "@heroicons/react/24/outline";
 
-interface Option {
+export interface Option {
   icon: ReactNode;
   href?: string;
   onClick: () => void;

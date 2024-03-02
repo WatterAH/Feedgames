@@ -42,7 +42,7 @@ export const ProfilePosts: React.FC<Props> = ({ userID }) => {
         <div className="flex flex-col gap-y-4 justify-center">
           <div className="flex flex-col w-full max-w-xl mx-auto gap-3">
             {posts.length !== 0 ? (
-              <MapPost posts={posts} loading={loading} />
+              <MapPost posts={posts} loading={loading} setPosts={setPosts} />
             ) : (
               <h3 className="text-lg sm:text-xl font-montserrat text-center p-3">
                 Este usuario aún no ha publicado nada.

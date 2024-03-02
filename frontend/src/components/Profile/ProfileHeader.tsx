@@ -29,7 +29,7 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
   }
 
   return (
-    <header className="flex flex-col w-full sm:flex-row sm:justify-between gap-y-4 p-3">
+    <div className="flex flex-col w-full sm:flex-row sm:justify-between gap-y-4 p-3">
       <section className="flex gap-x-3 justify-between items-center">
         <span className="flex items-center gap-2">
           <ProfilePicture src={pfp} h={"h-14"} w={"w-14"} />
@@ -58,6 +58,6 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
         <ProfileFollows userData={userData} />
         {user.id == id ? null : <FollowButton userData={userData} />}
       </section>
-    </header>
+    </div>
   );
 };

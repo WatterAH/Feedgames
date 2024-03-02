@@ -29,5 +29,9 @@ export const Feed = () => {
     }
   }, [user.id]);
 
-  return error ? <ErrorPage /> : <MapPost posts={posts} loading={loading} />;
+  return error ? (
+    <ErrorPage />
+  ) : (
+    <MapPost posts={posts} loading={loading} setPosts={setPosts} />
+  );
 };

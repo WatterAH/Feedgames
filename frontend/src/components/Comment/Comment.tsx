@@ -10,10 +10,14 @@ import { CommentInterface } from "../../interfaces/Comment";
 interface Props {
   comment: CommentInterface;
   setComments?: React.Dispatch<React.SetStateAction<CommentInterface[]>>;
-  option: boolean;
+  hasDelete: boolean;
 }
 
-export const Comment: React.FC<Props> = ({ comment, setComments, option }) => {
+export const Comment: React.FC<Props> = ({
+  comment,
+  setComments,
+  hasDelete,
+}) => {
   const { comment: commentText, user, id_user } = comment;
   const { pfp } = user;
   const src = pfp
@@ -29,7 +33,7 @@ export const Comment: React.FC<Props> = ({ comment, setComments, option }) => {
         <div className="rounded-xl w-fit py-2 px-3 bg-gray-100">
           <CommentHeader
             comment={comment}
-            option={option}
+            hasDelete={hasDelete}
             setComments={setComments}
           />
           <CommentText>{commentText}</CommentText>
