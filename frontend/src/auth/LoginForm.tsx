@@ -15,15 +15,18 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string>>;
+  searchParams: URLSearchParams;
 }
 
-export const LoginForm: React.FC<Props> = ({ setContent }) => {
+export const LoginForm: React.FC<Props> = ({ setContent, searchParams }) => {
   const { login } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [_cookies, setCookie] = useCookies();
+  const content = searchParams.get("content");
+  const id = searchParams.get("id");
   const nav = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,7 +42,13 @@ export const LoginForm: React.FC<Props> = ({ setContent }) => {
         secure: true,
         sameSite: "none",
       });
-      nav("/");
+      if (content != "0" && id != "0") {
+        nav(`/${content}/${id}`);
+      } else if (content != "0" && id == "0") {
+        nav(`/nav/${content}`);
+      } else {
+        nav("/");
+      }
     } catch (error: any) {
       const { message } = error;
       toast.error(message, {

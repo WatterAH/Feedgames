@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
 import { Link } from "./Link";
+import { useLocation } from "react-router-dom";
 
 export const Auth = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const [content, setContent] = useState("Login");
   const renderContent = () => {
     switch (content) {
       case "Login":
-        return <LoginForm setContent={setContent} />;
+        return (
+          <LoginForm setContent={setContent} searchParams={searchParams} />
+        );
       case "Register":
         return <RegisterForm setContent={setContent} />;
       default:

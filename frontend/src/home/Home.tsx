@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Menu } from "../components/Menu/Menu";
 import { MainFeed } from "./MainFeed";
 import { Create } from "../components/CreateBlog/Create";
@@ -14,6 +14,9 @@ import { useCookies } from "react-cookie";
 import logo from "../assets/img/logov2.png";
 
 export const Home = () => {
+  const location = useLocation();
+  const path = location.pathname.toLocaleLowerCase();
+  const pathData = path.split("/");
   const nav = useNavigate();
   const { login } = useUser();
   const [loading, setLoading] = useState(false);
@@ -24,10 +27,13 @@ export const Home = () => {
       setLoading(true);
       const data = await checkAuth(cookies.token);
       login(data);
-    } catch (error) {
-      nav("/auth");
-    } finally {
       setLoading(false);
+    } catch (error) {
+      nav(
+        `/auth?content=${pathData[1] ? pathData[1] : "0"}&id=${
+          pathData[2] ? pathData[2] : "0"
+        }`
+      );
     }
   };
 
