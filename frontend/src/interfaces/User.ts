@@ -8,6 +8,7 @@ export const defaultUser: User = {
   followed: [],
   followers: [],
   follow: false,
+  verified: false,
 };
 
 export interface Followed {
@@ -28,4 +29,5 @@ export interface User {
   followed: Followed[];
   followers: Follower[];
   follow: boolean;
+  verified: boolean;
 }

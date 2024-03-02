@@ -18,7 +18,7 @@ interface Props {
 
 export const ProfileHeader: React.FC<Props> = ({ userData }) => {
   let [isOpen, setIsOpen] = useState(false);
-  const { id, username, name, pfp } = userData;
+  const { id, username, name, pfp, verified } = userData;
   const { user } = useUser();
   const options = profileOptions(user, id, () => {
     setIsOpen(true);
@@ -36,10 +36,12 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-montserrat font-semibold">
             {username}
           </h1>
-          <CheckBadgeIcon
-            aria-hidden="true"
-            className="text-blue-400 h-5 md:h-7"
-          />
+          {verified ? (
+            <CheckBadgeIcon
+              aria-hidden="true"
+              className="text-blue-400 h-5 md:h-7"
+            />
+          ) : null}
         </span>
         <span className="flex items-center gap-x-1">
           <Options
