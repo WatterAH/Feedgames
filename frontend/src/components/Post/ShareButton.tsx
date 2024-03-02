@@ -1,5 +1,5 @@
 import React from "react";
-import copy from "clipboard-copy";
+
 import { ToastContainer, toast } from "react-toastify";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
@@ -14,23 +14,9 @@ export const ShareButton = ({ shareData }: { shareData: Props }) => {
   const { id, content } = shareData;
   const link = `${URL}/${content}/${id}`;
 
-  const share = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (navigator.share) {
-      navigator.share({
-        url: link,
-      });
-    } else {
-      await copy(link);
-      toast.success("Enlace copiado al portapapeles", {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    }
-  };
-
   return (
     <>
-      <button className="active:scale-125 transition-transform" onClick={share}>
+      <button className="active:scale-125 transition-transform">
         <ArrowTopRightOnSquareIcon
           aria-hidden="true"
           className="h-6 text-gray-600"

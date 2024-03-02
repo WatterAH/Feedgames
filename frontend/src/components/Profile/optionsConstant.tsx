@@ -8,6 +8,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { logoutApi } from "../../Api/auth";
 import { useNavigate } from "react-router-dom";
+import riotgames from "../../assets/img/riotgames.svg";
+import copy from "clipboard-copy";
 
 export const profileOptions = (
   userSession: User,
@@ -15,16 +17,27 @@ export const profileOptions = (
   openModal: () => void
 ) => {
   const nav = useNavigate();
+  const singleClassName = "h-4 md:h-5 mr-2";
+
   const logout = () => {
     logoutApi().then(() => nav("/auth"));
   };
-  const singleClassName = "h-4 md:h-5 mr-2";
+
+  const share = () => {
+    if (navigator.share) {
+      navigator.share({
+        url: `https://feedgames.vercel.app/u/${id}`,
+      });
+    } else {
+      copy(`https://feedgames.vercel.app/u/${id}`);
+    }
+  };
 
   const options = [
     {
       icon: <ArrowUpOnSquareIcon className={singleClassName} />,
       label: "Compartir",
-      onClick: () => {},
+      onClick: share,
     },
     userSession.id !== id
       ? {
@@ -38,6 +51,14 @@ export const profileOptions = (
           icon: <PencilSquareIcon className={singleClassName} />,
           label: "Editar perfil",
           onClick: openModal,
+        }
+      : null,
+    userSession.id === id
+      ? {
+          icon: <img src={riotgames} className={singleClassName} />,
+          label: "Riot Games",
+          href: "https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid",
+          onClick: () => {},
         }
       : null,
     userSession.id === id

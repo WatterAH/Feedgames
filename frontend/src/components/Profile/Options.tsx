@@ -65,7 +65,7 @@ export const Options: React.FC<Props> = ({ openModal }) => {
                   <img
                     src={riotgames}
                     alt="riot"
-                    className="h-5 w-5 -ml-1 mr-2"
+                    
                   />
                   Riot Games
                 </a>

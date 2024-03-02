@@ -43,9 +43,9 @@ export const Options: React.FC<Props> = ({
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {options.map((option, _index) =>
+            {options.map((option, index) =>
               option != null ? (
-                <Menu.Item>
+                <Menu.Item key={index}>
                   {({ active }) => (
                     <a
                       className={classNames(
