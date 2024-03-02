@@ -89,7 +89,7 @@ export const getPostById = async (postId) => {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved!left(id_user), comments(id), user:users(username, name, pfp)"
+      "*, liked!left(id_user), saved!left(id_user), comments(id, id_user), user:users(username, name, pfp)"
     )
     .eq("id", postId)
     .single();

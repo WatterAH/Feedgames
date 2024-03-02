@@ -31,10 +31,19 @@ export const getProfilePosts = async (req, res) => {
       return res.status(400).json({ message: "Error al cargar los posts" });
     } else {
       posts = posts.map((post) => {
-        const { liked, saved, ...rest } = post;
+        const { liked, saved, comments, ...rest } = post;
         const isLiked = liked.some((like) => like.id_user == myID);
         const isSaved = saved.some((save) => save.id_user == myID);
-        return { ...rest, liked, saved, isLiked, isSaved };
+        const isCommented = comments.some((comment) => comment.id_user == myID);
+        return {
+          ...rest,
+          liked,
+          saved,
+          comments,
+          isLiked,
+          isSaved,
+          isCommented,
+        };
       });
       return res.status(200).json(posts);
     }
@@ -54,6 +63,9 @@ export const getPost = async (req, res) => {
     } else {
       post.isLiked = post.liked.some((like) => like.id_user == userId);
       post.isSaved = post.saved.some((save) => save.id_user == userId);
+      post.isCommented = post.comments.some(
+        (comment) => (comment.id_user = userId)
+      );
       return res.status(200).json(post);
     }
   } catch (error) {

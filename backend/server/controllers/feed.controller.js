@@ -11,7 +11,6 @@ export const loadPosts = async (req, res) => {
       const isCommented = comments.some(
         (comment) => comment.id_user == id_user
       );
-
       return { ...rest, liked, saved, comments, isLiked, isSaved, isCommented };
     });
     return res.status(200).json(posts);
