@@ -34,7 +34,7 @@ export const Home = () => {
       } else if (pathData[1]) {
         nav(`/auth?content=${pathData[1]}`);
       } else {
-        nav("/");
+        nav("/auth");
       }
     }
   };
