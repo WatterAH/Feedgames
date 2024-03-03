@@ -18,7 +18,7 @@ const DisplayUser = ({ userData }: { userData: User }) => {
     <Link to={`/u/${id}`} className="flex items-center gap-2 justify-between">
       <section className="flex items-center gap-2">
         <img src={href} alt="pfp" className="rounded-full w-12 h-12" />
-        <span className="flex flex-col font-roboto">
+        <span className="flex flex-col font-montserrat">
           <p className="text-gray-700">{username}</p>
           <p className="text-gray-400">{name}</p>
         </span>
