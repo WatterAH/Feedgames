@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { LoadingPage } from "../LoadingPage";
 import default_pfp from "../../assets/img/default.png";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 
 const DisplayUser = ({ userData }: { userData: User }) => {
   const { id, name, username, pfp } = userData;
@@ -101,7 +102,16 @@ export const ProfileFollowers: React.FC<Props> = ({ userData }) => {
                   </Dialog.Title>
                   <div className="mt-2 flex flex-col gap-2 overflow-y-auto px-6 h-72 py-2">
                     {loading ? (
-                      <LoadingPage />
+                      <div className="flex items-center justify-center h-full">
+                        <LoadingPage />
+                      </div>
+                    ) : followersList.length == 0 ? (
+                      <div className="flex flex-col gap-2 items-center justify-center h-full">
+                        <QuestionMarkCircleIcon className="w-14 h-14 text-gray-500" />
+                        <p className="font-roboto text-gray-600">
+                          Esto está vacío
+                        </p>
+                      </div>
                     ) : (
                       followersList.map((user) => (
                         <DisplayUser key={user.id} userData={user} />
