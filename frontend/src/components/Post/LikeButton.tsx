@@ -42,9 +42,15 @@ export const LikeButton = ({ likeData }: { likeData: Props }) => {
       className="active:scale-125 transition-transform"
     >
       {liked ? (
-        <HeartSolid aria-hidden="true" className="h-6 text-rose-400" />
+        <HeartSolid
+          aria-hidden="true"
+          className="h-6 text-rose-500 dark:text-rose-600"
+        />
       ) : (
-        <HeartOut aria-hidden="true" className="h-6 text-rose-400" />
+        <HeartOut
+          aria-hidden="true"
+          className="h-6 text-rose-500 dark:text-rose-600"
+        />
       )}
     </button>
   );

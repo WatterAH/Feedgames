@@ -46,7 +46,7 @@ export const CommentHeader: React.FC<Props> = ({
       <Options
         Icon_options={EllipsisHorizontalIcon}
         options={options}
-        className="h-4 text-gray-700 mt-2"
+        className="h-4 text-gray-700 dark:text-white mt-2"
       />
     </header>
   );

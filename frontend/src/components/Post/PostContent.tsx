@@ -23,9 +23,9 @@ export const PostContent: React.FC<Props> = ({ data }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <p className="font-montserrat text-sm w-fit whitespace-pre-line">
+      <span className="font-montserrat text-sm w-fit whitespace-pre-line dark:text-white">
         <MarkDown remarkPlugins={[remarkGfm]}>{content}</MarkDown>
-      </p>
+      </span>
       <ImageViewer
         isOpen={isOpen}
         closeModal={closeModal}

@@ -20,7 +20,7 @@ export const ListItem: React.FC<Props> = ({ link, Icon, text }) => {
     <Link to={link} onClick={text != "Notificaciones" ? scrollToTop : () => {}}>
       <Li>
         <Icon
-          className="h-5 w-5 lg:h-7 lg:w-7 text-gray-800"
+          className="h-5 w-5 lg:h-7 lg:w-7 text-gray-800 dark:text-white"
           aria-hidden={true}
         />
         <p className="hidden lg:block">{text}</p>

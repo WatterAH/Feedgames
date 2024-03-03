@@ -24,11 +24,13 @@ export const Notify: React.FC<Props> = ({
   setNotifications,
 }) => {
   const { id, id_linked, content, text, type } = notify;
+
+  const simpleClass = "h-6 text-blue-500 dark:text-blue-700";
   const icon = (int: number) => {
     const icons = [
-      <HeartIcon className="h-6 text-blue-500" />,
-      <ChatBubbleLeftEllipsisIcon className="h-6 text-blue-500" />,
-      <UserPlusIcon className="h-6 text-blue-500" />,
+      <HeartIcon className={simpleClass} />,
+      <ChatBubbleLeftEllipsisIcon className={simpleClass} />,
+      <UserPlusIcon className={simpleClass} />,
     ];
     return icons[int];
   };
@@ -61,11 +63,11 @@ export const Notify: React.FC<Props> = ({
     <div className="relative">
       <Link
         to={`/${content}/${id_linked}`}
-        className="flex items-center gap-2 bg-blue-200 hover:bg-blue-100 duration-700 cursor-pointer py-4 px-2 rounded-md shadow-md"
+        className="flex items-center gap-2 bg-blue-200 dark:bg-cyan-600 hover:bg-blue-100 duration-700 cursor-pointer py-4 px-2 rounded-md shadow-md"
         onClick={handleClick}
       >
         {icon(type)}
-        <p className="font-montserrat text-xs md:text-base text-gray-800">
+        <p className="font-montserrat text-xs md:text-base text-gray-800 dark:text-gray-200">
           {text}
         </p>
       </Link>

@@ -52,7 +52,7 @@ export const PostHeader: React.FC<Props> = ({ data, setPosts }) => {
         <span className="flex flex-col items-end">
           <Options
             Icon_options={EllipsisHorizontalIcon}
-            className="h-5"
+            className="h-5 dark:text-white"
             options={options}
           />
           <PostDate>{date}</PostDate>

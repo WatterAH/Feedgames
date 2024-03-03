@@ -10,7 +10,7 @@ interface Props {
 export const PostCreator: React.FC<Props> = ({ user_id, username, name }) => {
   return (
     <div>
-      <h1 className="text-lg font-montserrat">{name}</h1>
+      <h1 className="text-lg font-montserrat dark:text-white">{name}</h1>
       <Link to={`/u/${user_id}`} className="flex items-center gap-x-1">
         <p className="hover:underline text-gray-400 text-sm font-rubik">
           @{username}

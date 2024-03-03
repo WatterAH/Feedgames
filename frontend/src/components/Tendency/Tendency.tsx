@@ -27,7 +27,9 @@ export const Tendency = () => {
 
   return (
     <section className="hidden max-w-xs md:block p-5">
-      <p className="text-xl mb-5 font-montserrat">En tendencia</p>
+      <p className="text-xl mb-5 font-montserrat dark:text-white">
+        En tendencia
+      </p>
       {loading ? (
         <LoadingPage />
       ) : error ? (

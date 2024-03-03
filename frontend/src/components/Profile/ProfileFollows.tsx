@@ -7,7 +7,7 @@ export const ProfileFollows = ({ userData }: { userData: User }) => {
   return (
     <Modal
       opener={
-        <span className="text-xs text-white font-montserrat py-1 px-2 rounded-full bg-teal-800 cursor-pointer">
+        <span className="text-xs text-white font-montserrat py-1 px-2 rounded-full bg-cyan-600 cursor-pointer">
           {followed.length} {followed.length == 1 ? "Seguido" : "Seguidos"}
         </span>
       }

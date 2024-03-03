@@ -64,9 +64,9 @@ export const SlideOver: React.FC<Props> = ({
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-black py-6 shadow-xl">
                     <div className="px-5 pb-4 border-b">
-                      <Dialog.Title className="text-xl font-semibold leading-6 text-gray-900">
+                      <Dialog.Title className="text-xl font-semibold leading-6 text-gray-900 dark:text-white">
                         {title}
                       </Dialog.Title>
                     </div>

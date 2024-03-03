@@ -20,10 +20,10 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
   let [isOpen, setIsOpen] = useState(false);
   const { id, username, name, pfp, verified } = userData;
   const { user } = useUser();
-  const options = profileOptions(user, id, () => {
+  function openModal() {
     setIsOpen(true);
-  });
-
+  }
+  const options = profileOptions(user, id, openModal);
   function closeModal() {
     setIsOpen(false);
   }
@@ -33,7 +33,7 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
       <section className="flex gap-x-3 justify-between items-center">
         <span className="flex items-center gap-2">
           <ProfilePicture src={pfp} h={"h-14"} w={"w-14"} />
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-montserrat font-semibold">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-montserrat font-semibol dark:text-white">
             {username}
           </h1>
           {verified ? (
@@ -46,7 +46,7 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
         <span className="flex items-center gap-x-1">
           <Options
             Icon_options={Bars3Icon}
-            className="h-6 w-6 mt-1"
+            className="h-6 w-6 mt-1 dark:text-white"
             options={options}
           />
         </span>

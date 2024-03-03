@@ -6,7 +6,7 @@ interface Props {
 
 export const ProfileName: React.FC<Props> = ({ name }) => {
   return (
-    <span className="font-montserrat text-xs sm:text-sm md:text-base">
+    <span className="font-montserrat text-xs sm:text-sm md:text-base dark:text-white">
       {name}
     </span>
   );

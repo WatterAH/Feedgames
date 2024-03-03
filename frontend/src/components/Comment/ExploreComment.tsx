@@ -48,7 +48,7 @@ export const ExploreComment = () => {
 
   return (
     <div
-      className={`py-7 px-3 w-full lg:ml-64 flex flex-col h-screen ${
+      className={`py-7 px-3 w-full lg:ml-64 flex flex-col h-fit ${
         loading ? "justify-center" : ""
       }`}
     >
@@ -58,7 +58,7 @@ export const ExploreComment = () => {
         <NotFound title={"comentario"} />
       ) : comment.comment ? (
         <div className="max-w-2xl w-full mx-auto">
-          <Comment comment={comment} option={false} />
+          <Comment comment={comment} hasDelete={false} />
           <Comments
             data={{
               parent_id: id as string,

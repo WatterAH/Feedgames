@@ -30,7 +30,7 @@ export const Comment: React.FC<Props> = ({
         <Link to={`/u/${id_user}`}>
           <img src={src} alt="pfp" className="rounded-full h-8 w-8" />
         </Link>
-        <div className="rounded-xl w-fit py-2 px-3 bg-gray-100">
+        <div className="rounded-xl w-fit pb-2 pt-1 px-3 bg-gray-100 dark:bg-neutral-600">
           <CommentHeader
             comment={comment}
             hasDelete={hasDelete}

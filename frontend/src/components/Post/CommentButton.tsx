@@ -14,9 +14,15 @@ export const CommentButton = ({ commentData }: { commentData: Props }) => {
     <Link to={`/p/${id}`}>
       <button className="active:scale-125 transition-transform">
         {isCommented ? (
-          <ChatSolid aria-hidden="true" className="h-6 text-cyan-400" />
+          <ChatSolid
+            aria-hidden="true"
+            className="h-6 text-blue-400 dark:text-blue-500"
+          />
         ) : (
-          <ChatOut aria-hidden="true" className="h-6 text-cyan-400" />
+          <ChatOut
+            aria-hidden="true"
+            className="h-6 text-blue-400 dark:text-blue-500"
+          />
         )}
       </button>
     </Link>

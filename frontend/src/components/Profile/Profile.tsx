@@ -47,7 +47,7 @@ export const Profile = () => {
 
   return (
     <div
-      className={`flex flex-col lg:ml-64 items-center ${
+      className={`flex flex-col lg:ml-64 transition-transform duration-700 items-center ${
         loading ? "justify-center" : null
       } h-screen w-full`}
     >
@@ -56,8 +56,8 @@ export const Profile = () => {
       ) : notFound ? (
         <NotFound title={"perfil"} />
       ) : userData.username ? (
-        <div className="flex flex-col w-full">
-          <div className="flex flex-col w-full border-b gap-4">
+        <div className="flex flex-col w-full dark:bg-black">
+          <div className="flex flex-col w-full border-b dark:border-neutral-800 gap-4">
             <section className="flex">
               <ProfileHeader userData={userData} />
             </section>

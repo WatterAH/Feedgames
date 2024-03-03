@@ -6,11 +6,11 @@ import {
   PencilSquareIcon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
-import { logoutApi } from "../../Api/auth";
 import { useNavigate } from "react-router-dom";
-import riotgames from "../../assets/img/riotgames.svg";
+// import riotgames from "../../assets/img/riotgames.svg";
 import copy from "clipboard-copy";
 import { Option } from "../Options";
+import { useCookies } from "react-cookie";
 
 export const profileOptions = (
   userSession: User,
@@ -19,9 +19,11 @@ export const profileOptions = (
 ) => {
   const nav = useNavigate();
   const simpleClass = "h-4 md:h-5 mr-2";
+  const [_cookies, _setCookies, removeCookie] = useCookies();
 
   const logout = () => {
-    logoutApi().then(() => nav("/auth"));
+    removeCookie("token");
+    nav("/auth");
   };
 
   const share = () => {
@@ -54,14 +56,14 @@ export const profileOptions = (
           onClick: openModal,
         }
       : null,
-    userSession.id === id
-      ? {
-          icon: <img src={riotgames} className={simpleClass} />,
-          label: "Riot Games",
-          href: "https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid",
-          onClick: () => {},
-        }
-      : null,
+    // userSession.id === id
+    //   ? {
+    //       icon: <img src={riotgames} className={simpleClass} />,
+    //       label: "Riot Games",
+    //       href: "https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid",
+    //       onClick: () => {},
+    //     }
+    //   : null,
     userSession.id === id
       ? {
           icon: (

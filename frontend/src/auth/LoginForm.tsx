@@ -42,19 +42,21 @@ export const LoginForm: React.FC<Props> = ({ setContent, searchParams }) => {
         secure: true,
         sameSite: "none",
       });
-      if (content != "0" && id != "0") {
+      if (content != null && id != null) {
         nav(`/${content}/${id}`);
-      } else if (content != "0" && id == "0") {
+        console.log(content, id);
+      } else if (content != null && id == null) {
         nav(`/nav/${content}`);
+        console.log("second");
       } else {
         nav("/");
       }
+      setLoading(false);
     } catch (error: any) {
       const { message } = error;
       toast.error(message, {
         position: toast.POSITION.TOP_CENTER,
       });
-    } finally {
       setLoading(false);
     }
   };

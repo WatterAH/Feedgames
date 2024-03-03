@@ -47,8 +47,8 @@ export const Comments = ({ data }: { data: dataInterface }) => {
   }, [parent_id, user.id]);
 
   return (
-    <div className="mb-24 lg:mb-10 flex flex-col gap-y-4 p-2">
-      <h3 className="font-montserrat text-lg">Comentarios</h3>
+    <div className="mb-24 lg:mb-10 dark:bg-black flex flex-col gap-y-4 p-2">
+      <h3 className="font-montserrat text-lg dark:text-white">Comentarios</h3>
       <CommentBox
         id_post={post_id}
         response={response}
@@ -61,7 +61,9 @@ export const Comments = ({ data }: { data: dataInterface }) => {
         {loading ? (
           <LoadingPage />
         ) : comments.length == 0 ? (
-          <p className="font-semibold text-gray-800">No hay comentarios.</p>
+          <p className="font-semibold text-gray-800 dark:text-white">
+            No hay comentarios.
+          </p>
         ) : (
           <div className={`flex flex-col gap-y-2`}>
             {comments.map((comment, index) => (

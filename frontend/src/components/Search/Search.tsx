@@ -27,7 +27,10 @@ export const Search = () => {
   return (
     <div className="relative">
       <div className="p-6 flex items-center gap-x-3">
-        <MagnifyingGlassIcon aria-hidden="true" className="h-6" />
+        <MagnifyingGlassIcon
+          aria-hidden="true"
+          className="h-6 dark:text-white"
+        />
         <Input
           onChange={handleSearch}
           type="search"

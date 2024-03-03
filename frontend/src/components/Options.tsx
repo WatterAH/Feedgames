@@ -41,7 +41,7 @@ export const Options: React.FC<Props> = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white dark:border dark:bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             {options.map((option, index) =>
               option != null ? (
@@ -49,7 +49,9 @@ export const Options: React.FC<Props> = ({
                   {({ active }) => (
                     <a
                       className={classNames(
-                        active ? "bg-gray-100 text-gray-600" : "text-gray-600",
+                        active
+                          ? "bg-gray-100 dark:bg-neutral-700 text-gray-600 dark:text-gray-200"
+                          : "text-gray-600 dark:text-gray-200",
                         "flex items-center px-4 py-2 text-sm hover:cursor-pointer"
                       )}
                       href={option.href}

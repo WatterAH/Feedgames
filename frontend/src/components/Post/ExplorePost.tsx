@@ -48,8 +48,10 @@ export const ExplorePost = () => {
 
   return (
     <div
-      className={`py-5 px-3 w-full lg:ml-64 flex flex-col h-screen ${
-        loading ? "justify-center" : ""
+      className={`py-5 px-3 w-full lg:ml-64 flex flex-col dark:bg-black ${
+        post.comments.length <= 1 && loading
+          ? "h-screen justify-center"
+          : "h-full"
       }`}
     >
       {loading ? (
@@ -58,7 +60,7 @@ export const ExplorePost = () => {
         <NotFound title={"post"} />
       ) : (
         post.id && (
-          <div className="max-w-2xl w-full mx-auto">
+          <div className="max-w-2xl w-full mx-auto h-">
             <Post data={post} />
             <Comments
               data={{

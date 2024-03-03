@@ -7,7 +7,7 @@ import { PostInterface } from "../../interfaces/Post";
 
 interface Props {
   data: PostInterface;
-  setPosts: React.Dispatch<SetStateAction<PostInterface[]>>;
+  setPosts?: React.Dispatch<SetStateAction<PostInterface[]>>;
 }
 
 export const Post: React.FC<Props> = ({ data, setPosts }) => {
