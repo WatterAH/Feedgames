@@ -28,7 +28,7 @@ export const oauth2_callback = async (req, res) => {
       throw new Error(errorResponse);
     } else {
       const tokens = await response.json();
-      const access_token = encodeURIComponent(tokens.access_token);
+      const access_token = tokens.access_token;
       return res.redirect(`/val/getPlayerUuid?access_token=${access_token}`);
     }
   } catch (error) {
@@ -54,9 +54,8 @@ export const getPlayerUuid = async (req, res) => {
       throw new Error(errorResponse);
     } else {
       const userData = await response.json();
-      return res.redirect(
-        `https://feedgames.vercel.app?data=${JSON.stringify(userData)}`
-      );
+      const data = JSON.stringify(userData);
+      return res.redirect(`https://feedgames.vercel.app?data=${data}`);
     }
   } catch (error) {
     return res.redirect(`https://feedgames.vercel.app?error=${error.message}`);

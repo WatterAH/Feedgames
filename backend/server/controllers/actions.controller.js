@@ -1,7 +1,10 @@
 import {
   countUsers,
+  getFollowers,
+  getFollows,
   getProfileById,
   getProfileByUsername,
+  getProfilesByIds,
 } from "../database/profileGetter.js";
 import { getPostById, myPostsIds } from "../database/postGetter.js";
 import { percentage } from "../libs/math.js";
@@ -88,6 +91,39 @@ export const searchTerm = async (req, res) => {
       return res.status(200).json(user);
     }
   } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const getFollowedById = async (req, res) => {
+  try {
+    const { id } = req.query;
+    let { follows, error: errorFollows } = await getFollows(id);
+    follows = follows.map((follow) => follow.id_followed);
+    const { users, error: errorUsers } = await getProfilesByIds(follows);
+    if (errorFollows || errorUsers) {
+      return res.status(400).json({ message: "Error al cargar los usarios" });
+    } else {
+      return res.status(200).json(users);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const getFollowersById = async (req, res) => {
+  try {
+    const { id } = req.query;
+    let { followers, error: errorFollower } = await getFollowers(id);
+    followers = followers.map((follower) => follower.id_follower);
+    const { users, error: errorUsers } = await getProfilesByIds(followers);
+    if (errorFollower || errorUsers) {
+      return res.status(400).json({ message: "Error al cargar los usarios" });
+    } else {
+      return res.status(200).json(users);
+    }
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

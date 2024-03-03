@@ -10,6 +10,7 @@ export default {
         rubik: ['"Rubik"', ...defaultTheme.fontFamily.sans],
         montserrat: ['"Montserrat"', ...defaultTheme.fontFamily.sans],
         kalnia: ['"Kalnia"', ...defaultTheme.fontFamily.sans],
+        roboto: ['"Roboto"', ...defaultTheme.fontFamily.sans],
       },
     },
   },

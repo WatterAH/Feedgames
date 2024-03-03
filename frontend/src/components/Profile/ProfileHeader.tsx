@@ -54,8 +54,10 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
       </section>
       <section className="flex items-center gap-x-3">
         <ProfileName name={name} />
-        <ProfileFollowers userData={userData} />
-        <ProfileFollows userData={userData} />
+        <span className="flex items-center gap-1">
+          <ProfileFollowers userData={userData} />
+          <ProfileFollows userData={userData} />
+        </span>
         {user.id == id ? null : <FollowButton userData={userData} />}
       </section>
     </div>

@@ -30,24 +30,30 @@ export const searchFor = async (searchTerm: string): Promise<User[]> => {
   }
 };
 
-export const reportById = async (
-  id: string,
-  type: string,
-  reason: string
-): Promise<void> => {
-  const body = { id, type, reason };
-  const res = await fetch(`${URL}/api/reportById`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+export const getFollowedById = async (userId: string): Promise<User[]> => {
+  const res = await fetch(
+    `${URL}/api/getFollowedById?id=${encodeURIComponent(userId)}`
+  );
+  const resData = await res.json();
 
-  if (!res.ok) {
-    const resData = await res.json();
+  if (res.ok) {
+    return resData;
+  } else {
     const { message } = resData;
     throw new Error(message);
   }
-  return;
+};
+
+export const getFollowersById = async (userId: string): Promise<User[]> => {
+  const res = await fetch(
+    `${URL}/api/getFollowersById?id=${encodeURIComponent(userId)}`
+  );
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData;
+  } else {
+    const { message } = resData;
+    throw new Error(message);
+  }
 };
