@@ -23,11 +23,11 @@ export const createAccessToken = function (payload) {
 export const validateToken = function (token) {
   return new Promise(function (resolve, reject) {
     if (!token) {
-      return reject(null);
+      return resolve(null);
     }
     jwt.verify(token, JWT_KEY, function (err, decoded) {
       if (err) {
-        return reject(null);
+        return resolve(null);
       }
       var user = decoded;
       return resolve(user);

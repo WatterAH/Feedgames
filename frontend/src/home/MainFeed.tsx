@@ -6,12 +6,19 @@ import { fetchPosts } from "../Api/post";
 import { useUser } from "../context/AuthContext";
 import { ErrorPage } from "../components/ErrorPage";
 import { MapPost } from "./MapPost";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { getExpirationDate } from "../functions/date";
 
 export const MainFeed = () => {
   const { user } = useUser();
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [_cookies, setCookie] = useCookies();
+  const urlParams = new URLSearchParams(window.location.search);
+  const riotToken = urlParams.get("riotToken");
+  const nav = useNavigate();
 
   const handleFeed = async () => {
     try {
@@ -24,6 +31,19 @@ export const MainFeed = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (riotToken) {
+      setCookie("riotToken", riotToken, {
+        path: "/",
+        expires: getExpirationDate(),
+        secure: true,
+        sameSite: "none",
+      });
+      nav("/");
+      window.location.reload();
+    }
+  }, []);
 
   useEffect(() => {
     if (user.id) {

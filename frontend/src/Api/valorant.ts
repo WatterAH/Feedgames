@@ -1,63 +1,59 @@
 import { URL } from "../App";
-import { Match, MatchList, Player } from "../interfaces/Valorant";
+import { Match, MatchList } from "../interfaces/Valorant";
 
-export const getCharacterInfo = async (uuid: string) => {
-  const res = await fetch(`https://valorant-api.com/v1/agents/${uuid}`);
+export const getMatchesList = async (token: string): Promise<MatchList> => {
+  const res = await fetch(
+    `${URL}/val/getMatchesList?token=${encodeURIComponent(token)}`
+  );
+  const resData = await res.json();
+
+  if (res.status == 401) {
+    throw new Error("401");
+  } else if (res.status == 404) {
+    throw new Error("404");
+  } else {
+    return resData;
+  }
+};
+
+export const getMatchByUuid = async (
+  uuid: string,
+  puuid: string
+): Promise<Match> => {
+  const response = await fetch(
+    `${URL}/val/getMatchByUuid?uuid=${encodeURIComponent(
+      uuid
+    )}&puuid=${encodeURIComponent(puuid)}`
+  );
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
+};
+
+export const getCharacterIcon = async (
+  characterId: string,
+  full?: boolean
+): Promise<string> => {
+  const ENDPOINT = `https://valorant-api.com/v1/agents/${characterId}`;
+  const res = await fetch(ENDPOINT);
   if (!res.ok) {
-    throw new Error("No se pudo cargar la imagen.");
+    throw new Error("Error al cargar la imagen");
   } else {
     const resData = await res.json();
-    const { data } = resData;
-    return data;
+    const { displayIconSmall, bustPortrait } = resData.data;
+    return full ? bustPortrait : displayIconSmall;
   }
 };
 
-export const getPlayerByName = async (
-  gameName: string,
-  tagLine: string
-): Promise<Player> => {
-  const res = await fetch(
-    `${URL}/api/getPlayerByName?gameName=${encodeURIComponent(
-      gameName
-    )}&tagLine=${encodeURIComponent(tagLine)}`
-  );
-
-  const resData = await res.json();
-
+export const getMapIcon = async (mapId: string) => {
+  const ENDPOINT = `https://valorant-api.com/v1/maps/${mapId}`;
+  const res = await fetch(ENDPOINT);
   if (!res.ok) {
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("Error al cargar la imagen");
   } else {
-    return resData;
-  }
-};
-
-export const getMatchesListByPuuid = async (
-  puuid: string
-): Promise<MatchList[]> => {
-  const res = await fetch(
-    `${URL}/api/getMatchesIdsByPuuid?puuid=${encodeURIComponent(puuid)}`
-  );
-  const resData = await res.json();
-
-  if (!res.ok) {
-    const { message } = resData;
-    throw new Error(message);
-  } else {
-    return resData;
-  }
-};
-
-export const getMatchByUuid = async (uuid: string): Promise<Match> => {
-  const res = await fetch(
-    `${URL}/api/getMatchByUuid?uuid=${encodeURIComponent(uuid)}`
-  );
-  const resData = await res.json();
-
-  if (!res.ok) {
-    const { message } = resData;
-    throw new Error(message);
-  } else {
-    return resData;
+    const resData = await res.json();
+    const { listViewIcon } = resData.data;
+    return listViewIcon;
   }
 };

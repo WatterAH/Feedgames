@@ -12,9 +12,11 @@ import { ExplorePost } from "../components/Post/ExplorePost";
 import { Profile } from "../components/Profile/Profile";
 import { useCookies } from "react-cookie";
 import logo from "../assets/img/logo.png";
+import { useRiot } from "../context/RiotContext";
 
 export const Home = () => {
-  const { login } = useUser();
+  const { login: loginUser } = useUser();
+  const { login: loginRiot } = useRiot();
   const [loading, setLoading] = useState(false);
   const [cookies] = useCookies();
   const location = useLocation();
@@ -25,8 +27,10 @@ export const Home = () => {
   const handleToken = async () => {
     try {
       setLoading(true);
-      const data = await checkAuth(cookies.token);
-      login(data);
+      const data = await checkAuth(cookies.token, cookies.riotToken);
+      const { user, riot } = data;
+      loginUser(user);
+      loginRiot(riot);
       setLoading(false);
     } catch (error) {
       if (pathData[1] && pathData[2]) {

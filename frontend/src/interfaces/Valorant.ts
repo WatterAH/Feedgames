@@ -1,14 +1,41 @@
+export interface RiotAuth {
+  puuid: string;
+  gameName: string | null;
+  tagLine: string | null;
+}
+
+export interface Round {
+  roundNum: number;
+  playerStats: {
+    puuid: string;
+    damage: { legshots: number; bodyshots: number; headshots: number }[];
+    economy: { spent: number }[];
+  };
+}
+
+export type queueId =
+  | "ggteam"
+  | "competitive"
+  | "unrated"
+  | "swiftplay"
+  | "spikerush"
+  | "";
+
 export interface Stats {
   score: number;
   kills: number;
   deaths: number;
   assists: number;
+  abilityCasts: {
+    grenadeCasts: number;
+    ability1Casts: number;
+    ability2Casts: number;
+    ultimateCasts: number;
+  };
 }
 
 export interface PlayerInGame {
   puuid: string;
-  gameName: string;
-  tagLine: string;
   teamId: "Blue" | "Red";
   characterId: string;
   stats: Stats;
@@ -21,19 +48,24 @@ export interface Player {
 }
 
 export interface MatchList {
-  matchId: string;
-  gameStartTimeMillis: number;
-  queueId: string;
+  puuid: string;
+  history: {
+    matchId: string;
+    gameStartTimeMillis: number;
+    queueId: string;
+  }[];
 }
 
 export interface Match {
   matchInfo: {
     matchId: string;
     mapId: string;
+    queueId: queueId;
   };
   teams: [
-    { teamId: "Blue" | "Red"; won: boolean },
-    { teamId: "Blue" | "Red"; won: boolean }
+    { teamId: "Blue" | "Red"; won: boolean; roundsWon: number },
+    { teamId: "Blue" | "Red"; won: boolean; roundsWon: number }
   ];
-  players: PlayerInGame[];
+  player: PlayerInGame;
+  roundResults: Round[];
 }

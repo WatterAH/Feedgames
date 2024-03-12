@@ -7,8 +7,8 @@ import { ProfilePosts } from "./ProfilePosts";
 import { useUser } from "../../context/AuthContext";
 import { getProfile } from "../../Api/profile";
 import { NotFound } from "../NotFound";
-import { useParams } from "react-router-dom";
 import { User, defaultUser } from "../../interfaces/User";
+import { useParams } from "react-router-dom";
 
 export const Profile = () => {
   const { user } = useUser();

@@ -1,8 +1,6 @@
 import { app } from "./app.js";
 import { Server as SocketServer } from "socket.io";
 import http from "http";
-import { joinRoom } from "./sockets/rooms.js";
-import { message } from "./sockets/messages.js";
 
 const server = http.createServer(app);
 
@@ -17,8 +15,7 @@ const io = new SocketServer(server, {
 });
 
 io.on("connection", (socket) => {
-  joinRoom(socket);
-  message(socket, io);
+  console.log("connected" + socket.id);
 });
 
 export { server };

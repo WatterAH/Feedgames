@@ -31,7 +31,7 @@ export const CreateBlog = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-6 shadow-lg border w-full max-w-md rounded-lg">
+    <div className="flex flex-col gap-y-6 sm:shadow-lg sm:border w-full max-w-md rounded-lg">
       <CreateBlogHeader />
       <CreateBlogForm
         loading={loading}

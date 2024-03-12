@@ -89,14 +89,18 @@ export const register = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
   try {
-    const { token } = req.query;
-    validateToken(token)
-      .then((user) => {
-        return res.status(200).json(user);
-      })
-      .catch(() => {
-        return res.status(401).json({ message: "Token invalido o expirado" });
-      });
+    const { userToken, riotToken } = req.query;
+    const user = await validateToken(userToken);
+    const riot = (await validateToken(riotToken)) || {
+      puuid: "",
+      gameName: "",
+      tagLine: "",
+    };
+    if (!user) {
+      return res.status(401).json({ message: "Token invalido o expirado" });
+    } else {
+      return res.status(200).json({ user, riot });
+    }
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }

@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+import { createAccessToken, validateToken } from "../libs/token.js";
+import { filterMatch } from "../libs/arrays.js";
 
 dotenv.config();
 
@@ -24,15 +26,14 @@ export const oauth2_callback = async (req, res) => {
     });
 
     if (!response.ok) {
-      const errorResponse = await response.text();
-      throw new Error(errorResponse);
+      throw new Error("500");
     } else {
       const tokens = await response.json();
       const access_token = tokens.access_token;
       return res.redirect(`/val/getPlayerUuid?access_token=${access_token}`);
     }
   } catch (error) {
-    return res.redirect(`https://feedgames.vercel.app?error=${error.message}`);
+    return res.redirect("https://feedgames.vercel.app");
   }
 };
 
@@ -44,7 +45,6 @@ export const getPlayerUuid = async (req, res) => {
 
     const response = await fetch(ENDPOINT_URL, {
       headers: {
-        "X-Riot-Token": process.env.RIOT_API_RSO_KEY,
         Authorization: `Bearer ${access_token}`,
       },
     });
@@ -54,10 +54,67 @@ export const getPlayerUuid = async (req, res) => {
       throw new Error(errorResponse);
     } else {
       const userData = await response.json();
-      const data = JSON.stringify(userData);
-      return res.redirect(`https://feedgames.vercel.app?data=${data}`);
+      const riotToken = await createAccessToken(userData);
+      return res.redirect(
+        "http://localhost:5173?riotToken=" + encodeURIComponent(riotToken)
+      );
     }
   } catch (error) {
     return res.redirect(`https://feedgames.vercel.app?error=${error.message}`);
+  }
+};
+
+export const getMatchesList = async (req, res) => {
+  try {
+    const { token } = req.query;
+    const userData = await validateToken(token);
+    if (!userData) {
+      return res.status(401).json({ message: "Token invalido o expirado" });
+    }
+    const { puuid } = userData;
+    const ENDPOINT_URL = `https://na.api.riotgames.com/val/match/v1/matchlists/by-puuid/${puuid}`;
+    const response = await fetch(ENDPOINT_URL, {
+      headers: {
+        "X-Riot-Token": process.env.RIOT_API_KEY,
+      },
+    });
+    if (response.status == 404) {
+      return res.status(404).json({ message: "No hay partidos" });
+    } else if (!response.ok) {
+      return res.status(400).json({ message: "Algo salio mal" });
+    } else {
+      const resData = await response.json();
+      let { puuid, history } = resData;
+      history = history.filter(
+        (match) =>
+          match.queueId == "competitive" ||
+          match.queueId == "unrated" ||
+          match.queueId == "swiftplay"
+      );
+      return res.status(200).json({ history: history.slice(0, 20), puuid });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const getMatchByUuid = async (req, res) => {
+  try {
+    const { uuid, puuid } = req.query;
+    const ENDPOINT_URL = `https://na.api.riotgames.com/val/match/v1/matches/${uuid}`;
+    const response = await fetch(ENDPOINT_URL, {
+      headers: {
+        "X-Riot-Token": process.env.RIOT_API_KEY,
+      },
+    });
+    if (!response.ok) {
+      return res.status(400).json({ message: "Algo salio mal" });
+    } else {
+      let match = await response.json();
+      match = filterMatch(match, puuid);
+      return res.status(200).json(match);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
