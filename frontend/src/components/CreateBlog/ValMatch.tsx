@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Match, PlayerInGame } from "../../interfaces/Valorant";
-import {
-  getKD,
-  getMapName,
-  getQueueId,
-} from "../../functions/valorantFunctions";
+import { Match, MatchShowCase, PlayerInGame } from "../../interfaces/Valorant";
+import { getKDA, valMatchStats } from "../../functions/valorantFunctions";
 import { getCharacterIcon } from "../../Api/valorant";
+import { getMapName, getQueueId } from "../../constants/valorantConstants";
 
 interface Props {
   match: Match;
   setPreview: React.Dispatch<
-    React.SetStateAction<string | ArrayBuffer | Match | null>
+    React.SetStateAction<string | ArrayBuffer | MatchShowCase | null>
   >;
+  setValMatch: React.Dispatch<React.SetStateAction<MatchShowCase | null>>;
   closeModal: () => void;
 }
 
 export const ValMatch: React.FC<Props> = ({
   match,
   setPreview,
+  setValMatch,
   closeModal,
 }) => {
   const { matchInfo, player, teams } = match;
@@ -25,10 +24,12 @@ export const ValMatch: React.FC<Props> = ({
   const { characterId, teamId, stats } = player as PlayerInGame;
   const myTeam = teams.find((team) => team.teamId == teamId);
   const enemyTeam = teams.find((team) => team.teamId !== teamId);
+  const showCaseStats = valMatchStats(match);
   const [characterIcon, setCharacterIcon] = useState("");
 
   const handleClick = () => {
-    setPreview(match);
+    setPreview(showCaseStats);
+    setValMatch(showCaseStats);
     closeModal();
   };
 
@@ -66,7 +67,7 @@ export const ValMatch: React.FC<Props> = ({
         <span className="flex flex-col items-center">
           <p className="text-gray-600 text-xs">KDA</p>
           <p className="text-sm text-gray-800">
-            {getKD(stats.kills, stats.assists, stats.deaths)}
+            {getKDA(stats.kills, stats.assists, stats.deaths)}
           </p>
         </span>
         <span className="flex flex-col items-center">

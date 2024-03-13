@@ -8,8 +8,13 @@ export interface Round {
   roundNum: number;
   playerStats: {
     puuid: string;
-    damage: { legshots: number; bodyshots: number; headshots: number }[];
-    economy: { spent: number }[];
+    damage: {
+      damage: number;
+      legshots: number;
+      bodyshots: number;
+      headshots: number;
+    }[];
+    economy: { spent: number };
   };
 }
 
@@ -68,4 +73,20 @@ export interface Match {
   ];
   player: PlayerInGame;
   roundResults: Round[];
+}
+
+export interface MatchShowCase {
+  gameName: string | null;
+  tagLine: string | null;
+  mapName: string;
+  queueId: string;
+  characterId: string;
+  playerStats: Stats;
+  kda: number;
+  roundsWon: number | undefined;
+  roundsLoose: number | undefined;
+  killsPerRound: number;
+  damagePerRound: number;
+  hsPercentage: string;
+  economyRatio: number;
 }

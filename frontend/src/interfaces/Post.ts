@@ -1,4 +1,5 @@
 import { User, defaultUser } from "./User";
+import { MatchShowCase } from "./Valorant";
 
 export interface DateObj {
   day: number;
@@ -21,6 +22,7 @@ export interface PostInterface {
   isSaved: boolean;
   comments: string[];
   isCommented: boolean;
+  valMatch: MatchShowCase | null;
 }
 
 export const defaultPost: PostInterface = {
@@ -38,4 +40,5 @@ export const defaultPost: PostInterface = {
   publicUrl: null,
   tags: [],
   user: defaultUser,
+  valMatch: null,
 };

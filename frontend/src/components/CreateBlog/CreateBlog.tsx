@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CreateBlogHeader } from "./CreateBlogHeader";
 import { CreateBlogForm } from "./CreateBlogForm";
 import { useUser } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { createPost } from "../../Api/post";
 import { useNavigate } from "react-router-dom";
+import { MatchShowCase } from "../../interfaces/Valorant";
 
 export const CreateBlog = () => {
   const nav = useNavigate();
@@ -12,13 +13,22 @@ export const CreateBlog = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
+  const [valMatch, setValMatch] = useState<MatchShowCase | null>(null);
   const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    setValMatch(null);
+  }, [image]);
+
+  useEffect(() => {
+    setImage("");
+  }, [valMatch]);
 
   const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setLoading(true);
-      await createPost(user.id, content, tags, image);
+      await createPost(user.id, content, tags, image, valMatch);
       nav("/");
     } catch (error: any) {
       const { message } = error;
@@ -37,7 +47,7 @@ export const CreateBlog = () => {
         loading={loading}
         handlePost={handlePost}
         formData={{ content, tags }}
-        alterFormData={{ setContent, setImage, setTags }}
+        alterFormData={{ setContent, setImage, setTags, setValMatch }}
       />
       <ToastContainer />
     </div>

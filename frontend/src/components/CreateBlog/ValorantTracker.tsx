@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { getMatchByUuid, getMatchesList } from "../../Api/valorant";
 import { useCookies } from "react-cookie";
 import { LoadingPage } from "../LoadingPage";
-import { Match } from "../../interfaces/Valorant";
+import { Match, MatchShowCase } from "../../interfaces/Valorant";
 import { ValMatch } from "./ValMatch";
 import valorant from "../../assets/img/valorant.svg";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
@@ -20,10 +20,14 @@ const ValError = ({ error }: { error: string }) => {
 
 interface Props {
   setPreview: React.Dispatch<
-    React.SetStateAction<string | ArrayBuffer | Match | null>
+    React.SetStateAction<string | ArrayBuffer | MatchShowCase | null>
   >;
+  setValMatch: React.Dispatch<React.SetStateAction<MatchShowCase | null>>;
 }
-export const ValoranTracker: React.FC<Props> = ({ setPreview }) => {
+export const ValoranTracker: React.FC<Props> = ({
+  setPreview,
+  setValMatch,
+}) => {
   const { riotUser } = useRiot();
   const [isOpen, setIsOpen] = useState(false);
   const [cookies] = useCookies();
@@ -117,6 +121,7 @@ export const ValoranTracker: React.FC<Props> = ({ setPreview }) => {
                           <ValMatch
                             key={match.matchInfo.matchId}
                             match={match}
+                            setValMatch={setValMatch}
                             setPreview={setPreview}
                             closeModal={closeModal}
                           />

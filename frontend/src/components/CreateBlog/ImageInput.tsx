@@ -3,12 +3,12 @@ import { Label } from "../Label";
 import { toast } from "react-toastify";
 import { isImage } from "../../functions/validator";
 import { PhotoIcon } from "@heroicons/react/24/outline";
-import { Match } from "../../interfaces/Valorant";
+import { MatchShowCase } from "../../interfaces/Valorant";
 
 interface Props {
   setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
   setPreview: React.Dispatch<
-    React.SetStateAction<string | ArrayBuffer | Match | null>
+    React.SetStateAction<string | ArrayBuffer | MatchShowCase | null>
   >;
 }
 

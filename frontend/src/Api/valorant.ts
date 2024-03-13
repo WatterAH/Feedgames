@@ -41,7 +41,8 @@ export const getCharacterIcon = async (
     throw new Error("Error al cargar la imagen");
   } else {
     const resData = await res.json();
-    const { displayIconSmall, bustPortrait } = resData.data;
+    let { displayIconSmall, bustPortrait, abilities } = resData.data;
+    abilities = abilities.map((abilitie: any) => abilitie.displayIcon);
     return full ? bustPortrait : displayIconSmall;
   }
 };

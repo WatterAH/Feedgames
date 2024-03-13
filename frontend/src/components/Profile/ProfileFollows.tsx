@@ -50,19 +50,17 @@ export const ProfileFollows: React.FC<Props> = ({ userData }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      setLoading(true);
-      getFollowedById(id)
-        .then((results) => setFollowedList(results))
-        .catch((err: any) => {
-          const { message } = err;
-          toast.error(message, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        })
-        .finally(() => setLoading(false));
-    }
-  }, [isOpen]);
+    setLoading(true);
+    getFollowedById(id)
+      .then((results) => setFollowedList(results))
+      .catch((err: any) => {
+        const { message } = err;
+        toast.error(message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   function closeModal() {
     setIsOpen(false);

@@ -5,11 +5,12 @@ import { getDate } from "../libs/dates.js";
 
 export const createNewPost = async (req, res) => {
   try {
-    let { user_id, content, tags } = req.body;
+    let { user_id, content, tags, valMatch } = req.body;
     tags = JSON.parse(tags);
+    valMatch = JSON.parse(valMatch);
     const image = req.file ? req.file : {};
     let publicUrl = null;
-    if (!content.trim() && !image.buffer) {
+    if (!content.trim() && !image.buffer && !valMatch) {
       return res.status(400).json({ message: "No se permiten posts vacios" });
     }
     if (image.buffer) {
@@ -20,15 +21,21 @@ export const createNewPost = async (req, res) => {
       }
     }
     const created_at = getDate();
-    const insertData = { user_id, created_at, content, tags, publicUrl };
-    const { error } = await supabase.from("posts").insert([insertData]);
+    const data = {
+      user_id,
+      created_at,
+      content,
+      tags,
+      publicUrl,
+      valMatch,
+    };
+    const { error } = await supabase.from("posts").insert([data]);
     if (error) {
       return res.status(400).json({ message: "Error al crear el blog" });
     } else {
       return res.status(200).json({ message: "Has creado un nuevo blog!" });
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

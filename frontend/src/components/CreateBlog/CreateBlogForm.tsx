@@ -7,7 +7,7 @@ import { Loading } from "../Loading";
 import { ImageInput } from "./ImageInput";
 import { ValoranTracker } from "./ValorantTracker";
 import { Preview } from "./DisplayContent";
-import { Match } from "../../interfaces/Valorant";
+import { MatchShowCase } from "../../interfaces/Valorant";
 
 interface Props {
   loading: boolean;
@@ -26,10 +26,10 @@ export const CreateBlogForm: React.FC<Props> = ({
   loading,
 }) => {
   const { content, tags } = formData;
-  const { setContent, setImage, setTags } = alterFormData;
-  const [preview, setPreview] = useState<string | ArrayBuffer | Match | null>(
-    null
-  );
+  const { setContent, setImage, setTags, setValMatch } = alterFormData;
+  const [preview, setPreview] = useState<
+    string | ArrayBuffer | MatchShowCase | null
+  >(null);
 
   return (
     <form className="flex flex-col gap-y-3 px-4 py-2" onSubmit={handlePost}>
@@ -38,7 +38,7 @@ export const CreateBlogForm: React.FC<Props> = ({
       </section>
       <Preview preview={preview} />
       <section className="flex justify-center items-center gap-x-2">
-        {/* <ValoranTracker setPreview={setPreview} /> */}
+        {/* <ValoranTracker setValMatch={setValMatch} setPreview={setPreview} /> */}
         <ImageInput setImage={setImage} setPreview={setPreview} />
       </section>
       <section className="flex flex-col gap-y-2">

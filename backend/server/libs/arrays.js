@@ -39,8 +39,8 @@ export const filterMatch = (match, puuid) => {
   matchInfo = { matchId, mapId, queueId };
   let player = players.find((player) => player.puuid == puuid);
   let { teamId, characterId, stats } = player;
-  let { score, kills, deaths, assists, abilityCasts } = stats;
-  stats = { score, kills, deaths, assists, abilityCasts };
+  let { score, kills, deaths, assists } = stats;
+  stats = { score, kills, deaths, assists };
   player = { puuid, teamId, characterId, stats };
   roundResults = roundResults.map((round) => {
     let { roundNum, playerStats } = round;
