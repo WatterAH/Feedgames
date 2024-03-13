@@ -117,7 +117,10 @@ export const BasicInfo: React.FC<Props> = ({ setContent }) => {
         </button>
       </span>
       <span className="flex justify-center relative mt-3">
-        <Button type="submit" disabled={loading}>
+        <Button
+          type="submit"
+          disabled={!username || !name || !password ? true : false}
+        >
           {loading ? "" : "Continuar"}
         </Button>
         {loading ? <Loading /> : ""}

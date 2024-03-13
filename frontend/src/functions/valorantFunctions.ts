@@ -39,6 +39,11 @@ export const hsPercentage = (rounds: Round[]) => {
   return hsPercentage.toFixed(0);
 };
 
+export const scorePerRound = (score: number, roundsLength: number) => {
+  const averageScore = score / roundsLength;
+  return averageScore.toFixed(0);
+};
+
 export const spentPerRound = (rounds: Round[]) => {
   const totalSpent = rounds.reduce(
     (acc, cur) => acc + cur.playerStats.economy.spent,
@@ -85,6 +90,7 @@ export const valMatchStats = (match: Match): MatchShowCase => {
     kda: getKDA(playerStats.kills, playerStats.assists, playerStats.deaths),
     roundsWon: myTeam?.roundsWon,
     roundsLoose: enemyTeam?.roundsWon,
+    scorePerRound: scorePerRound(playerStats.score, roundResults.length),
     killsPerRound: kills_perRound,
     damagePerRound: damagePerRound(roundResults),
     hsPercentage: hsPercentage(roundResults),

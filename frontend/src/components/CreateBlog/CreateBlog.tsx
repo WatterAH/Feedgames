@@ -17,11 +17,15 @@ export const CreateBlog = () => {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    setValMatch(null);
+    if (image) {
+      setValMatch(null);
+    }
   }, [image]);
 
   useEffect(() => {
-    setImage("");
+    if (valMatch) {
+      setImage("");
+    }
   }, [valMatch]);
 
   const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,7 +50,7 @@ export const CreateBlog = () => {
       <CreateBlogForm
         loading={loading}
         handlePost={handlePost}
-        formData={{ content, tags }}
+        formData={{ content, tags, valMatch, image }}
         alterFormData={{ setContent, setImage, setTags, setValMatch }}
       />
       <ToastContainer />

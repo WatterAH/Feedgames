@@ -69,7 +69,7 @@ export const CommentBox: React.FC<Props> = ({
         />
       </span>
       <span className="w-1/4 flex justify-center relative">
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={!comment ? true : false}>
           {loading ? "" : "Continuar"}
         </Button>
         {loading ? <Loading /> : ""}

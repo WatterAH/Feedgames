@@ -86,6 +86,7 @@ export interface MatchShowCase {
   roundsWon: number | undefined;
   roundsLoose: number | undefined;
   killsPerRound: number;
+  scorePerRound: string;
   damagePerRound: number;
   hsPercentage: string;
   economyRatio: number;

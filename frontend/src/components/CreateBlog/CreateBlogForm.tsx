@@ -14,6 +14,8 @@ interface Props {
   formData: {
     content: string;
     tags: string[];
+    valMatch: MatchShowCase | null;
+    image: string;
   };
   alterFormData: any;
   handlePost: React.FormEventHandler<HTMLFormElement>;
@@ -25,7 +27,7 @@ export const CreateBlogForm: React.FC<Props> = ({
   handlePost,
   loading,
 }) => {
-  const { content, tags } = formData;
+  const { content, tags, valMatch, image } = formData;
   const { setContent, setImage, setTags, setValMatch } = alterFormData;
   const [preview, setPreview] = useState<
     string | ArrayBuffer | MatchShowCase | null
@@ -38,7 +40,7 @@ export const CreateBlogForm: React.FC<Props> = ({
       </section>
       <Preview preview={preview} />
       <section className="flex justify-center items-center gap-x-2">
-        {/* <ValoranTracker setValMatch={setValMatch} setPreview={setPreview} /> */}
+        <ValoranTracker setValMatch={setValMatch} setPreview={setPreview} />
         <ImageInput setImage={setImage} setPreview={setPreview} />
       </section>
       <section className="flex flex-col gap-y-2">
@@ -46,7 +48,10 @@ export const CreateBlogForm: React.FC<Props> = ({
         <CreateTags tags={tags} setTags={setTags} />
       </section>
       <span className="flex justify-center relative">
-        <Button type="submit" disabled={loading}>
+        <Button
+          type="submit"
+          disabled={!valMatch && !content && !image ? true : false}
+        >
           {loading ? "" : "Continuar"}
         </Button>
         {loading ? <Loading /> : ""}

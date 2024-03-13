@@ -164,7 +164,10 @@ export const Modal: React.FC<Props> = ({ closeModal, isOpen, userData }) => {
                       />
                     </div>
                     <div className="mt-4 flex justify-center relative">
-                      <Button type="submit" disabled={loading}>
+                      <Button
+                        type="submit"
+                        disabled={!username || !name ? true : false}
+                      >
                         {loading ? "" : "Listo"}
                       </Button>
                       {loading ? <Loading /> : null}
