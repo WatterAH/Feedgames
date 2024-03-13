@@ -56,7 +56,8 @@ export const getPlayerUuid = async (req, res) => {
       const userData = await response.json();
       const riotToken = await createAccessToken(userData);
       return res.redirect(
-        "http://localhost:5173?riotToken=" + encodeURIComponent(riotToken)
+        "https://feedgames.vercel.app?riotToken=" +
+          encodeURIComponent(riotToken)
       );
     }
   } catch (error) {
