@@ -68,7 +68,7 @@ export const MatchPost: React.FC<MatchProps> = ({ stats }) => {
         <div className="flex flex-col gap-3">
           <section className="flex justify-between px-2">
             <Stat title="KDA" stat={stats.kda} />
-            <Stat title="Puntaje promedio" stat={stats.scorePerRound} />
+            <Stat title="Puntaje" stat={stats.scorePerRound} />
             <Stat title="Headshot %" stat={stats.hsPercentage + " %"} />
             <Stat title="Economia" stat={stats.economyRatio} />
           </section>
