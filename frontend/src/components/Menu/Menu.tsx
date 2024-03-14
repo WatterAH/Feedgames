@@ -54,7 +54,7 @@ export const Menu = () => {
       <SlideOver
         open={openNotify}
         setOpen={setOpenNotify}
-        title={"Centro de notificaciones."}
+        title={"Centro de notificaciones"}
         content={<MapNotify open={openNotify} setOpen={setOpenNotify} />}
       />
       <ListItem
