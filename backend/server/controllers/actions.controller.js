@@ -1,5 +1,4 @@
 import {
-  countUsers,
   getFollowers,
   getFollows,
   getProfileById,
@@ -7,21 +6,17 @@ import {
   getProfilesByIds,
 } from "../database/profileGetter.js";
 import { getPostById, myPostsIds } from "../database/postGetter.js";
-import { percentage } from "../libs/math.js";
 
 export const getProfile = async (req, res) => {
   try {
     const { id, myID } = req.query;
     const { user, error } = await getProfileById(id);
-    const { count } = await countUsers();
     if (error) {
       return res.status(404).json({ message: "Not Found" });
     } else {
-      const minToVerified = Math.round(percentage(count, 10));
       user.follow = user.followers.some(
         (followers) => followers.id_follower == myID
       );
-      user.verified = user.followers.length >= minToVerified;
       return res.status(200).json(user);
     }
   } catch (error) {
