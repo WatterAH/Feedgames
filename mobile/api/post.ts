@@ -1,0 +1,16 @@
+import { URL } from "@/constants/server.constant";
+import { PostInterface } from "@/interfaces/Post";
+
+export const fetchPosts = async (userId: string): Promise<PostInterface[]> => {
+  const res = await fetch(
+    `${URL}/api/loadPosts?id_user=${encodeURIComponent(userId)}`
+  );
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData;
+  } else {
+    const { message } = resData;
+    throw new Error(message);
+  }
+};
