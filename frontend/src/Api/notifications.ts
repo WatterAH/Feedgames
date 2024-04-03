@@ -1,6 +1,6 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { URL } from "../App";
-import { supabase } from "../home/Connection";
+import { supabase } from "../Home/Connection";
 import { Notification } from "../interfaces/Notification";
 
 export const getMyNotifications = async (
@@ -54,9 +54,7 @@ export const subscribeToNotify = async (
     .subscribe();
 };
 
-export const hasUnreadNotifications = async (
-  userId: string
-): Promise<boolean> => {
+export const hasNotifications = async (userId: string): Promise<boolean> => {
   const {
     data: notifications,
     error,

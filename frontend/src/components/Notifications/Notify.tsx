@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Notification } from "../../interfaces/Notification";
 import { Options } from "../Options";
-import { deleteNotificationById } from "../../Api/notifications";
+import { deleteNotificationById } from "../../api/notifications";
 import { toast } from "react-toastify";
 import {
   HeartIcon,

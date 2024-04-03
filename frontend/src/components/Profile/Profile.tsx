@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { ProfileHeader } from "./ProfileHeader";
-import { ProfileDescription } from "./ProfileDescription";
 import { ProfilePosts } from "./ProfilePosts";
-import { useUser } from "../../context/AuthContext";
-import { getProfile } from "../../Api/profile";
+import { useUser } from "../../Context/AuthContext";
+import { getProfile } from "../../api/profile";
 import { NotFound } from "../NotFound";
 import { User, defaultUser } from "../../interfaces/User";
 import { useParams } from "react-router-dom";
@@ -61,7 +60,11 @@ export const Profile = () => {
             <section className="flex">
               <ProfileHeader userData={userData} />
             </section>
-            <ProfileDescription userData={userData} />
+            <section>
+              <p className="font-montserrat text-xs sm:text-sm md:text-base text-gray-600 dark:text-white mb-5 px-3">
+                {userData.details}
+              </p>
+            </section>
           </div>
           <ProfilePosts userID={userData.id} />
         </div>

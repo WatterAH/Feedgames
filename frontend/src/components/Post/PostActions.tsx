@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { LikeButton } from "./LikeButton";
-import { CommentButton } from "./CommentButton";
-import { SaveButton } from "./SaveButton";
+import { LikeButton } from "./Actions/LikeButton";
+import { CommentButton } from "./Actions/CommentButton";
+import { SaveButton } from "./Actions/SaveButton";
 import { formatNumber } from "../../functions/numbers";
 import { PostInterface } from "../../interfaces/Post";
 
@@ -9,7 +9,7 @@ interface Props {
   data: PostInterface;
 }
 
-export const Actions: React.FC<Props> = ({ data }) => {
+export const PostActions: React.FC<Props> = ({ data }) => {
   const { id, user_id } = data;
   const { saved, isSaved, liked, isLiked, comments, isCommented } = data;
   const [savedNum, setSavedNum] = useState<number | undefined>(saved.length);

@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { getMatchByUuid, getMatchesList } from "../../Api/valorant";
+import { getMatchByUuid, getMatchesList } from "../../api/valorant";
 import { useCookies } from "react-cookie";
 import { LoadingPage } from "../LoadingPage";
 import { Match, MatchShowCase } from "../../interfaces/Valorant";
 import { ValMatch } from "./ValMatch";
 import valorant from "../../assets/img/valorant.svg";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import { useRiot } from "../../context/RiotContext";
+import { useRiot } from "../../Context/RiotContext";
 
 const ValError = ({ error }: { error: string }) => {
   return (

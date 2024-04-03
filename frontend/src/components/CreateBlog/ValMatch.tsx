@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Match, MatchShowCase, PlayerInGame } from "../../interfaces/Valorant";
 import { getKDA, valMatchStats } from "../../functions/valorantFunctions";
-import { getCharacterIcon } from "../../Api/valorant";
+import { getCharacterIcon } from "../../api/valorant";
 import { getMapName, getQueueId } from "../../constants/valorantConstants";
 
 interface Props {

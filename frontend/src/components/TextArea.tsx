@@ -1,5 +1,5 @@
 import React from "react";
-import { useUser } from "../context/AuthContext";
+import { useUser } from "../Context/AuthContext";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string | undefined>>;

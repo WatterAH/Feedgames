@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { CreateBlogHeader } from "./CreateBlogHeader";
 import { CreateBlogForm } from "./CreateBlogForm";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../Context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
-import { createPost } from "../../Api/post";
+import { createPost } from "../../api/post";
 import { useNavigate } from "react-router-dom";
 import { MatchShowCase } from "../../interfaces/Valorant";
 

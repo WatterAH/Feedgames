@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { CommentBox } from "./CommentBox";
-import { fetchResponses, responseComment } from "../../Api/comments";
+import { fetchResponses, responseComment } from "../../api/comments";
 import { LoadingPage } from "../LoadingPage";
 import { Comment } from "./Comment";
 import { toast } from "react-toastify";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../Context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
 
 interface Props {

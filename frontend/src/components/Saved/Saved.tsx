@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../Context/AuthContext";
 import { LoadingPage } from "../LoadingPage";
-import { getMySaved } from "../../Api/actions";
+import { getMySaved } from "../../api/actions";
 import { SavedTitle } from "./SavedTitle";
 import { NotSaved } from "./NotSaved";
 import { MapSaved } from "./MapSaved";

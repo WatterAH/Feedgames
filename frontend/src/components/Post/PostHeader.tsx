@@ -1,15 +1,13 @@
 import React, { SetStateAction } from "react";
 import { calculateDate } from "../../functions/date";
-import { PostCreator } from "./PostCreator";
 import { ProfilePicture } from "../Profile/ProfilePicture";
-import { PostDate } from "./PostDate";
 import { PostInterface } from "../../interfaces/Post";
 import { Options } from "../Options";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { postOptions } from "./optionsConstant";
-import { useUser } from "../../context/AuthContext";
-import { deletePostById } from "../../Api/post";
-import { useNavigate } from "react-router-dom";
+import { useUser } from "../../Context/AuthContext";
+import { deletePostById } from "../../api/post";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -47,7 +45,14 @@ export const PostHeader: React.FC<Props> = ({ data, setPosts }) => {
       <section className="flex items-center justify-between">
         <span className="flex items-center gap-x-2">
           <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
-          <PostCreator user_id={user_id} username={username} name={name} />
+          <div>
+            <h1 className="text-lg font-montserrat dark:text-white">{name}</h1>
+            <Link to={`/u/${user_id}`} className="flex items-center gap-x-1">
+              <p className="hover:underline text-gray-400 text-sm font-rubik">
+                @{username}
+              </p>
+            </Link>
+          </div>
         </span>
         <span className="flex flex-col items-end">
           <Options
@@ -55,7 +60,7 @@ export const PostHeader: React.FC<Props> = ({ data, setPosts }) => {
             className="h-5 dark:text-white"
             options={options}
           />
-          <PostDate>{date}</PostDate>
+          <p className="text-gray-400 text-xs font-rubik">{date}</p>
         </span>
       </section>
     </header>

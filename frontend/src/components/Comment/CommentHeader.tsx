@@ -1,8 +1,8 @@
 import React from "react";
 import { Commentator } from "./Commentator";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../Context/AuthContext";
 import { Options } from "../Options";
-import { deleteComment } from "../../Api/comments";
+import { deleteComment } from "../../api/comments";
 import { toast } from "react-toastify";
 import { CommentInterface } from "../../interfaces/Comment";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";

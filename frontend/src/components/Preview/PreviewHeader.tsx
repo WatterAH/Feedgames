@@ -1,5 +1,5 @@
 import React from "react";
-import { SaveButton } from "../Post/SaveButton";
+import { SaveButton } from "../Post/Actions/SaveButton";
 import { PreviewCreator } from "./PreviewCreator";
 import { PostInterface } from "../../interfaces/Post";
 

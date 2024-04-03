@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../Context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { Post } from "../Post/Post";
 import { LoadingPage } from "../LoadingPage";
-import { getPostById } from "../../Api/post";
+import { getPostById } from "../../api/post";
 import { Comments } from "../Comment/Comments";
-import { fetchComments as fetchFunction } from "../../Api/comments";
-import { commentPost as sendFunction } from "../../Api/comments";
+import { fetchComments as fetchFunction } from "../../api/comments";
+import { commentPost as sendFunction } from "../../api/comments";
 import { NotFound } from "../NotFound";
 import { useParams } from "react-router-dom";
 import { PostInterface, defaultPost } from "../../interfaces/Post";

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { LoadingPage } from "../LoadingPage";
-import { getMyNotifications } from "../../Api/notifications";
+import { getMyNotifications } from "../../api/notifications";
 import { Notify } from "./Notify";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../Context/AuthContext";
 import { Notification } from "../../interfaces/Notification";
 import { toast } from "react-toastify";
 

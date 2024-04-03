@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { BookmarkIcon as BookOut } from "@heroicons/react/24/outline";
 import { BookmarkSlashIcon as BookSolid } from "@heroicons/react/24/solid";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../../Context/AuthContext";
 import { toast } from "react-toastify";
-import { dontSavePost, savePost } from "../../Api/interactions";
+import { dontSavePost, savePost } from "../../../api/interactions";
 
 interface Props {
   id: string;

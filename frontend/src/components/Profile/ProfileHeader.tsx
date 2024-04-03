@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { ProfileFollows } from "./ProfileFollows";
 import { ProfileFollowers } from "./ProfileFollowers";
-import { ProfileName } from "./ProfileName";
 import { FollowButton } from "./FollowButton";
-import { useUser } from "../../context/AuthContext";
+import { useUser } from "../../Context/AuthContext";
 import { Modal } from "./Modal";
 import { ProfilePicture } from "./ProfilePicture";
 import { User } from "../../interfaces/User";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { Options } from "../Options";
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { profileOptions } from "./optionsConstant";
 
 interface Props {
@@ -18,7 +16,7 @@ interface Props {
 
 export const ProfileHeader: React.FC<Props> = ({ userData }) => {
   let [isOpen, setIsOpen] = useState(false);
-  const { id, username, name, pfp, verified } = userData;
+  const { id, username, name, pfp } = userData;
   const { user } = useUser();
   function openModal() {
     setIsOpen(true);
@@ -36,12 +34,6 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-montserrat font-semibol dark:text-white">
             {username}
           </h1>
-          {verified ? (
-            <CheckBadgeIcon
-              aria-hidden="true"
-              className="text-blue-400 h-5 md:h-7"
-            />
-          ) : null}
         </span>
         <span className="flex items-center gap-x-1">
           <Options
@@ -53,7 +45,9 @@ export const ProfileHeader: React.FC<Props> = ({ userData }) => {
         <Modal closeModal={closeModal} isOpen={isOpen} userData={userData} />
       </section>
       <section className="flex items-center gap-x-3">
-        <ProfileName name={name} />
+        <span className="font-montserrat text-xs sm:text-sm md:text-base dark:text-white">
+          {name}
+        </span>
         <span className="flex items-center gap-1">
           <ProfileFollowers userData={userData} />
           <ProfileFollows userData={userData} />
