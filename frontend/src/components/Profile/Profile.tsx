@@ -4,7 +4,7 @@ import { LoadingPage } from "../LoadingPage";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfilePosts } from "./ProfilePosts";
 import { useUser } from "../../context/AuthContext";
-import { getProfile } from "../../api/profile";
+import { getProfile } from "../../Api/profile";
 import { NotFound } from "../NotFound";
 import { User, defaultUser } from "../../interfaces/User";
 import { useParams } from "react-router-dom";

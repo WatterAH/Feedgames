@@ -6,7 +6,7 @@ import { Options } from "../Options";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { postOptions } from "./optionsConstant";
 import { useUser } from "../../context/AuthContext";
-import { deletePostById } from "../../api/post";
+import { deletePostById } from "../../Api/post";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

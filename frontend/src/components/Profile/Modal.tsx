@@ -6,7 +6,7 @@ import { Button } from "../Button";
 import { Loading } from "../Loading";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
-import { editProfile } from "../../api/profile";
+import { editProfile } from "../../Api/profile";
 import { isImage } from "../../functions/validator";
 import default_pfp from "../../assets/img/default.png";
 import { User } from "../../interfaces/User";

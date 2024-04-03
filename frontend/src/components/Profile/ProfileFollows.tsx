@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { User } from "../../interfaces/User";
-import { getFollowedById } from "../../api/actions";
+import { getFollowedById } from "../../Api/actions";
 import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { Link } from "react-router-dom";

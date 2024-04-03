@@ -5,7 +5,7 @@ import { MainFeed } from "./MainFeed";
 import { Create } from "../components/CreateBlog/Create";
 import { Saved } from "../components/Saved/Saved";
 import { useUser } from "../context/AuthContext";
-import { checkAuth } from "../api/auth";
+import { checkAuth } from "../Api/auth";
 import { LoadingPage } from "../components/LoadingPage";
 import { ExploreComment } from "../components/Comment/ExploreComment";
 import { ExplorePost } from "../components/Post/ExplorePost";

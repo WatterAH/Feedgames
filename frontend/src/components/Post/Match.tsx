@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MatchShowCase } from "../../interfaces/Valorant";
-import { getCharacterIcon } from "../../api/valorant";
+import { getCharacterIcon } from "../../Api/valorant";
 import { ChartPieIcon } from "@heroicons/react/24/outline";
 import valorant from "../../assets/img/valorant.svg";
 

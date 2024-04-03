@@ -6,7 +6,7 @@ import { Loading } from "../components/Loading";
 import { toast } from "react-toastify";
 import { useUser } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { registerApi } from "../api/auth";
+import { registerApi } from "../Api/auth";
 import { useCookies } from "react-cookie";
 import { getExpirationDate } from "../functions/date";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";

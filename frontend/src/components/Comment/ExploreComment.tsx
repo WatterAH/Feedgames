@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { LoadingPage } from "../LoadingPage";
-import { fetchComment } from "../../api/comments";
+import { fetchComment } from "../../Api/comments";
 import { ToastContainer, toast } from "react-toastify";
 import { Comment } from "./Comment";
 import { Comments } from "./Comments";
-import { fetchResponses as fetchFunction } from "../../api/comments";
-import { responseComment as sendFunction } from "../../api/comments";
+import { fetchResponses as fetchFunction } from "../../Api/comments";
+import { responseComment as sendFunction } from "../../Api/comments";
 import { NotFound } from "../NotFound";
 import { useParams } from "react-router-dom";
 import { useUser } from "../../context/AuthContext";

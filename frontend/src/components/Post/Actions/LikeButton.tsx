@@ -3,7 +3,7 @@ import { HeartIcon as HeartOut } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { toast } from "react-toastify";
 import { useUser } from "../../../context/AuthContext";
-import { likePost, dontLikePost } from "../../../api/interactions";
+import { likePost, dontLikePost } from "../../../Api/interactions";
 
 interface Props {
   id: string;

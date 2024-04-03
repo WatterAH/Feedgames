@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CommentBox } from "./CommentBox";
-import { fetchResponses, responseComment } from "../../api/comments";
+import { fetchResponses, responseComment } from "../../Api/comments";
 import { LoadingPage } from "../LoadingPage";
 import { Comment } from "./Comment";
 import { toast } from "react-toastify";

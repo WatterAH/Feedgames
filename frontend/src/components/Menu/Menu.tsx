@@ -5,7 +5,7 @@ import { SlideOver } from "../SlideOver";
 import { useUser } from "../../context/AuthContext";
 import * as Solid from "@heroicons/react/24/solid";
 import * as Out from "@heroicons/react/24/outline";
-import { hasNotifications, subscribeToNotify } from "../../api/notifications";
+import { hasNotifications, subscribeToNotify } from "../../Api/notifications";
 import { useLocation } from "react-router-dom";
 import { NotificationDot } from "./NotificationDot";
 import { MapNotify } from "../Notifications/MapNotify";

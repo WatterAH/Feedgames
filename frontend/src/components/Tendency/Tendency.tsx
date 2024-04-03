@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTendencyPost } from "../../api/suggestions";
+import { getTendencyPost } from "../../Api/suggestions";
 import { LoadingPage } from "../LoadingPage";
 import { TendencyPosts } from "./TendencyPosts";
 import { PostInterface } from "../../interfaces/Post";

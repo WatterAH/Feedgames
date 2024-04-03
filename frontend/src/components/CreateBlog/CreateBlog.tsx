@@ -3,7 +3,7 @@ import { CreateBlogHeader } from "./CreateBlogHeader";
 import { CreateBlogForm } from "./CreateBlogForm";
 import { useUser } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
-import { createPost } from "../../api/post";
+import { createPost } from "../../Api/post";
 import { useNavigate } from "react-router-dom";
 import { MatchShowCase } from "../../interfaces/Valorant";
 

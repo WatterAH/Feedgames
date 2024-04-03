@@ -7,7 +7,7 @@ import { Button } from "../components/Button";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
-import { loginApi } from "../api/auth";
+import { loginApi } from "../Api/auth";
 import { Header } from "./Header";
 import { useCookies } from "react-cookie";
 import { getExpirationDate } from "../functions/date";
