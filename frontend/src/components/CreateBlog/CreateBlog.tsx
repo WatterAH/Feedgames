@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CreateBlogHeader } from "./CreateBlogHeader";
 import { CreateBlogForm } from "./CreateBlogForm";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { createPost } from "../../api/post";
 import { useNavigate } from "react-router-dom";

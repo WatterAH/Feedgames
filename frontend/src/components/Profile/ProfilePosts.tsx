@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { getProfilePost } from "../../api/profile";
-import { MapPost } from "../../Home/MapPost";
+import { MapPost } from "../../home/MapPost";
 import { PostInterface } from "../../interfaces/Post";
 
 interface Props {

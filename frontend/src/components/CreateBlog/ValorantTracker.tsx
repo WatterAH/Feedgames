@@ -7,7 +7,7 @@ import { Match, MatchShowCase } from "../../interfaces/Valorant";
 import { ValMatch } from "./ValMatch";
 import valorant from "../../assets/img/valorant.svg";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import { useRiot } from "../../Context/RiotContext";
+import { useRiot } from "../../context/RiotContext";
 
 const ValError = ({ error }: { error: string }) => {
   return (

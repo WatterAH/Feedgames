@@ -1,6 +1,6 @@
 import React from "react";
 import { Commentator } from "./Commentator";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { Options } from "../Options";
 import { deleteComment } from "../../api/comments";
 import { toast } from "react-toastify";

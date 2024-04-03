@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfilePosts } from "./ProfilePosts";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { getProfile } from "../../api/profile";
 import { NotFound } from "../NotFound";
 import { User, defaultUser } from "../../interfaces/User";

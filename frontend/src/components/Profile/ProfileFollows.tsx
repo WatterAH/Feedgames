@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { Link } from "react-router-dom";
 import { FollowButton } from "./FollowButton";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import default_pfp from "../../assets/img/default.png";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 

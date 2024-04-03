@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "@theme-toggles/react/css/Classic.css";
 import { ListItem } from "./ListItem";
 import { SlideOver } from "../SlideOver";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import * as Solid from "@heroicons/react/24/solid";
 import * as Out from "@heroicons/react/24/outline";
 import { hasNotifications, subscribeToNotify } from "../../api/notifications";

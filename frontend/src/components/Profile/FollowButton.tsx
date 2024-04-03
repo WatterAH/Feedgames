@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { dontFollowUser, followUser } from "../../api/interactions";
 import { User } from "../../interfaces/User";
 import { UserMinusIcon, UserPlusIcon } from "@heroicons/react/24/outline";

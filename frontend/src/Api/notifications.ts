@@ -1,6 +1,6 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { URL } from "../App";
-import { supabase } from "../Home/Connection";
+import { supabase } from "../home/Connection";
 import { Notification } from "../interfaces/Notification";
 
 export const getMyNotifications = async (

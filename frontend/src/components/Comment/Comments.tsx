@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CommentBox } from "./CommentBox";
 import { Comment } from "./Comment";
 import { LoadingPage } from "../LoadingPage";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
 import { toast } from "react-toastify";
 

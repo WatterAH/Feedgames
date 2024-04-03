@@ -4,7 +4,7 @@ import { Label } from "../components/Label";
 import { Button } from "../components/Button";
 import { Loading } from "../components/Loading";
 import { toast } from "react-toastify";
-import { useUser } from "../Context/AuthContext";
+import { useUser } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { registerApi } from "../api/auth";
 import { useCookies } from "react-cookie";

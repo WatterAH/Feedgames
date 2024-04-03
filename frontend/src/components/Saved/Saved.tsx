@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { LoadingPage } from "../LoadingPage";
 import { getMySaved } from "../../api/actions";
 import { SavedTitle } from "./SavedTitle";

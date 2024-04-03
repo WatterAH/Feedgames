@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { Post } from "../Post/Post";
 import { LoadingPage } from "../LoadingPage";

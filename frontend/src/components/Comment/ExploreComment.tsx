@@ -8,7 +8,7 @@ import { fetchResponses as fetchFunction } from "../../api/comments";
 import { responseComment as sendFunction } from "../../api/comments";
 import { NotFound } from "../NotFound";
 import { useParams } from "react-router-dom";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { defaultComment } from "../../interfaces/Comment";
 
 export const ExploreComment = () => {

@@ -3,7 +3,7 @@ import { HeartIcon as HeartOut } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { toast } from "react-toastify";
 import { dontLikeComment, likeComment } from "../../api/comments";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
 
 export const LikeButton = ({ comment }: { comment: CommentInterface }) => {

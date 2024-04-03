@@ -3,7 +3,7 @@ import { Search } from "../components/Search/Search";
 import { Tendency } from "../components/Tendency/Tendency";
 import { PostInterface } from "../interfaces/Post";
 import { fetchPosts } from "../api/post";
-import { useUser } from "../Context/AuthContext";
+import { useUser } from "../context/AuthContext";
 import { ErrorPage } from "../components/ErrorPage";
 import { MapPost } from "./MapPost";
 import { useCookies } from "react-cookie";

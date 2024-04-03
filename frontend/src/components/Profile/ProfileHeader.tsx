@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ProfileFollows } from "./ProfileFollows";
 import { ProfileFollowers } from "./ProfileFollowers";
 import { FollowButton } from "./FollowButton";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { Modal } from "./Modal";
 import { ProfilePicture } from "./ProfilePicture";
 import { User } from "../../interfaces/User";

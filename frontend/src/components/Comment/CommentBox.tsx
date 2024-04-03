@@ -3,7 +3,7 @@ import { Input } from "../Input";
 import { Button } from "../Button";
 import { toast } from "react-toastify";
 import { Loading } from "../Loading";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
 
 interface Props {

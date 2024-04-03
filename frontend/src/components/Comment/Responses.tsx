@@ -4,7 +4,7 @@ import { fetchResponses, responseComment } from "../../api/comments";
 import { LoadingPage } from "../LoadingPage";
 import { Comment } from "./Comment";
 import { toast } from "react-toastify";
-import { useUser } from "../../Context/AuthContext";
+import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
 
 interface Props {
