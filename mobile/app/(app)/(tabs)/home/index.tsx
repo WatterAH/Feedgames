@@ -5,6 +5,7 @@ import { PostInterface } from "@/interfaces/Post";
 import Post from "@/components/Post/Post";
 import { View, Text } from "@/components/Global/Themed";
 import { Search } from "@/components/Search/Search";
+import { Loading } from "@/components/Global/Loading";
 
 const MapPost = ({
   posts,
@@ -32,8 +33,8 @@ const MapPost = ({
         alignItems: "center",
         justifyContent: "center",
         flexGrow: 1,
-        padding: 24,
-        rowGap: 5,
+        paddingRight: 10,
+        paddingLeft: 10,
       }}
     >
       <RefreshControl refreshing={loading} onRefresh={handleRefresh} />
@@ -60,12 +61,14 @@ const home = () => {
   }, []);
 
   return loading ? (
-    <Text>Cargando...</Text>
+    <View className="flex items-center justify-center h-full">
+      <Loading size="large" color="#fff" />
+    </View>
   ) : (
     <View
       darkColor="rgb(0, 0, 0)"
-      lightColor="#eee"
-      className="h-fit flex flex-col items-center justify-center mt-10"
+      lightColor="#fff"
+      className="h-fit flex flex-col items-center justify-center"
     >
       {/* <Search /> */}
       <MapPost posts={posts} setPosts={setPosts} />

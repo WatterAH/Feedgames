@@ -12,7 +12,7 @@ interface Props {
 const Post: React.FC<Props> = ({ data }) => {
   return (
     <View
-      className="w-full duration-700 border-b border-gray-300 flex flex-col py-8"
+      className="w-full duration-700 border-b border-gray-100 dark:border-neutral-800 flex flex-col py-5"
       style={{ rowGap: 16 }}
     >
       <PostHeader data={data} />

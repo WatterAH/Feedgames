@@ -14,7 +14,9 @@ export const PostContent: React.FC<Props> = ({ data }) => {
 
   return (
     <View className="flex flex-col" style={{ rowGap: 16 }}>
-      <Text className="text-sm w-fit">{content}</Text>
+      <Text className="text-sm w-fit" style={{ fontFamily: "OpenSans" }}>
+        {content}
+      </Text>
       {publicUrl && (
         <Image
           source={{ uri: src }}

@@ -21,7 +21,7 @@ export const PostHeader: React.FC<Props> = ({ data }) => {
         <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
         <PostCreator user_id={id} username={username} name={name} />
       </View>
-      <View className="flex flex-col items-end">
+      <View className="flex flex-col items-end gap-y-2">
         <EllipsisHorizontalIcon
           className="h-5 text-gray-600"
           color={"rgb(75 85 99)"}

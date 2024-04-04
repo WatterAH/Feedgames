@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import * as Solid from "react-native-heroicons/solid";
 import * as Out from "react-native-heroicons/outline";
-import Colors from "@/constants/Colors";
 import { Tabs } from "expo-router";
 import { useColorScheme } from "react-native";
+import { Text } from "@/components/Global/Themed";
 
 export default () => {
   const colorScheme = useColorScheme();
   const [focusedTab, setFocusedTab] = useState("home");
   const color = colorScheme === "dark" ? "#fff" : "rgb(31 41 55)";
+  const tabStyle = {
+    backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
+    marginBottom: 6,
+    paddingTop: 18,
+  };
 
   const getTabIcon = (tabName: string) => {
     if (focusedTab === tabName) {
@@ -46,18 +51,35 @@ export default () => {
 
   return (
     <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
-      }}
+      screenOptions={{ tabBarActiveTintColor: "rgb(0, 0, 0)" }}
+      className="bg-black"
     >
       <Tabs.Screen
         name="home"
         options={{
-          title: "Feedgames",
-          headerShown: false,
+          title: "",
+          headerLeft: () => (
+            <Text
+              className="text-2xl pl-5 pt-1"
+              style={{ fontFamily: "Pacifico" }}
+            >
+              Feedgames
+            </Text>
+          ),
+          headerRight: () => (
+            <Solid.MagnifyingGlassIcon
+              color={colorScheme === "dark" ? "#fff" : "#000"}
+              size={30}
+              style={{ paddingRight: 50 }}
+            />
+          ),
           tabBarIcon: () => getTabIcon("home"),
+          headerStyle: {
+            backgroundColor: colorScheme === "dark" ? "rgb(0, 0, 0)" : "#fff",
+            height: 100,
+          },
           tabBarLabel: "",
-          tabBarStyle: { padding: 32 },
+          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
@@ -71,7 +93,7 @@ export default () => {
           headerShown: false,
           tabBarIcon: () => getTabIcon("create"),
           tabBarLabel: "",
-          tabBarStyle: { padding: 32 },
+          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
@@ -85,7 +107,7 @@ export default () => {
           headerShown: false,
           tabBarIcon: () => getTabIcon("notifications"),
           tabBarLabel: "",
-          tabBarStyle: { padding: 32 },
+          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
@@ -99,7 +121,7 @@ export default () => {
           headerShown: false,
           tabBarIcon: () => getTabIcon("saved"),
           tabBarLabel: "",
-          tabBarStyle: { padding: 32 },
+          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
@@ -110,10 +132,12 @@ export default () => {
       <Tabs.Screen
         name="profile"
         options={{
-          headerShown: false,
+          title: "",
+          headerLeft: () => <Text className="text-xl pl-5">Watter.jsx</Text>,
+          headerStyle: { backgroundColor: "rgb(0, 0, 0)" },
           tabBarIcon: () => getTabIcon("profile"),
           tabBarLabel: "",
-          tabBarStyle: { padding: 32 },
+          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
