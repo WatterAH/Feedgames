@@ -12,6 +12,7 @@ const StackLayout = () => {
       <Stack.Screen
         name="index"
         options={{
+          presentation: "modal",
           headerTitle: "Nuevo post",
           headerTitleStyle: { fontWeight: "700" },
           headerStyle: { backgroundColor },

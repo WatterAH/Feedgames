@@ -1,4 +1,4 @@
-import { getMapName, getQueueId } from "../constants/valorantConstants";
+import { getMapName, getQueueId } from "../../constants/valorantConstants";
 import { useRiot } from "../context/RiotContext";
 import {
   Match,

@@ -4,7 +4,11 @@ import { PhotoIcon } from "react-native-heroicons/outline";
 
 export const Contents = () => {
   return (
-    <View className="flex-row items-center mt-3">
+    <View
+      lightColor="#fff"
+      darkColor="#181818"
+      className="flex-row items-center mt-3"
+    >
       <PhotoIcon color={"#777777"} />
     </View>
   );

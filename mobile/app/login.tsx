@@ -13,8 +13,8 @@ import { useColorScheme } from "react-native";
 const logIn = () => {
   const colorScheme = useColorScheme();
   const { login } = useSession();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("watter.jsdx");
+  const [password, setPassword] = useState("SamT0710");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [fontsLoaded, fontError] = useFonts({

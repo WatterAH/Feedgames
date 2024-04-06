@@ -1,6 +1,7 @@
 import React from "react";
-import { Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import { Link, Stack, router } from "expo-router";
+import { Pressable, useColorScheme } from "react-native";
+import { Text } from "@/components/Global/Themed";
 
 const StackLayout = () => {
   const colorScheme = useColorScheme();

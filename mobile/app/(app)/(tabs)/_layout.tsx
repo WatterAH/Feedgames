@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Tabs } from "expo-router";
+import { Tabs, router } from "expo-router";
 import { useColorScheme } from "react-native";
 import * as Solid from "react-native-heroicons/solid";
 import * as Out from "react-native-heroicons/outline";
-import { useScrollToTop } from "@react-navigation/native";
 
 export default () => {
   const colorScheme = useColorScheme();
@@ -11,40 +10,40 @@ export default () => {
   const iconColor = colorScheme === "dark" ? "#fff" : "#000";
   const tabStyle = {
     backgroundColor: colorScheme === "dark" ? "#101010" : "#fff",
-    marginBottom: 6,
-    paddingTop: 18,
+    height: 90,
+    borderTopWidth: 0,
   };
 
   const getTabIcon = (tabName: string) => {
     if (focusedTab === tabName) {
       switch (tabName) {
         case "home":
-          return <Solid.HomeIcon size={26} color={iconColor} />;
+          return <Solid.HomeIcon size={28} color={iconColor} />;
         case "search":
-          return <Solid.MagnifyingGlassIcon size={26} color={iconColor} />;
+          return <Solid.MagnifyingGlassIcon size={28} color={iconColor} />;
         case "create":
-          return <Solid.PencilSquareIcon size={26} color={iconColor} />;
+          return <Solid.PencilSquareIcon size={28} color={iconColor} />;
         case "notifications":
-          return <Solid.BellAlertIcon size={26} color={iconColor} />;
+          return <Solid.BellAlertIcon size={28} color={iconColor} />;
 
         case "profile":
-          return <Solid.UserIcon size={26} color={iconColor} />;
+          return <Solid.UserIcon size={28} color={iconColor} />;
         default:
           return null;
       }
     } else {
       switch (tabName) {
         case "home":
-          return <Out.HomeIcon size={26} color={iconColor} />;
+          return <Out.HomeIcon size={28} color={iconColor} />;
         case "search":
-          return <Out.MagnifyingGlassIcon size={26} color={iconColor} />;
+          return <Out.MagnifyingGlassIcon size={28} color={iconColor} />;
         case "create":
-          return <Out.PencilSquareIcon size={26} color={iconColor} />;
+          return <Out.PencilSquareIcon size={28} color={iconColor} />;
         case "notifications":
-          return <Out.BellAlertIcon size={26} color={iconColor} />;
+          return <Out.BellAlertIcon size={28} color={iconColor} />;
 
         case "profile":
-          return <Out.UserIcon size={26} color={iconColor} />;
+          return <Out.UserIcon size={28} color={iconColor} />;
         default:
           return null;
       }
@@ -55,6 +54,7 @@ export default () => {
     <Tabs
       screenOptions={{
         tabBarStyle: tabStyle,
+        tabBarShowLabel: false,
       }}
       className="bg-black"
     >
@@ -63,7 +63,6 @@ export default () => {
         options={{
           headerShown: false,
           tabBarIcon: () => getTabIcon("home"),
-          tabBarLabel: "",
         }}
         listeners={() => ({
           tabPress: () => {
@@ -76,7 +75,6 @@ export default () => {
         options={{
           headerTitle: "",
           headerShown: false,
-          tabBarLabel: "",
           tabBarIcon: () => getTabIcon("search"),
         }}
         listeners={() => ({
@@ -90,11 +88,11 @@ export default () => {
         options={{
           headerShown: false,
           tabBarIcon: () => getTabIcon("create"),
-          tabBarLabel: "",
         }}
         listeners={() => ({
-          tabPress: () => {
-            setFocusedTab("create");
+          tabPress: (e) => {
+            e.preventDefault();
+            router.navigate("/newpost");
           },
         })}
       />
@@ -103,7 +101,6 @@ export default () => {
         options={{
           headerShown: false,
           tabBarIcon: () => getTabIcon("notifications"),
-          tabBarLabel: "",
         }}
         listeners={() => ({
           tabPress: () => {
@@ -116,7 +113,6 @@ export default () => {
         options={{
           headerShown: false,
           tabBarIcon: () => getTabIcon("profile"),
-          tabBarLabel: "",
         }}
         listeners={() => ({
           tabPress: () => {

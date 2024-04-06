@@ -11,9 +11,9 @@ import { XMarkIcon } from "react-native-heroicons/solid";
 interface Props extends TextInputProps {}
 
 export const TextArea: React.FC<Props> = (props) => {
+  const [text, setText] = useState("");
   const colorScheme = useColorScheme();
   const textColor = colorScheme === "dark" ? "#fff" : "#101010";
-  const [text, setText] = useState("");
 
   return (
     <>
@@ -21,6 +21,7 @@ export const TextArea: React.FC<Props> = (props) => {
         className="py-2 outline-none text-sm rounded-xl w-80"
         placeholderTextColor="#777777"
         multiline
+        autoFocus
         value={text}
         onChangeText={setText}
         style={{ color: textColor }}

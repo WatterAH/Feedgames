@@ -7,7 +7,7 @@ const name = () => {
   return (
     <SafeAreaView className="flex-col h-full items-center justify-start">
       <FormStep
-        label="Da vida a tu perfil con un nombre de usuario único"
+        label="Deja tu huella con un nombre de usuario único"
         placeholder="Usuario"
         textButton="Continuar"
         onSubmit={() => router.navigate("/register/details")}

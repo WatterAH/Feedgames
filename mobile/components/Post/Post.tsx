@@ -9,7 +9,7 @@ interface Props {
   data: PostInterface;
 }
 
-const Post: React.FC<Props> = ({ data }) => {
+export const Post: React.FC<Props> = ({ data }) => {
   return (
     <View
       className="w-full duration-700 border-b border-gray-100 dark:border-neutral-800 flex-col py-5 px-3"
@@ -21,5 +21,3 @@ const Post: React.FC<Props> = ({ data }) => {
     </View>
   );
 };
-
-export default Post;

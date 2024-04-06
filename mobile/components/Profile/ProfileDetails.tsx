@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View } from "../Global/Themed";
 import { ProfilePicture } from "./ProfilePicture";
 import { User } from "@/interfaces/User";
@@ -13,7 +13,14 @@ interface Props {
 
 export const ProfileDetails: React.FC<Props> = ({ data }) => {
   const { user } = useSession();
-  const { id, username, name, pfp, details, followers, followed } = data;
+  const { id, username, name, pfp, details, followers, followed, follow } =
+    data;
+  const [isFollowed, setIsFollowed] = useState(follow);
+
+  const handleFollow = async () => {
+    setIsFollowed(!isFollowed);
+  };
+
   return (
     <View className="flex-col gap-y-3 px-4">
       <View className="flex-row justify-between items-center gap-x-2">
@@ -38,7 +45,6 @@ export const ProfileDetails: React.FC<Props> = ({ data }) => {
         </Text>
       </View>
       <View
-        // className="flex-row items-center justify-center gap-x-3"
         style={{
           flex: 2,
           flexDirection: "row",
@@ -47,7 +53,17 @@ export const ProfileDetails: React.FC<Props> = ({ data }) => {
           columnGap: 10,
         }}
       >
-        <FollowButton text={user?.id == id ? "Editar perfil" : "Seguir"} />
+        <FollowButton
+          onPress={user?.id != id ? handleFollow : null}
+          follow={isFollowed}
+          text={
+            user?.id == id
+              ? "Editar perfil"
+              : user?.id != id && isFollowed
+              ? "Siguiendo"
+              : "Seguir"
+          }
+        />
         <ShareProfile text="Compartir perfil" />
       </View>
     </View>
