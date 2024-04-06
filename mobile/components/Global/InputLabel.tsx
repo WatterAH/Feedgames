@@ -2,20 +2,25 @@ import React from "react";
 import { View } from "./Themed";
 import { Label } from "./Label";
 import { Input } from "./Input";
-import { TextInputIOSProps } from "react-native";
 
 interface Props {
   label: string;
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
+  error: boolean;
 }
 
-export const InputLabel: React.FC<Props> = ({ label, text, setText }) => {
+export const InputLabel: React.FC<Props> = ({
+  label,
+  text,
+  setText,
+  error,
+}) => {
   return (
     <View className="flex flex-col">
-      <Label style={{ fontFamily: "OpenSans" }}>{label}</Label>
+      <Label>{label}</Label>
       <Input
-        style={{ fontFamily: "OpenSans" }}
+        error={error}
         placeholder={label}
         onChangeText={(text) => setText(text)}
         value={text}

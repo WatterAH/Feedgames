@@ -45,3 +45,19 @@ export const registerApi = async (
     throw new Error(resData.message);
   }
 };
+
+export const checkAuth = async (
+  userToken: string
+): Promise<{ user: User; userToken: string }> => {
+  const ENDPOINT = `${URL}/api/checkAuth?userToken=${encodeURIComponent(
+    userToken
+  )}&riotToken=""`;
+  const res = await fetch(ENDPOINT);
+  const resData = await res.json();
+  if (res.ok) {
+    return resData;
+  } else {
+    const { message } = resData;
+    throw new Error(message);
+  }
+};

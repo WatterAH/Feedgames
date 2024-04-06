@@ -28,9 +28,9 @@ export const LikeButton = ({ likeData }: { likeData: Props }) => {
   return (
     <Pressable onPress={handleLike}>
       {liked ? (
-        <HeartSolid size={26} color={"rgb(244 63 94)"} />
+        <HeartSolid size={26} color={"rgb(251, 113, 133)"} />
       ) : (
-        <HeartOut size={26} color={"rgb(244 63 94)"} />
+        <HeartOut size={26} color={"rgb(251, 113, 133)"} />
       )}
     </Pressable>
   );

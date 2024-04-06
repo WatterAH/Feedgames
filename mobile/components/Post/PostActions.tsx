@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { PostInterface } from "@/interfaces/Post";
-import { Text, View } from "react-native";
 import { LikeButton } from "./Actions/LikeButton";
 import { SaveButton } from "./Actions/SaveButton";
 import { CommentButton } from "./Actions/CommentButton";
+import { Text, View } from "../Global/Themed";
 
 interface Props {
   data: PostInterface;

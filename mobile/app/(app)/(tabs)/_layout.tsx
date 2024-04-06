@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import * as Solid from "react-native-heroicons/solid";
-import * as Out from "react-native-heroicons/outline";
 import { Tabs } from "expo-router";
 import { useColorScheme } from "react-native";
-import { Text } from "@/components/Global/Themed";
+import * as Solid from "react-native-heroicons/solid";
+import * as Out from "react-native-heroicons/outline";
+import { useScrollToTop } from "@react-navigation/native";
 
 export default () => {
   const colorScheme = useColorScheme();
   const [focusedTab, setFocusedTab] = useState("home");
-  const color = colorScheme === "dark" ? "#fff" : "rgb(31 41 55)";
+  const iconColor = colorScheme === "dark" ? "#fff" : "#000";
   const tabStyle = {
-    backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
+    backgroundColor: colorScheme === "dark" ? "#101010" : "#fff",
     marginBottom: 6,
     paddingTop: 18,
   };
@@ -19,30 +19,32 @@ export default () => {
     if (focusedTab === tabName) {
       switch (tabName) {
         case "home":
-          return <Solid.HomeIcon size={26} color={color} />;
+          return <Solid.HomeIcon size={26} color={iconColor} />;
+        case "search":
+          return <Solid.MagnifyingGlassIcon size={26} color={iconColor} />;
         case "create":
-          return <Solid.PencilSquareIcon size={26} color={color} />;
+          return <Solid.PencilSquareIcon size={26} color={iconColor} />;
         case "notifications":
-          return <Solid.BellAlertIcon size={26} color={color} />;
-        case "saved":
-          return <Solid.BookmarkIcon size={26} color={color} />;
+          return <Solid.BellAlertIcon size={26} color={iconColor} />;
+
         case "profile":
-          return <Solid.UserIcon size={26} color={color} />;
+          return <Solid.UserIcon size={26} color={iconColor} />;
         default:
           return null;
       }
     } else {
       switch (tabName) {
         case "home":
-          return <Out.HomeIcon size={26} color={color} />;
+          return <Out.HomeIcon size={26} color={iconColor} />;
+        case "search":
+          return <Out.MagnifyingGlassIcon size={26} color={iconColor} />;
         case "create":
-          return <Out.PencilSquareIcon size={26} color={color} />;
+          return <Out.PencilSquareIcon size={26} color={iconColor} />;
         case "notifications":
-          return <Out.BellAlertIcon size={26} color={color} />;
-        case "saved":
-          return <Out.BookmarkIcon size={26} color={color} />;
+          return <Out.BellAlertIcon size={26} color={iconColor} />;
+
         case "profile":
-          return <Out.UserIcon size={26} color={color} />;
+          return <Out.UserIcon size={26} color={iconColor} />;
         default:
           return null;
       }
@@ -51,39 +53,35 @@ export default () => {
 
   return (
     <Tabs
-      screenOptions={{ tabBarActiveTintColor: "rgb(0, 0, 0)" }}
+      screenOptions={{
+        tabBarStyle: tabStyle,
+      }}
       className="bg-black"
     >
       <Tabs.Screen
         name="home"
         options={{
-          title: "",
-          headerLeft: () => (
-            <Text
-              className="text-2xl pl-5 pt-1"
-              style={{ fontFamily: "Pacifico" }}
-            >
-              Feedgames
-            </Text>
-          ),
-          headerRight: () => (
-            <Solid.MagnifyingGlassIcon
-              color={colorScheme === "dark" ? "#fff" : "#000"}
-              size={30}
-              style={{ paddingRight: 50 }}
-            />
-          ),
+          headerShown: false,
           tabBarIcon: () => getTabIcon("home"),
-          headerStyle: {
-            backgroundColor: colorScheme === "dark" ? "rgb(0, 0, 0)" : "#fff",
-            height: 100,
-          },
           tabBarLabel: "",
-          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
             setFocusedTab("home");
+          },
+        })}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          headerTitle: "",
+          headerShown: false,
+          tabBarLabel: "",
+          tabBarIcon: () => getTabIcon("search"),
+        }}
+        listeners={() => ({
+          tabPress: () => {
+            setFocusedTab("search");
           },
         })}
       />
@@ -93,7 +91,6 @@ export default () => {
           headerShown: false,
           tabBarIcon: () => getTabIcon("create"),
           tabBarLabel: "",
-          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
@@ -107,7 +104,6 @@ export default () => {
           headerShown: false,
           tabBarIcon: () => getTabIcon("notifications"),
           tabBarLabel: "",
-          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {
@@ -116,28 +112,11 @@ export default () => {
         })}
       />
       <Tabs.Screen
-        name="saved"
-        options={{
-          headerShown: false,
-          tabBarIcon: () => getTabIcon("saved"),
-          tabBarLabel: "",
-          tabBarStyle: tabStyle,
-        }}
-        listeners={() => ({
-          tabPress: () => {
-            setFocusedTab("saved");
-          },
-        })}
-      />
-      <Tabs.Screen
         name="profile"
         options={{
-          title: "",
-          headerLeft: () => <Text className="text-xl pl-5">Watter.jsx</Text>,
-          headerStyle: { backgroundColor: "rgb(0, 0, 0)" },
+          headerShown: false,
           tabBarIcon: () => getTabIcon("profile"),
           tabBarLabel: "",
-          tabBarStyle: tabStyle,
         }}
         listeners={() => ({
           tabPress: () => {

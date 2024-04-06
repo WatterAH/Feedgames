@@ -12,10 +12,14 @@ interface Props {
 export const PostCreator: React.FC<Props> = ({ user_id, username, name }) => {
   return (
     <View>
-      <Text className="text-lg" style={{ fontFamily: "Instagram" }}>
+      <Text className="" style={{ fontWeight: "600" }}>
         {name}
       </Text>
-      <Link href={"/profile"} className="flex items-center">
+      <Link
+        href={{
+          pathname: `/home/${user_id}`,
+        }}
+      >
         <Text
           className="hover:underline text-gray-400"
           style={{ fontFamily: "Instagram" }}

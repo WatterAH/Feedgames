@@ -1,0 +1,62 @@
+import React from "react";
+import { Text, View } from "../Global/Themed";
+import { ProfilePicture } from "./ProfilePicture";
+import { User } from "@/interfaces/User";
+import { StyleSheet } from "react-native";
+import { FollowButton } from "./Actions/FollowButton";
+import { ShareProfile } from "./Actions/ShareProfile";
+import { useSession } from "@/context/ctx";
+
+interface Props {
+  data: User;
+}
+
+export const ProfileDetails: React.FC<Props> = ({ data }) => {
+  const { user } = useSession();
+  const { id, username, name, pfp, details, followers, followed } = data;
+  return (
+    <View className="flex-col gap-y-3 px-4">
+      <View className="flex-row justify-between items-center gap-x-2">
+        <View className="flex-col gap-y-1">
+          <Text className="text-2xl" style={styles.name}>
+            {name}
+          </Text>
+          <Text className="text-base" style={styles.username}>
+            {username}
+          </Text>
+        </View>
+        <ProfilePicture h="h-16" w="w-16" src={pfp} />
+      </View>
+      <Text className="text-sm">{details}</Text>
+      <View className="flex-row items-center gap-x-2">
+        <Text style={{ color: "rgb(119, 119, 119)" }}>
+          {followers.length} {followers.length == 1 ? "seguidor" : "seguidores"}
+        </Text>
+        <Text style={{ color: "rgb(119, 119, 119)" }}>·</Text>
+        <Text style={{ color: "rgb(119, 119, 119)" }}>
+          {followed.length} {followed.length == 1 ? "seguido" : "seguidos"}
+        </Text>
+      </View>
+      <View
+        // className="flex-row items-center justify-center gap-x-3"
+        style={{
+          flex: 2,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          columnGap: 10,
+        }}
+      >
+        <FollowButton text={user?.id == id ? "Editar perfil" : "Seguir"} />
+        <ShareProfile text="Compartir perfil" />
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  name: {
+    fontWeight: "600",
+  },
+  username: {},
+});

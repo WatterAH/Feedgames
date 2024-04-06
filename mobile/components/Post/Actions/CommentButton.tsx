@@ -18,9 +18,9 @@ export const CommentButton = ({ commentData }: { commentData: Props }) => {
       }}
     >
       {isCommented ? (
-        <ChatSolid size={26} color={"rgb(96 165 250)"} />
+        <ChatSolid size={24} className="tecya" color={"rgb(103, 232, 249)"} />
       ) : (
-        <ChatOut size={26} color={"rgb(96 165 250)"} />
+        <ChatOut size={24} color={"rgb(103, 232, 249)"} />
       )}
     </Link>
   );

@@ -3,9 +3,9 @@ import { RefreshControl, ScrollView } from "react-native";
 import { fetchPosts } from "@/api/post";
 import { PostInterface } from "@/interfaces/Post";
 import Post from "@/components/Post/Post";
-import { View, Text } from "@/components/Global/Themed";
-import { Search } from "@/components/Search/Search";
 import { Loading } from "@/components/Global/Loading";
+import { useSession } from "@/context/ctx";
+import { SafeAreaView } from "@/components/Global/Themed";
 
 const MapPost = ({
   posts,
@@ -28,15 +28,7 @@ const MapPost = ({
   }, []);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        alignItems: "center",
-        justifyContent: "center",
-        flexGrow: 1,
-        paddingRight: 10,
-        paddingLeft: 10,
-      }}
-    >
+    <ScrollView className="flex-col w-full h-full">
       <RefreshControl refreshing={loading} onRefresh={handleRefresh} />
       {posts.map((post) => (
         <Post data={post} key={post.id} />
@@ -46,33 +38,31 @@ const MapPost = ({
 };
 
 const home = () => {
+  const { user } = useSession();
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
   useEffect(() => {
     setLoading(true);
-    fetchPosts("6f74216e-6730-4064-9685-0e9672c9ffa4")
-      .then((data) => {
-        if (data) {
-          setPosts((prevPosts) => [...prevPosts, ...data]);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    if (user?.id) {
+      fetchPosts(user.id)
+        .then((data) => {
+          if (data) {
+            setPosts((prevPosts) => [...prevPosts, ...data]);
+          }
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [user?.id]);
 
-  return loading ? (
-    <View className="flex items-center justify-center h-full">
-      <Loading size="large" color="#fff" />
-    </View>
-  ) : (
-    <View
-      darkColor="rgb(0, 0, 0)"
-      lightColor="#fff"
-      className="h-fit flex flex-col items-center justify-center"
-    >
-      {/* <Search /> */}
-      <MapPost posts={posts} setPosts={setPosts} />
-    </View>
+  return (
+    <SafeAreaView className="h-full flex-col items-center justify-center">
+      {loading ? (
+        <Loading size="large" />
+      ) : (
+        <MapPost posts={posts} setPosts={setPosts} />
+      )}
+    </SafeAreaView>
   );
 };
 

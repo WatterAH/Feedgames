@@ -1,46 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Stack, useGlobalSearchParams } from "expo-router";
-import { Text, View } from "@/components/Global/Themed";
-import { PostInterface, defaultPost } from "@/interfaces/Post";
-import { getPostById } from "@/api/post";
-import Post from "@/components/Post/Post";
+import { SafeAreaView } from "@/components/Global/Themed";
+import { Profile } from "@/components/Profile/Profile";
+import { useColorScheme } from "react-native";
 
-const ExplorePost = () => {
+const ExploreProfile = () => {
   const { id } = useGlobalSearchParams();
-  const [loading, setLoading] = useState(false);
-  const [post, setPost] = useState<PostInterface>(defaultPost);
-
-  const getPost = async () => {
-    try {
-      setLoading(true);
-      const postFetched = await getPostById(
-        id as string,
-        "6f74216e-6730-4064-9685-0e9672c9ffa4"
-      );
-      setPost(postFetched as PostInterface);
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getPost();
-  }, [id]);
+  const colorScheme = useColorScheme();
+  const iconColor = colorScheme === "dark" ? "#fff" : "#101010";
+  const backgroundColor = colorScheme === "dark" ? "#101010" : "#fff";
 
   return (
-    <View className="flex items-center justify-center h-full py-2 px-3">
-      <Stack.Screen options={{ headerTitle: "Post" }} />
-      {loading ? (
-        <Text>Cargando...</Text>
-      ) : (
-        <View className="max-w-2xl w-full mx-auto h-full">
-          <Post data={post as PostInterface} />
-        </View>
-      )}
-    </View>
+    <SafeAreaView className="h-full flex-col items-center justify-center">
+      <Stack.Screen
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+        }}
+      />
+      <Profile id={id as string} />
+    </SafeAreaView>
   );
 };
 
-export default ExplorePost;
+export default ExploreProfile;

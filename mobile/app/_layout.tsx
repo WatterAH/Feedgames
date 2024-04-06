@@ -1,5 +1,5 @@
 import React from "react";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import {
   DarkTheme,
   DefaultTheme,
@@ -7,13 +7,19 @@ import {
 } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
 import { SessionProvider } from "@/context/ctx";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 const StackLayout = () => {
   const colorScheme = useColorScheme();
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SessionProvider>
-        <Slot />
+        <RootSiblingParent>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="register" options={{ presentation: "modal" }} />
+          </Stack>
+        </RootSiblingParent>
       </SessionProvider>
     </ThemeProvider>
   );
