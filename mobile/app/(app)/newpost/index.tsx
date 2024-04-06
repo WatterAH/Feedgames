@@ -1,6 +1,7 @@
 import { Create } from "@/components/Create/Create";
-import { SafeAreaView } from "@/components/Global/Themed";
+import { SafeAreaView, Text, View } from "@/components/Global/Themed";
 import React from "react";
+import { KeyboardAvoidingView } from "react-native";
 
 const modal = () => {
   return (

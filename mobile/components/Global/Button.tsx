@@ -6,7 +6,7 @@ interface Props extends PressableProps {}
 export const Button: React.FC<Props> = (props) => {
   return (
     <Pressable
-      className="px-3 h-12 text-sm w-full bg-black dark:bg-white rounded-3xl flex flex-row justify-center items-center"
+      className="px-3 h-10 text-sm w-full bg-black dark:bg-white rounded-3xl flex flex-row justify-center items-center"
       {...props}
     >
       {props.children}
