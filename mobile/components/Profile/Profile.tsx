@@ -8,6 +8,7 @@ import { User } from "@/interfaces/User";
 import { useSession } from "@/context/ctx";
 import { getProfile, getProfilePost } from "@/api/profile";
 import { Loading } from "../Global/Loading";
+import { ProfileSkeleton } from "../Global/Skeletons";
 
 interface Props {
   id: string;
@@ -20,18 +21,11 @@ export const Profile: React.FC<Props> = ({ id }) => {
   const [user, setUser] = useState<User | null>(null);
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
-  const handleViewer = async () => {
-    setLoading(true);
-    await handleProfileViewer();
-    await handlePostsViewer();
-    setLoading(false);
-  };
-
   const handleProfileViewer = async () => {
     try {
       if (userSession?.id) {
-        const data = await getProfile(id, userSession?.id);
-        setUser(data);
+        const dataFetched = await getProfile(id, userSession?.id);
+        setUser(dataFetched);
       }
     } catch (error) {}
   };
@@ -45,19 +39,25 @@ export const Profile: React.FC<Props> = ({ id }) => {
     } catch (error) {}
   };
 
+  const handleViewer = async () => {
+    setLoading(true);
+    await Promise.all([handleProfileViewer(), handlePostsViewer()]);
+    setLoading(false);
+  };
+
   useEffect(() => {
     setLoadingPage(true);
     handleViewer().finally(() => setLoadingPage(false));
   }, []);
 
   return loadingPage ? (
-    <Loading size="large" />
+    <ProfileSkeleton />
   ) : (
-    <ScrollView className="flex-col gap-y-5 w-full h-full py-2">
-      <RefreshControl
-        refreshing={loading}
-        onRefresh={handleViewer}
-      ></RefreshControl>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      className="flex-col gap-y-5 w-full h-full py-2"
+    >
+      <RefreshControl refreshing={loading} onRefresh={handleViewer} />
       {user?.username && <ProfileDetails data={user} />}
       <View
         style={{ height: 1, width: "100%" }}

@@ -1,12 +1,31 @@
 import React from "react";
 import { Stack } from "expo-router";
+import { useColorScheme } from "react-native";
 
 const StackLayout = () => {
+  const colorScheme = useColorScheme();
+  const iconColor = colorScheme === "dark" ? "#fff" : "#101010";
+  const backgroundColor = colorScheme === "dark" ? "#101010" : "#fff";
+
   return (
     <Stack>
       <Stack.Screen
         name="index"
-        options={{ headerShown: false, headerTitle: "Inicio" }}
+        options={{
+          headerTitle: "Notificaciones",
+          headerTintColor: iconColor,
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
+      <Stack.Screen
+        name="explore"
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+        }}
       />
     </Stack>
   );

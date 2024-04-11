@@ -6,11 +6,13 @@ import { TextArea } from "./TextArea";
 import { Contents } from "./Contents";
 import { ContentPreview } from "./ContentPreview";
 import * as ImagePicker from "expo-image-picker";
-import { KeyboardAvoidingView } from "react-native";
+import { KeyboardAvoidingView, useColorScheme } from "react-native";
 import { Button } from "../Global/Button";
 
 export const Create = () => {
+  const { user } = useSession();
   const [image, setImage] = useState<string | null>(null);
+  const textColor = useColorScheme() === "dark" ? "#101010" : "#fff";
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -25,7 +27,6 @@ export const Create = () => {
     }
   };
 
-  const { user } = useSession();
   return (
     <KeyboardAvoidingView
       className="pb-10"
@@ -63,11 +64,12 @@ export const Create = () => {
         className="w-full flex-row justify-end items-end"
       >
         <View darkColor="#181818" className="w-32 p-3">
-          <Button style={{ paddingHorizontal: 1 }}>
-            <Text className="font-semibold" style={{ color: "#101010" }}>
-              Publicar
-            </Text>
-          </Button>
+          <Button
+            h="10"
+            text="Publicar"
+            loading={false}
+            style={{ paddingHorizontal: 1 }}
+          ></Button>
         </View>
       </View>
     </KeyboardAvoidingView>

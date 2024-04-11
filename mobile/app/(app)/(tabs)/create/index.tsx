@@ -1,13 +1,8 @@
-import { Create } from "@/components/Create/Create";
-import { SafeAreaView } from "@/components/Global/Themed";
 import React from "react";
+import { Redirect } from "expo-router";
 
 const index = () => {
-  return (
-    <SafeAreaView className="h-full flex-col justify-center items-center">
-      <Create />
-    </SafeAreaView>
-  );
+  return <Redirect href="/newpost/" />;
 };
 
 export default index;

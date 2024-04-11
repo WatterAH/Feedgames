@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, Stack, router } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
-import { Text } from "@/components/Global/Themed";
+import { Stack } from "expo-router";
+import { useColorScheme } from "react-native";
 
 const StackLayout = () => {
   const colorScheme = useColorScheme();
@@ -18,6 +17,16 @@ const StackLayout = () => {
           headerTintColor: iconColor,
           headerStyle: { backgroundColor },
           headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="profile"
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
         }}
       />
     </Stack>

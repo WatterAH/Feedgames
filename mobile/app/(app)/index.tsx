@@ -5,7 +5,7 @@ import { useFonts } from "expo-font";
 import { useSession } from "@/context/ctx";
 import { checkAuth } from "@/api/auth";
 
-const Index = () => {
+const index = () => {
   const { session, login } = useSession();
   const [fontsLoaded, fontError] = useFonts({
     Pacifico: require("@/assets/fonts/Pacifico.ttf"),
@@ -44,4 +44,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default index;

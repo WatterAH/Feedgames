@@ -15,7 +15,7 @@ export const ProfilePicture: React.FC<Props> = ({ src, h, w }) => {
 
   return (
     <View
-      lightColor="#b5b5b5"
+      lightColor="#eaeaea"
       darkColor="#202020"
       className={`${w} ${h} rounded-full`}
     >

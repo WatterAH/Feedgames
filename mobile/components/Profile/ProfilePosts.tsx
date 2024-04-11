@@ -1,7 +1,5 @@
 import React from "react";
-import { View } from "../Global/Themed";
 import { PostInterface } from "@/interfaces/Post";
-import { FlatList } from "react-native";
 import { Post } from "../Post/Post";
 
 interface Props {

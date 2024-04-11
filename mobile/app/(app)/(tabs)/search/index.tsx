@@ -1,12 +1,8 @@
-import { Text, View } from "@/components/Global/Themed";
 import React from "react";
+import { SafeAreaView } from "@/components/Global/Themed";
 
 const index = () => {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  );
+  return <SafeAreaView className="h-full"></SafeAreaView>;
 };
 
 export default index;

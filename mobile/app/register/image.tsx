@@ -4,9 +4,20 @@ import * as ImagePicker from "expo-image-picker";
 import { Image, Pressable } from "react-native";
 import { PhotoIcon } from "react-native-heroicons/outline";
 import { Button } from "@/components/Global/Button";
+import { useGlobalSearchParams } from "expo-router";
+import { registerApi } from "@/api/auth";
+
+interface Params {
+  name: string;
+  username: string;
+  details: string;
+  password: string;
+}
 
 const image = () => {
-  const [image, setImage] = useState<string | null>(null);
+  const { name, username, details, password } = useGlobalSearchParams();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -15,12 +26,26 @@ const image = () => {
       aspect: [4, 4],
       quality: 1,
     });
-
-    console.log(result);
-
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      const asset = result.assets[0];
+      const uriParts = asset.uri.split(".");
+      const fileType = uriParts[uriParts.length - 1];
+      setImagePreview(asset.uri);
     }
+  };
+
+  const handleSubmit = async (imagePicked: boolean) => {
+    try {
+      if (imagePicked) {
+        const data = await registerApi(
+          name as string,
+          username as string,
+          details as string,
+          password as string,
+          image
+        );
+      }
+    } catch (error) {}
   };
 
   return (
@@ -40,12 +65,20 @@ const image = () => {
           darkColor="#202020"
           className="w-44 h-44 rounded-full"
         >
-          {image && (
-            <Image source={{ uri: image }} className="w-44 h-44 rounded-full" />
+          {imagePreview && (
+            <Image
+              source={{ uri: imagePreview }}
+              className="w-44 h-44 rounded-full"
+            />
           )}
         </View>
         <View className="w-1/2">
-          <Button>
+          <Button
+            onPress={() => handleSubmit(true)}
+            h="12"
+            loading={false}
+            text="Todo listo"
+          >
             <Text className="text-white dark:text-black">Todo listo</Text>
           </Button>
         </View>

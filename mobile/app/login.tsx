@@ -7,7 +7,6 @@ import { useFonts } from "expo-font";
 import { Button } from "@/components/Global/Button";
 import { loginApi } from "@/api/auth";
 import { Loading } from "@/components/Global/Loading";
-import Toast from "react-native-root-toast";
 import { useColorScheme } from "react-native";
 
 const logIn = () => {
@@ -41,19 +40,7 @@ const logIn = () => {
       login(user, token);
       router.replace("/");
     } catch (error: any) {
-      const { message } = error;
       setError(true);
-      Toast.show(message, {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.TOP,
-        shadow: true,
-        animation: true,
-        textStyle: {
-          fontWeight: "600",
-          color: colorScheme === "dark" ? "#000" : "#fff",
-        },
-        backgroundColor: colorScheme === "dark" ? "#fff" : "#000",
-      });
     } finally {
       setLoading(false);
     }
@@ -85,14 +72,12 @@ const logIn = () => {
           text={password}
           setText={setPassword}
         />
-        <View className="relative">
-          <Button onPress={handleLogin}>
-            <Text className="text-white dark:text-black">
-              {loading ? "" : "Continuar"}
-            </Text>
-            {loading ? <Loading size="small" bgcolor /> : null}
-          </Button>
-        </View>
+        <Button
+          onPress={handleLogin}
+          h="12"
+          loading={loading}
+          text="Continuar"
+        ></Button>
         <View className="flex-row items-center justify-center gap-x-4">
           <Link href="/register/">
             <Text className="text-xs font-semibold">¿No tienes cuenta?</Text>

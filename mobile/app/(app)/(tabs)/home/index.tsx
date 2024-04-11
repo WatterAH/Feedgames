@@ -1,35 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { fetchPosts } from "@/api/post";
 import { PostInterface } from "@/interfaces/Post";
-import { Loading } from "@/components/Global/Loading";
 import { useSession } from "@/context/ctx";
 import { SafeAreaView } from "@/components/Global/Themed";
 import { PostMap } from "@/components/Post/PostMap";
+import { PostSkeleton } from "@/components/Global/Skeletons";
 
 const home = () => {
   const { user } = useSession();
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
+  const getPosts = async () => {
+    if (user?.id) {
+      const data = await fetchPosts(user.id);
+      setPosts(data);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
-    if (user?.id) {
-      fetchPosts(user.id)
-        .then((data) => {
-          if (data) {
-            setPosts((prevPosts) => [...prevPosts, ...data]);
-          }
-        })
-        .finally(() => setLoading(false));
-    }
+    getPosts().then(() => setLoading(false));
   }, [user?.id]);
 
   return (
     <SafeAreaView className="h-full flex-col items-center justify-center">
       {loading ? (
-        <Loading size="large" />
+        <PostSkeleton />
       ) : (
-        <PostMap posts={posts} setPosts={setPosts} />
+        <PostMap posts={posts} handleRefresh={getPosts} />
       )}
     </SafeAreaView>
   );

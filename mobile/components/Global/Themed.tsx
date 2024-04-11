@@ -45,13 +45,7 @@ export function View(props: ViewProps) {
     "background"
   );
 
-  return (
-    <DefaultView
-      className="transition-transform duration-1000"
-      style={[{ backgroundColor }, style]}
-      {...otherProps}
-    />
-  );
+  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
 export function SafeAreaView(props: SafeProps) {
@@ -61,13 +55,7 @@ export function SafeAreaView(props: SafeProps) {
     "background"
   );
 
-  return (
-    <DefaultSafe
-      className="transition-transform duration-1000"
-      style={[{ backgroundColor }, style]}
-      {...otherProps}
-    />
-  );
+  return <DefaultSafe style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
 export function ScrollView(props: ScrollProps) {

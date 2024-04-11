@@ -17,7 +17,8 @@ export const PostCreator: React.FC<Props> = ({ user_id, username, name }) => {
       </Text>
       <Link
         href={{
-          pathname: `/home/${user_id}`,
+          pathname: "/home/profile",
+          params: { id: user_id },
         }}
       >
         <Text

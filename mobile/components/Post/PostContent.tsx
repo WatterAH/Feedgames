@@ -1,9 +1,8 @@
 import React from "react";
 import { PostInterface } from "../../interfaces/Post";
 import { Image, useColorScheme } from "react-native";
-import { View } from "../Global/Themed";
+import { Text, View } from "../Global/Themed";
 import { ImagesURL } from "@/constants/server.constant";
-import Markdown from "react-native-markdown-display";
 
 interface Props {
   data: PostInterface;
@@ -12,15 +11,12 @@ interface Props {
 export const PostContent: React.FC<Props> = ({ data }) => {
   let { content, publicUrl } = data;
   const colorScheme = useColorScheme();
-  const backgroundColor = colorScheme === "dark" ? "#202020" : "#b5b5b5";
-  const textColor = colorScheme === "dark" ? "#fff" : "#000";
+  const backgroundColor = colorScheme === "dark" ? "#202020" : "#eaeaea";
   const src = ImagesURL + publicUrl;
 
   return (
     <View className="flex-col" style={{ rowGap: 16 }}>
-      {content && (
-        <Markdown style={{ body: { color: textColor } }}>{content}</Markdown>
-      )}
+      {content && <Text>{content}</Text>}
       {publicUrl && (
         <View
           className="w-full h-54 aspect-square rounded-md"

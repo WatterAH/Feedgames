@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { SafeAreaView } from "@/components/Global/Themed";
+import { Notifications } from "@/components/Notifications/Notifications";
 
 const notifications = () => {
   return (
-    <View>
-      <Text>notifications</Text>
-    </View>
+    <SafeAreaView className="h-full w-full flex-col items-center justify-center">
+      <Notifications />
+    </SafeAreaView>
   );
 };
 

@@ -1,34 +1,32 @@
 import React, { useState } from "react";
 import { PostInterface } from "@/interfaces/Post";
-import { fetchPosts } from "@/api/post";
-import { RefreshControl, ScrollView } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import { Post } from "./Post";
 
 interface Props {
   posts: PostInterface[];
-  setPosts: React.Dispatch<React.SetStateAction<PostInterface[]>>;
+  handleRefresh: () => Promise<void>;
 }
 
-export const PostMap: React.FC<Props> = ({ posts, setPosts }) => {
+export const PostMap: React.FC<Props> = ({ posts, handleRefresh }) => {
   const [loading, setLoading] = useState(false);
 
-  const handleRefresh = () => {
+  const setLoadState = async () => {
     setLoading(true);
-    fetchPosts("6f74216e-6730-4064-9685-0e9672c9ffa4")
-      .then((data) => {
-        if (data) {
-          setPosts(data);
-        }
-      })
-      .finally(() => setLoading(false));
+    await handleRefresh();
+    setLoading(false);
   };
 
   return (
-    <ScrollView className="flex-col w-full h-full">
-      <RefreshControl refreshing={loading} onRefresh={handleRefresh} />
-      {posts.map((post) => (
-        <Post data={post} key={post.id} />
-      ))}
-    </ScrollView>
+    <FlatList
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={setLoadState} />
+      }
+      data={posts}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <Post data={item} />}
+      className="flex-col w-full h-full duration-1000"
+    ></FlatList>
   );
 };
