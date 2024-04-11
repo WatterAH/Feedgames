@@ -52,3 +52,11 @@ export const countUsers = async () => {
     .select("*", { count: "exact" });
   return { count };
 };
+
+export const checkUsername = async (username) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("username", username);
+  return { data, error };
+};

@@ -1,14 +1,13 @@
 import { supabase } from "./connection.js";
 import { v4 as uuidv4 } from "uuid";
 
-export const insertFollow = async (id_follower, id_followed) => {
-  const { error } = await supabase.from("follows").insert([
-    {
-      id_follower,
-      id_followed,
-    },
-  ]);
-  return { error };
+export const registerUser = async (user) => {
+  const { data, error } = await supabase
+    .from("users")
+    .insert([user])
+    .select("id, name, username, details, pfp")
+    .single();
+  return { data, error };
 };
 
 export const uploadImage = async (image, folder) => {
@@ -19,6 +18,12 @@ export const uploadImage = async (image, folder) => {
     .from("Images")
     .upload(`${folder}/${filename}`, file);
   return { filename, error };
+};
+
+export const insertFollow = async (id_follower, id_followed) => {
+  const data = { id_follower, id_followed };
+  const { error } = await supabase.from("follows").insert([data]);
+  return { error };
 };
 
 export const stopFollow = async (id_follower, id_followed) => {

@@ -1,11 +1,32 @@
 import bcryptjs from "bcryptjs";
 import { supabase } from "../database/connection.js";
-import { isCorrectUsername, isStrongPassword } from "../libs/validator.js";
 import { createAccessToken, validateToken } from "../libs/token.js";
 import { editProfile } from "../database/edit.js";
 import { deleteImage } from "../database/delete.js";
-import { uploadImage } from "../database/insert.js";
-import { getProfileById } from "../database/profileGetter.js";
+import { registerUser, uploadImage } from "../database/insert.js";
+import { checkUsername, getProfileById } from "../database/profileGetter.js";
+
+export const usernameAvailable = async (req, res) => {
+  try {
+    const { username } = req.body;
+    const { data, error } = await checkUsername(username);
+    if (error) {
+      return res.status(400).json({ message: "Algo salió mal" });
+    } else {
+      if (data.length > 0) {
+        return res.status(403).json({
+          message: "Lo sentimos, este nombre de usuario esta ocupado",
+        });
+      } else {
+        return res.status(200).end();
+      }
+    }
+  } catch (error) {
+    return res.status(403).json({
+      message: "El servidor tuvó un problema",
+    });
+  }
+};
 
 export const login = async (req, res) => {
   try {
@@ -43,37 +64,15 @@ export const logout = (req, res) => {
 
 export const register = async (req, res) => {
   try {
-    const { name, username, password } = req.body;
-    let { details } = req.body;
-    if (!isCorrectUsername(username)) {
-      return res.status(400).json({
-        message: "Usuario: alfanumérico, ¡#$&/?-_@ permitidos",
-      });
-    }
-    if (!isStrongPassword(password)) {
-      return res.status(400).json({
-        message: "Contraseña: min. 8 caracteres, !@#$%^&*_-/ permitidos",
-      });
-    }
-    if (!name.trim()) {
-      return res.status(400).json({ message: "Introduce un nombre" });
-    }
-    if (!details.trim()) {
-      details = "Sin descripción";
-    }
+    // Data from client
+    const { name, username, details, password } = req.body;
+    const image = req.file ? req.file : {};
+    return console.log(image);
+    // Hashing password
     const passHaash = await bcryptjs.hash(password, 8);
-    const { data: user, error: errorReg } = await supabase
-      .from("users")
-      .insert([
-        {
-          name,
-          username,
-          details,
-          password: passHaash,
-        },
-      ])
-      .select("id, name, username, details")
-      .single();
+    // Data to insert
+    const insertData = { name, username, details, password: passHaash };
+    const { data: user, error: errorReg } = await registerUser(insertData);
     if (errorReg) {
       return res
         .status(400)
@@ -99,7 +98,7 @@ export const checkAuth = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: "Token invalido o expirado" });
     } else {
-      return res.status(200).json({ user, riot });
+      return res.status(200).json({ user, riot, userToken });
     }
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
