@@ -64,23 +64,23 @@ export const logout = (req, res) => {
 
 export const register = async (req, res) => {
   try {
-    // Data from client
     const { name, username, details, password } = req.body;
-    const image = req.file ? req.file : {};
-    return console.log(image);
-    // Hashing password
+    const image = req.file;
     const passHaash = await bcryptjs.hash(password, 8);
-    // Data to insert
-    const insertData = { name, username, details, password: passHaash };
-    const { data: user, error: errorReg } = await registerUser(insertData);
-    if (errorReg) {
-      return res
-        .status(400)
-        .json({ message: "El nombre de usuario ya existe" });
-    } else {
-      const token = await createAccessToken(user);
-      return res.status(200).json({ user, token });
+    let pfp = null;
+
+    if (image) {
+      const { filename, error } = await uploadImage(image, "pfp");
+      if (error) {
+        return res.status(500).json({ message: "Algo salió mal" });
+      }
+      pfp = filename;
     }
+
+    const insertData = { name, username, details, password: passHaash, pfp };
+    const { data: user } = await registerUser(insertData);
+    const token = await createAccessToken(user);
+    return res.status(200).json({ user, token });
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
