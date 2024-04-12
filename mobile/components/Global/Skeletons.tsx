@@ -4,6 +4,10 @@ import { ScrollView, View } from "./Themed";
 const darkColor = "#181818";
 const lightColor = "#eaeaea";
 
+const RegisterLoader = () => {
+  return <View className="w-full flex-col gap-y-4 px-3"></View>;
+};
+
 const PostLoader = () => {
   return (
     <View className="w-full flex-col gap-y-4 mb-10 px-3">

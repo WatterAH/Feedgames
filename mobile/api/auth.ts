@@ -1,5 +1,6 @@
 import { URL } from "@/constants/server.constant";
 import { User } from "../interfaces/User";
+import { ImagePickerAsset } from "expo-image-picker";
 
 export const usernameAvailable = async (username: string) => {
   const body = { username };
@@ -45,7 +46,7 @@ export const registerApi = async (
   username: string,
   details: string,
   password: string,
-  image: File | null
+  image?: ImagePickerAsset
 ): Promise<{ user: User; token: string }> => {
   const formData = new FormData();
   formData.append("name", name);
@@ -53,10 +54,18 @@ export const registerApi = async (
   formData.append("details", details);
   formData.append("password", password);
   if (image) {
-    formData.append("image", image);
+    //@ts-ignore
+    formData.append("image", {
+      uri: image.uri,
+      name: "image",
+      type: image.type,
+    });
   }
   const res = await fetch(`${URL}/api/register`, {
     method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
     body: formData,
   });
   const resData = await res.json();

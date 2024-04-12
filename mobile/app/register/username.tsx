@@ -12,7 +12,7 @@ const name = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const disabled = username.trim().length == 0;
-  const params = { name, username };
+  const params = { name, username: username.trim() };
 
   const handlePress = async () => {
     try {

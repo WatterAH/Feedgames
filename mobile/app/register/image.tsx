@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, View } from "@/components/Global/Themed";
 import * as ImagePicker from "expo-image-picker";
-import { Image, Pressable } from "react-native";
-import { PhotoIcon } from "react-native-heroicons/outline";
+import { Image, Pressable, useColorScheme } from "react-native";
+import { PhotoIcon, XMarkIcon } from "react-native-heroicons/outline";
 import { Button } from "@/components/Global/Button";
-import { useGlobalSearchParams } from "expo-router";
+import { router, useGlobalSearchParams } from "expo-router";
 import { registerApi } from "@/api/auth";
-
-interface Params {
-  name: string;
-  username: string;
-  details: string;
-  password: string;
-}
+import { useSession } from "@/context/ctx";
 
 const image = () => {
-  const { name, username, details, password } = useGlobalSearchParams();
+  const {
+    name,
+    username,
+    details,
+    password,
+  }: { name: string; username: string; details: string; password: string } =
+    useGlobalSearchParams();
+  const { login } = useSession();
+  const colorScheme = useColorScheme();
+  const iconColor = colorScheme === "dark" ? "#202020" : "#fff";
+  const circelColor = colorScheme === "dark" ? "#eaeaea" : "#000";
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<ImagePicker.ImagePickerAsset | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -28,24 +34,26 @@ const image = () => {
     });
     if (!result.canceled) {
       const asset = result.assets[0];
-      const uriParts = asset.uri.split(".");
-      const fileType = uriParts[uriParts.length - 1];
+      setImage(asset);
       setImagePreview(asset.uri);
     }
   };
 
-  const handleSubmit = async (imagePicked: boolean) => {
+  const handleSubmit = async () => {
     try {
-      if (imagePicked) {
-        const data = await registerApi(
-          name as string,
-          username as string,
-          details as string,
-          password as string,
-          image
-        );
-      }
-    } catch (error) {}
+      setLoading(true);
+      const data = image
+        ? await registerApi(name, username, details, password, image)
+        : await registerApi(name, username, details, password);
+      const { user, token } = data;
+      login(user, token);
+      router.replace("/");
+    } catch (error: any) {
+      const { message } = error;
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,28 +69,41 @@ const image = () => {
           <PhotoIcon color={"#777777"} size={32} />
         </Pressable>
         <View
-          lightColor="#b5b5b5"
+          lightColor="#eaeaea"
           darkColor="#202020"
-          className="w-44 h-44 rounded-full"
+          className="w-44 h-44 rounded-full relative"
         >
           {imagePreview && (
-            <Image
-              source={{ uri: imagePreview }}
-              className="w-44 h-44 rounded-full"
-            />
+            <>
+              <Image
+                source={{ uri: imagePreview }}
+                className="w-44 h-44 rounded-full"
+              />
+              <Pressable
+                className="absolute right-4 h-7 w-7 items-center justify-center rounded-full"
+                style={{ backgroundColor: circelColor }}
+                onPress={() => {
+                  setImage(null);
+                  setImagePreview(null);
+                }}
+              >
+                <XMarkIcon color={iconColor} size={20} />
+              </Pressable>
+            </>
           )}
         </View>
         <View className="w-1/2">
           <Button
-            onPress={() => handleSubmit(true)}
+            onPress={handleSubmit}
             h="12"
-            loading={false}
+            loading={loading}
             text="Todo listo"
-          >
-            <Text className="text-white dark:text-black">Todo listo</Text>
-          </Button>
+          ></Button>
         </View>
-        <Text className="text-xs font-semibold">Quizá más tarde</Text>
+        <Text className="text-xs font-semibold" onPress={handleSubmit}>
+          Quizá más tarde
+        </Text>
+        <Text className="text-red-500">{error}</Text>
       </View>
     </SafeAreaView>
   );

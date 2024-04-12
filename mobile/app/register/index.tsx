@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const index = () => {
   const [name, setName] = useState("");
-  const params = { name };
+  const params = { name: name.trim() };
   const disabled = name.trim().length == 0;
   const handlePress = () =>
     router.push({ pathname: "/register/username", params });

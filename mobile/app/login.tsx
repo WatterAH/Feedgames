@@ -6,11 +6,8 @@ import { InputLabel } from "@/components/Global/InputLabel";
 import { useFonts } from "expo-font";
 import { Button } from "@/components/Global/Button";
 import { loginApi } from "@/api/auth";
-import { Loading } from "@/components/Global/Loading";
-import { useColorScheme } from "react-native";
 
 const logIn = () => {
-  const colorScheme = useColorScheme();
   const { login } = useSession();
   const [username, setUsername] = useState("watter.jsdx");
   const [password, setPassword] = useState("SamT0710");

@@ -9,7 +9,7 @@ const password = () => {
   const { name, username, details } = useGlobalSearchParams();
   const [password, setPassword] = useState("");
   const disabled = password.trim().length == 0;
-  const params = { name, username, details, password };
+  const params = { name, username, details, password: password.trim() };
   const handlePress = () =>
     router.push({ pathname: "/register/image", params });
 
