@@ -2,7 +2,7 @@ import React from "react";
 import { PostInterface } from "../../interfaces/Post";
 import { Image, useColorScheme } from "react-native";
 import { Text, View } from "../Global/Themed";
-import { ImagesURL } from "@/constants/server.constant";
+import { ImagesURL } from "@/constants/server";
 
 interface Props {
   data: PostInterface;

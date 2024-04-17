@@ -37,7 +37,7 @@ const logIn = () => {
       login(user, token);
       router.replace("/");
     } catch (error: any) {
-      setError(true);
+      const { message } = error;
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,12 @@
-import { URL } from "@/constants/server.constant";
+import { URL } from "@/constants/server";
 import { PostInterface } from "@/interfaces/Post";
 
-export const fetchPosts = async (userId: string): Promise<PostInterface[]> => {
+export const fetchPosts = async (
+  userId: string,
+  page: number
+): Promise<PostInterface[]> => {
   const res = await fetch(
-    `${URL}/api/loadPosts?id_user=${encodeURIComponent(userId)}`
+    `${URL}/api/loadPosts?id_user=${encodeURIComponent(userId)}&page=${page}`
   );
   const resData = await res.json();
 

@@ -8,7 +8,7 @@ const RegisterLoader = () => {
   return <View className="w-full flex-col gap-y-4 px-3"></View>;
 };
 
-const PostLoader = () => {
+export const PostLoader = () => {
   return (
     <View className="w-full flex-col gap-y-4 mb-10 px-3">
       <View className="flex-row items-center" style={{ columnGap: 8 }}>

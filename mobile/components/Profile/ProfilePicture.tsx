@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import default_pfp from "../../assets/images/default.png";
 import { Image } from "react-native";
 import { View } from "../Global/Themed";
-import { PfpURL } from "@/constants/server.constant";
+import { PfpURL } from "@/constants/server";
 
 interface Props {
   src: string | undefined;

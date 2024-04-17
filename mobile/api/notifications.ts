@@ -1,4 +1,4 @@
-import { URL } from "@/constants/server.constant";
+import { URL } from "@/constants/server";
 import { Notification } from "../interfaces/Notification";
 
 export const getMyNotifications = async (
