@@ -4,8 +4,9 @@ import { getPostsByRange } from "../database/postGetter";
 export const loadPosts: RequestHandler = async (req, res) => {
   try {
     const { id_user, page, limit } = req.query;
-    // @ts-ignore
-    let { posts } = await getPostsByRange(page, limit);
+    const parsedPage = parseInt(page as string, 10);
+    const parsedLimit = parseInt(limit as string, 10);
+    let { posts } = await getPostsByRange(parsedPage, parsedLimit);
     if (posts) {
       posts = posts.map((post) => {
         const { liked, saved, comments, ...rest } = post;
