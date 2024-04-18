@@ -31,9 +31,9 @@ export const SaveButton = ({ saveData }: { saveData: Props }) => {
   return (
     <Pressable onPress={handleSave}>
       {saved ? (
-        <BookSolid size={24} color={"rgb(253, 230, 138)"} />
+        <BookSolid size={24} color={"#fde68a"} />
       ) : (
-        <BookOut size={24} color={"rgb(253, 230, 138)"} />
+        <BookOut size={24} color={"#fde68a"} />
       )}
     </Pressable>
   );

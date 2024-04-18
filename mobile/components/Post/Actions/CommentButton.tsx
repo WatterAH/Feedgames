@@ -14,9 +14,9 @@ export const CommentButton = ({ commentData }: { commentData: Props }) => {
     <>
       <Pressable>
         {isCommented ? (
-          <ChatSolid size={24} color={"rgb(103, 232, 249)"} />
+          <ChatSolid size={24} color={"#add8e6"} />
         ) : (
-          <ChatOut size={24} color={"rgb(103, 232, 249)"} />
+          <ChatOut size={24} color={"#add8e6"} />
         )}
       </Pressable>
     </>

@@ -4,7 +4,7 @@ import { PostInterface } from "@/interfaces/Post";
 import { useSession } from "@/context/ctx";
 import { SafeAreaView, Text, View } from "@/components/Global/Themed";
 import { PostLoader, PostSkeleton } from "@/components/Global/Skeletons";
-import { FlatList, RefreshControl } from "react-native";
+import { FlatList } from "react-native";
 import { Post } from "@/components/Post/Post";
 import { CheckCircleIcon } from "react-native-heroicons/outline";
 
@@ -29,7 +29,7 @@ const home = () => {
     try {
       if (!allPostsLoaded) {
         if (page === 0) setLoading(true);
-        const data = await fetchPosts(user?.id ?? "0", page);
+        const data = await fetchPosts(user?.id ?? "0", page, 10);
         if (data.length > 0) {
           setPosts((prevPosts) => [...prevPosts, ...data]);
         } else {

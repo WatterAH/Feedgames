@@ -3,10 +3,11 @@ import { PostInterface } from "@/interfaces/Post";
 
 export const fetchPosts = async (
   userId: string,
-  page: number
+  page: number,
+  limit: number
 ): Promise<PostInterface[]> => {
   const res = await fetch(
-    `${URL}/api/loadPosts?id_user=${encodeURIComponent(userId)}&page=${page}`
+    `${URL}/api/loadPosts?id_user=${userId}&page=${page}&limit=${limit}`
   );
   const resData = await res.json();
 
