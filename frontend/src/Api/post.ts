@@ -2,9 +2,13 @@ import { URL } from "../App";
 import { PostInterface } from "../interfaces/Post";
 import { MatchShowCase } from "../interfaces/Valorant";
 
-export const fetchPosts = async (user: string): Promise<PostInterface[]> => {
+export const fetchPosts = async (
+  user: string,
+  page: number,
+  limit: number
+): Promise<PostInterface[]> => {
   const res = await fetch(
-    `${URL}/api/loadPosts?id_user=${encodeURIComponent(user)}`
+    `${URL}/api/loadPosts?id_user=${user}&page=${page}&limit=${limit}`
   );
   const resData = await res.json();
 

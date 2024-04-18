@@ -9,7 +9,7 @@ interface Props {
   setPosts: React.Dispatch<React.SetStateAction<PostInterface[]>>;
 }
 
-export const MapPost: React.FC<Props> = ({ posts, loading, setPosts }) => {
+export const MapPost: React.FC<Props> = ({ posts, setPosts, loading }) => {
   return (
     <div className="flex justify-center h-fit dark:bg-black items-center p-6 flex-col gap-y-5 mb-10 lg:mb-0">
       {loading ? (

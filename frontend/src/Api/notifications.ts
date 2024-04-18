@@ -1,4 +1,3 @@
-import { PostgrestError } from "@supabase/supabase-js";
 import { URL } from "../App";
 import { supabase } from "../home/Connection";
 import { Notification } from "../interfaces/Notification";
@@ -55,16 +54,13 @@ export const subscribeToNotify = async (
 };
 
 export const hasNotifications = async (userId: string): Promise<boolean> => {
-  const {
-    data: notifications,
-    error,
-  }: { data: Notification[]; error: PostgrestError } = await supabase
-    .from("notify")
-    .select("read")
-    .eq("id_user", userId);
+  const { data: notifications, error }: { data: any; error: any } =
+    await supabase.from("notify").select("read").eq("id_user", userId);
   if (error) {
     throw new Error(error.message);
   } else {
-    return notifications.some((notification) => notification.read == false);
+    return notifications.some(
+      (notification: any) => notification.read == false
+    );
   }
 };

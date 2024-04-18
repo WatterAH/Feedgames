@@ -23,7 +23,7 @@ export const MainFeed = () => {
   const handleFeed = async () => {
     try {
       setLoading(true);
-      const data = await fetchPosts(user.id);
+      const data = await fetchPosts(user.id, 0, 30);
       setPosts((prevPost) => [...prevPost, ...data]);
     } catch (error: any) {
       setError(true);

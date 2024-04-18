@@ -1,10 +1,10 @@
 import { URL } from "../App";
 
-export const getFriendsById = async (id) => {
+export const getFriendsById = async (id: string) => {
   const res = await fetch(
     `${URL}/api/getFriendsById?id=${encodeURIComponent(id)}`
   );
-  const resData = res.json();
+  const resData = await res.json();
   if (res.ok) {
     return resData;
   } else {
