@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { BookmarkIcon as BookOut } from "@heroicons/react/24/outline";
 import { BookmarkSlashIcon as BookSolid } from "@heroicons/react/24/solid";
 import { useUser } from "../../../context/AuthContext";
-import { toast } from "react-toastify";
 import { dontSavePost, savePost } from "../../../Api/interactions";
+import { toast } from "sonner";
 
 interface Props {
   id: string;
@@ -33,9 +33,7 @@ export const SaveButton = ({ saveData }: { saveData: Props }) => {
       }
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     }
   };
 

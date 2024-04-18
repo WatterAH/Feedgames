@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
 import { Post } from "../Post/Post";
 import { LoadingPage } from "../LoadingPage";
 import { getPostById } from "../../Api/post";
@@ -10,6 +9,7 @@ import { commentPost as sendFunction } from "../../Api/comments";
 import { NotFound } from "../NotFound";
 import { useParams } from "react-router-dom";
 import { PostInterface, defaultPost } from "../../interfaces/Post";
+import { toast } from "sonner";
 
 export const ExplorePost = () => {
   const { id } = useParams();
@@ -28,9 +28,7 @@ export const ExplorePost = () => {
       setPost(postFetched);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -75,7 +73,6 @@ export const ExplorePost = () => {
           </div>
         )
       )}
-      <ToastContainer />
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfilePosts } from "./ProfilePosts";
@@ -8,6 +7,7 @@ import { getProfile } from "../../Api/profile";
 import { NotFound } from "../NotFound";
 import { User, defaultUser } from "../../interfaces/User";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 export const Profile = () => {
   const { user } = useUser();
@@ -26,9 +26,7 @@ export const Profile = () => {
       setUserData(userFetched);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }

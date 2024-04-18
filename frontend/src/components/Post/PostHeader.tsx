@@ -8,7 +8,7 @@ import { postOptions } from "./optionsConstant";
 import { useUser } from "../../context/AuthContext";
 import { deletePostById } from "../../Api/post";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 interface Props {
   data: PostInterface;
@@ -32,9 +32,7 @@ export const PostHeader: React.FC<Props> = ({ data, setPosts }) => {
       await deletePostById(id);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(message);
     }
   };
 

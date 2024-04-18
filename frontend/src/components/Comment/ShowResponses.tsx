@@ -1,7 +1,7 @@
 import React from "react";
 import { URL } from "../../App";
-import { toast } from "react-toastify";
 import { CommentInterface } from "../../interfaces/Comment";
+import { toast } from "sonner";
 
 interface Props {
   id_comment: string;
@@ -19,16 +19,12 @@ export const ShowResponses: React.FC<Props> = ({
       );
       const resData = await res.json();
       if (!res.ok) {
-        toast.error(resData.message, {
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
+        toast.error(resData.message);
       } else {
         setResponses(resData);
       }
     } catch (error) {
-      toast.error("Ocurrio un error", {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error("Ocurrio un error");
     }
   };
 

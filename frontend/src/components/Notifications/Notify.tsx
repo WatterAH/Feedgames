@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Notification } from "../../interfaces/Notification";
 import { Options } from "../Options";
 import { deleteNotificationById } from "../../Api/notifications";
-import { toast } from "react-toastify";
 import {
   HeartIcon,
   ChatBubbleLeftEllipsisIcon,
@@ -11,6 +10,7 @@ import {
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 interface Props {
   notify: Notification;
@@ -45,9 +45,7 @@ export const Notify: React.FC<Props> = ({
       setNotifications((prev) => prev.filter((notify) => notify.id != id));
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     }
   };
 

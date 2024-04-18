@@ -4,7 +4,7 @@ import { getMyNotifications } from "../../Api/notifications";
 import { Notify } from "./Notify";
 import { useUser } from "../../context/AuthContext";
 import { Notification } from "../../interfaces/Notification";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 interface Props {
   open: boolean;
@@ -23,9 +23,7 @@ export const MapNotify: React.FC<Props> = ({ open, setOpen }) => {
       setNotifications(notificationsFetched);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }

@@ -3,9 +3,9 @@ import { CommentBox } from "./CommentBox";
 import { fetchResponses, responseComment } from "../../Api/comments";
 import { LoadingPage } from "../LoadingPage";
 import { Comment } from "./Comment";
-import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
+import { toast } from "sonner";
 
 interface Props {
   commentId: string;
@@ -25,9 +25,7 @@ export const Responses: React.FC<Props> = ({ commentId, id_post, id_user }) => {
       setResponses(responsesFetched);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }

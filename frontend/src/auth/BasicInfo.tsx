@@ -3,13 +3,13 @@ import { Input } from "../components/Input";
 import { Label } from "../components/Label";
 import { Button } from "../components/Button";
 import { Loading } from "../components/Loading";
-import { toast } from "react-toastify";
 import { useUser } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { registerApi } from "../Api/auth";
 import { useCookies } from "react-cookie";
 import { getExpirationDate } from "../functions/date";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string>>;
@@ -42,9 +42,7 @@ export const BasicInfo: React.FC<Props> = ({ setContent }) => {
       nav("/");
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }

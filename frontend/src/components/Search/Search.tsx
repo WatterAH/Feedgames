@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Input } from "../Input";
-import { toast } from "react-toastify";
 import { MapResults } from "./MapResults";
 import { searchFor } from "../../Api/actions";
 import { User } from "../../interfaces/User";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,9 +16,7 @@ export const Search = () => {
       const resultsFetched = await searchFor(searchTerm);
       setResults(resultsFetched);
     } catch (error) {
-      toast.error("Ocurrio un error", {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error("Algo salió mal");
     }
   };
 

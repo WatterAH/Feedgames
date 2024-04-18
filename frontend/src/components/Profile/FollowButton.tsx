@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { dontFollowUser, followUser } from "../../Api/interactions";
 import { User } from "../../interfaces/User";
 import { UserMinusIcon, UserPlusIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 export const FollowButton = ({ userData }: { userData: User }) => {
   const { user } = useUser();
@@ -20,9 +20,7 @@ export const FollowButton = ({ userData }: { userData: User }) => {
       }
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     }
   };
 

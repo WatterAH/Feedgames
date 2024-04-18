@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { CreateBlogHeader } from "./CreateBlogHeader";
 import { CreateBlogForm } from "./CreateBlogForm";
 import { useUser } from "../../context/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
 import { createPost } from "../../Api/post";
 import { useNavigate } from "react-router-dom";
 import { MatchShowCase } from "../../interfaces/Valorant";
+import { toast } from "sonner";
 
 export const CreateBlog = () => {
   const nav = useNavigate();
@@ -36,9 +36,7 @@ export const CreateBlog = () => {
       nav("/");
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -53,7 +51,6 @@ export const CreateBlog = () => {
         formData={{ content, tags, valMatch, image }}
         alterFormData={{ setContent, setImage, setTags, setValMatch }}
       />
-      <ToastContainer />
     </div>
   );
 };

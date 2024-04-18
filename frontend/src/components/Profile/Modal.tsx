@@ -4,7 +4,6 @@ import { Input } from "../Input";
 import { Label } from "../Label";
 import { Button } from "../Button";
 import { Loading } from "../Loading";
-import { toast } from "react-toastify";
 import { useUser } from "../../context/AuthContext";
 import { editProfile } from "../../Api/profile";
 import { isImage } from "../../functions/validator";
@@ -12,6 +11,7 @@ import default_pfp from "../../assets/img/default.png";
 import { User } from "../../interfaces/User";
 import { getExpirationDate } from "../../functions/date";
 import { useCookies } from "react-cookie";
+import { toast } from "sonner";
 
 interface Props {
   closeModal: () => void;
@@ -48,9 +48,7 @@ export const Modal: React.FC<Props> = ({ closeModal, isOpen, userData }) => {
       window.location.reload();
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -62,9 +60,7 @@ export const Modal: React.FC<Props> = ({ closeModal, isOpen, userData }) => {
     }
     const file = e.target.files[0];
     if (!isImage(file)) {
-      return toast.error("Solo se permiten imágenes", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      return toast.warning("Solo se permiten imágenes");
     }
     setImage(file);
     if (file) {

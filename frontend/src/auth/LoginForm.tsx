@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "../components/Loading";
 import { Input } from "../components/Input";
 import { Label } from "../components/Label";
 import { Button } from "../components/Button";
-import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 import { loginApi } from "../Api/auth";
@@ -12,6 +10,7 @@ import { Header } from "./Header";
 import { useCookies } from "react-cookie";
 import { getExpirationDate } from "../functions/date";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 interface Props {
   setContent: React.Dispatch<React.SetStateAction<string>>;
@@ -54,9 +53,7 @@ export const LoginForm: React.FC<Props> = ({ setContent, searchParams }) => {
       setLoading(false);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(message);
       setLoading(false);
     }
   };
@@ -113,7 +110,6 @@ export const LoginForm: React.FC<Props> = ({ setContent, searchParams }) => {
           {loading ? <Loading /> : ""}
         </span>
       </form>
-      <ToastContainer />
     </section>
   );
 };

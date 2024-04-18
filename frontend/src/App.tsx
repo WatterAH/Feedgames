@@ -5,7 +5,9 @@ import { Home } from "./home/Home";
 import { UserProvider } from "./context/AuthContext";
 import { CookiesProvider } from "react-cookie";
 import { RiotProvider } from "./context/RiotContext";
+import { Toaster } from "sonner";
 
+// @ts-ignore
 export let URL: string = import.meta.env.VITE_SERVER_HOST;
 
 export const App = () => {
@@ -18,6 +20,7 @@ export const App = () => {
               <Route path="*" element={<Home />}></Route>
               <Route path="/auth" element={<Auth />}></Route>
             </Routes>
+            <Toaster position="top-right" />
           </BrowserRouter>
         </RiotProvider>
       </UserProvider>

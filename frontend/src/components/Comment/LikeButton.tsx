@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { HeartIcon as HeartOut } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
-import { toast } from "react-toastify";
 import { dontLikeComment, likeComment } from "../../Api/comments";
 import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
+import { toast } from "sonner";
 
 export const LikeButton = ({ comment }: { comment: CommentInterface }) => {
   const { user } = useUser();
@@ -25,9 +25,7 @@ export const LikeButton = ({ comment }: { comment: CommentInterface }) => {
       }
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     }
   };
 

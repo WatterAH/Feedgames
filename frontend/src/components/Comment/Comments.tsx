@@ -4,7 +4,7 @@ import { Comment } from "./Comment";
 import { LoadingPage } from "../LoadingPage";
 import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 interface dataInterface {
   parent_id: string;
@@ -32,9 +32,7 @@ export const Comments = ({ data }: { data: dataInterface }) => {
       setComments(commentsFetched);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LoadingPage } from "../LoadingPage";
 import { fetchComment } from "../../Api/comments";
-import { ToastContainer, toast } from "react-toastify";
 import { Comment } from "./Comment";
 import { Comments } from "./Comments";
 import { fetchResponses as fetchFunction } from "../../Api/comments";
@@ -10,6 +9,7 @@ import { NotFound } from "../NotFound";
 import { useParams } from "react-router-dom";
 import { useUser } from "../../context/AuthContext";
 import { defaultComment } from "../../interfaces/Comment";
+import { toast } from "sonner";
 
 export const ExploreComment = () => {
   const { id } = useParams();
@@ -28,9 +28,7 @@ export const ExploreComment = () => {
       setComment(commentFetched);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -71,7 +69,6 @@ export const ExploreComment = () => {
           />
         </div>
       ) : null}
-      <ToastContainer />
     </div>
   );
 };

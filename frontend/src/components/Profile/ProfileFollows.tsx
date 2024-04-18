@@ -2,13 +2,13 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { User } from "../../interfaces/User";
 import { getFollowedById } from "../../Api/actions";
-import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { Link } from "react-router-dom";
 import { FollowButton } from "./FollowButton";
 import { useUser } from "../../context/AuthContext";
 import default_pfp from "../../assets/img/default.png";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 const DisplayUser = ({
   userData,
@@ -55,9 +55,7 @@ export const ProfileFollows: React.FC<Props> = ({ userData }) => {
       .then((results) => setFollowedList(results))
       .catch((err: any) => {
         const { message } = err;
-        toast.error(message, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(message);
       })
       .finally(() => setLoading(false));
   }, []);

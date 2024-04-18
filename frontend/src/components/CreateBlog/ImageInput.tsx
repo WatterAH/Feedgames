@@ -1,9 +1,9 @@
 import React from "react";
 import { Label } from "../Label";
-import { toast } from "react-toastify";
 import { isImage } from "../../functions/validator";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { MatchShowCase } from "../../interfaces/Valorant";
+import { toast } from "sonner";
 
 interface Props {
   setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
@@ -19,9 +19,7 @@ export const ImageInput: React.FC<Props> = ({ setImage, setPreview }) => {
     }
     const file = e.target.files[0];
     if (!isImage(file)) {
-      return toast.error("Solo se permiten imágenes", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      return toast.warning("Solo se permiten imágenes");
     }
     setImage(file);
     if (file) {

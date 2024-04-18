@@ -2,11 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { User } from "../../interfaces/User";
 import { getFollowersById } from "../../Api/actions";
-import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { LoadingPage } from "../LoadingPage";
 import default_pfp from "../../assets/img/default.png";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 const DisplayUser = ({ userData }: { userData: User }) => {
   const { id, name, username, pfp } = userData;
@@ -43,9 +43,7 @@ export const ProfileFollowers: React.FC<Props> = ({ userData }) => {
       .then((results) => setFollowersList(results))
       .catch((err: any) => {
         const { message } = err;
-        toast.error(message, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(message);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -122,7 +120,6 @@ export const ProfileFollowers: React.FC<Props> = ({ userData }) => {
           </div>
         </Dialog>
       </Transition>
-      <ToastContainer />
     </>
   );
 };

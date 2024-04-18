@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { LoadingPage } from "../LoadingPage";
 import { useUser } from "../../context/AuthContext";
 import { getProfilePost } from "../../Api/profile";
 import { MapPost } from "../../home/MapPost";
 import { PostInterface } from "../../interfaces/Post";
+import { toast } from "sonner";
 
 interface Props {
   userID: string;
@@ -22,9 +22,7 @@ export const ProfilePosts: React.FC<Props> = ({ userID }) => {
       setPosts(postsFetched);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }

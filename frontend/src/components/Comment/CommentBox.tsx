@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { toast } from "react-toastify";
 import { Loading } from "../Loading";
 import { useUser } from "../../context/AuthContext";
 import { CommentInterface } from "../../interfaces/Comment";
+import { toast } from "sonner";
 
 interface Props {
   id_post: string;
@@ -47,9 +47,7 @@ export const CommentBox: React.FC<Props> = ({
       setComments((prevComms) => [commented, ...prevComms]);
     } catch (error: any) {
       const { message } = error;
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      toast.error(message);
     } finally {
       setLoading(false);
     }
