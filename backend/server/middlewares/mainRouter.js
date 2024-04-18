@@ -1,24 +1,27 @@
-import express from "express";
-import { accountRouter } from "../routers/account.router.js";
-import { feedRouter } from "../routers/feed.router.js";
-import { postRouter } from "../routers/post.router.js";
-import { actionsRouter } from "../routers/actions.router.js";
-import { commentRounter } from "../routers/comment.rounter.js";
-import { interactionsRouter } from "../routers/interactions.router.js";
-import { suggestionsRouter } from "../routers/suggestions.router.js";
-import { deleteRouter } from "../routers/delete.router.js";
-import { valorantRouter } from "../routers/valorant.router.js";
-
-const app = express();
-
-app.use(accountRouter);
-app.use(feedRouter);
-app.use(postRouter);
-app.use(actionsRouter);
-app.use(commentRounter);
-app.use(interactionsRouter);
-app.use(suggestionsRouter);
-app.use(deleteRouter);
-app.use(valorantRouter);
-
-export { app as mainRouter };
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mainRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const account_router_1 = require("../routers/account.router");
+const feed_router_1 = require("../routers/feed.router");
+const post_router_1 = require("../routers/post.router");
+const actions_router_1 = require("../routers/actions.router");
+const comment_rounter_1 = require("../routers/comment.rounter");
+const interactions_router_1 = require("../routers/interactions.router");
+const suggestions_router_1 = require("../routers/suggestions.router");
+const delete_router_1 = require("../routers/delete.router");
+const valorant_router_1 = require("../routers/valorant.router");
+const app = (0, express_1.default)();
+exports.mainRouter = app;
+app.use(account_router_1.accountRouter);
+app.use(feed_router_1.feedRouter);
+app.use(post_router_1.postRouter);
+app.use(actions_router_1.actionsRouter);
+app.use(comment_rounter_1.commentRounter);
+app.use(interactions_router_1.interactionsRouter);
+app.use(suggestions_router_1.suggestionsRouter);
+app.use(delete_router_1.deleteRouter);
+app.use(valorant_router_1.valorantRouter);

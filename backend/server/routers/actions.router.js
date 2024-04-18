@@ -1,18 +1,12 @@
-import { Router } from "express";
-import {
-  getFollowedById,
-  getFollowersById,
-  getPost,
-  getProfile,
-  getProfilePosts,
-  searchTerm,
-} from "../controllers/actions.controller.js";
-
-export const actionsRouter = Router();
-
-actionsRouter.get("/api/getProfile", getProfile);
-actionsRouter.get("/api/getProfilePosts", getProfilePosts);
-actionsRouter.get("/api/getPost", getPost);
-actionsRouter.get("/api/searchTerm", searchTerm);
-actionsRouter.get("/api/getFollowedById", getFollowedById);
-actionsRouter.get("/api/getFollowersById", getFollowersById);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.actionsRouter = void 0;
+const express_1 = require("express");
+const actions_controller_1 = require("../controllers/actions.controller");
+exports.actionsRouter = (0, express_1.Router)();
+exports.actionsRouter.get("/api/getProfile", actions_controller_1.getProfile);
+exports.actionsRouter.get("/api/getProfilePosts", actions_controller_1.getProfilePosts);
+exports.actionsRouter.get("/api/getPost", actions_controller_1.getPost);
+exports.actionsRouter.get("/api/searchTerm", actions_controller_1.searchTerm);
+exports.actionsRouter.get("/api/getFollowedById", actions_controller_1.getFollowedById);
+exports.actionsRouter.get("/api/getFollowersById", actions_controller_1.getFollowersById);

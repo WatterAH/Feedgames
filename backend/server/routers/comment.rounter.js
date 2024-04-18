@@ -1,20 +1,13 @@
-import { Router } from "express";
-import {
-  comment,
-  dontLikeComment,
-  getComment,
-  getCommentsByPostId,
-  getResponsesByCommentId,
-  likeComment,
-  response,
-} from "../controllers/comment.controller.js";
-
-export const commentRounter = Router();
-
-commentRounter.post("/api/comment", comment);
-commentRounter.post("/api/likeComment", likeComment);
-commentRounter.post("/api/dontLikeComment", dontLikeComment);
-commentRounter.post("/api/response", response);
-commentRounter.get("/api/getComment", getComment);
-commentRounter.get("/api/getCommentsByPostId", getCommentsByPostId);
-commentRounter.get("/api/getResponsesByCommentId", getResponsesByCommentId);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.commentRounter = void 0;
+const express_1 = require("express");
+const comment_controller_1 = require("../controllers/comment.controller");
+exports.commentRounter = (0, express_1.Router)();
+exports.commentRounter.post("/api/comment", comment_controller_1.comment);
+exports.commentRounter.post("/api/likeComment", comment_controller_1.likeComment);
+exports.commentRounter.post("/api/dontLikeComment", comment_controller_1.dontLikeComment);
+exports.commentRounter.post("/api/response", comment_controller_1.response);
+exports.commentRounter.get("/api/getComment", comment_controller_1.getComment);
+exports.commentRounter.get("/api/getCommentsByPostId", comment_controller_1.getCommentsByPostId);
+exports.commentRounter.get("/api/getResponsesByCommentId", comment_controller_1.getResponsesByCommentId);

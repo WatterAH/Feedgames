@@ -1,47 +1,59 @@
-import { supabase } from "./connection.js";
-import { v4 as uuidv4 } from "uuid";
-
-export const registerUser = async (user) => {
-  const { data, error } = await supabase
-    .from("users")
-    .insert([user])
-    .select("id, name, username, details, pfp")
-    .single();
-  return { data, error };
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-
-export const uploadImage = async (image, folder) => {
-  const { mimetype, buffer } = image;
-  const filename = uuidv4();
-  const file = new Blob([buffer], { type: mimetype });
-  const { error } = await supabase.storage
-    .from("Images")
-    .upload(`${folder}/${filename}`, file);
-  return { filename, error };
-};
-
-export const insertFollow = async (id_follower, id_followed) => {
-  const data = { id_follower, id_followed };
-  const { error } = await supabase.from("follows").insert([data]);
-  return { error };
-};
-
-export const stopFollow = async (id_follower, id_followed) => {
-  const { error } = await supabase
-    .from("follows")
-    .delete()
-    .eq("id_follower", id_follower)
-    .eq("id_followed", id_followed);
-  return { error };
-};
-
-export const joinParty = async (id_user) => {
-  const { error } = await supabase.from("partys").insert([
-    {
-      id_user,
-    },
-  ]);
-  if (error) {
-    throw new Error(error.message);
-  }
-};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.joinParty = exports.stopFollow = exports.insertFollow = exports.uploadImage = exports.registerUser = void 0;
+const connection_1 = require("./connection");
+const uuid_1 = require("uuid");
+const registerUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data, error } = yield connection_1.supabase
+        .from("users")
+        .insert([user])
+        .select("id, name, username, details, pfp")
+        .single();
+    return { data, error };
+});
+exports.registerUser = registerUser;
+const uploadImage = (image, folder) => __awaiter(void 0, void 0, void 0, function* () {
+    const { mimetype, buffer } = image;
+    const filename = (0, uuid_1.v4)();
+    const file = new Blob([buffer], { type: mimetype });
+    const { error } = yield connection_1.supabase.storage
+        .from("Images")
+        .upload(`${folder}/${filename}`, file);
+    return { filename, error };
+});
+exports.uploadImage = uploadImage;
+const insertFollow = (followerId, followedId) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = { id_follower: followerId, id_followed: followedId };
+    const { error } = yield connection_1.supabase.from("follows").insert([data]);
+    return { error };
+});
+exports.insertFollow = insertFollow;
+const stopFollow = (followerId, followedId) => __awaiter(void 0, void 0, void 0, function* () {
+    const { error } = yield connection_1.supabase
+        .from("follows")
+        .delete()
+        .eq("id_follower", followerId)
+        .eq("id_followed", followedId);
+    return { error };
+});
+exports.stopFollow = stopFollow;
+const joinParty = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const { error } = yield connection_1.supabase.from("partys").insert([
+        {
+            userId,
+        },
+    ]);
+    if (error) {
+        throw new Error(error.message);
+    }
+});
+exports.joinParty = joinParty;

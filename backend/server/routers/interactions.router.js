@@ -1,20 +1,13 @@
-import { Router } from "express";
-import {
-  dontLikePost,
-  dontSavePost,
-  followUser,
-  getNotifications,
-  likePost,
-  savePost,
-  stopFollowUser,
-} from "../controllers/interactions.controller.js";
-
-export const interactionsRouter = Router();
-
-interactionsRouter.post("/api/savePost", savePost);
-interactionsRouter.post("/api/likePost", likePost);
-interactionsRouter.delete("/api/dontLikePost", dontLikePost);
-interactionsRouter.delete("/api/dontSavePost", dontSavePost);
-interactionsRouter.post("/api/followUser", followUser);
-interactionsRouter.delete("/api/stopFollowUser", stopFollowUser);
-interactionsRouter.get("/api/getNotifications", getNotifications);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.interactionsRouter = void 0;
+const express_1 = require("express");
+const interactions_controller_1 = require("../controllers/interactions.controller");
+exports.interactionsRouter = (0, express_1.Router)();
+exports.interactionsRouter.post("/api/savePost", interactions_controller_1.savePost);
+exports.interactionsRouter.post("/api/likePost", interactions_controller_1.likePost);
+exports.interactionsRouter.delete("/api/dontLikePost", interactions_controller_1.dontLikePost);
+exports.interactionsRouter.delete("/api/dontSavePost", interactions_controller_1.dontSavePost);
+exports.interactionsRouter.post("/api/followUser", interactions_controller_1.followUser);
+exports.interactionsRouter.delete("/api/stopFollowUser", interactions_controller_1.stopFollowUser);
+exports.interactionsRouter.get("/api/getNotifications", interactions_controller_1.getNotifications);

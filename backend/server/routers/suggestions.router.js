@@ -1,6 +1,7 @@
-import { Router } from "express";
-import { loadSuggestions } from "../controllers/suggestions.controller.js";
-
-export const suggestionsRouter = Router();
-
-suggestionsRouter.get("/api/loadSuggestions", loadSuggestions);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.suggestionsRouter = void 0;
+const express_1 = require("express");
+const suggestions_controller_1 = require("../controllers/suggestions.controller");
+exports.suggestionsRouter = (0, express_1.Router)();
+exports.suggestionsRouter.get("/api/loadSuggestions", suggestions_controller_1.loadSuggestions);

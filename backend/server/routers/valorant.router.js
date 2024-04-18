@@ -1,14 +1,10 @@
-import { Router } from "express";
-import {
-  getMatchByUuid,
-  getMatchesList,
-  getPlayerUuid,
-  oauth2_callback,
-} from "../controllers/valorant.controller.js";
-
-export const valorantRouter = Router();
-
-valorantRouter.get("/oauth2-callback", oauth2_callback);
-valorantRouter.get("/val/getPlayerUuid", getPlayerUuid);
-valorantRouter.get("/val/getMatchesList", getMatchesList);
-valorantRouter.get("/val/getMatchByUuid", getMatchByUuid);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.valorantRouter = void 0;
+const express_1 = require("express");
+const valorant_controller_1 = require("../controllers/valorant.controller");
+exports.valorantRouter = (0, express_1.Router)();
+exports.valorantRouter.get("/oauth2-callback", valorant_controller_1.oauth2_callback);
+exports.valorantRouter.get("/val/getPlayerUuid", valorant_controller_1.getPlayerUuid);
+exports.valorantRouter.get("/val/getMatchesList", valorant_controller_1.getMatchesList);
+exports.valorantRouter.get("/val/getMatchByUuid", valorant_controller_1.getMatchByUuid);

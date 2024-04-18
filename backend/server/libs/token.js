@@ -1,42 +1,41 @@
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.decodeToken = exports.validateToken = exports.createAccessToken = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var JWT_KEY = process.env.JWT_KEY;
-/**
- * Crea un token de acceso JWT.
- * @param payload Objeto que contiene la información que se incluirá en el token.
- * @returns Promesa que resuelve con el token generado.
- */
-export const createAccessToken = function (payload) {
-  return new Promise(function (resolve, reject) {
-    jwt.sign(payload, JWT_KEY, { expiresIn: "30d" }, function (err, token) {
-      if (err) reject(err);
-      resolve(token);
+const createAccessToken = (payload) => {
+    return new Promise(function (resolve, reject) {
+        jsonwebtoken_1.default.sign(payload, JWT_KEY, { expiresIn: "30d" }, (err, token) => {
+            if (err)
+                reject(err);
+            resolve(token);
+        });
     });
-  });
 };
-/**
- * Verifica la validez de un token de acceso JWT y devuelve el objeto User decodificado.
- * @param token Token de acceso JWT.
- * @returns Promesa que resuelve con un objeto User decodificado o nulo si el token no es válido.
- */
-export const validateToken = function (token) {
-  return new Promise(function (resolve, reject) {
-    if (!token) {
-      return resolve(null);
-    }
-    jwt.verify(token, JWT_KEY, function (err, decoded) {
-      if (err) {
-        return resolve(null);
-      }
-      var user = decoded;
-      return resolve(user);
+exports.createAccessToken = createAccessToken;
+const validateToken = (token) => {
+    return new Promise((resolve) => {
+        if (!token) {
+            return resolve(null);
+        }
+        jsonwebtoken_1.default.verify(token, JWT_KEY, (err, decoded) => {
+            if (err) {
+                return resolve(null);
+            }
+            var user = decoded;
+            return resolve(user);
+        });
     });
-  });
 };
-
-export const decodeToken = (token) => {
-  const base64Payload = token.split(".")[1];
-  const decodedPayload = Buffer.from(base64Payload, "base64").toString("utf-8");
-  return JSON.parse(decodedPayload);
+exports.validateToken = validateToken;
+const decodeToken = (token) => {
+    const base64Payload = token.split(".")[1];
+    const decodedPayload = Buffer.from(base64Payload, "base64").toString("utf-8");
+    return JSON.parse(decodedPayload);
 };
+exports.decodeToken = decodeToken;
