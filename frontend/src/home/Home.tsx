@@ -54,9 +54,8 @@ export const Home = () => {
   ) : (
     <div className="flex relative dark:bg-black duration-500">
       <section className="lg:w-64 w-full bottom-0 lg:top-0 py-6 px-3 fixed bg-white dark:bg-black duration-500 dark:border-neutral-800 lg:border-r border-t lg:border-t-0 z-10">
-        <header className="flex items-center gap-x-2">
-          <img src={logo} alt="logo" className="w-9 h-9 hidden lg:block" />
-          <h2 className="text-3xl text-gray-900 dark:text-white duration-500  font-kalnia hidden lg:block">
+        <header className="px-3">
+          <h2 className="text-3xl text-gray-900 dark:text-white duration-500  font-pacifico hidden lg:block">
             Feedgames
           </h2>
         </header>

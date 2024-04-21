@@ -14,7 +14,7 @@ export const PostContent: React.FC<Props> = ({ data }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <span className="font-montserrat text-sm w-fit whitespace-pre-line dark:text-white">
+      <span className="text-sm font-normal w-fit whitespace-pre-line dark:text-white">
         <MarkDown remarkPlugins={[remarkGfm]}>{content}</MarkDown>
       </span>
       {publicUrl && (

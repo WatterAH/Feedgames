@@ -44,7 +44,7 @@ export const PostHeader: React.FC<Props> = ({ data, setPosts }) => {
         <span className="flex items-center gap-x-2">
           <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
           <div>
-            <h1 className="text-lg font-montserrat dark:text-white">{name}</h1>
+            <h1 className="font-inter dark:text-white">{name}</h1>
             <Link to={`/u/${user_id}`} className="flex items-center gap-x-1">
               <p className="hover:underline text-gray-400 text-sm font-rubik">
                 @{username}
