@@ -14,7 +14,7 @@ export const Input: React.FC<Props> = (props) => {
         className={`p-3 outline-none text-sm text-gray-700 dark:text-gray-200 border border-gray-200  rounded-xl w-full dark:border-${
           props.error ? "red-500" : "zinc-800"
         }`}
-        placeholderTextColor="#777777"
+        placeholderTextColor="#777"
         {...props}
       />
     </View>

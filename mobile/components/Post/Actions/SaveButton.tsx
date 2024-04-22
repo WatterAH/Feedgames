@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Pressable } from "react-native";
 import { BookmarkIcon as BookOut } from "react-native-heroicons/outline";
 import { BookmarkIcon as BookSolid } from "react-native-heroicons/solid";
+import * as Haptic from "expo-haptics";
 
 interface Props {
   id: string;
@@ -16,6 +17,7 @@ export const SaveButton = ({ saveData }: { saveData: Props }) => {
   const handleSave = async () => {
     try {
       setSaved(!saved);
+      Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
       if (!saved) {
         if (setSavedNum) {
           setSavedNum((prevNum) => (prevNum ?? 0) + 1);

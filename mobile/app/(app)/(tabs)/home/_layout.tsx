@@ -29,6 +29,16 @@ const StackLayout = () => {
           headerStyle: { backgroundColor },
         }}
       />
+      <Stack.Screen
+        name="post"
+        options={{
+          headerTitle: "Post",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+        }}
+      />
     </Stack>
   );
 };

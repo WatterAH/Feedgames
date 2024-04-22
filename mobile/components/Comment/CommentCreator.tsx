@@ -7,7 +7,7 @@ interface Props {
   name: string;
 }
 
-export const PostCreator: React.FC<Props> = ({ username, name }) => {
+export const CommentCreator: React.FC<Props> = ({ username, name }) => {
   return (
     <View>
       <Text className="" style={{ fontWeight: "600" }}>

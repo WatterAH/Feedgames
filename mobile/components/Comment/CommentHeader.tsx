@@ -1,18 +1,19 @@
 import React from "react";
-import { PostInterface } from "@/interfaces/Post";
 import { View, Text } from "../Global/Themed";
-import { PostCreator } from "./PostCreator";
-import { ProfilePicture } from "../Profile/ProfilePicture";
+// import { PostCreator } from "./PostCreator";
 import { calculateDate } from "@/functions/date";
 import { EllipsisHorizontalIcon } from "react-native-heroicons/solid";
 import { Link } from "expo-router";
+import { CommentInterface } from "@/interfaces/Comment";
+import { ProfilePicture } from "../Profile/ProfilePicture";
+import { CommentCreator } from "./CommentCreator";
 
 interface Props {
-  data: PostInterface;
+  data: CommentInterface;
 }
 
-export const PostHeader: React.FC<Props> = ({ data }) => {
-  const { user, created_at, user_id } = data;
+export const CommentHeader: React.FC<Props> = ({ data }) => {
+  const { user, created_at, id_user } = data;
   const { username, name, pfp } = user;
   const date = calculateDate(created_at, false);
 
@@ -21,12 +22,12 @@ export const PostHeader: React.FC<Props> = ({ data }) => {
       <Link
         href={{
           pathname: "/home/profile",
-          params: { id: user_id },
+          params: { id: id_user },
         }}
       >
         <View className="flex-row items-center" style={{ columnGap: 8 }}>
           <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
-          <PostCreator username={username} name={name} />
+          <CommentCreator name={name} username={username} />
         </View>
       </Link>
       <View className="flex flex-col items-end gap-y-2">

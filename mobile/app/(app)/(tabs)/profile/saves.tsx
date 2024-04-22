@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { getMySaved } from "@/api/actions";
+import { PostSkeleton } from "@/components/Global/Skeletons";
 import { SafeAreaView, Text } from "@/components/Global/Themed";
+import { Post } from "@/components/Post/Post";
 import { useSession } from "@/context/ctx";
 import { PostInterface } from "@/interfaces/Post";
-import { getMyLiked } from "@/api/actions";
-import { PostSkeleton } from "@/components/Global/Skeletons";
 import { FlatList } from "react-native";
-import { Post } from "@/components/Post/Post";
 
 const Empty = () => {
   return (
@@ -13,20 +13,20 @@ const Empty = () => {
       className="text-base text-center max-w-xs"
       style={{ color: "rgb(119, 119, 119)" }}
     >
-      Las publicaciones que te gusten aparecerán aquí.
+      Las publicaciones que guardes aparecerán aquí.
     </Text>
   );
 };
 
-const likes = () => {
+const saves = () => {
   const { user } = useSession();
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
-  const handleLikes = async () => {
+  const handleSaves = async () => {
     try {
       setLoading(true);
-      const data = await getMyLiked(user?.id ?? "0");
+      const data = await getMySaved(user?.id ?? "0");
       setPosts((prevPosts) => [...prevPosts, ...data]);
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ const likes = () => {
   };
 
   useEffect(() => {
-    handleLikes();
+    handleSaves();
   }, []);
 
   return (
@@ -50,7 +50,6 @@ const likes = () => {
           className="flex-col w-full duration-1000"
           data={posts}
           renderItem={({ item }) => <Post data={item} />}
-          ListEmptyComponent={Empty}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
         />
@@ -59,4 +58,4 @@ const likes = () => {
   );
 };
 
-export default likes;
+export default saves;

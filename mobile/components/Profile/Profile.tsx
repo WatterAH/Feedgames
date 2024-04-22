@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "../Global/Themed";
+import { ScrollView, Text, View } from "../Global/Themed";
 import { ProfileDetails } from "./ProfileDetails";
 import { ProfilePosts } from "./ProfilePosts";
 import { PostInterface } from "@/interfaces/Post";
@@ -7,7 +7,6 @@ import { RefreshControl } from "react-native";
 import { User } from "@/interfaces/User";
 import { useSession } from "@/context/ctx";
 import { getProfile, getProfilePost } from "@/api/profile";
-import { Loading } from "../Global/Loading";
 import { ProfileSkeleton } from "../Global/Skeletons";
 
 interface Props {
@@ -64,7 +63,7 @@ export const Profile: React.FC<Props> = ({ id }) => {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <ProfilePosts posts={posts} />
+      <ProfilePosts posts={posts} name={user?.name} />
     </ScrollView>
   );
 };

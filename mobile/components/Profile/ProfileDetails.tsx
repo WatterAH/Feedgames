@@ -6,6 +6,7 @@ import { StyleSheet } from "react-native";
 import { FollowButton } from "./Actions/FollowButton";
 import { ShareProfile } from "./Actions/ShareProfile";
 import { useSession } from "@/context/ctx";
+import * as Haptics from "expo-haptics";
 
 interface Props {
   data: User;
@@ -19,6 +20,7 @@ export const ProfileDetails: React.FC<Props> = ({ data }) => {
 
   const handleFollow = async () => {
     setIsFollowed(!isFollowed);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
   };
 
   return (

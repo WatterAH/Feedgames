@@ -44,6 +44,15 @@ const StackLayout = () => {
           headerTitleStyle: { fontWeight: "700" },
         }}
       />
+      <Stack.Screen
+        name="saves"
+        options={{
+          headerTitle: "Guardado",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
     </Stack>
   );
 };

@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import { Link } from "expo-router";
+import React from "react";
 import { Pressable } from "react-native";
 import { ChatBubbleOvalLeftIcon as ChatOut } from "react-native-heroicons/outline";
 import { ChatBubbleOvalLeftIcon as ChatSolid } from "react-native-heroicons/solid";
@@ -10,15 +11,18 @@ interface Props {
 
 export const CommentButton = ({ commentData }: { commentData: Props }) => {
   const { id, isCommented } = commentData;
+
   return (
     <>
-      <Pressable>
-        {isCommented ? (
-          <ChatSolid size={24} color={"#add8e6"} />
-        ) : (
-          <ChatOut size={24} color={"#add8e6"} />
-        )}
-      </Pressable>
+      <Link href={{ pathname: "/home/post", params: { id } }} asChild>
+        <Pressable>
+          {isCommented ? (
+            <ChatSolid size={24} color={"#add8e6"} />
+          ) : (
+            <ChatOut size={24} color={"#add8e6"} />
+          )}
+        </Pressable>
+      </Link>
     </>
   );
 };

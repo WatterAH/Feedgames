@@ -4,14 +4,16 @@ import { PostInterface } from "@/interfaces/Post";
 import { useSession } from "@/context/ctx";
 import { SafeAreaView, Text, View } from "@/components/Global/Themed";
 import { PostLoader, PostSkeleton } from "@/components/Global/Skeletons";
-import { FlatList } from "react-native";
+import { FlatList, useColorScheme } from "react-native";
 import { Post } from "@/components/Post/Post";
 import { CheckCircleIcon } from "react-native-heroicons/outline";
 
 const AllDone = () => {
+  const colorScheme = useColorScheme();
+  const iconColor = colorScheme === "dark" ? "#fff" : "#101010";
   return (
     <View className="w-full justify-center items-center h-24 my-5">
-      <CheckCircleIcon size={36} color={"#fff"} />
+      <CheckCircleIcon size={36} color={iconColor} />
       <Text className="text-xl font-bold">Explorador incansable</Text>
       <Text className="text-sm">Has visto todos los posts recientes</Text>
     </View>

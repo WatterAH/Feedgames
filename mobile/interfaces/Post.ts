@@ -16,11 +16,11 @@ export interface PostInterface {
   user: User;
   user_id: string;
   publicUrl: string | null;
-  liked: string[];
+  liked: number;
   isLiked: boolean;
-  saved: string[];
+  saved: number;
   isSaved: boolean;
-  comments: string[];
+  comments: number;
   isCommented: boolean;
   valMatch: MatchShowCase | null;
 }
@@ -28,9 +28,9 @@ export interface PostInterface {
 export const defaultPost: PostInterface = {
   id: "",
   user_id: "",
-  comments: [],
-  liked: [],
-  saved: [],
+  comments: 0,
+  liked: 0,
+  saved: 0,
   content: "",
   created_at: { day: 1, month: "Enero", year: 2024 },
   isLiked: false,

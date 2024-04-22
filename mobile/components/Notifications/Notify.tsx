@@ -26,9 +26,10 @@ export const Notify: React.FC<Props> = ({ data }) => {
     return icons[type];
   };
   return (
-    <View className="w-full border-b p-4 border-gray-100 dark:border-neutral-800 flex-row items-center gap-x-5">
+    <View className="w-full border-b p-4 border-gray-100 dark:border-neutral-800 flex-row items-center">
       {getIcon(data.type)}
       <Link
+        className="ml-3"
         href={{
           pathname: "/notifications/explore",
           params: { id: data.id_linked, type: data.content },

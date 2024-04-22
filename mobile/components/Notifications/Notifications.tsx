@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "../Global/Themed";
+import { SafeAreaView, View } from "../Global/Themed";
 import { useSession } from "@/context/ctx";
 import { Notification } from "@/interfaces/Notification";
 import { getMyNotifications } from "@/api/notifications";
@@ -39,7 +39,7 @@ export const Notifications = () => {
   return loadingPage ? (
     <Loading size="large" />
   ) : (
-    <View className="w-full h-full py-2">
+    <SafeAreaView className="w-full h-full py-2">
       <FlatList
         refreshControl={
           <RefreshControl
@@ -51,6 +51,6 @@ export const Notifications = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Notify data={item} />}
       />
-    </View>
+    </SafeAreaView>
   );
 };
