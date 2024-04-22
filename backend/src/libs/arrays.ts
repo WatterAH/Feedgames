@@ -1,3 +1,4 @@
+import { PostInterface } from "../interfaces/Post";
 import { Match } from "../interfaces/Valorant";
 
 export const findMaxItem = function (arr: number[]) {
@@ -8,7 +9,7 @@ export const findMaxItem = function (arr: number[]) {
   return arr.indexOf(maxItem);
 };
 
-export const joinObjects = function (arrIndex: number[], arr: string[]) {
+export const joinObjects = function (arrIndex: number[], arr: PostInterface[]) {
   arr = [arr[arrIndex[0]], arr[arrIndex[1]], arr[arrIndex[2]]];
   return arr.filter(function (current) {
     return current != undefined;

@@ -15,7 +15,7 @@ export const loadSuggestions: RequestHandler = async (_req, res) => {
     const indexMaxSaves = findMaxItem(savedLengths);
     const indexMaxComments = findMaxItem(commentsLengths);
     const indexs = uniques([indexMaxLikes, indexMaxSaves, indexMaxComments]);
-    posts = joinObjects(indexs, posts as string[]);
+    posts = posts ? joinObjects(indexs, posts) : [];
 
     return res.status(200).json(posts);
   } catch (error) {

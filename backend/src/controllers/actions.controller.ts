@@ -7,6 +7,7 @@ import {
 } from "../database/profileGetter";
 import { getPostById, myPostsIds } from "../database/postGetter";
 import { RequestHandler } from "express";
+import { processPost } from "../libs/server";
 
 export const getProfile: RequestHandler = async (req, res) => {
   try {
@@ -30,30 +31,13 @@ export const getProfile: RequestHandler = async (req, res) => {
 export const getProfilePosts: RequestHandler = async (req, res) => {
   try {
     const { id, myID } = req.query;
+    const myIdString = myID as string;
     let { posts, error } = await myPostsIds(id as string);
-    if (error) {
+    if (error || !posts) {
       return res.status(400).json({ message: "Error al cargar los posts" });
     }
-    if (posts) {
-      posts = posts.map((post) => {
-        const { liked, saved, comments, ...rest } = post;
-        const isLiked = liked.some((like: any) => like.id_user == myID);
-        const isSaved = saved.some((save: any) => save.id_user == myID);
-        const isCommented = comments.some(
-          (comment: any) => comment.id_user == myID
-        );
-        return {
-          ...rest,
-          liked,
-          saved,
-          comments,
-          isLiked,
-          isSaved,
-          isCommented,
-        };
-      });
-    }
-    return res.status(200).json(posts);
+    const processedPosts = posts.map((post) => processPost(post, myIdString));
+    return res.status(200).json(processedPosts);
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
@@ -62,18 +46,12 @@ export const getProfilePosts: RequestHandler = async (req, res) => {
 export const getPost: RequestHandler = async (req, res) => {
   try {
     const { postId, userId } = req.query;
-
     let { data: post, error } = await getPostById(postId as string);
-
-    if (error) {
+    if (error || !post) {
       return res.status(404).json({ message: "Not Found" });
     }
-    post.isLiked = post.liked.some((like: any) => like.id_user == userId);
-    post.isSaved = post.saved.some((save: any) => save.id_user == userId);
-    post.isCommented = post.comments.some(
-      (comment: any) => (comment.id_user = userId)
-    );
-    return res.status(200).json(post);
+    const processedPost = processPost(post, userId as string);
+    return res.status(200).json(processedPost);
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
