@@ -12,8 +12,8 @@ interface Props {
 export const PostActions: React.FC<Props> = ({ data }) => {
   const { id, user_id } = data;
   const { saved, isSaved, liked, isLiked, comments, isCommented } = data;
-  const [savedNum, setSavedNum] = useState<number | undefined>(saved.length);
-  const [likedNum, setLikedNum] = useState(liked.length);
+  const [savedNum, setSavedNum] = useState<number | undefined>(saved);
+  const [likedNum, setLikedNum] = useState(liked);
 
   return (
     <div className="flex justify-between items-center mb-5">
@@ -30,7 +30,7 @@ export const PostActions: React.FC<Props> = ({ data }) => {
       <section>
         <span className="flex items-center justify-center gap-1">
           <CommentButton commentData={{ id, isCommented }} />
-          <p className="text-gray-500 text-xs mb-1">{comments.length}</p>
+          <p className="text-gray-500 text-xs mb-1">{comments}</p>
         </span>
       </section>
     </div>
