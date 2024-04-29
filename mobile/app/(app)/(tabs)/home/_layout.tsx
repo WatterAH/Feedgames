@@ -1,6 +1,7 @@
 import React from "react";
 import { Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import { Pressable, useColorScheme } from "react-native";
+import { MagnifyingGlassIcon } from "react-native-heroicons/solid";
 
 const StackLayout = () => {
   const colorScheme = useColorScheme();
@@ -15,6 +16,11 @@ const StackLayout = () => {
           headerTitle: "Fg",
           headerTitleStyle: { fontFamily: "Pacifico", fontSize: 28 },
           headerTintColor: iconColor,
+          headerRight: () => (
+            <Pressable>
+              <MagnifyingGlassIcon color={iconColor} size={28} />
+            </Pressable>
+          ),
           headerStyle: { backgroundColor },
           headerShadowVisible: false,
         }}

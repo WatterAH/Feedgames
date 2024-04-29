@@ -10,7 +10,7 @@ import { fetchComments } from "@/api/comments";
 import { CommentInterface } from "@/interfaces/Comment";
 import { Comment } from "@/components/Comment/Comment";
 import { CommentBox } from "@/components/Comment/CommentBox";
-import { KeyboardAvoidingView } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 
 const post = () => {
   const { id, username } = useGlobalSearchParams();
@@ -53,10 +53,10 @@ const post = () => {
 
   return (
     <KeyboardAvoidingView
-      className="pb-20"
+      className={`${Platform.OS === "ios" ? "pb-20" : null}`}
       style={{ flex: 1 }}
-      behavior="padding"
-      keyboardVerticalOffset={87}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={110}
     >
       <SafeAreaView className="h-full flex-col relative">
         <ScrollView className="">

@@ -7,7 +7,7 @@ import {
   CommentInterface,
   defaultComment as defComment,
 } from "@/interfaces/Comment";
-import { KeyboardAvoidingView } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import { CommentBox } from "@/components/Comment/CommentBox";
 import { PostLoader } from "@/components/Global/Skeletons";
 import { Comment } from "@/components/Comment/Comment";
@@ -53,10 +53,10 @@ const exploreComment = () => {
 
   return (
     <KeyboardAvoidingView
-      className="pb-20"
+      className={`${Platform.OS === "ios" ? "pb-20" : null}`}
       style={{ flex: 1 }}
-      behavior="padding"
-      keyboardVerticalOffset={87}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={110}
     >
       <SafeAreaView className="h-full flex-col relative">
         <ScrollView>

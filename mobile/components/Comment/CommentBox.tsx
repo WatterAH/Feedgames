@@ -25,6 +25,7 @@ export const CommentBox: React.FC<Props> = ({ username }) => {
     <View className="w-full px-2 pt-3 items-center border-t border-gray-100 dark:border-neutral-800 mb-3">
       <TextInput
         className="p-3 w-full text-black dark:text-white text-xs border-gray-300 rounded-full"
+        returnKeyType="done"
         style={{ backgroundColor }}
         placeholderTextColor="#777"
         placeholder={`Responder a ${username}`}

@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const ProfilePosts: React.FC<Props> = ({ posts, name }) => {
-  return posts.length == 0 ? (
+  return posts.length == 0 && !posts ? (
     <Empty name={name}></Empty>
   ) : (
     posts.map((post) => <Post data={post} key={post.id} />)

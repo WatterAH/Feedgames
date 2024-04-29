@@ -6,7 +6,7 @@ import { TextArea } from "./TextArea";
 import { Contents } from "./Contents";
 import { ContentPreview } from "./ContentPreview";
 import * as ImagePicker from "expo-image-picker";
-import { KeyboardAvoidingView, useColorScheme } from "react-native";
+import { KeyboardAvoidingView, Platform, useColorScheme } from "react-native";
 import { Button } from "../Global/Button";
 
 export const Create = () => {
@@ -29,10 +29,10 @@ export const Create = () => {
 
   return (
     <KeyboardAvoidingView
-      className="pb-10"
+      className={`${Platform.OS === "ios" ? "pb-10" : null}`}
       style={{ flex: 1 }}
-      behavior="padding"
-      keyboardVerticalOffset={110}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 87 : 20}
     >
       <ScrollView
         lightColor="#fff"

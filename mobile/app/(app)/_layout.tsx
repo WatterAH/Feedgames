@@ -1,12 +1,13 @@
 import { Redirect, Stack } from "expo-router";
 import { Text } from "@/components/Global/Themed";
 import { useSession } from "@/context/ctx";
-import { useColorScheme } from "react-native";
+import { Platform, Pressable, useColorScheme } from "react-native";
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
   const colorScheme = useColorScheme();
   const backgroundColor = colorScheme === "dark" ? "#101010" : "#fff";
+  const iconColor = colorScheme === "dark" ? "#fff" : "#000";
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -21,9 +22,10 @@ export default function AppLayout() {
       <Stack.Screen
         name="newpost"
         options={{
-          presentation: "modal",
+          presentation: Platform.OS == "ios" ? "modal" : "card",
           headerTitle: "Nuevo post",
           headerTitleStyle: { fontWeight: "700" },
+          headerTintColor: iconColor,
           headerStyle: { backgroundColor },
         }}
       />
