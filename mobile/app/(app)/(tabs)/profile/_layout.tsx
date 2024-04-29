@@ -53,6 +53,38 @@ const StackLayout = () => {
           headerTitleStyle: { fontWeight: "700" },
         }}
       />
+      <Stack.Screen
+        name="exploreProfile"
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+        }}
+      />
+      <Stack.Screen
+        name="post"
+        options={{
+          headerTitle: "Post",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
+      <Stack.Screen
+        name="comment"
+        options={{
+          headerTitle: "Comentario",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
     </Stack>
   );
 };

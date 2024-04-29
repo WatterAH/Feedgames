@@ -10,7 +10,8 @@ interface Props {
 }
 
 export const PostActions: React.FC<Props> = ({ data }) => {
-  const { id, user_id } = data;
+  const { id, user_id, user } = data;
+  const { username } = user;
   const { saved, isSaved, liked, isLiked, comments, isCommented } = data;
   const [savedNum, setSavedNum] = useState<number | undefined>(saved);
   const [likedNum, setLikedNum] = useState(liked);
@@ -29,7 +30,7 @@ export const PostActions: React.FC<Props> = ({ data }) => {
       </View>
       <View>
         <View className="flex flex-row items-center" style={{ columnGap: 4 }}>
-          <CommentButton commentData={{ id, isCommented }} />
+          <CommentButton commentData={{ id, isCommented, username }} />
           <Text className="text-gray-500 text-xs">{comments}</Text>
         </View>
       </View>

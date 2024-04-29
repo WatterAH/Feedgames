@@ -37,6 +37,18 @@ const StackLayout = () => {
           headerTintColor: iconColor,
           headerShadowVisible: false,
           headerStyle: { backgroundColor },
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
+      <Stack.Screen
+        name="comment"
+        options={{
+          headerTitle: "Comentario",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+          headerTitleStyle: { fontWeight: "700" },
         }}
       />
     </Stack>

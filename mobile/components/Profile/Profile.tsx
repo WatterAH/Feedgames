@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "../Global/Themed";
+import { ScrollView, View } from "../Global/Themed";
 import { ProfileDetails } from "./ProfileDetails";
 import { ProfilePosts } from "./ProfilePosts";
 import { PostInterface } from "@/interfaces/Post";

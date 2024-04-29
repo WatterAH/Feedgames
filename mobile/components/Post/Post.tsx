@@ -18,9 +18,15 @@ export const Post: React.FC<Props> = ({ data }) => {
   const handlePress = () => {
     switch (pathName) {
       case "/home":
-        return router.push({ pathname: "/home/post", params });
       case "/home/profile":
         return router.push({ pathname: "/home/post", params });
+      case "/profile":
+      case "/profile/saves":
+      case "/profile/likes":
+      case "/profile/exploreProfile":
+        return router.push({ pathname: "/profile/post", params });
+      case "/notifications/profile":
+        return router.push({ pathname: "/notifications/post", params });
       default:
         break;
     }

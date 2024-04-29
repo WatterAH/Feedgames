@@ -6,6 +6,7 @@ import { InputLabel } from "@/components/Global/InputLabel";
 import { useFonts } from "expo-font";
 import { Button } from "@/components/Global/Button";
 import { loginApi } from "@/api/auth";
+import * as Haptics from "expo-haptics";
 
 const logIn = () => {
   const { login } = useSession();
@@ -38,6 +39,8 @@ const logIn = () => {
       router.replace("/");
     } catch (error: any) {
       const { message } = error;
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      setError(true);
     } finally {
       setLoading(false);
     }

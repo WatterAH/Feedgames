@@ -7,7 +7,7 @@ import {
 } from "react-native-heroicons/outline";
 import { Notification } from "@/interfaces/Notification";
 import { Pressable, useColorScheme } from "react-native";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 
 interface Props {
   data: Notification;
@@ -16,6 +16,21 @@ interface Props {
 export const Notify: React.FC<Props> = ({ data }) => {
   const colorScheme = useColorScheme();
   const iconColor = colorScheme === "dark" ? "#fff" : "#101010";
+  const { type, text, id_linked, content } = data;
+  const params = { id: id_linked };
+
+  const handlePress = () => {
+    switch (content) {
+      case "c":
+        return router.push({ pathname: "/notifications/comment", params });
+      case "p":
+        return router.push({ pathname: "/notifications/post", params });
+      case "u":
+        return router.push({ pathname: "/notifications/profile", params });
+      default:
+        break;
+    }
+  };
 
   const getIcon = (type: number) => {
     const icons = [
@@ -25,18 +40,13 @@ export const Notify: React.FC<Props> = ({ data }) => {
     ];
     return icons[type];
   };
+
   return (
-    <View className="w-full border-b p-4 border-gray-100 dark:border-neutral-800 flex-row items-center">
-      {getIcon(data.type)}
-      <Link
-        className="ml-3"
-        href={{
-          pathname: "/notifications/explore",
-          params: { id: data.id_linked, type: data.content },
-        }}
-      >
-        <Text>{data.text}</Text>
-      </Link>
-    </View>
+    <Pressable onPress={handlePress}>
+      <View className="w-full border-b p-4 border-gray-100 dark:border-neutral-800 flex-row items-center">
+        {getIcon(type)}
+        <Text className="ml-3">{text}</Text>
+      </View>
+    </Pressable>
   );
 };

@@ -18,7 +18,29 @@ const StackLayout = () => {
         }}
       />
       <Stack.Screen
-        name="explore"
+        name="post"
+        options={{
+          headerTitle: "Post",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
+      <Stack.Screen
+        name="comment"
+        options={{
+          headerTitle: "Comentario",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
+      <Stack.Screen
+        name="profile"
         options={{
           headerTitle: "",
           headerBackTitle: "Atrás",

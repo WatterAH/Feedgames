@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, TextInput } from "react-native";
+import { TextInput, useColorScheme } from "react-native";
 import { View } from "../Global/Themed";
 import * as Haptics from "expo-haptics";
 
@@ -8,10 +8,8 @@ interface Props {
 }
 
 export const CommentBox: React.FC<Props> = ({ username }) => {
+  const backgroundColor = useColorScheme() === "dark" ? "#202020" : "#ebebeb";
   const [text, setText] = useState("");
-  const handlePress = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-  };
 
   const handleSubmit = async () => {
     try {
@@ -26,14 +24,13 @@ export const CommentBox: React.FC<Props> = ({ username }) => {
   return (
     <View className="w-full px-2 pt-3 items-center border-t border-gray-100 dark:border-neutral-800 mb-3">
       <TextInput
-        className="p-3 w-full text-white text-xs border-gray-300 rounded-full"
-        style={{ backgroundColor: "#202020" }}
+        className="p-3 w-full text-black dark:text-white text-xs border-gray-300 rounded-full"
+        style={{ backgroundColor }}
         placeholderTextColor="#777"
         placeholder={`Responder a ${username}`}
         value={text}
         onChangeText={setText}
         onSubmitEditing={handleSubmit}
-        onPressIn={handlePress}
       />
     </View>
   );
