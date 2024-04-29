@@ -4,8 +4,9 @@ import { PostHeader } from "./PostHeader";
 import { PostContent } from "./PostContent";
 import { PostActions } from "./PostActions";
 import { View } from "../Global/Themed";
-import { router, usePathname } from "expo-router";
+import { usePathname } from "expo-router";
 import { Pressable } from "react-native";
+import { goToPost } from "@/functions/navigation";
 
 interface Props {
   data: PostInterface;
@@ -14,23 +15,7 @@ interface Props {
 export const Post: React.FC<Props> = ({ data }) => {
   const params = { id: data.id, username: data.user.username };
   const pathName = usePathname();
-
-  const handlePress = () => {
-    switch (pathName) {
-      case "/home":
-      case "/home/profile":
-        return router.push({ pathname: "/home/post", params });
-      case "/profile":
-      case "/profile/saves":
-      case "/profile/likes":
-      case "/profile/exploreProfile":
-        return router.push({ pathname: "/profile/post", params });
-      case "/notifications/profile":
-        return router.push({ pathname: "/notifications/post", params });
-      default:
-        break;
-    }
-  };
+  const handlePress = () => goToPost(pathName, params);
 
   return (
     <Pressable onPress={handlePress}>

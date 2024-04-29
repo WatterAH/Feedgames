@@ -5,8 +5,9 @@ import { PostCreator } from "./PostCreator";
 import { ProfilePicture } from "../Profile/ProfilePicture";
 import { calculateDate } from "@/functions/date";
 import { EllipsisHorizontalIcon } from "react-native-heroicons/solid";
-import { router, usePathname } from "expo-router";
+import { usePathname } from "expo-router";
 import { Pressable } from "react-native";
+import { goToProfile } from "@/functions/navigation";
 
 interface Props {
   data: PostInterface;
@@ -19,19 +20,7 @@ export const PostHeader: React.FC<Props> = ({ data }) => {
   const date = calculateDate(created_at, false);
   const pathName = usePathname();
 
-  const handlePress = () => {
-    switch (pathName) {
-      case "/home":
-      case "/home/post":
-        return router.push({ pathname: "/home/profile", params });
-      case "/profile/post":
-        return router.push({ pathname: "/profile/exploreProfile", params });
-      case "/notifications/post":
-        return router.push({ pathname: "/notifications/profile", params });
-      default:
-        break;
-    }
-  };
+  const handlePress = () => goToProfile(pathName, params);
 
   return (
     <View className="flex-row justify-between">
