@@ -7,6 +7,12 @@ export interface DateObj {
   year: number;
 }
 
+export interface TimeObj {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 export interface PostInterface {
   id: string;
   created_at: DateObj;

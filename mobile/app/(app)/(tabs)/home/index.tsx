@@ -4,7 +4,7 @@ import { PostInterface } from "@/interfaces/Post";
 import { useSession } from "@/context/ctx";
 import { SafeAreaView, Text, View } from "@/components/Global/Themed";
 import { PostLoader, PostSkeleton } from "@/components/Global/Skeletons";
-import { FlatList, useColorScheme } from "react-native";
+import { FlatList, RefreshControl, useColorScheme } from "react-native";
 import { Post } from "@/components/Post/Post";
 import { CheckCircleIcon } from "react-native-heroicons/outline";
 
@@ -23,6 +23,7 @@ const AllDone = () => {
 const home = () => {
   const { user } = useSession();
   const [loading, setLoading] = useState(false);
+  const [loadingRefresh, setLoadingRefresh] = useState(false);
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [page, setPage] = useState(0);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
@@ -30,24 +31,30 @@ const home = () => {
   const getPosts = async () => {
     try {
       if (!allPostsLoaded) {
-        if (page === 0) setLoading(true);
-        const data = await fetchPosts(user?.id ?? "0", page, 10);
-        if (data.length > 0) {
-          setPosts((prevPosts) => [...prevPosts, ...data]);
-        } else {
-          setAllPostsLoaded(true);
+        if (page === 0 && !loadingRefresh) setLoading(true);
+        if (user?.id) {
+          setPage(page + 1);
+          const data = await fetchPosts(user.id, page, 10);
+          if (data.length > 0) {
+            setPosts((prevPosts) => [...prevPosts, ...data]);
+          } else {
+            setAllPostsLoaded(true);
+          }
         }
       }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
+      setLoadingRefresh(false);
     }
   };
 
   useEffect(() => {
-    getPosts();
-  }, [page]);
+    if (user?.id) {
+      getPosts();
+    }
+  }, [user?.id]);
 
   return (
     <SafeAreaView className="h-full flex-col items-center justify-center">
@@ -59,9 +66,20 @@ const home = () => {
           data={posts}
           renderItem={({ item }) => <Post data={item} />}
           keyExtractor={(item) => item.id}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={() => {
+                setLoadingRefresh(true);
+                setPage(0);
+                setPosts([]);
+                setAllPostsLoaded(false);
+              }}
+            />
+          }
           showsVerticalScrollIndicator={false}
           ListFooterComponent={allPostsLoaded ? <AllDone /> : <PostLoader />}
-          onEndReached={() => setPage(page + 1)}
+          onEndReached={getPosts}
           onEndReachedThreshold={0.8}
         ></FlatList>
       )}

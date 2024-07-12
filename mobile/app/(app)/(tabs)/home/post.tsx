@@ -56,7 +56,7 @@ const post = () => {
       className={`${Platform.OS === "ios" ? "pb-20" : null}`}
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
-      keyboardVerticalOffset={110}
+      keyboardVerticalOffset={88}
     >
       <SafeAreaView className="h-full flex-col relative">
         <ScrollView className="">

@@ -33,11 +33,13 @@ export const LikeButton = ({ comment }: { comment: CommentInterface }) => {
   return (
     <Pressable className="flex-row items-center gap-x-1" onPress={handleLike}>
       {liked ? (
-        <HeartSolid size={26} color={"#fb7185"} />
+        <HeartSolid size={24} color={"#fb7185"} />
       ) : (
-        <HeartOut size={26} color={"#fb7185"} />
+        <HeartOut size={24} color={"#ccc"} />
       )}
-      <Text className="text-gray-500 text-xs">{likedNum}</Text>
+      <Text className="text-xs" style={{ color: "#ccc" }}>
+        {likedNum}
+      </Text>
     </Pressable>
   );
 };

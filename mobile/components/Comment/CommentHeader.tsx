@@ -2,9 +2,8 @@ import React from "react";
 import { View, Text } from "../Global/Themed";
 import { calculateDate } from "@/functions/date";
 import { EllipsisHorizontalIcon } from "react-native-heroicons/solid";
-import { Link, router, usePathname } from "expo-router";
+import { router, usePathname } from "expo-router";
 import { CommentInterface } from "@/interfaces/Comment";
-import { ProfilePicture } from "../Profile/ProfilePicture";
 import { PostCreator } from "../Post/PostCreator";
 import { Pressable } from "react-native";
 
@@ -13,11 +12,11 @@ interface Props {
 }
 
 export const CommentHeader: React.FC<Props> = ({ data }) => {
-  const { user, created_at, id_user } = data;
+  const { user, order, id_user } = data;
   const { username, name, pfp } = user;
   const params = { id: id_user };
   const pathName = usePathname();
-  const date = calculateDate(created_at, false);
+  const date = calculateDate(order);
 
   const handlePress = () => {
     switch (pathName) {
@@ -37,19 +36,16 @@ export const CommentHeader: React.FC<Props> = ({ data }) => {
 
   return (
     <View className="flex-row justify-between">
-      <Pressable onPress={handlePress}>
-        <View className="flex-row items-center" style={{ columnGap: 8 }}>
-          <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
+      <View className="flex-row gap-2 items-center">
+        <Pressable onPress={handlePress}>
           <PostCreator name={name} username={username} />
-        </View>
-      </Pressable>
-      <View className="flex flex-col items-end gap-y-2">
-        <EllipsisHorizontalIcon
-          className="h-5 text-gray-600"
-          color={"rgb(75 85 99)"}
-        />
-        <Text className="text-gray-400 text-xs font-rubik">{date}</Text>
+        </Pressable>
+        <Text style={{ color: "#777", fontSize: 15 }}>{date}</Text>
       </View>
+      <EllipsisHorizontalIcon
+        className="h-5 text-gray-600"
+        color={"rgb(119 119 119)"}
+      />
     </View>
   );
 };

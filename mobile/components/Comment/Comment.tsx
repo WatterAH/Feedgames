@@ -7,6 +7,7 @@ import { LikeButton } from "./Actions/LikeButton";
 import { ResponseButton } from "./Actions/ResponseButton";
 import { usePathname } from "expo-router";
 import { gotToComment } from "@/functions/navigation";
+import { ProfilePicture } from "../Profile/ProfilePicture";
 
 interface Props {
   data: CommentInterface;
@@ -21,14 +22,17 @@ export const Comment: React.FC<Props> = ({ data }) => {
   return (
     <Pressable onPress={handlePress}>
       <View
-        className="w-full duration-700 border-b border-gray-100 dark:border-neutral-800 flex-col py-5 px-3"
+        className="w-full duration-700 border-b border-gray-100 dark:border-neutral-800 flex-row justify-between py-5 px-3"
         style={{ rowGap: 16 }}
       >
-        <CommentHeader data={data} />
-        <Text>{comment}</Text>
-        <View className="flex-row w-full justify-between">
-          <LikeButton comment={data} />
-          <ResponseButton comment={data} />
+        <ProfilePicture src={data.user.pfp} w={"w-10"} h={"h-10"} />
+        <View className="w-full flex-col pl-2 pr-8" style={{ rowGap: 10 }}>
+          <CommentHeader data={data} />
+          <Text>{comment}</Text>
+          <View className="flex-row w-full justify-between">
+            <LikeButton comment={data} />
+            <ResponseButton comment={data} />
+          </View>
         </View>
       </View>
     </Pressable>

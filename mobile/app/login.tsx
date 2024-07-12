@@ -10,7 +10,7 @@ import * as Haptics from "expo-haptics";
 
 const logIn = () => {
   const { login } = useSession();
-  const [username, setUsername] = useState("watter.jsdx");
+  const [username, setUsername] = useState("_wjsdx");
   const [password, setPassword] = useState("SamT0710");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);

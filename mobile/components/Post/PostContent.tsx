@@ -3,19 +3,20 @@ import { PostInterface } from "../../interfaces/Post";
 import { Image, useColorScheme } from "react-native";
 import { Text, View } from "../Global/Themed";
 import { ImagesURL } from "@/constants/server";
+import { ValPost } from "./ValMatch/ValPost";
 
 interface Props {
   data: PostInterface;
 }
 
 export const PostContent: React.FC<Props> = ({ data }) => {
-  let { content, publicUrl } = data;
+  let { content, publicUrl, valMatch } = data;
   const colorScheme = useColorScheme();
   const backgroundColor = colorScheme === "dark" ? "#202020" : "#eaeaea";
   const src = ImagesURL + publicUrl;
 
   return (
-    <View className="flex-col" style={{ rowGap: 16 }}>
+    <View className="flex-col pr-3" style={{ rowGap: 8 }}>
       {content && <Text>{content}</Text>}
       {publicUrl && (
         <View
@@ -28,7 +29,7 @@ export const PostContent: React.FC<Props> = ({ data }) => {
           />
         </View>
       )}
-      {/* {valMatch && <MatchPost stats={valMatch} />} */}
+      {valMatch && <ValPost stats={valMatch} />}
     </View>
   );
 };

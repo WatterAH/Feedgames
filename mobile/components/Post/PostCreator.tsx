@@ -10,16 +10,11 @@ interface Props {
 export const PostCreator: React.FC<Props> = ({ username, name }) => {
   return (
     <View>
-      <Text className="" style={{ fontWeight: "600" }}>
+      {/* <Text className="" style={{ fontWeight: "600" }}>
         {name}
-      </Text>
+      </Text> */}
 
-      <Text
-        className="hover:underline text-gray-400"
-        style={{ fontFamily: "Instagram" }}
-      >
-        @{username}
-      </Text>
+      <Text className="font-semibold">{username}</Text>
     </View>
   );
 };

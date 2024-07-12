@@ -2,7 +2,6 @@ import React from "react";
 import { PostInterface } from "@/interfaces/Post";
 import { View, Text } from "../Global/Themed";
 import { PostCreator } from "./PostCreator";
-import { ProfilePicture } from "../Profile/ProfilePicture";
 import { calculateDate } from "@/functions/date";
 import { EllipsisHorizontalIcon } from "react-native-heroicons/solid";
 import { usePathname } from "expo-router";
@@ -14,29 +13,26 @@ interface Props {
 }
 
 export const PostHeader: React.FC<Props> = ({ data }) => {
-  const { user, created_at, user_id } = data;
-  const { username, name, pfp } = user;
+  const { user, user_id, order } = data;
+  const { username, name } = user;
   const params = { id: user_id };
-  const date = calculateDate(created_at, false);
+  const date = calculateDate(order);
   const pathName = usePathname();
 
   const handlePress = () => goToProfile(pathName, params);
 
   return (
-    <View className="flex-row justify-between">
-      <Pressable onPress={handlePress}>
-        <View className="flex-row items-center" style={{ columnGap: 8 }}>
-          <ProfilePicture src={pfp} w={"w-10"} h={"h-10"} />
+    <View className="flex-row justify-between items-center">
+      <View className="flex-row gap-2 items-center">
+        <Pressable onPress={handlePress}>
           <PostCreator username={username} name={name} />
-        </View>
-      </Pressable>
-      <View className="flex flex-col items-end gap-y-2">
-        <EllipsisHorizontalIcon
-          className="h-5 text-gray-600"
-          color={"rgb(75 85 99)"}
-        />
-        <Text className="text-gray-400 text-xs font-rubik">{date}</Text>
+        </Pressable>
+        <Text style={{ color: "#777", fontSize: 15 }}>{date}</Text>
       </View>
+      <EllipsisHorizontalIcon
+        className="h-5 text-gray-600"
+        color={"rgb(119 119 119)"}
+      />
     </View>
   );
 };

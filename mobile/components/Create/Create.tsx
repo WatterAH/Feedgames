@@ -32,7 +32,7 @@ export const Create = () => {
       className={`${Platform.OS === "ios" ? "pb-10" : null}`}
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 87 : 20}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 110 : 20}
     >
       <ScrollView
         lightColor="#fff"

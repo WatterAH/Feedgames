@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable } from "react-native";
+import { Pressable, useColorScheme } from "react-native";
 import { HeartIcon as HeartOut } from "react-native-heroicons/outline";
 import { HeartIcon as HeartSolid } from "react-native-heroicons/solid";
 import * as Haptic from "expo-haptics";
@@ -14,6 +14,7 @@ interface Props {
 export const LikeButton = ({ likeData }: { likeData: Props }) => {
   const { id, isLiked, setLikedNum, user_id } = likeData;
   const [liked, setLiked] = useState(isLiked);
+  const iconColor = useColorScheme() === "dark" ? "#ccc" : "#424242";
 
   const handleLike = () => {
     try {
@@ -30,9 +31,9 @@ export const LikeButton = ({ likeData }: { likeData: Props }) => {
   return (
     <Pressable onPress={handleLike}>
       {liked ? (
-        <HeartSolid size={26} color={"#fb7185"} />
+        <HeartSolid size={24} color={"#fb7185"} />
       ) : (
-        <HeartOut size={26} color={"#fb7185"} />
+        <HeartOut size={24} color={iconColor} />
       )}
     </Pressable>
   );

@@ -83,8 +83,8 @@ export interface MatchShowCase {
   characterId: string;
   playerStats: Stats;
   kda: number;
-  roundsWon: number | undefined;
-  roundsLoose: number | undefined;
+  roundsWon: number;
+  roundsLoose: number;
   killsPerRound: number;
   scorePerRound: string;
   damagePerRound: number;
