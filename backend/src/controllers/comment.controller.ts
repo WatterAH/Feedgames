@@ -6,7 +6,6 @@ import {
   getCommentsByIds,
   getResponses,
 } from "../database/commentGetter";
-import { getDate } from "../libs/dates";
 import { RequestHandler } from "express";
 
 export const getComment: RequestHandler = async (req, res) => {
@@ -32,9 +31,8 @@ export const comment: RequestHandler = async (req, res) => {
     if (!comment.trim()) {
       return res.status(400).json({ message: "Tu comentario esta vacio!" });
     }
-    const created_at = getDate();
 
-    const insertData = { id_post, id_user, comment, created_at, response };
+    const insertData = { id_post, id_user, comment, response };
     let { data: commented, error } = await supabase
       .from("comments")
       .insert([insertData])
@@ -63,8 +61,8 @@ export const response: RequestHandler = async (req, res) => {
     const { id_user, name } = req.body;
     const { id_post, comment, response, toNotify } = req.body;
     const { comment_res } = req.body;
-    const created_at = getDate();
-    const insertData = { id_post, id_user, comment, created_at, response };
+
+    const insertData = { id_post, id_user, comment, response };
     let { data: commented, error } = await supabase
       .from("comments")
       .insert([insertData])

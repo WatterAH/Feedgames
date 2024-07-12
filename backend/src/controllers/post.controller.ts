@@ -5,7 +5,6 @@ import {
   getSavedById,
 } from "../database/postGetter";
 import { uploadImage } from "../database/insert";
-import { getDate } from "../libs/dates";
 import { RequestHandler } from "express";
 import { processPost } from "../libs/server";
 
@@ -26,10 +25,8 @@ export const createNewPost: RequestHandler = async (req, res) => {
         return res.status(400).json({ message: "No se pudo subir la imagen" });
       }
     }
-    const created_at = getDate();
     const data = {
       user_id,
-      created_at,
       content: content.trim(),
       tags,
       publicUrl,
