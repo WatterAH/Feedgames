@@ -7,6 +7,7 @@ export const goToPost = (
   switch (pathName) {
     case "/home":
     case "/home/profile":
+    case "/home/search":
       return router.push({ pathname: "/home/post", params });
     case "/profile":
     case "/profile/saves":
@@ -24,6 +25,7 @@ export const goToProfile = (pathName: string, params: { id: string }) => {
   switch (pathName) {
     case "/home":
     case "/home/post":
+    case "/home/search":
       return router.push({ pathname: "/home/profile", params });
     case "/profile/post":
       return router.push({ pathname: "/profile/exploreProfile", params });
@@ -41,6 +43,7 @@ export const gotToComment = (
   switch (pathName) {
     case "/home/post":
     case "/home/comment":
+    case "/home/search":
       return router.push({ pathname: "/home/comment", params });
     case "/profile/post":
     case "/profile/likes":
