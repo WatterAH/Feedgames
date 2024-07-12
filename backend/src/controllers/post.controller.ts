@@ -30,7 +30,7 @@ export const createNewPost: RequestHandler = async (req, res) => {
     const data = {
       user_id,
       created_at,
-      content,
+      content: content.trim(),
       tags,
       publicUrl,
       valMatch,
