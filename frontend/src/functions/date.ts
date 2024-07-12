@@ -1,67 +1,52 @@
-import { DateObj } from "../interfaces/Post";
+export const calculateDate = (date: string): string => {
+  const todayISO = getISODate();
+  const today = formatDate(todayISO);
+  const created = formatDate(date);
 
-/**
- * Calcula la diferencia de tiempo entre la fecha proporcionada y la fecha actual.
- *
- * @param obj - Objeto de fecha con propiedades `day`, `month` y `year`.
- * @param minimize - Indica si el resultado debe ser minimizado para mostrar solo la información esencial.
- * @returns Una cadena que representa la diferencia de tiempo relativa a la fecha actual.
- * @example
- * const dateObj = { day: 25, month: "Enero", year: 2024 };
- * const result = calculateDate(dateObj, false);
- * console.log(result); // "Hace 1 día"
- */
-export const calculateDate = (obj: DateObj, minimize: boolean): string => {
-  const { day, month, year } = obj;
-  const today = getDate();
-  if (today.month == month) {
-    if (today.day == day) {
-      return "Hoy";
-    } else {
-      const daysPassed = today.day - obj.day;
-      if (daysPassed < 0) {
-        return "";
+  if (today.month === created.month) {
+    if (today.day === created.day) {
+      const diffMs = minutesAgo(date, todayISO);
+      if (diffMs < 60) {
+        return diffMs <= 0 ? "ahora" : `${diffMs}min`;
+      } else {
+        const diffHs = hoursAgo(date, todayISO);
+        return `${diffHs}h`;
       }
-      return daysPassed == 1
-        ? "Ayer"
-        : minimize
-        ? `${daysPassed}d`
-        : `Hace ${daysPassed} días`;
+    } else {
+      const diffDays = daysAgo(date, todayISO);
+      return `${diffDays}d`;
     }
   } else {
-    return minimize
-      ? `${month.slice(0, 3)}, ${day}`
-      : `${month} ${day}, ${year}`;
+    return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(2, 4)}`;
   }
 };
 
-/**
- * Obtiene la fecha actual.
- * @returns Un objeto con las propiedades `day`, `month` y `year`.
- * @example const today = getDate();
- * console.log(today); // {day: 26, month: "Enero", year: 2024}
- */
-export const getDate = (): DateObj => {
-  const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
-  const now = new Date();
-  const day = now.getUTCDate();
-  const month = months[now.getUTCMonth()];
-  const year = now.getUTCFullYear();
+const minutesAgo = (date: string, todayISO: string): number => {
+  const diffMs = Date.parse(todayISO) - Date.parse(date);
+  return Math.floor(diffMs / (1000 * 60));
+};
 
-  return { day, month, year };
+const hoursAgo = (date: string, todayISO: string): number => {
+  const diffMs = Date.parse(todayISO) - Date.parse(date);
+  return Math.floor(diffMs / (1000 * 60 * 60));
+};
+
+const daysAgo = (date: string, todayISO: string): number => {
+  const diffMs = Date.parse(todayISO) - Date.parse(date);
+  return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+};
+
+export const formatDate = (date: string) => {
+  const year = date.slice(2, 4);
+  const month = date.slice(5, 7);
+  const day = date.slice(8, 10);
+  return { year, month, day };
+};
+
+export const getISODate = () => {
+  const createdTime = Date.now();
+  const today = new Date(createdTime);
+  return today.toISOString().split(".")[0].replace("Z", "");
 };
 
 export const getExpirationDate = () => {

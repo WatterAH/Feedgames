@@ -17,19 +17,20 @@ interface Props {
 
 export const PostHeader: React.FC<Props> = ({ data, setPosts }) => {
   const nav = useNavigate();
-  const { user_id, user, created_at, id } = data;
+  const { user_id, user, id, order } = data;
   const { name, username, pfp } = user;
   const { user: userSession } = useUser();
-  const date = calculateDate(created_at, false);
+  const date = calculateDate(order);
 
   const handleDelete = async () => {
     try {
       if (setPosts) {
         setPosts((prevPosts) => prevPosts.filter((post) => post.id != id));
+        await deletePostById(id);
       } else {
+        await deletePostById(id);
         nav("/");
       }
-      await deletePostById(id);
     } catch (error: any) {
       const { message } = error;
       toast.error(message);

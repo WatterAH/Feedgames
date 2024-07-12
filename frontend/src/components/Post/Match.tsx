@@ -26,6 +26,7 @@ export const MatchPost: React.FC<MatchProps> = ({ stats }) => {
     };
     fetchIcons();
   }, [stats.characterId]);
+
   return (
     <div className="flex flex-col font-montserrat gap-2 bg-amber-50 rounded-md shadow-sm border h-full w-full p-3 relative">
       <header className="flex justify-center items-center gap-2 w-full">

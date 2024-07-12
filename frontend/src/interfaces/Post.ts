@@ -1,15 +1,8 @@
 import { User, defaultUser } from "./User";
 import { MatchShowCase } from "./Valorant";
 
-export interface DateObj {
-  day: number;
-  month: string;
-  year: number;
-}
-
 export interface PostInterface {
   id: string;
-  created_at: DateObj;
   content: string;
   tags: string[];
   order: string;
@@ -32,7 +25,6 @@ export const defaultPost: PostInterface = {
   liked: 0,
   saved: 0,
   content: "",
-  created_at: { day: 1, month: "Enero", year: 2024 },
   isLiked: false,
   isSaved: false,
   isCommented: false,

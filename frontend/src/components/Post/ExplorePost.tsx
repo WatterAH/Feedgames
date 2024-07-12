@@ -47,9 +47,7 @@ export const ExplorePost = () => {
   return (
     <div
       className={`py-5 px-3 w-full lg:ml-64 flex flex-col dark:bg-black ${
-        post.comments.length <= 1 && loading
-          ? "h-screen justify-center"
-          : "h-full"
+        post.comments <= 1 && loading ? "h-screen justify-center" : "h-full"
       }`}
     >
       {loading ? (
