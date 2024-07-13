@@ -62,7 +62,7 @@ const home = () => {
         <PostSkeleton />
       ) : (
         <FlatList
-          className="flex-col w-full duration-1000"
+          className="flex-col w-full"
           data={posts}
           renderItem={({ item }) => <Post data={item} />}
           keyExtractor={(item) => item.id}

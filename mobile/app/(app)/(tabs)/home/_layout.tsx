@@ -1,17 +1,18 @@
 import React from "react";
-import { Stack } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
-import { MagnifyingGlassIcon } from "react-native-heroicons/solid";
+import { Link, Stack } from "expo-router";
+import { useColorScheme } from "react-native";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 const StackLayout = () => {
   const colorScheme = useColorScheme();
-  const backgroundColor = colorScheme === "dark" ? "#101010" : "#fff";
-  const iconColor = colorScheme === "dark" ? "#fff" : "#101010";
+  const dark = colorScheme === "dark";
+  const backgroundColor = dark ? "#101010" : "#fff";
+  const iconColor = dark ? "#fff" : "#101010";
   const bg = useColorScheme() === "dark" ? DarkTheme : DefaultTheme;
 
   return (
@@ -24,9 +25,13 @@ const StackLayout = () => {
             headerTitleStyle: { fontFamily: "Pacifico", fontSize: 28 },
             headerTintColor: iconColor,
             headerRight: () => (
-              <Pressable>
-                <MagnifyingGlassIcon color={iconColor} size={28} />
-              </Pressable>
+              <Link href="/home/messages">
+                <FontAwesome6
+                  name="comments"
+                  size={24}
+                  color={dark ? "white" : "black"}
+                />
+              </Link>
             ),
             headerStyle: { backgroundColor },
             headerShadowVisible: false,
@@ -64,7 +69,7 @@ const StackLayout = () => {
             headerTitleStyle: { fontWeight: "700" },
           }}
         />
-        <Stack.Screen name="search" options={{ headerShown: false }} />
+        <Stack.Screen name="messages" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

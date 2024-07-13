@@ -3,14 +3,6 @@ import React, { useEffect, useState } from "react";
 import { getCharacterIcon } from "@/api/valorant";
 import { FlatList, Image, useColorScheme } from "react-native";
 import valorant from "../../../assets/images/val.png";
-import {
-  UserIcon,
-  ReceiptPercentIcon,
-  CurrencyDollarIcon,
-  ShieldExclamationIcon as Shield,
-  ChartPieIcon,
-  UserMinusIcon,
-} from "react-native-heroicons/outline";
 import { Stat } from "./Stat";
 import { Text, View } from "@/components/Global/Themed";
 
@@ -22,14 +14,15 @@ export const ValPost: React.FC<MatchProps> = ({ stats }) => {
   const [characterIcon, setCharacterIcon] = useState("");
   const backgroundColor = useColorScheme() === "dark" ? "#343A40" : "#c0c0c0";
   const statsBg = useColorScheme() === "dark" ? "#202020" : "#eaeaea";
+  const { damagePerRound } = stats;
 
   const data = [
-    { Icon: UserIcon, text: "KDA", stat: stats.kda },
-    { Icon: ChartPieIcon, text: "Puntaje", stat: stats.scorePerRound },
-    { Icon: ReceiptPercentIcon, text: "Headshot %", stat: stats.hsPercentage },
-    { Icon: CurrencyDollarIcon, text: "Economia", stat: stats.economyRatio },
-    { Icon: Shield, text: "Daño por ronda", stat: stats.damagePerRound },
-    { Icon: UserMinusIcon, text: "Kills por ronda", stat: stats.killsPerRound },
+    { icon: "chart-simple", text: "KDA", stat: stats.kda },
+    { icon: "ranking-star", text: "Puntaje", stat: stats.scorePerRound },
+    { icon: "percent", text: "Headshot", stat: stats.hsPercentage },
+    { icon: "sack-dollar", text: "Economia", stat: stats.economyRatio },
+    { icon: "shield-halved", text: "Daño por ronda", stat: damagePerRound },
+    { icon: "user-xmark", text: "Kills por ronda", stat: stats.killsPerRound },
   ];
 
   useEffect(() => {

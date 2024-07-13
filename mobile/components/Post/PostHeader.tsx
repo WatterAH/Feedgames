@@ -5,7 +5,7 @@ import { PostCreator } from "./PostCreator";
 import { calculateDate } from "@/functions/date";
 import { EllipsisHorizontalIcon } from "react-native-heroicons/solid";
 import { usePathname } from "expo-router";
-import { Pressable } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
 import { goToProfile } from "@/functions/navigation";
 
 interface Props {
@@ -24,9 +24,9 @@ export const PostHeader: React.FC<Props> = ({ data }) => {
   return (
     <View className="flex-row justify-between items-center">
       <View className="flex-row gap-2 items-center">
-        <Pressable onPress={handlePress}>
+        <TouchableOpacity onPress={handlePress}>
           <PostCreator username={username} name={name} />
-        </Pressable>
+        </TouchableOpacity>
         <Text style={{ color: "#777", fontSize: 15 }}>{date}</Text>
       </View>
       <EllipsisHorizontalIcon

@@ -1,7 +1,7 @@
 import { Redirect, Stack } from "expo-router";
 import { Text } from "@/components/Global/Themed";
 import { useSession } from "@/context/ctx";
-import { Platform, Pressable, useColorScheme } from "react-native";
+import { Platform, useColorScheme } from "react-native";
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();

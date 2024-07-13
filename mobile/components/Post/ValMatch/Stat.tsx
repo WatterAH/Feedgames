@@ -1,10 +1,10 @@
 import { Text, View } from "@/components/Global/Themed";
 import React from "react";
 import { useColorScheme } from "react-native";
-import { UserIcon } from "react-native-heroicons/solid";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 interface statProps {
-  Icon: typeof UserIcon;
+  icon: string;
   text: string;
   stat: string | number;
 }
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const Stat: React.FC<Props> = ({ data }) => {
-  const { Icon, text, stat } = data;
+  const { icon, text, stat } = data;
   const backgroundColor = useColorScheme() === "dark" ? "#202020" : "#eaeaea";
   const iconColor = useColorScheme() === "dark" ? "#ccc" : "#424242";
 
@@ -28,7 +28,7 @@ export const Stat: React.FC<Props> = ({ data }) => {
         style={{ backgroundColor }}
       >
         <Text className="text-xl font-bold">{stat}</Text>
-        <Icon color={iconColor} />
+        <FontAwesome6 name={icon} size={20} color={iconColor} />
       </View>
       <Text>{text}</Text>
     </View>

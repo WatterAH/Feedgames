@@ -66,7 +66,7 @@ export const ProfileDetails: React.FC<Props> = ({ data }) => {
               : "Seguir"
           }
         />
-        <ShareProfile text="Compartir perfil" />
+        <ShareProfile data={data} text="Compartir perfil" />
       </View>
     </View>
   );

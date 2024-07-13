@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PostInterface } from "../../interfaces/Post";
 import { Image, useColorScheme } from "react-native";
 import { Text, View } from "../Global/Themed";
@@ -10,7 +10,8 @@ interface Props {
 }
 
 export const PostContent: React.FC<Props> = ({ data }) => {
-  let { content, publicUrl, valMatch } = data;
+  const { content, publicUrl, valMatch } = data;
+  const [visible, setVisible] = useState(false);
   const colorScheme = useColorScheme();
   const backgroundColor = colorScheme === "dark" ? "#202020" : "#eaeaea";
   const src = ImagesURL + publicUrl;
