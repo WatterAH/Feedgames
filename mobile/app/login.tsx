@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link, SplashScreen, router } from "expo-router";
+import { Link, router } from "expo-router";
 import { Text, View } from "@/components/Global/Themed";
 import { useSession } from "@/context/ctx";
 import { InputLabel } from "@/components/Global/InputLabel";
-import { useFonts } from "expo-font";
 import { Button } from "@/components/Global/Button";
 import { loginApi } from "@/api/auth";
 import * as Haptics from "expo-haptics";
@@ -14,21 +13,6 @@ const logIn = () => {
   const [password, setPassword] = useState("SamT0710");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [fontsLoaded, fontError] = useFonts({
-    Pacifico: require("@/assets/fonts/Pacifico.ttf"),
-    OpenSans: require("@/assets/fonts/OpenSans.ttf"),
-    Instagram: require("@/assets/fonts/Instagram.ttf"),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
-
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
 
   const handleLogin = async () => {
     try {
@@ -54,7 +38,6 @@ const logIn = () => {
         justifyContent: "center",
         rowGap: 4,
       }}
-      onLayout={onLayoutRootView}
     >
       <Text className="text-4xl p-3 mb-10" style={{ fontFamily: "Pacifico" }}>
         Feedgames

@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { TextInput, useColorScheme } from "react-native";
 import { View } from "../Global/Themed";
 import * as Haptics from "expo-haptics";
+import { useSession } from "@/context/ctx";
 
-interface Props {
-  username: string;
-}
-
-export const CommentBox: React.FC<Props> = ({ username }) => {
+export const CommentBox = () => {
   const backgroundColor = useColorScheme() === "dark" ? "#202020" : "#ebebeb";
+  const { user } = useSession();
   const [text, setText] = useState("");
 
   const handleSubmit = async () => {
@@ -24,13 +22,12 @@ export const CommentBox: React.FC<Props> = ({ username }) => {
   return (
     <View className="w-full px-2 pt-3 items-center border-t border-gray-100 dark:border-neutral-800 mb-3">
       <TextInput
-        className="p-3 w-full text-black dark:text-white text-xs border-gray-300 rounded-full"
+        className="p-3 w-full flex items-center justify-center text-black dark:text-white text-sm border-gray-300 rounded-full"
         returnKeyType="done"
         style={{ backgroundColor }}
-        placeholderTextColor="#777"
-        placeholder={`Responder a ${username}`}
+        placeholder={`Responder como ${user?.name}`}
         value={text}
-        onChangeText={setText}
+        onChangeText={(string) => setText(string)}
         onSubmitEditing={handleSubmit}
       />
     </View>

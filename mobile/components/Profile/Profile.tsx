@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, View } from "../Global/Themed";
 import { ProfileDetails } from "./ProfileDetails";
 import { ProfilePosts } from "./ProfilePosts";
@@ -13,7 +13,7 @@ interface Props {
   id: string;
 }
 
-export const Profile: React.FC<Props> = ({ id }) => {
+export const Profile: React.FC<Props> = React.memo(({ id }) => {
   const { user: userSession } = useSession();
   const [loadingPage, setLoadingPage] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,4 +66,4 @@ export const Profile: React.FC<Props> = ({ id }) => {
       <ProfilePosts posts={posts} name={user?.name} />
     </ScrollView>
   );
-};
+});

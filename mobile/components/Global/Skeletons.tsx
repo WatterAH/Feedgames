@@ -10,41 +10,41 @@ const RegisterLoader = () => {
 
 export const PostLoader = () => {
   return (
-    <View className="w-full flex-col gap-y-4 mb-10 px-3">
-      <View className="flex-row items-center" style={{ columnGap: 8 }}>
+    <View className="w-full gap-x-3 flex-row gap-y-4 mb-10 px-3">
+      <View
+        darkColor={darkColor}
+        lightColor={lightColor}
+        className="rounded-full w-10 h-10"
+      ></View>
+      <View className="flex-col h-20 w-full" style={{ rowGap: 12 }}>
         <View
           darkColor={darkColor}
           lightColor={lightColor}
-          className="rounded-full w-10 h-10"
+          className="rounded-full w-24 h-3"
         ></View>
         <View className="flex-col gap-y-2">
           <View
             darkColor={darkColor}
             lightColor={lightColor}
-            className="rounded-full w-24 h-3"
+            className="rounded-full h-2 w-3/4"
           ></View>
           <View
             darkColor={darkColor}
             lightColor={lightColor}
-            className="rounded-full w-16 h-2"
+            className="rounded-full h-2 w-3/4"
+          ></View>
+          <View
+            darkColor={darkColor}
+            lightColor={lightColor}
+            className="rounded-full h-2 w-1/2"
+          ></View>
+          <View
+            darkColor={darkColor}
+            lightColor={lightColor}
+            className="rounded-full h-2 w-1/4"
           ></View>
         </View>
       </View>
-      <View
-        darkColor={darkColor}
-        lightColor={lightColor}
-        className="rounded-full h-2 w-full"
-      ></View>
-      <View
-        darkColor={darkColor}
-        lightColor={lightColor}
-        className="rounded-full h-2 w-3/4"
-      ></View>
-      <View
-        darkColor={darkColor}
-        lightColor={lightColor}
-        className="rounded-full h-2 w-1/2"
-      ></View>
     </View>
   );
 };

@@ -1,7 +1,5 @@
-import { goToPost } from "@/functions/navigation";
-import { usePathname } from "expo-router";
 import React from "react";
-import { Pressable, useColorScheme } from "react-native";
+import { useColorScheme } from "react-native";
 import { ChatBubbleOvalLeftIcon as ChatOut } from "react-native-heroicons/outline";
 import { ChatBubbleOvalLeftIcon as ChatSolid } from "react-native-heroicons/solid";
 
@@ -12,20 +10,12 @@ interface Props {
 }
 
 export const CommentButton = ({ commentData }: { commentData: Props }) => {
-  const { id, isCommented, username } = commentData;
-  const params = { id, username };
-  const pathName = usePathname();
+  const { isCommented } = commentData;
   const iconColor = useColorScheme() === "dark" ? "#ccc" : "#424242";
 
-  const handlePress = () => goToPost(pathName, params);
-
-  return (
-    <Pressable onPress={handlePress}>
-      {isCommented ? (
-        <ChatSolid size={24} color={"#add8e6"} />
-      ) : (
-        <ChatOut size={24} color={iconColor} />
-      )}
-    </Pressable>
+  return isCommented ? (
+    <ChatSolid size={24} color={"#add8e6"} />
+  ) : (
+    <ChatOut size={24} color={iconColor} />
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Tabs, router } from "expo-router";
 import { useColorScheme } from "react-native";
 import { View } from "@/components/Global/Themed";
-import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
 import * as Haptic from "expo-haptics";
 
 export default () => {
@@ -59,8 +59,8 @@ export default () => {
         listeners={() => ({
           tabPress: (e) => {
             e.preventDefault();
+            router.push("/newpost");
             Haptic.notificationAsync(Haptic.NotificationFeedbackType.Success);
-            router.navigate("/newpost");
           },
         })}
       />
@@ -69,7 +69,7 @@ export default () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="bell" size={26} color={color} />
+            <FontAwesome name="bell" size={26} color={color} />
           ),
         }}
       />
@@ -78,7 +78,7 @@ export default () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="user" size={26} color={color} />
+            <FontAwesome6 name="user-large" size={25} color={color} />
           ),
         }}
       />

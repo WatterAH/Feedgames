@@ -3,19 +3,16 @@ import { Pressable } from "react-native";
 import { HeartIcon as HeartOut } from "react-native-heroicons/outline";
 import { HeartIcon as HeartSolid } from "react-native-heroicons/solid";
 import * as Haptic from "expo-haptics";
-import { CommentInterface } from "@/interfaces/Comment";
-import { Text } from "@/components/Global/Themed";
 
 interface Props {
   id: string;
   isLiked: boolean;
   setLikedNum: React.Dispatch<React.SetStateAction<number>>;
-  user_id: string;
+  id_user: string;
 }
 
-export const LikeButton = ({ comment }: { comment: CommentInterface }) => {
-  const { comments_liked, isLiked, id, id_user } = comment;
-  const [likedNum, setLikedNum] = useState(comments_liked.length);
+export const LikeButton = ({ likeData }: { likeData: Props }) => {
+  const { id, isLiked, setLikedNum, id_user } = likeData;
   const [liked, setLiked] = useState(isLiked);
 
   const handleLike = () => {
@@ -37,9 +34,6 @@ export const LikeButton = ({ comment }: { comment: CommentInterface }) => {
       ) : (
         <HeartOut size={24} color={"#ccc"} />
       )}
-      <Text className="text-xs" style={{ color: "#ccc" }}>
-        {likedNum}
-      </Text>
     </Pressable>
   );
 };

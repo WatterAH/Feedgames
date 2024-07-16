@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { PostInterface, defaultPost } from "@/interfaces/Post";
-import { useGlobalSearchParams } from "expo-router";
+import { PostInterface } from "@/interfaces/Post";
+import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView, ScrollView } from "@/components/Global/Themed";
 import { Post } from "@/components/Post/Post";
-import { getPostById } from "@/api/post";
 import { useSession } from "@/context/ctx";
 import { PostLoader } from "@/components/Global/Skeletons";
 import { fetchComments } from "@/api/comments";
@@ -13,42 +12,29 @@ import { CommentBox } from "@/components/Comment/CommentBox";
 import { KeyboardAvoidingView, Platform } from "react-native";
 
 const post = () => {
-  const { id, username } = useGlobalSearchParams();
+  const dataString: any = useLocalSearchParams();
+  const post: PostInterface = JSON.parse(dataString.data);
   const { user } = useSession();
-  const [loadingPost, setLoadingPost] = useState(false);
-  const [post, setPost] = useState<PostInterface>(defaultPost);
-  const [loadingComm, setLoadingComm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [comments, setComments] = useState<CommentInterface[]>();
-
-  const getPost = async () => {
-    try {
-      setLoadingPost(true);
-      if (user?.id) {
-        const data = await getPostById(id as string, user.id);
-        if (data) setPost(data);
-      }
-    } catch (error) {
-    } finally {
-      setLoadingPost(false);
-    }
-  };
 
   const getComments = async () => {
     try {
-      setLoadingComm(true);
+      setLoading(true);
       if (user?.id) {
-        const data = await fetchComments(id as string, user.id);
+        const data = await fetchComments(post.id, user.id);
         setComments(data);
       }
     } catch (error) {
     } finally {
-      setLoadingComm(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getPost();
-    getComments();
+    if (post.comments !== 0) {
+      getComments();
+    }
   }, []);
 
   return (
@@ -59,9 +45,9 @@ const post = () => {
       keyboardVerticalOffset={88}
     >
       <SafeAreaView className="h-full flex-col relative">
-        <ScrollView className="">
-          {loadingPost ? <PostLoader /> : <Post data={post} />}
-          {loadingComm ? (
+        <ScrollView>
+          <Post data={post} />
+          {loading ? (
             <PostLoader />
           ) : (
             comments?.map((comment) => (
@@ -69,7 +55,7 @@ const post = () => {
             ))
           )}
         </ScrollView>
-        <CommentBox username={username as string} />
+        <CommentBox />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "../Global/Themed";
-import { PhotoIcon } from "react-native-heroicons/outline";
 import { Pressable } from "react-native";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 interface Props {
   handlePress: () => void;
@@ -15,7 +15,7 @@ export const Contents: React.FC<Props> = ({ handlePress }) => {
       className="flex-row items-center mt-3"
     >
       <Pressable onPress={handlePress}>
-        <PhotoIcon color={"#777777"} />
+        <FontAwesome6 name="image" size={24} color={"#777"} />
       </Pressable>
     </View>
   );

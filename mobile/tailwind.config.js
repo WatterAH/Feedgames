@@ -9,6 +9,7 @@ module.exports = {
         current: "currentColor",
         "dark-gray": "#202020",
         "light-gray": "#eaeaea",
+        "gray-uni": "#777",
       },
     },
   },

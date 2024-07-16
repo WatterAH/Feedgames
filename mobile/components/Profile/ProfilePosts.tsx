@@ -25,10 +25,10 @@ interface Props {
   name?: string;
 }
 
-export const ProfilePosts: React.FC<Props> = ({ posts, name }) => {
+export const ProfilePosts: React.FC<Props> = React.memo(({ posts, name }) => {
   return posts.length == 0 && !posts ? (
     <Empty name={name}></Empty>
   ) : (
     posts.map((post) => <Post data={post} key={post.id} />)
   );
-};
+});

@@ -13,7 +13,7 @@ import { CommentBox } from "@/components/Comment/CommentBox";
 import { KeyboardAvoidingView, Platform } from "react-native";
 
 const post = () => {
-  const { id, username } = useGlobalSearchParams();
+  const { id } = useGlobalSearchParams();
   const { user } = useSession();
   const [loadingPost, setLoadingPost] = useState(false);
   const [post, setPost] = useState<PostInterface>(defaultPost);
@@ -69,7 +69,7 @@ const post = () => {
             ))
           )}
         </ScrollView>
-        <CommentBox username={username as string} />
+        <CommentBox />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

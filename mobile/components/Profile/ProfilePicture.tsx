@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import default_pfp from "../../assets/images/default.png";
+import React from "react";
 import { Image } from "react-native";
 import { View } from "../Global/Themed";
 import { PfpURL } from "@/constants/server";

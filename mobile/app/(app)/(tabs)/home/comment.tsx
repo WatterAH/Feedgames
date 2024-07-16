@@ -1,54 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useGlobalSearchParams } from "expo-router";
 import { SafeAreaView, ScrollView } from "@/components/Global/Themed";
-import { fetchComment, fetchResponses } from "@/api/comments";
+import { fetchResponses } from "@/api/comments";
 import { useSession } from "@/context/ctx";
-import {
-  CommentInterface,
-  defaultComment as defComment,
-} from "@/interfaces/Comment";
+import { CommentInterface } from "@/interfaces/Comment";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { CommentBox } from "@/components/Comment/CommentBox";
 import { PostLoader } from "@/components/Global/Skeletons";
 import { Comment } from "@/components/Comment/Comment";
 
 const exploreComment = () => {
-  const { id, username } = useGlobalSearchParams();
+  const dataString: any = useGlobalSearchParams();
+  const comment: CommentInterface = JSON.parse(dataString.data);
   const { user } = useSession();
-  const [loadingComm, setLoadingComm] = useState(false);
-  const [loadingRes, setLoadingRes] = useState(false);
-  const [comment, setComment] = useState<CommentInterface>(defComment);
+  const [loading, setLoading] = useState(false);
   const [responses, setResponses] = useState<CommentInterface[]>();
-
-  const getComment = async () => {
-    try {
-      setLoadingComm(true);
-      if (user?.id) {
-        const data = await fetchComment(id as string, user.id);
-        if (data) setComment(data);
-      }
-    } catch (error) {
-    } finally {
-      setLoadingComm(false);
-    }
-  };
 
   const getResponses = async () => {
     try {
-      setLoadingRes(true);
+      setLoading(true);
       if (user?.id) {
-        const data = await fetchResponses(id as string, user.id);
+        const data = await fetchResponses(comment.id, user.id);
         setResponses(data);
       }
     } catch (error) {
     } finally {
-      setLoadingRes(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getComment();
-    getResponses();
+    if (comment.responses.length > 0) getResponses();
   }, []);
 
   return (
@@ -60,8 +42,8 @@ const exploreComment = () => {
     >
       <SafeAreaView className="h-full flex-col relative">
         <ScrollView>
-          {loadingComm ? <PostLoader /> : <Comment data={comment} />}
-          {loadingRes ? (
+          <Comment data={comment} />
+          {loading ? (
             <PostLoader />
           ) : (
             responses?.map((response) => (
@@ -69,7 +51,7 @@ const exploreComment = () => {
             ))
           )}
         </ScrollView>
-        <CommentBox username={username as string} />
+        <CommentBox />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

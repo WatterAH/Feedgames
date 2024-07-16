@@ -10,7 +10,7 @@ interface Props {
   data: PostInterface;
 }
 
-export const PostActions: React.FC<Props> = ({ data }) => {
+export const PostActions: React.FC<Props> = React.memo(({ data }) => {
   const { id, user_id, user } = data;
   const { username } = user;
   const { saved, isSaved, liked, isLiked, comments, isCommented } = data;
@@ -19,7 +19,7 @@ export const PostActions: React.FC<Props> = ({ data }) => {
   const textColor = useColorScheme() === "dark" ? "#ccc" : "#424242";
 
   return (
-    <View className="flex flex-row mt-2 justify-between items-center">
+    <View className="flex flex-row pr-3 mt-2 justify-between items-center">
       <View className="flex flex-row" style={{ columnGap: 12 }}>
         <View
           className="flex flex-row items-center w-10"
@@ -53,4 +53,4 @@ export const PostActions: React.FC<Props> = ({ data }) => {
       </View>
     </View>
   );
-};
+});

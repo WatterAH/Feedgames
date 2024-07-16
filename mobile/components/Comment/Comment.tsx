@@ -1,40 +1,47 @@
-import React from "react";
-import { Pressable } from "react-native";
+import React, { useCallback } from "react";
 import { Text, View } from "../Global/Themed";
 import { CommentInterface } from "@/interfaces/Comment";
 import { CommentHeader } from "./CommentHeader";
-import { LikeButton } from "./Actions/LikeButton";
-import { ResponseButton } from "./Actions/ResponseButton";
 import { usePathname } from "expo-router";
-import { gotToComment } from "@/functions/navigation";
 import { ProfilePicture } from "../Profile/ProfilePicture";
+import { CommentActions } from "./CommentActions";
+import { goToProfile, gotToComment } from "@/functions/navigation";
+import { TouchableOpacity } from "react-native";
 
 interface Props {
   data: CommentInterface;
 }
 
 export const Comment: React.FC<Props> = ({ data }) => {
-  const { id, comment, user } = data;
   const pathName = usePathname();
-  const params = { id, username: user.username };
-  const handlePress = () => gotToComment(pathName, params);
+  const mainPath = pathName.split("/")[1];
+
+  const handleCommPress = useCallback(() => {
+    gotToComment(mainPath, { data: JSON.stringify(data) });
+  }, [mainPath, data]);
+
+  const handleProfilePress = useCallback(() => {
+    goToProfile(mainPath, { id: data.id_user });
+  }, [mainPath, data]);
 
   return (
-    <Pressable onPress={handlePress}>
-      <View
-        className="w-full duration-700 border-b border-gray-100 dark:border-neutral-800 flex-row justify-between py-5 px-3"
-        style={{ rowGap: 16 }}
+    <TouchableOpacity
+      className="w-full border-b border-gray-100 dark:border-neutral-800 flex-row justify-between py-4 px-3"
+      onPress={handleCommPress}
+      activeOpacity={1}
+    >
+      <TouchableOpacity
+        className="h-10"
+        activeOpacity={1}
+        onPress={handleProfilePress}
       >
         <ProfilePicture src={data.user.pfp} w={"w-10"} h={"h-10"} />
-        <View className="w-full flex-col pl-2 pr-8" style={{ rowGap: 10 }}>
-          <CommentHeader data={data} />
-          <Text>{comment}</Text>
-          <View className="flex-row w-full justify-between">
-            <LikeButton comment={data} />
-            <ResponseButton comment={data} />
-          </View>
-        </View>
+      </TouchableOpacity>
+      <View className="w-full flex-col ml-2 pr-11" style={{ rowGap: 6 }}>
+        <CommentHeader data={data} />
+        <Text>{data.comment}</Text>
+        <CommentActions data={data} />
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
