@@ -14,7 +14,7 @@ export const calculateDate = (date: string): string => {
       }
     } else {
       const diffDays = daysAgo(date, todayISO);
-      return `${diffDays}d`;
+      return diffDays == 0 ? "1d" : `${diffDays}d`;
     }
   } else {
     return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(2, 4)}`;
