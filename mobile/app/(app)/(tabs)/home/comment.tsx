@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useGlobalSearchParams } from "expo-router";
+import React from "react";
+import { useLocalSearchParams } from "expo-router";
 import {
   SafeAreaView,
   ScrollView,
@@ -14,13 +14,10 @@ import { Comment } from "@/components/Comment/Comment";
 import { useComments } from "@/hooks/useComments";
 
 const exploreComment = () => {
-  const dataString: any = useGlobalSearchParams();
+  const dataString: any = useLocalSearchParams();
   const comment: CommentInterface = JSON.parse(dataString.data);
-  const { loading, comments, getComments } = useComments(comment.id, "res");
-
-  useEffect(() => {
-    if (comment.responses.length > 0) getComments();
-  }, []);
+  const s = comment.responses.length;
+  const { loading, comments } = useComments(comment.id, "res", s);
 
   return (
     <KeyboardAvoidingView
@@ -35,15 +32,15 @@ const exploreComment = () => {
           <View className="border-b border-gray-100 dark:border-neutral-800 w-ful px-5 py-3">
             <Text className="font-semibold">Respuestas</Text>
           </View>
-          <View className="mt-3">
-            {loading ? (
+          {loading ? (
+            <View className="mt-4">
               <PostLoader />
-            ) : (
-              comments?.map((comment) => (
-                <Comment key={comment.id} data={comment} />
-              ))
-            )}
-          </View>
+            </View>
+          ) : (
+            comments?.map((comment) => (
+              <Comment key={comment.id} data={comment} />
+            ))
+          )}
         </ScrollView>
         <CommentBox />
       </SafeAreaView>

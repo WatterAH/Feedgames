@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link, router } from "expo-router";
-import { Text, View } from "@/components/Global/Themed";
+import { SafeAreaView, Text, View } from "@/components/Global/Themed";
 import { useSession } from "@/context/ctx";
 import { InputLabel } from "@/components/Global/InputLabel";
 import { Button } from "@/components/Global/Button";
@@ -14,7 +14,7 @@ const logIn = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleLogin = async () => {
+  const handleLogin = useCallback(async () => {
     try {
       setLoading(true);
       const data = await loginApi(username, password);
@@ -28,17 +28,10 @@ const logIn = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        rowGap: 4,
-      }}
-    >
+    <SafeAreaView className="flex h-full items-center justify-center gap-y-4">
       <Text className="text-4xl p-3 mb-10" style={{ fontFamily: "Pacifico" }}>
         Feedgames
       </Text>
@@ -48,12 +41,14 @@ const logIn = () => {
           label="Nombre de usuario"
           text={username}
           setText={setUsername}
+          secure={false}
         />
         <InputLabel
           error={error}
           label="Contraseña"
           text={password}
           setText={setPassword}
+          secure
         />
         <Button
           onPress={handleLogin}
@@ -67,7 +62,7 @@ const logIn = () => {
           </Link>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

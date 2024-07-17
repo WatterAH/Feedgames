@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 import { Bars3BottomRightIcon } from "react-native-heroicons/solid";
 
@@ -18,11 +18,9 @@ const StackLayout = () => {
           headerShadowVisible: false,
           headerTintColor: iconColor,
           headerRight: () => (
-            <Link href="/profile/settings" asChild>
-              <Pressable>
-                <Bars3BottomRightIcon color={iconColor} size={28} />
-              </Pressable>
-            </Link>
+            <Pressable onPress={() => router.push("/profile/settings")}>
+              <Bars3BottomRightIcon color={iconColor} size={30} />
+            </Pressable>
           ),
         }}
       />

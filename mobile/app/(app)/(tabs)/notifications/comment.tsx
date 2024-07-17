@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useGlobalSearchParams } from "expo-router";
-import { SafeAreaView, ScrollView } from "@/components/Global/Themed";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "@/components/Global/Themed";
 import { fetchComment, fetchResponses } from "@/api/comments";
 import { useSession } from "@/context/ctx";
 import {
@@ -61,15 +66,20 @@ const exploreComment = () => {
       <SafeAreaView className="h-full flex-col relative">
         <ScrollView>
           {loadingComm ? <PostLoader /> : <Comment data={comment} />}
+          <View className="border-b border-gray-100 dark:border-neutral-800 w-ful px-5 py-3">
+            <Text className="font-semibold">Respuestas</Text>
+          </View>
           {loadingRes ? (
-            <PostLoader />
+            <View className="mt-4">
+              <PostLoader />
+            </View>
           ) : (
             responses?.map((response) => (
               <Comment key={response.id} data={response} />
             ))
           )}
         </ScrollView>
-        <CommentBox username={username as string} />
+        <CommentBox />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

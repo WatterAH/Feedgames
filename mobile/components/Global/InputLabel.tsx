@@ -8,6 +8,7 @@ interface Props {
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
   error: boolean;
+  secure: boolean | undefined;
 }
 
 export const InputLabel: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const InputLabel: React.FC<Props> = ({
   text,
   setText,
   error,
+  secure,
 }) => {
   return (
     <View className="flex flex-col">
@@ -24,6 +26,7 @@ export const InputLabel: React.FC<Props> = ({
         placeholder={label}
         onChangeText={(text) => setText(text)}
         value={text}
+        secureTextEntry={secure}
       />
     </View>
   );

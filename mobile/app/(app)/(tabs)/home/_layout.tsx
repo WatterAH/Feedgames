@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import { router, Stack } from "expo-router";
+import { Pressable, useColorScheme } from "react-native";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 
 const StackLayout = () => {
   const colorScheme = useColorScheme();
@@ -25,13 +25,13 @@ const StackLayout = () => {
             headerTitleStyle: { fontFamily: "Pacifico", fontSize: 28 },
             headerTintColor: iconColor,
             headerRight: () => (
-              <Link href="/home/messages">
-                <FontAwesome6
+              <Pressable onPress={() => router.push("/home/messages")}>
+                <FontAwesome
                   name="comments"
-                  size={24}
+                  size={30}
                   color={dark ? "white" : "black"}
                 />
-              </Link>
+              </Pressable>
             ),
             headerStyle: { backgroundColor },
             headerShadowVisible: false,
@@ -69,7 +69,16 @@ const StackLayout = () => {
             headerTitleStyle: { fontWeight: "700" },
           }}
         />
-        <Stack.Screen name="messages" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="messages"
+          options={{
+            headerTitle: "Centro de mensajes",
+            headerShadowVisible: false,
+            headerTintColor: iconColor,
+            headerStyle: { backgroundColor },
+            headerBackTitle: "Inicio",
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

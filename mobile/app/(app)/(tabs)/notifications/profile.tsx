@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { ProfileSkeleton } from "@/components/Global/Skeletons";
 import { SafeAreaView, ScrollView, View } from "@/components/Global/Themed";
 import { ProfileDetails } from "@/components/Profile/ProfileDetails";
 import { ProfilePosts } from "@/components/Profile/ProfilePosts";
 import { useProfile } from "@/hooks/useProfile";
 import { RefreshControl } from "react-native";
-import { useGlobalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
 export default function profile() {
-  const { id } = useGlobalSearchParams();
-  const { loading, profile, posts, viewAll } = useProfile(id as string);
-  const [loadingPage, setLoadingPage] = useState(false);
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { loadingPage, profile, posts, viewAll } = useProfile(id);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoadingPage(true);
-    viewAll().then(() => setLoadingPage(false));
+  const refresh = useCallback(() => {
+    setLoading(true);
+    viewAll().then(() => setLoading(false));
   }, []);
 
   return (
@@ -26,7 +26,7 @@ export default function profile() {
           className="flex-col gap-y-5 w-full h-full py-2"
           showsVerticalScrollIndicator={false}
         >
-          <RefreshControl refreshing={loading} onRefresh={viewAll} />
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
           {profile?.name && <ProfileDetails data={profile} />}
           <View
             style={{ height: 1, width: "100%" }}

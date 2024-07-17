@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { PostInterface, defaultPost } from "@/interfaces/Post";
 import { useGlobalSearchParams } from "expo-router";
-import { SafeAreaView, ScrollView } from "@/components/Global/Themed";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "@/components/Global/Themed";
 import { Post } from "@/components/Post/Post";
 import { getPostById } from "@/api/post";
 import { useSession } from "@/context/ctx";
@@ -59,10 +64,15 @@ const post = () => {
       keyboardVerticalOffset={88}
     >
       <SafeAreaView className="h-full flex-col relative">
-        <ScrollView className="">
+        <ScrollView>
           {loadingPost ? <PostLoader /> : <Post data={post} />}
+          <View className="border-b border-gray-100 dark:border-neutral-800 w-ful px-5 py-3 z-30">
+            <Text className="font-semibold">Respuestas</Text>
+          </View>
           {loadingComm ? (
-            <PostLoader />
+            <View className="mt-4">
+              <PostLoader />
+            </View>
           ) : (
             comments?.map((comment) => (
               <Comment key={comment.id} data={comment} />

@@ -2,13 +2,13 @@ import { getProfile, getProfilePost } from "@/api/profile";
 import { useSession } from "@/context/ctx";
 import { PostInterface } from "@/interfaces/Post";
 import { User } from "@/interfaces/User";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useProfile = (userId: string | undefined) => {
   const { user } = useSession();
-  const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState<User | null>(null);
   const [posts, setPosts] = useState<PostInterface[]>([]);
+  const [loadingPage, setLoadingPage] = useState(false);
 
   const viewProfile = useCallback(async () => {
     if (!userId || !user?.id) return;
@@ -27,13 +27,18 @@ export const useProfile = (userId: string | undefined) => {
   }, [userId, user?.id]);
 
   const viewAll = useCallback(async () => {
-    setLoading(true);
     await Promise.all([viewProfile(), viewPosts()]);
-    setLoading(false);
   }, []);
 
+  useEffect(() => {
+    if (user?.id) {
+      setLoadingPage(true);
+      viewAll().then(() => setLoadingPage(false));
+    }
+  }, [user?.id]);
+
   return {
-    loading,
+    loadingPage,
     profile,
     posts,
     viewAll,

@@ -13,7 +13,7 @@ const index = () => {
     Instagram: require("@/assets/fonts/Instagram.ttf"),
   });
 
-  const handleToken = async () => {
+  const handleToken = useCallback(async () => {
     try {
       const data = await checkAuth(session as string);
       const { user, userToken } = data;
@@ -21,7 +21,7 @@ const index = () => {
     } catch (error) {
       return <Redirect href="/login" />;
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     handleToken();

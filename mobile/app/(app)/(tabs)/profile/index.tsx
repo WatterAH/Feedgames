@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { ProfileSkeleton } from "@/components/Global/Skeletons";
 import { SafeAreaView, ScrollView, View } from "@/components/Global/Themed";
 import { ProfileDetails } from "@/components/Profile/ProfileDetails";
@@ -9,12 +9,12 @@ import { RefreshControl } from "react-native";
 
 export default function profile() {
   const { user } = useSession();
-  const { loading, profile, posts, viewAll } = useProfile(user?.id);
-  const [loadingPage, setLoadingPage] = useState(false);
+  const { loadingPage, profile, posts, viewAll } = useProfile(user?.id);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoadingPage(true);
-    viewAll().then(() => setLoadingPage(false));
+  const refresh = useCallback(() => {
+    setLoading(true);
+    viewAll().then(() => setLoading(false));
   }, []);
 
   return (
@@ -26,7 +26,7 @@ export default function profile() {
           className="flex-col gap-y-5 w-full h-full py-2"
           showsVerticalScrollIndicator={false}
         >
-          <RefreshControl refreshing={loading} onRefresh={viewAll} />
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
           {profile?.name && <ProfileDetails data={profile} />}
           <View
             style={{ height: 1, width: "100%" }}

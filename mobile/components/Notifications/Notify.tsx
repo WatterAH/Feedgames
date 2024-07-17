@@ -8,28 +8,23 @@ import {
 import { Notification } from "@/interfaces/Notification";
 import { Pressable, useColorScheme } from "react-native";
 import { router } from "expo-router";
+import { calculateDate } from "@/functions/date";
 
 interface Props {
   data: Notification;
 }
 
-export const Notify: React.FC<Props> = ({ data }) => {
+export const Notify: React.FC<Props> = React.memo(({ data }) => {
   const colorScheme = useColorScheme();
   const iconColor = colorScheme === "dark" ? "#fff" : "#101010";
-  const { type, text, id_linked, content } = data;
-  const params = { id: id_linked };
+  const { type, text, id_linked, content, created_at } = data;
+  const date = calculateDate(created_at);
 
   const handlePress = () => {
-    switch (content) {
-      case "c":
-        return router.push({ pathname: "/notifications/comment", params });
-      case "p":
-        return router.push({ pathname: "/notifications/post", params });
-      case "u":
-        return router.push({ pathname: "/notifications/profile", params });
-      default:
-        break;
-    }
+    const params = { id: id_linked };
+    const routes = { c: "comment", p: "post", u: "profile" };
+    const pathname = `/notifications/${routes[content]}`;
+    return router.push({ pathname, params });
   };
 
   const getIcon = (type: number) => {
@@ -45,8 +40,9 @@ export const Notify: React.FC<Props> = ({ data }) => {
     <Pressable onPress={handlePress}>
       <View className="w-full border-b p-4 border-gray-100 dark:border-neutral-800 flex-row items-center">
         {getIcon(type)}
-        <Text className="ml-3">{text}</Text>
+        <Text className="ml-2 w-72">{text}</Text>
+        <Text className="text-gray-uni text-xs">{date}</Text>
       </View>
     </Pressable>
   );
-};
+});
