@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, router } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import { useColorScheme } from "react-native";
 import { View } from "@/components/Global/Themed";
 import { FontAwesome, FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
@@ -7,6 +7,7 @@ import * as Haptic from "expo-haptics";
 
 export default () => {
   const colorScheme = useColorScheme();
+  const router = useRouter();
   const dark = colorScheme === "dark";
   const tabStyle = {
     backgroundColor: dark ? "#101010" : "#fff",
@@ -48,9 +49,9 @@ export default () => {
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <View
-              className={`flex items-center justify-center ${
-                dark ? "bg-dark-gray" : "bg-light-gray"
-              } rounded-xl h-11 w-16`}
+              darkColor="#202020"
+              lightColor="#eaeaea"
+              className="flex items-center justify-center rounded-xl h-11 w-16"
             >
               <FontAwesome6 name="plus" size={26} color={color} />
             </View>
@@ -59,7 +60,7 @@ export default () => {
         listeners={() => ({
           tabPress: (e) => {
             e.preventDefault();
-            router.push("/newpost");
+            router.navigate("/newpost");
             Haptic.notificationAsync(Haptic.NotificationFeedbackType.Success);
           },
         })}

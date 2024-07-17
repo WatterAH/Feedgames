@@ -11,7 +11,7 @@ interface Props {
   data: CommentInterface;
 }
 
-export const CommentHeader: React.FC<Props> = ({ data }) => {
+export const CommentHeader: React.FC<Props> = React.memo(({ data }) => {
   const { user, order, id_user } = data;
   const { username } = user;
   const pathName = usePathname();
@@ -36,4 +36,4 @@ export const CommentHeader: React.FC<Props> = ({ data }) => {
       />
     </View>
   );
-};
+});

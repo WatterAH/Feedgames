@@ -9,7 +9,7 @@ interface Props {
   data: CommentInterface;
 }
 
-export const CommentActions: React.FC<Props> = ({ data }) => {
+export const CommentActions: React.FC<Props> = React.memo(({ data }) => {
   const { id, isLiked, comments_liked, id_user } = data;
   const { responses } = data;
   const [likedNum, setLikedNum] = useState(comments_liked.length);
@@ -37,4 +37,4 @@ export const CommentActions: React.FC<Props> = ({ data }) => {
       </View>
     </View>
   );
-};
+});

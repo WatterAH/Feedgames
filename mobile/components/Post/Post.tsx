@@ -4,7 +4,7 @@ import { PostHeader } from "./PostHeader";
 import { PostContent } from "./PostContent";
 import { PostActions } from "./PostActions";
 import { View } from "../Global/Themed";
-import { usePathname } from "expo-router";
+import { usePathname, useRouter } from "expo-router";
 import { ProfilePicture } from "../Profile/ProfilePicture";
 import { TouchableOpacity } from "react-native";
 import { goToPost, goToProfile } from "@/functions/navigation";

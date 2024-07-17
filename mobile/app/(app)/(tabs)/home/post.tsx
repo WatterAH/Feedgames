@@ -1,40 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { PostInterface } from "@/interfaces/Post";
 import { useLocalSearchParams } from "expo-router";
-import { SafeAreaView, ScrollView } from "@/components/Global/Themed";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "@/components/Global/Themed";
 import { Post } from "@/components/Post/Post";
-import { useSession } from "@/context/ctx";
 import { PostLoader } from "@/components/Global/Skeletons";
-import { fetchComments } from "@/api/comments";
-import { CommentInterface } from "@/interfaces/Comment";
 import { Comment } from "@/components/Comment/Comment";
 import { CommentBox } from "@/components/Comment/CommentBox";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import { useComments } from "@/hooks/useComments";
 
-const post = () => {
+export default function post() {
   const dataString: any = useLocalSearchParams();
   const post: PostInterface = JSON.parse(dataString.data);
-  const { user } = useSession();
-  const [loading, setLoading] = useState(false);
-  const [comments, setComments] = useState<CommentInterface[]>();
-
-  const getComments = async () => {
-    try {
-      setLoading(true);
-      if (user?.id) {
-        const data = await fetchComments(post.id, user.id);
-        setComments(data);
-      }
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { loading, comments, getComments } = useComments(post.id, "comms");
 
   useEffect(() => {
-    if (post.comments !== 0) {
-      getComments();
-    }
+    if (post.comments !== 0) getComments();
   }, []);
 
   return (
@@ -47,18 +33,21 @@ const post = () => {
       <SafeAreaView className="h-full flex-col relative">
         <ScrollView>
           <Post data={post} />
-          {loading ? (
-            <PostLoader />
-          ) : (
-            comments?.map((comment) => (
-              <Comment key={comment.id} data={comment} />
-            ))
-          )}
+          <View className="border-b border-gray-100 dark:border-neutral-800 w-ful px-5 py-3">
+            <Text className="font-semibold">Respuestas</Text>
+          </View>
+          <View className="mt-3">
+            {loading ? (
+              <PostLoader />
+            ) : (
+              comments?.map((comment) => (
+                <Comment key={comment.id} data={comment} />
+              ))
+            )}
+          </View>
         </ScrollView>
         <CommentBox />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
-};
-
-export default post;
+}

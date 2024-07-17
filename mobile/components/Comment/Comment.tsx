@@ -12,7 +12,7 @@ interface Props {
   data: CommentInterface;
 }
 
-export const Comment: React.FC<Props> = ({ data }) => {
+export const Comment: React.FC<Props> = React.memo(({ data }) => {
   const pathName = usePathname();
   const mainPath = pathName.split("/")[1];
 
@@ -44,4 +44,4 @@ export const Comment: React.FC<Props> = ({ data }) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
