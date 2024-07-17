@@ -35,7 +35,9 @@ export const login: RequestHandler = async (req, res) => {
     const { username, password } = req.body;
     const { data: user, error: errorAuth } = await supabase
       .from("users")
-      .select("*")
+      .select(
+        "*, followed:follows!follows_id_follower_fkey(id_followed), followers:follows!follows_id_followed_fkey(id_follower)"
+      )
       .eq("username", username)
       .single();
     if (errorAuth) {
@@ -46,6 +48,8 @@ export const login: RequestHandler = async (req, res) => {
         return res.status(403).json({ message: "Verifica tus credenciales" });
       } else {
         delete user.password;
+        user.followers = user.followers.length;
+        user.followed = user.followed.length;
         const token = await createAccessToken(user);
         return res.status(200).json({ user, token });
       }

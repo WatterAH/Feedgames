@@ -21,6 +21,10 @@ export const getProfile: RequestHandler = async (req, res) => {
       user.follow = user.followers.some(
         (followers) => followers.id_follower == myID
       );
+      //@ts-ignore
+      user.followers = user.followers.length;
+      //@ts-ignore
+      user.followed = user.followed.length;
     }
     return res.status(200).json(user);
   } catch (error) {
