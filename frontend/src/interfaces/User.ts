@@ -5,8 +5,8 @@ export const defaultUser: User = {
   name: "",
   pfp: "",
   username: "",
-  followed: [],
-  followers: [],
+  followed: 0,
+  followers: 0,
   follow: false,
 };
 
@@ -25,7 +25,7 @@ export interface User {
   details: string;
   pfp: string | undefined;
   created_at: string;
-  followed: Followed[];
-  followers: Follower[];
+  followed: number;
+  followers: number;
   follow: boolean;
 }

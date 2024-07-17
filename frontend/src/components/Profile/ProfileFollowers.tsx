@@ -62,7 +62,7 @@ export const ProfileFollowers: React.FC<Props> = ({ userData }) => {
         onClick={openModal}
         className="text-xs font-montserrat py-1 px-2 rounded-full bg-gray-200 cursor-pointer"
       >
-        {followers.length} {followers.length == 1 ? "Seguidor" : "Seguidores"}
+        {followers} {followers == 1 ? "Seguidor" : "Seguidores"}
       </span>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
