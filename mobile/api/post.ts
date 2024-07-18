@@ -38,3 +38,19 @@ export const getPostById = async (
     throw new Error(message);
   }
 };
+
+export const getTendencyPost = async (
+  userId: string
+): Promise<PostInterface[]> => {
+  const res = await fetch(
+    `${URL}/api/loadSuggestions?id_user=${encodeURIComponent(userId)}`
+  );
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData as PostInterface[];
+  } else {
+    const { message } = resData;
+    throw new Error(message);
+  }
+};

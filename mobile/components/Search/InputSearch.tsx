@@ -8,9 +8,9 @@ export const InputSearch = () => {
   const backgroundColor = useColorScheme() === "dark" ? "#202020" : "#ebebeb";
 
   return (
-    <View className="flex-row items-center gap-x-2 px-1 relative">
+    <View className="flex-row items-center gap-x-2 px-4 relative">
       <View
-        className="absolute left-4 z-20 flex items-center justify-center"
+        className="absolute left-7 z-20 flex items-center justify-center"
         darkColor="transparent"
         lightColor="transparent"
       >

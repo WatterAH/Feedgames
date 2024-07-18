@@ -22,8 +22,7 @@ export const CommentBox = () => {
   return (
     <View className="w-full px-2 pt-3 items-center border-t border-gray-100 dark:border-neutral-800 mb-3">
       <TextInput
-        className="p-3 w-full flex items-center justify-center text-black dark:text-white text-sm border-gray-300 rounded-full"
-        returnKeyType="done"
+        className="p-3 w-full text-black dark:text-white border-gray-300 rounded-full"
         style={{ backgroundColor }}
         placeholder={`Responder como ${user?.name}`}
         value={text}

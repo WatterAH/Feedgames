@@ -17,6 +17,7 @@ const notifications = () => {
     setLoading(true);
     getNotifications().then(() => setLoading(false));
   }, []);
+
   return (
     <SafeAreaView className="h-full w-full flex-col items-center justify-center">
       {loadingPage ? (

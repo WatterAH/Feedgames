@@ -39,11 +39,11 @@ export const ProfileDetails: React.FC<Props> = ({ data }) => {
       <Text className="text-sm">{details}</Text>
       <View className="flex-row items-center gap-x-2">
         <Text className="text-gray-uni">
-          {followers.length} {followers.length == 1 ? "seguidor" : "seguidores"}
+          {followers} {followers == 1 ? "seguidor" : "seguidores"}
         </Text>
         <Text className="text-gray-uni">·</Text>
         <Text className="text-gray-uni">
-          {followed.length} {followed.length == 1 ? "seguido" : "seguidos"}
+          {followed} {followed == 1 ? "seguido" : "seguidos"}
         </Text>
       </View>
       <View

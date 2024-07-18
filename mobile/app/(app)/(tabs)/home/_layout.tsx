@@ -73,10 +73,10 @@ const StackLayout = () => {
           name="messages"
           options={{
             headerTitle: "Centro de mensajes",
-            headerShadowVisible: false,
             headerTintColor: iconColor,
             headerStyle: { backgroundColor },
             headerBackTitle: "Inicio",
+            headerTitleStyle: { fontWeight: "700" },
           }}
         />
       </Stack>

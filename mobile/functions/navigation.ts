@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 
 export const goToPost = (path: string, params: any) => {
-  router.navigate({
+  router.push({
     pathname: `/${path}/post`,
     params,
   });
@@ -10,14 +10,14 @@ export const goToPost = (path: string, params: any) => {
 export const goToProfile = (path: string, params: any) => {
   const pathname =
     path === "profile" ? `/${path}/exploreProfile` : `/${path}/profile`;
-  router.navigate({
+  router.push({
     pathname,
     params,
   });
 };
 
 export const gotToComment = (path: string, params: any) => {
-  router.navigate({
+  router.push({
     pathname: `/${path}/comment`,
     params,
   });
