@@ -16,9 +16,9 @@ export const getMySaved = async (userId: string): Promise<PostInterface[]> => {
   }
 };
 
-export const searchFor = async (searchTerm: string): Promise<User[]> => {
+export const searchUser = async (searchTerm: string): Promise<User[]> => {
   const res = await fetch(
-    `${URL}/api/searchTerm?searchTerm=${encodeURIComponent(searchTerm)}`
+    `${URL}/api/searchUser?searchTerm=${encodeURIComponent(searchTerm)}`
   );
   const resData = await res.json();
 

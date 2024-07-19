@@ -43,10 +43,8 @@ export const LoginForm: React.FC<Props> = ({ setContent, searchParams }) => {
       });
       if (content != null && id != null) {
         nav(`/${content}/${id}`);
-        console.log(content, id);
       } else if (content != null && id == null) {
         nav(`/nav/${content}`);
-        console.log("second");
       } else {
         nav("/");
       }
