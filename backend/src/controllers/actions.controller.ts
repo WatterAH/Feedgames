@@ -5,7 +5,11 @@ import {
   getProfileByUsername,
   getProfilesByIds,
 } from "../database/profileGetter";
-import { getPostById, myPostsIds } from "../database/postGetter";
+import {
+  getPostById,
+  getPostsByContent,
+  myPostsIds,
+} from "../database/postGetter";
 import { RequestHandler } from "express";
 import { processPost } from "../libs/server";
 
@@ -61,7 +65,7 @@ export const getPost: RequestHandler = async (req, res) => {
   }
 };
 
-export const searchTerm: RequestHandler = async (req, res) => {
+export const searchUser: RequestHandler = async (req, res) => {
   try {
     const { searchTerm } = req.query;
     let { user, error } = await getProfileByUsername(searchTerm as string);
@@ -71,6 +75,25 @@ export const searchTerm: RequestHandler = async (req, res) => {
         .json({ message: "No se pudo completar la busqueda" });
     } else {
       return res.status(200).json(user);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const searchPost: RequestHandler = async (req, res) => {
+  try {
+    const { userId, searchTerm } = req.query;
+    const id = userId as string;
+    const term = searchTerm as string;
+    let { data: posts, error } = await getPostsByContent(term);
+    if (error || !posts) {
+      return res
+        .status(400)
+        .json({ message: "No se pudo completar la busqueda" });
+    } else {
+      const result = posts.map((post) => processPost(post, id));
+      return res.status(200).json(result);
     }
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

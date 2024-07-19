@@ -43,6 +43,18 @@ export const getPostById = async (
   return { data, error };
 };
 
+export const getPostsByContent = async (
+  content: string
+): Promise<{ data: PostInterface[] | null; error: PostgrestError | null }> => {
+  const { data, error } = await supabase
+    .from("posts")
+    .select(
+      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp)"
+    )
+    .ilike("content", `%${content}%`);
+  return { data, error };
+};
+
 export const getPostsByIds = async (
   postIds: string[]
 ): Promise<{ data: PostInterface[] | null; error: PostgrestError | null }> => {
