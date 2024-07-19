@@ -30,14 +30,33 @@ export const getMyLiked = async (userId: string): Promise<PostInterface[]> => {
   }
 };
 
-export const searchFor = async (searchTerm: string): Promise<User[]> => {
+export const searchUser = async (searchTerm: string): Promise<User[]> => {
   const res = await fetch(
-    `${URL}/api/searchTerm?searchTerm=${encodeURIComponent(searchTerm)}`
+    `${URL}/api/searchUser?searchTerm=${encodeURIComponent(searchTerm)}`
   );
   const resData = await res.json();
 
   if (res.ok) {
     return resData as User[];
+  } else {
+    const { message } = resData;
+    throw new Error(message);
+  }
+};
+
+export const searchPost = async (
+  userId: string,
+  searchTerm?: string
+): Promise<PostInterface[]> => {
+  const res = await fetch(
+    `${URL}/api/searchPost?userId=${encodeURIComponent(
+      userId
+    )}&searchTerm=${encodeURIComponent(searchTerm ? searchTerm : "")}`
+  );
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData as PostInterface[];
   } else {
     const { message } = resData;
     throw new Error(message);

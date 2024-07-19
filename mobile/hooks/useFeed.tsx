@@ -14,7 +14,7 @@ export const useFeed = (userId: string | undefined) => {
       if (!userId || allPostsLoaded) return;
       if (page === 0 && !loadingRefresh) setLoading(true);
       setPage((prevPage) => prevPage + 1);
-      const data = await fetchPosts(userId, page, 5);
+      const data = await fetchPosts(userId, page, 10);
       if (data.length > 0) {
         setPosts((prevPosts) => [...prevPosts, ...data]);
       } else {

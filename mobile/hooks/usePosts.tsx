@@ -1,4 +1,4 @@
-import { getMyLiked, getMySaved } from "@/api/actions";
+import { getMyLiked, getMySaved, searchPost } from "@/api/actions";
 import { getTendencyPost } from "@/api/post";
 import { PostInterface } from "@/interfaces/Post";
 import { useCallback, useEffect, useState } from "react";

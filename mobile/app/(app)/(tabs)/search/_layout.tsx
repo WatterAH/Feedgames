@@ -46,6 +46,17 @@ const StackLayout = () => {
           headerTitleStyle: { fontWeight: "700" },
         }}
       />
+      <Stack.Screen
+        name="results"
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+          headerTintColor: iconColor,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor },
+          headerTitleStyle: { fontWeight: "700" },
+        }}
+      />
     </Stack>
   );
 };
