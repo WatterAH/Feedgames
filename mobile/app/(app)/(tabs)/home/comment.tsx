@@ -13,7 +13,7 @@ import { PostLoader } from "@/components/Global/Skeletons";
 import { Comment } from "@/components/Comment/Comment";
 import { useComments } from "@/hooks/useComments";
 
-export default function exploreComment() {
+export default function comment() {
   const dataString: any = useLocalSearchParams();
   const comment: CommentInterface = JSON.parse(dataString.data);
   const s = comment.responses.length;

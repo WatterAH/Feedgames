@@ -9,7 +9,7 @@ interface Props {
   w: string;
 }
 
-export const ProfilePicture: React.FC<Props> = ({ src, h, w }) => {
+export const ProfilePicture: React.FC<Props> = React.memo(({ src, h, w }) => {
   const href = PfpURL + src;
 
   return (
@@ -26,4 +26,4 @@ export const ProfilePicture: React.FC<Props> = ({ src, h, w }) => {
       />
     </View>
   );
-};
+});

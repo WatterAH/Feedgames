@@ -40,7 +40,7 @@ export const Notify: React.FC<Props> = React.memo(({ data }) => {
     <Pressable onPress={handlePress}>
       <View className="w-full border-b p-4 border-gray-100 dark:border-neutral-800 flex-row items-center">
         {getIcon(type)}
-        <Text className="ml-2 w-72">{text}</Text>
+        <Text className="ml-2 w-72 font-semibold">{text}</Text>
         <Text className="text-gray-uni text-xs">{date}</Text>
       </View>
     </Pressable>

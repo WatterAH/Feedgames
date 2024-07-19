@@ -9,13 +9,12 @@ import { registerApi } from "@/api/auth";
 import { useSession } from "@/context/ctx";
 
 const image = () => {
-  const {
-    name,
-    username,
-    details,
-    password,
-  }: { name: string; username: string; details: string; password: string } =
-    useGlobalSearchParams();
+  const { name, username, details, password } = useGlobalSearchParams<{
+    name: string;
+    username: string;
+    details: string;
+    password: string;
+  }>();
   const { login } = useSession();
   const colorScheme = useColorScheme();
   const iconColor = colorScheme === "dark" ? "#202020" : "#fff";
@@ -40,6 +39,8 @@ const image = () => {
   };
 
   const handleSubmit = async () => {
+    if (!name || !username || !details || !password)
+      return setError("Algo salió mal");
     try {
       setLoading(true);
       const data = image

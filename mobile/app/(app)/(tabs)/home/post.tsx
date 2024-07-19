@@ -30,8 +30,9 @@ export default function post() {
       <SafeAreaView className="h-full flex-col relative">
         <ScrollView>
           <Post data={post} />
-          <View className="border-b border-gray-100 dark:border-neutral-800 w-ful px-5 py-3 z-30">
+          <View className="border-b border-gray-100 dark:border-neutral-800 w-ful px-5 py-3 z-30 flex-row gap-x-2 items-center">
             <Text className="font-semibold">Respuestas</Text>
+            <Text className="text-gray-uni">{s}</Text>
           </View>
           {loading ? (
             <View className="mt-4">

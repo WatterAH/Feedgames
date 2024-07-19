@@ -7,19 +7,21 @@ interface Props {
   name: string;
 }
 
-export const CommentCreator: React.FC<Props> = ({ username, name }) => {
-  return (
-    <View>
-      <Text className="" style={{ fontWeight: "600" }}>
-        {name}
-      </Text>
+export const CommentCreator: React.FC<Props> = React.memo(
+  ({ username, name }) => {
+    return (
+      <View>
+        <Text className="" style={{ fontWeight: "600" }}>
+          {name}
+        </Text>
 
-      <Text
-        className="hover:underline text-gray-400"
-        style={{ fontFamily: "Instagram" }}
-      >
-        @{username}
-      </Text>
-    </View>
-  );
-};
+        <Text
+          className="hover:underline text-gray-400"
+          style={{ fontFamily: "Instagram" }}
+        >
+          @{username}
+        </Text>
+      </View>
+    );
+  }
+);

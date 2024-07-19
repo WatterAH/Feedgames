@@ -3,7 +3,7 @@ import { useGlobalSearchParams } from "expo-router";
 import { SafeAreaView } from "@/components/Global/Themed";
 import { Profile } from "@/components/Profile/Profile";
 
-const exploreProfile = () => {
+export default function exploreProfile() {
   const { id } = useGlobalSearchParams();
 
   return (
@@ -11,6 +11,4 @@ const exploreProfile = () => {
       <Profile id={id as string} />
     </SafeAreaView>
   );
-};
-
-export default exploreProfile;
+}

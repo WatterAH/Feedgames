@@ -1,62 +1,43 @@
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text } from "@/components/Global/Themed";
+import React, { useCallback } from "react";
+import { SafeAreaView, View } from "@/components/Global/Themed";
 import { useSession } from "@/context/ctx";
-import { PostInterface } from "@/interfaces/Post";
-import { getMyLiked } from "@/api/actions";
 import { PostSkeleton } from "@/components/Global/Skeletons";
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import { Post } from "@/components/Post/Post";
+import { usePosts } from "@/hooks/usePosts";
+import { Empty } from "@/components/Global/Empty";
+import { PostInterface } from "@/interfaces/Post";
+import { styles } from "@/constants/style";
 
-const Empty = () => {
-  return (
-    <Text
-      className="text-base text-center max-w-xs"
-      style={{ color: "rgb(119, 119, 119)" }}
-    >
-      Las publicaciones que te gusten aparecerán aquí.
-    </Text>
-  );
-};
-
-const likes = () => {
+export default function likes() {
   const { user } = useSession();
-  const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState<PostInterface[]>([]);
-
-  const handleLikes = async () => {
-    try {
-      setLoading(true);
-      const data = await getMyLiked(user?.id ?? "0");
-      setPosts((prevPosts) => [...prevPosts, ...data]);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    handleLikes();
-  }, []);
+  const { loading, reloading, posts, reload } = usePosts(user?.id, "liked");
+  const renderItem = useCallback(
+    ({ item }: { item: PostInterface }) => <Post data={item} />,
+    []
+  );
+  const keyExtractor = useCallback((item: { id: string }) => item.id, []);
 
   return (
     <SafeAreaView className="w-full h-full items-center justify-center">
-      {loading ? (
+      {loading && !reloading ? (
         <PostSkeleton />
       ) : posts.length == 0 ? (
-        <Empty></Empty>
+        <View className="flex h-full items-center justify-center">
+          <Empty text="Las publicaciones que guardes aparecerán aquí." />
+        </View>
       ) : (
         <FlatList
-          className="flex-col w-full duration-1000"
+          className="flex flex-col h-full w-full duration-1000"
           data={posts}
-          renderItem={({ item }) => <Post data={item} />}
-          ListEmptyComponent={Empty}
-          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          refreshControl={
+            <RefreshControl refreshing={reloading} onRefresh={reload} />
+          }
+          keyExtractor={keyExtractor}
           showsVerticalScrollIndicator={false}
         />
       )}
     </SafeAreaView>
   );
-};
-
-export default likes;
+}

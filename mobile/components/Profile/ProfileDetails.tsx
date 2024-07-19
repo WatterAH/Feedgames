@@ -12,7 +12,7 @@ interface Props {
   data: User;
 }
 
-export const ProfileDetails: React.FC<Props> = ({ data }) => {
+export const ProfileDetails: React.FC<Props> = React.memo(({ data }) => {
   const { user } = useSession();
   const { id, username, name, pfp, details, followers, followed, follow } =
     data;
@@ -70,7 +70,7 @@ export const ProfileDetails: React.FC<Props> = ({ data }) => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   name: {

@@ -9,10 +9,11 @@ import * as Haptics from "expo-haptics";
 
 const logIn = () => {
   const { login } = useSession();
-  const [username, setUsername] = useState("_wjsdx");
-  const [password, setPassword] = useState("SamT0710");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const disabled = !username.trim() && !password.trim();
 
   const handleLogin = useCallback(async () => {
     try {
@@ -28,7 +29,7 @@ const logIn = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [username, password]);
 
   return (
     <SafeAreaView className="flex h-full items-center justify-center gap-y-4">
@@ -52,7 +53,9 @@ const logIn = () => {
         />
         <Button
           onPress={handleLogin}
-          h="12"
+          h="11"
+          disabled={disabled}
+          style={{ opacity: disabled ? 0.5 : 1 }}
           loading={loading}
           text="Continuar"
         ></Button>

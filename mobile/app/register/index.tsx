@@ -31,8 +31,8 @@ const index = () => {
           onPress={handlePress}
           h="12"
           loading={false}
-          text="Continuar"
           style={{ opacity: disabled ? 0.5 : 1 }}
+          text="Continuar"
           disabled={disabled}
         />
       </ScrollView>

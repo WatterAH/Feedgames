@@ -11,8 +11,9 @@ interface Props extends PressableProps {
 
 export const Button: React.FC<Props> = (props) => {
   const { h, loading, text } = props;
+
   return (
-    <View className="relative">
+    <View darkColor="transparent" lightColor="transparent" className="relative">
       <Pressable
         className={`px-3 h-${h} text-sm w-full bg-black dark:bg-white rounded-3xl flex flex-row justify-center items-center`}
         {...props}
@@ -25,6 +26,3 @@ export const Button: React.FC<Props> = (props) => {
     </View>
   );
 };
-
-const className =
-  "px-3 h-12 text-sm w-full border-cyan-400 dark:border-cyan-400 border rounded-3xl flex flex-row justify-center items-center";

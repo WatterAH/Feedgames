@@ -1,14 +1,13 @@
 import React from "react";
 import { TextInput, useColorScheme } from "react-native";
 import { View } from "../Global/Themed";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { MagnifyingGlassIcon } from "react-native-heroicons/solid";
 
 export const InputSearch = () => {
   const backgroundColor = useColorScheme() === "dark" ? "#202020" : "#ebebeb";
 
   return (
-    <View className="flex-row items-center gap-x-2 px-4 relative">
+    <View className="flex-row items-center gap-x-2 px-4 relative h-16 border-b border-light-gray dark:border-dark-gray">
       <View
         className="absolute left-7 z-20 flex items-center justify-center"
         darkColor="transparent"

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "../Global/Themed";
 import { ProfileDetails } from "./ProfileDetails";
 import { ProfilePosts } from "./ProfilePosts";

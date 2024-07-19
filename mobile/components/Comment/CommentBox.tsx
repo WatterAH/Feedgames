@@ -4,7 +4,7 @@ import { View } from "../Global/Themed";
 import * as Haptics from "expo-haptics";
 import { useSession } from "@/context/ctx";
 
-export const CommentBox = () => {
+export const CommentBox = React.memo(() => {
   const backgroundColor = useColorScheme() === "dark" ? "#202020" : "#ebebeb";
   const { user } = useSession();
   const [text, setText] = useState("");
@@ -31,4 +31,4 @@ export const CommentBox = () => {
       />
     </View>
   );
-};
+});
