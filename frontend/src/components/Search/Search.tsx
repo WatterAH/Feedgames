@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "../Input";
 import { MapResults } from "./MapResults";
-import { searchFor } from "../../Api/actions";
+import { searchUser } from "../../Api/actions";
 import { User } from "../../interfaces/User";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
@@ -13,7 +13,7 @@ export const Search = () => {
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setSearchTerm(e.target.value);
-      const resultsFetched = await searchFor(searchTerm);
+      const resultsFetched = await searchUser(searchTerm);
       setResults(resultsFetched);
     } catch (error) {
       toast.error("Algo salió mal");
