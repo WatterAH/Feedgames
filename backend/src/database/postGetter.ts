@@ -51,6 +51,7 @@ export const getPostsByIds = async (
     .select(
       "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp)"
     )
+    .order("order", { ascending: false })
     .in("id", postIds);
   return { data, error };
 };

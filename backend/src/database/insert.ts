@@ -39,13 +39,22 @@ export const stopFollow = async (followerId: string, followedId: string) => {
   return { error };
 };
 
-export const joinParty = async (userId: string) => {
-  const { error } = await supabase.from("partys").insert([
-    {
-      userId,
-    },
-  ]);
-  if (error) {
-    throw new Error(error.message);
-  }
+export const newParty = async (
+  type: string,
+  name: string,
+  image: string | null
+) => {
+  const insertData = { type, name, image };
+  const { data, error } = await supabase
+    .from("partys")
+    .insert([insertData])
+    .select("*")
+    .single();
+  return { data, error };
+};
+
+export const joinParty = async (partyId: string, userId: string) => {
+  const insertData = { id_party: partyId, id_user: userId };
+  const { error } = await supabase.from("party_user").insert([insertData]);
+  return { error };
 };

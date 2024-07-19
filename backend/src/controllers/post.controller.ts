@@ -13,17 +13,18 @@ export const createNewPost: RequestHandler = async (req, res) => {
     let { user_id, content, tags, valMatch } = req.body;
     tags = JSON.parse(tags);
     valMatch = JSON.parse(valMatch);
+
     const image = req.file;
     let publicUrl = null;
     if (!content.trim() && !image && !valMatch) {
       return res.status(400).json({ message: "No se permiten posts vacios" });
     }
-    if (image && image.buffer) {
+    if (image?.buffer) {
       const { filename, error } = await uploadImage(image, "images");
-      publicUrl = filename;
       if (error) {
         return res.status(400).json({ message: "No se pudo subir la imagen" });
       }
+      publicUrl = filename;
     }
     const data = {
       user_id,

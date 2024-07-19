@@ -6,7 +6,7 @@ export const loadSuggestions: RequestHandler = async (req, res) => {
   try {
     const { id_user } = req.query;
     let userId = id_user as string;
-    let { posts } = await getPostsByRange(0, 30);
+    let { posts } = await getPostsByRange(0, 100);
     if (posts?.length == 0 || !posts)
       return res.status(400).json({ message: "Ocurrio un problema" });
     posts = posts.sort((a, b) => b.liked.length - a.liked.length).slice(0, 4);
