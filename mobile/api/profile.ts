@@ -1,4 +1,4 @@
-import { URL } from "@/constants/server";
+import { URL } from "@/constants/Server";
 import { PostInterface } from "@/interfaces/Post";
 import { User } from "@/interfaces/User";
 

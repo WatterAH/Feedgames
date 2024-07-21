@@ -1,4 +1,4 @@
-import { URL } from "@/constants/server";
+import { URL } from "@/constants/Server";
 import { PostInterface } from "@/interfaces/Post";
 import { MatchShowCase } from "@/interfaces/Valorant";
 import { ImagePickerAsset } from "expo-image-picker";

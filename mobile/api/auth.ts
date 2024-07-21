@@ -1,4 +1,4 @@
-import { URL } from "@/constants/server";
+import { URL } from "@/constants/Server";
 import { User } from "../interfaces/User";
 import { ImagePickerAsset } from "expo-image-picker";
 

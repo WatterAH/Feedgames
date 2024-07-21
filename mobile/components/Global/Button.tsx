@@ -1,28 +1,54 @@
 import React from "react";
-import { Pressable, PressableProps } from "react-native";
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  useColorScheme,
+} from "react-native";
 import { Text, View } from "./Themed";
 import { Loading } from "./Loading";
 
 interface Props extends PressableProps {
-  h: string;
+  height: number;
   loading: boolean;
   text: string;
 }
 
-export const Button: React.FC<Props> = (props) => {
-  const { h, loading, text } = props;
+export const Button: React.FC<Props> = React.memo((props) => {
+  const { height, loading, text } = props;
+  const dark = useColorScheme() === "dark";
+  const backgroundColor = dark ? "#fff" : "#000";
 
   return (
-    <View darkColor="transparent" lightColor="transparent" className="relative">
+    <View darkColor="transparent" lightColor="transparent" style={styles.main}>
       <Pressable
-        className={`px-3 h-${h} text-sm w-full bg-black dark:bg-white rounded-3xl flex flex-row justify-center items-center`}
+        style={[styles.button, { height, backgroundColor }]}
         {...props}
       >
-        <Text className="text-white dark:text-black font-semibold">
+        <Text darkColor="#000" lightColor="#fff" style={styles.text}>
           {loading ? null : text}
         </Text>
         {loading ? <Loading size="small" bgcolor /> : null}
       </Pressable>
     </View>
   );
-};
+});
+
+const styles = StyleSheet.create({
+  main: {
+    position: "relative",
+  },
+  button: {
+    paddingHorizontal: 12,
+    fontSize: 14,
+    lineHeight: 20,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 24,
+  },
+  text: {
+    fontWeight: 600,
+  },
+});

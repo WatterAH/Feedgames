@@ -1,4 +1,4 @@
-import { URL } from "@/constants/server";
+import { URL } from "@/constants/Server";
 import { Match, MatchList } from "../interfaces/Valorant";
 
 export const getMatchesList = async (token: string): Promise<MatchList> => {

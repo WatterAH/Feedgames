@@ -1,4 +1,4 @@
-import { URL } from "@/constants/server";
+import { URL } from "@/constants/Server";
 import { CommentInterface } from "@/interfaces/Comment";
 
 export const fetchComments = async (

@@ -3,6 +3,7 @@ import {
   View as DefaultView,
   SafeAreaView as DefaultSafe,
   ScrollView as DefaultScroll,
+  Pressable as DefaultPress,
 } from "react-native";
 import { useColorScheme } from "react-native";
 import Colors from "@/constants/Colors";
@@ -15,7 +16,6 @@ type ThemeProps = {
 export type TextProps = ThemeProps & DefaultText["props"];
 export type SafeProps = ThemeProps & DefaultSafe["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
-export type ScrollProps = ThemeProps & DefaultScroll["props"];
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -56,20 +56,4 @@ export function SafeAreaView(props: SafeProps) {
   );
 
   return <DefaultSafe style={[{ backgroundColor }, style]} {...otherProps} />;
-}
-
-export function ScrollView(props: ScrollProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "background"
-  );
-
-  return (
-    <DefaultScroll
-      className="transition-transform duration-1000"
-      style={[{ backgroundColor }, style]}
-      {...otherProps}
-    />
-  );
 }
