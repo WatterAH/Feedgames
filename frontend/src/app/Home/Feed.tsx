@@ -36,7 +36,7 @@ const Feed = () => {
       {error && <></>}
       {!loading && !error && (
         <>
-          <main className="flex w-full h-full justify-center items-center lg:justify-normal">
+          <main className="flex w-full h-full justify-center items-center lg:justify-normal 3xl:justify-center">
             <div className="flex flex-1 flex-col gap-y-5 max-w-xl w-full lg:ml-80">
               <Notes />
               <PostsContainer posts={posts} />

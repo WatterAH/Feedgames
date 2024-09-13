@@ -4,8 +4,9 @@ import {
   PencilSquareIcon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
 import riotgames from "../assets/riotgames.svg";
+import copy from "clipboard-copy";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { User } from "../interfaces/User";
 import { Option } from "../components/Global/Options";
@@ -14,6 +15,16 @@ export const profileOptions = (userSession: User, id: string) => {
   const nav = useNavigate();
   const simpleClass = "h-4 md:h-5 mr-2";
   const [_cookies, _setCookies, removeCookie] = useCookies();
+
+  const share = () => {
+    if (navigator.share) {
+      navigator.share({
+        url: `https://feedgames.vercel.app/u/${id}`,
+      });
+    } else {
+      copy(`https://feedgames.vercel.app/u/${id}`);
+    }
+  };
 
   const logout = () => {
     removeCookie("token");
@@ -24,7 +35,7 @@ export const profileOptions = (userSession: User, id: string) => {
     {
       icon: <ArrowUpOnSquareIcon className={simpleClass} />,
       label: "Compartir",
-      onClick: () => {},
+      onClick: share,
     },
     userSession.id !== id
       ? {
