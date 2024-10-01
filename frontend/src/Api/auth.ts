@@ -1,4 +1,3 @@
-import { URL } from "../App";
 import { User } from "../interfaces/User";
 import { RiotAuth } from "../interfaces/Valorant";
 
@@ -6,20 +5,18 @@ export const loginApi = async (
   username: string,
   password: string
 ): Promise<{ user: User; token: string }> => {
-  const body = { username, password };
-  const res = await fetch(`${URL}/api/login`, {
+  const res = await fetch(`/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ username, password }),
   });
-  const resData = await res.json();
+  const data = await res.json();
   if (res.ok) {
-    return resData;
+    return data;
   } else {
-    throw new Error(resData.message);
+    throw new Error(data.message);
   }
 };
 
@@ -51,15 +48,16 @@ export const checkAuth = async (
   userToken: string,
   riotToken: string
 ): Promise<{ user: User; riot: RiotAuth }> => {
-  const ENDPOINT = `${URL}/api/checkAuth?userToken=${encodeURIComponent(
-    userToken
-  )}&riotToken=${encodeURIComponent(riotToken)}`;
-  const res = await fetch(ENDPOINT);
-  const resData = await res.json();
+  const res = await fetch("/api/session", {
+    method: "GET",
+    headers: { Authorization: userToken },
+  });
+
+  const data = await res.json();
   if (res.ok) {
-    return resData;
+    return data;
   } else {
-    const { message } = resData;
+    const { message } = data;
     throw new Error(message);
   }
 };

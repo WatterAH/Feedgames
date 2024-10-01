@@ -1,14 +1,15 @@
+"use client";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useUser } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { checkAuth } from "../Api/auth";
+import { useUser } from "@/context/AuthContext";
+import { checkAuth } from "@/api/auth";
+import { useRouter } from "next/navigation";
 
 export const useToken = () => {
   const { login } = useUser();
   const [cookies] = useCookies();
   const [loading, setLoading] = useState(true);
-  const nav = useNavigate();
+  const router = useRouter();
 
   const check = async () => {
     try {
@@ -16,7 +17,7 @@ export const useToken = () => {
       const { user } = data;
       login(user);
     } catch (error) {
-      nav("/auth");
+      router.push("/auth/signin");
     } finally {
       setLoading(false);
     }
@@ -24,7 +25,7 @@ export const useToken = () => {
 
   useEffect(() => {
     check();
-  }, []);
+  }, [cookies.token]);
 
   return { loading };
 };

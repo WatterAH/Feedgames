@@ -1,16 +1,17 @@
+"use client";
 import { useState } from "react";
-import { loginApi } from "../Api/auth";
-import { useUser } from "../context/AuthContext";
-import { getExpirationDate } from "../functions/date";
+import { loginApi } from "@/api/auth";
+import { useUser } from "@/context/AuthContext";
+import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 export const useLogin = (username: string, password: string) => {
   const { login } = useUser();
   const [loading, setLoading] = useState(false);
   const [_cookies, setCookie] = useCookies();
-  const nav = useNavigate();
+  const router = useRouter();
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ export const useLogin = (username: string, password: string) => {
         secure: true,
         sameSite: "none",
       });
-      nav("/");
+      router.push("/");
     } catch (error: any) {
       const { message } = error;
       toast.error(message);
