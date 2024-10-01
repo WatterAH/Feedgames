@@ -18,7 +18,7 @@ export const useToken = () => {
         const { user } = data;
         login(user);
       } catch (error: any) {
-        router.push("/auth/signin");
+        router.push("/auth");
         throw new Error(error.message);
       } finally {
         setLoading(false);
