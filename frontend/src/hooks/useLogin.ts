@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { loginApi } from "@/api/auth";
+import { loginApi } from "@/routes/auth";
 import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";

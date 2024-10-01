@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useUser } from "@/context/AuthContext";
-import { checkAuth } from "@/api/auth";
+import { checkAuth } from "@/routes/auth";
 import { useRouter } from "next/navigation";
 
 export const useToken = () => {
