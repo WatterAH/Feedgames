@@ -12,6 +12,12 @@ export const useToken = () => {
   const router = useRouter();
 
   useEffect(() => {
+    if (!cookies.token) {
+      setLoading(false);
+      router.push("/login");
+      return;
+    }
+
     const check = async () => {
       try {
         const data = await checkAuth(cookies.token);
@@ -26,7 +32,8 @@ export const useToken = () => {
     };
 
     check();
-  }, [cookies.token, login, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return { loading };
 };

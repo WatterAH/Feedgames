@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Pacifico, Raleway, Montserrat, Inter } from "next/font/google";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Feedgames",
@@ -42,7 +43,7 @@ export default function RootLayout({
       <body
         className={`${pacifico.variable} ${raleway.variable} ${montserrat.variable} ${inter.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
