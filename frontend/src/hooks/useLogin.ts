@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export const useLogin = (username: string, password: string) => {
   const { login } = useUser();
   const [loading, setLoading] = useState(false);
-  const [_cookies, setCookie] = useCookies();
+  const [, setCookie] = useCookies();
   const router = useRouter();
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,5 +1,4 @@
 import { User } from "../interfaces/User";
-import { RiotAuth } from "../interfaces/Valorant";
 
 export const loginApi = async (
   username: string,
@@ -44,10 +43,7 @@ export const registerApi = async (
   }
 };
 
-export const checkAuth = async (
-  userToken: string,
-  riotToken: string
-): Promise<{ user: User; riot: RiotAuth }> => {
+export const checkAuth = async (userToken: string): Promise<{ user: User }> => {
   const res = await fetch("/api/session", {
     method: "GET",
     headers: { Authorization: userToken },

@@ -11,21 +11,22 @@ export const useToken = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const check = async () => {
-    try {
-      const data = await checkAuth(cookies.token, "");
-      const { user } = data;
-      login(user);
-    } catch (error) {
-      router.push("/auth/signin");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const check = async () => {
+      try {
+        const data = await checkAuth(cookies.token);
+        const { user } = data;
+        login(user);
+      } catch (error: any) {
+        router.push("/auth/signin");
+        throw new Error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     check();
-  }, [cookies.token]);
+  }, [cookies.token, login, router]);
 
   return { loading };
 };

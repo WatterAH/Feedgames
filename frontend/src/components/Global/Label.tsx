@@ -1,8 +1,8 @@
 import React from "react";
 
-interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {}
-
-const Label: React.FC<Props> = (props) => {
+const Label: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (
+  props
+) => {
   return (
     <label {...props} className="mb-1 font-raleway text-xs">
       {props.children}
