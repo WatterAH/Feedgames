@@ -4,7 +4,7 @@ export const loginApi = async (
   username: string,
   password: string
 ): Promise<{ user: User; token: string }> => {
-  const res = await fetch(`/api/login`, {
+  const res = await fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,14 +25,12 @@ export const registerApi = async (
   details: string,
   password: string
 ): Promise<{ user: User; token: string }> => {
-  const body = { name, username, details, password };
-  const res = await fetch(`${URL}/api/register`, {
+  const res = await fetch("/api/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ name, username, details, password }),
   });
   const resData = await res.json();
 

@@ -6,24 +6,30 @@ import Loader from "@/components/Global/Loader";
 import Header from "@/components/Auth/Header";
 import Footer from "@/components/Auth/Footer";
 import { useState } from "react";
-import { useLogin } from "@/hooks/useLogin";
+import { useLogin } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { Toaster } from "sonner";
+import Link from "next/link";
 
-export default function SignIn() {
+export default function Auth() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [viewPass, setViewPass] = useState(false);
-  const { submit, loading } = useLogin(username, password);
+  const { submit, loading } = useLogin();
   const PasswordIcon = viewPass ? Eye : EyeOff;
   const toggleViewPass = () => setViewPass(!viewPass);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submit(username, password);
+  };
 
   return (
     <>
       <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 sm:bg-gray-100">
-        <div className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-xl rounded-xl sm:mx-auto sm:max-w-sm sm:w-full">
+        <div className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full">
           <form
-            onSubmit={submit}
+            onSubmit={handleSubmit}
             className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12"
           >
             <Header />
@@ -55,13 +61,13 @@ export default function SignIn() {
                   <PasswordIcon className="h-6 sm:h-5 text-gray-400" />
                 </button>
               </span>
-              <a
-                href="/reg"
-                className="font-raleway mt-2 text-xs text-center text-gray-400"
-              >
-                ¿No tienes cuenta?
-              </a>
             </div>
+            <Link
+              href={"/register"}
+              className="font-raleway mt-2 text-xs text-center text-gray-400"
+            >
+              ¿No tienes cuenta?
+            </Link>
             <div
               id="submitContainer"
               className="flex justify-center items-center relative"
