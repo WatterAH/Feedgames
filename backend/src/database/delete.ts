@@ -31,6 +31,11 @@ export const deleteNotification = async (id: string) => {
   return { error };
 };
 
+export const deleteNoteById = async (id: string) => {
+  const { error } = await supabase.from("notes").delete().eq("id", id);
+  return { error };
+};
+
 export const deleteImage = async (filename: string, folder: string) => {
   const { error } = await supabase.storage
     .from("Images")

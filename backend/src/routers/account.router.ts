@@ -22,7 +22,13 @@ accountRouter.post(
 );
 accountRouter.post("/api/login", login);
 accountRouter.get("/api/logout", logout);
-accountRouter.post("/api/register", upload.single("image"), register);
+accountRouter.post(
+  "/api/register",
+  upload.single("image"),
+  usernameAvailable,
+  validateBody,
+  register
+);
 accountRouter.get("/api/checkAuth", checkAuth);
 accountRouter.put(
   "/api/editProfileById",

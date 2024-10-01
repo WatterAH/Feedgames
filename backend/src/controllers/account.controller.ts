@@ -8,7 +8,7 @@ import { checkUsername, getProfileById } from "../database/profileGetter";
 import { RequestHandler } from "express";
 import { User } from "../interfaces/User";
 
-export const usernameAvailable: RequestHandler = async (req, res) => {
+export const usernameAvailable: RequestHandler = async (req, res, next) => {
   try {
     const { username } = req.body;
     const { data, error } = await checkUsername(username);
@@ -20,7 +20,7 @@ export const usernameAvailable: RequestHandler = async (req, res) => {
           message: "Lo sentimos, este nombre de usuario esta ocupado",
         });
       } else {
-        return res.status(200).end();
+        return next();
       }
     }
   } catch (error) {
@@ -95,6 +95,7 @@ export const register: RequestHandler = async (req, res) => {
     const token = await createAccessToken(user);
     return res.status(200).json({ user, token });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
