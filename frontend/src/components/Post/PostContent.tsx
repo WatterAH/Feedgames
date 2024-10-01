@@ -14,7 +14,6 @@ const PostContent: React.FC<Props> = ({ data }) => {
     <div className="flex flex-col gap-y-2 w-full">
       {content && <p className="text-sm">{content}</p>}
       {publicUrl && (
-        /* eslint-disable @next/next/no-img-element */
         <img src={src} alt={publicUrl} className="rounded-md w-full h-full" />
       )}
       {valMatch && <MatchPost stats={valMatch} />}

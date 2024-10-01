@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { MatchShowCase } from "@/interfaces/Valorant";
 import { getCharacterIcon } from "@/routes/valorant";
 import { Flame } from "lucide-react";
-import Image from "next/image";
 
 const Stat = ({ title, stat }: { title: string; stat: string | number }) => {
   return (
@@ -30,14 +29,14 @@ export const MatchPost: React.FC<MatchProps> = ({ stats }) => {
   return (
     <div className="flex flex-col font-montserrat gap-2 bg-amber-50 rounded-md shadow-sm border h-full w-full p-3 relative">
       <header className="flex justify-center items-center gap-2 w-full">
-        <Image src={"/valorant.svg"} alt="." width={32} height={32} />
+        <img src={"/valorant.svg"} alt="." className="" />
         <p className="text-gray-700">
           {stats.gameName}
           <span className="text-gray-600 text-sm"> #{stats.tagLine}</span>
         </p>
       </header>
       <header className="flex items-center justify-center w-full">
-        <Image src={characterIcon} alt="." width={208} height={598} />
+        <img src={characterIcon} alt="." className="overflow-hidden w-52" />
         <section className="flex flex-col md:flex-row md:gap-5 gap-2">
           <span className="flex flex-col items-center gap-1">
             <p className="text-gray-800 text-sm">K/D/A</p>
