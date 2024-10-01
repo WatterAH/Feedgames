@@ -9,6 +9,7 @@ import { useRegister } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Toaster } from "sonner";
+import Footer from "@/components/Auth/Footer";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -94,6 +95,7 @@ export default function Register() {
               </Button>
             </div>
           </form>
+          <Footer />
         </div>
       </main>
       <Toaster richColors position="top-center" />

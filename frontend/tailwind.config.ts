@@ -16,6 +16,7 @@ const config: Config = {
         pacifico: ["var(--font-pacifico)"],
         raleway: ["var(--font-raleway)"],
         montserrat: ["var(--font-montserrat)"],
+        inter: ["var(--font-inter)"],
       },
     },
   },
