@@ -4,7 +4,7 @@ import Button from "../Global/Button";
 import ProfilePicture from "./ProfilePicture";
 import { User } from "@/interfaces/User";
 import { calculateDate } from "@/functions/date";
-import { profileOptions } from "@/constants/profileOptions";
+import { ProfileOptions } from "@/constants/profileOptions";
 import { useUser } from "@/context/AuthContext";
 import { BadgeCheck, Menu } from "lucide-react";
 
@@ -18,7 +18,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
   const { user } = useUser();
   const date = calculateDate(created_at);
 
-  const options = profileOptions(user, id);
+  const options = ProfileOptions(user, id);
 
   return (
     <header className="flex flex-col gap-y-4 w-full p-3 lg:px-4 border-b">

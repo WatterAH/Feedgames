@@ -5,10 +5,10 @@ import { Option } from "@/components/Global/Options";
 import { useRouter } from "next/navigation";
 import { Flag, LogOut, Pencil, Share } from "lucide-react";
 
-export const profileOptions = (userSession: User, id: string) => {
+export const ProfileOptions = (userSession: User, id: string) => {
   const router = useRouter();
   const simpleClass = "h-2 w-2";
-  const [_cookies, _setCookies, removeCookie] = useCookies();
+  const [, , removeCookie] = useCookies();
 
   const share = () => {
     if (navigator.share) {
@@ -47,7 +47,7 @@ export const profileOptions = (userSession: User, id: string) => {
       : null,
     userSession.id === id
       ? {
-          icon: <img src="/riotgames.svg" className="h-6 w-6" />,
+          icon: <img src="/riotgames.svg" alt="riot" className="h-6 w-6" />,
           label: "Riot Games",
           href: "https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid",
           onClick: () => {},

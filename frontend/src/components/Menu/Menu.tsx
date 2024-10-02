@@ -2,7 +2,7 @@
 import Item from "./Item";
 import { useUser } from "@/context/AuthContext";
 import { usePathname } from "next/navigation";
-import { BellRing, House, LogOut, Search, SquarePen, User } from "lucide-react";
+import { BellRing, House, Search, SquarePen, User } from "lucide-react";
 
 const Menu = () => {
   const { user } = useUser();

@@ -15,7 +15,7 @@ const Item: React.FC<Props> = ({ href, Icon, currentPathname }) => {
     <Link href={href}>
       <li className="p-3 rounded-md transition-all duration-150">
         <Icon
-          className={`h-6 w-6 lg:h-8 lg:w-8 hover:text-gray-600 ${
+          className={`h-6 w-6 lg:h-8 lg:w-8 hover:text-gray-500 ${
             isCurrentPage ? "text-threads" : "text-gray-400"
           }`}
         />

@@ -3,11 +3,13 @@ import ListItem from "@/components/Auth/LegalItem";
 
 export default function PrivacyPolicy() {
   return (
-    <main className="h-full flex justify-center">
+    <main className="h-full flex justify-center bg-barcelona">
       <div className="w-full max-w-3xl py-10 px-5 flex flex-col gap-y-8 h-full">
         <header className="flex flex-col gap-y-5">
-          <h1 className="font-pacifico text-5xl text-center mb-8">Feedgames</h1>
-          <h1 className="font-bold text-2xl font-inter">
+          <h1 className="font-pacifico text-5xl text-center mb-8 text-threads">
+            Feedgames
+          </h1>
+          <h1 className="font-bold text-2xl font-inter text-threads">
             Política de Privacidad
           </h1>
           <p className="text-gray-500">
@@ -70,7 +72,7 @@ export default function PrivacyPolicy() {
           Al utilizar nuestros servicios, reconoces que has leído, comprendido y
           aceptas nuestra política de privacidad.
         </h2>
-        <h1 className="font-pacifico text-center text-3xl">Fg</h1>
+        <h1 className="font-pacifico text-center text-3xl text-threads">Fg</h1>
       </div>
     </main>
   );

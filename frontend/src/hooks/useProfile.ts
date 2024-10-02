@@ -16,8 +16,9 @@ export const useProfile = (userId: string | undefined) => {
     try {
       const data = await getProfile(userId, user.id);
       setProfile(data);
-    } catch (error) {
+    } catch (error: any) {
       setError(true);
+      throw new Error(error.message);
     }
   }, [userId, user.id]);
 
@@ -26,8 +27,9 @@ export const useProfile = (userId: string | undefined) => {
     try {
       const data = await getProfilePost(userId, user.id);
       setPosts(data);
-    } catch (error) {
+    } catch (error: any) {
       setError(true);
+      throw new Error(error.message);
     }
   }, [userId, user.id]);
 
@@ -38,7 +40,7 @@ export const useProfile = (userId: string | undefined) => {
   useEffect(() => {
     setLoading(true);
     loadProfile().then(() => setLoading(false));
-  }, [user.id, userId]);
+  }, [user.id, userId, loadProfile]);
 
   return { profile, posts, loading, error };
 };
