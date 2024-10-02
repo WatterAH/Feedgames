@@ -11,6 +11,8 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        barcelona: "#fafafa",
+        threads: "#202020",
       },
       fontFamily: {
         pacifico: ["var(--font-pacifico)"],
@@ -20,6 +22,11 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwind-scrollbar")({
+      nocompatible: true,
+      preferredStrategy: "pseudoelements",
+    }),
+  ],
 };
 export default config;

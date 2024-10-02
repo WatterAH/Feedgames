@@ -10,12 +10,13 @@ interface Props {
 
 const Item: React.FC<Props> = ({ href, Icon, currentPathname }) => {
   const isCurrentPage = currentPathname === href;
+
   return (
     <Link href={href}>
-      <li className="hover:bg-gray-100 p-3 rounded-md transition-all duration-150">
+      <li className="p-3 rounded-md transition-all duration-150">
         <Icon
-          className={`h-8 w-8 ${
-            isCurrentPage ? "text-[#101010]" : "text-[#ccc]"
+          className={`h-6 w-6 lg:h-8 lg:w-8 hover:text-gray-600 ${
+            isCurrentPage ? "text-threads" : "text-gray-400"
           }`}
         />
       </li>

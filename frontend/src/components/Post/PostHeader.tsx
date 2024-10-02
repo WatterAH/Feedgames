@@ -27,7 +27,11 @@ const PostHeader: React.FC<Props> = ({ data }) => {
         <p className="text-gray-400 text-xs font-rubik mt-1">{date}</p>
       </section>
       <section>
-        <Options Icon_options={Ellipsis} className="h-5" options={options} />
+        <Options
+          Icon_options={Ellipsis}
+          className="h-5 text-gray-500"
+          options={options}
+        />
       </section>
     </header>
   );

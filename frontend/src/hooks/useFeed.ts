@@ -22,6 +22,7 @@ export const useFeed = (userId: string) => {
         setAllLoaded(true);
       }
     } catch (error: any) {
+      console.log(error);
       setError(true);
       throw new Error(error.message);
     } finally {

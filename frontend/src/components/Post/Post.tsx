@@ -14,7 +14,7 @@ const Post: React.FC<Props> = ({ data }) => {
   const { user, user_id } = data;
 
   return (
-    <main className="flex flex-row gap-x-2 w-full border-b p-2">
+    <main className="flex flex-row gap-x-2 w-full border-b p-2 sm:px-4">
       <Link href={`/u/${user_id}`}>
         <ProfilePicture h={40} w={40} src={user.pfp} />
       </Link>

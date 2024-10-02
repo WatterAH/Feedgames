@@ -12,33 +12,29 @@ export default function HomePage() {
   return (
     <>
       {loading && (
-        <main className="flex items-center justify-center h-screen lg:ml-64">
+        <main className="flex items-center justify-center h-screen lg:ml-20 bg-barcelona">
           <PageLoader />
         </main>
       )}
       {error && (
-        <main className="flex items-center justify-center h-screen lg:ml-64">
+        <main className="flex items-center justify-center h-screen bg-barcelona">
           <h1>Error</h1>
         </main>
       )}
       {!loading && !error && (
-        <main
-          id="main"
-          className="flex h-full w-full justify-center items-center"
-        >
-          <div className="w-full max-w-2xl">
-            <div className="flex flex-col h-fit pb-14 lg:pb-0">
-              <InfiniteScroll
-                dataLength={posts.length}
-                hasMore={!allLoaded}
-                loader={<PageLoader />}
-                next={getPosts}
-              >
-                {posts.map((post) => (
-                  <Post data={post} key={post.id} />
-                ))}
-              </InfiniteScroll>
-            </div>
+        <main className="flex flex-col lg:ml-20 h-screen justify-center items-center sm:pt-3 lg:pt-4 bg-barcelona gap-y-4">
+          <h3 className="font-semibold">Feed</h3>
+          <div className="flex flex-col lg:pt-2 bg-white sm:rounded-t-3xl sm:shadow-md border h-screen max-w-2xl w-full overflow-y-auto scrollbar-none">
+            <InfiniteScroll
+              dataLength={posts.length}
+              hasMore={!allLoaded}
+              loader={<PageLoader />}
+              next={getPosts}
+            >
+              {posts.map((post) => (
+                <Post data={post} key={post.id} />
+              ))}
+            </InfiniteScroll>
           </div>
         </main>
       )}
