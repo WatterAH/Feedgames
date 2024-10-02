@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <main className="flex flex-col lg:ml-20 h-screen justify-center items-center  bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
       <h3 className="font-semibold text-threads hidden md:block">Feed</h3>
-      <Card>
+      <Card loading={loading}>
         {loading && <PageLoader />}
         {error && <h1>Error</h1>}
         {!loading && !error && (

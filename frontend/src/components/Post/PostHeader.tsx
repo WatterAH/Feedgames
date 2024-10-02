@@ -24,7 +24,7 @@ const PostHeader: React.FC<Props> = ({ data }) => {
         <Link href={`/u/${user_id}`}>
           <p className="hover:underline text-sm font-semibold">{username}</p>
         </Link>
-        <p className="text-gray-400 text-xs font-rubik mt-1">{date}</p>
+        <p className="text-gray-400 text-xs mt-1">{date}</p>
       </section>
       <section>
         <Options
