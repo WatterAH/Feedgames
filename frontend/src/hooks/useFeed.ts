@@ -22,7 +22,6 @@ export const useFeed = (userId: string) => {
         setAllLoaded(true);
       }
     } catch (error: any) {
-      console.log(error);
       setError(true);
       throw new Error(error.message);
     } finally {
@@ -31,7 +30,7 @@ export const useFeed = (userId: string) => {
   }, [userId, page, allLoaded]);
 
   useEffect(() => {
-    getPosts();
+    if (page == 0) getPosts();
   }, [userId, getPosts]);
 
   return { posts, loading, error, getPosts, allLoaded };

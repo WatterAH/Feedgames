@@ -1,4 +1,5 @@
 "use client";
+import Card from "@/components/Global/Card";
 import PageLoader from "@/components/Global/PageLoader";
 import PostsContainer from "@/components/Post/PostsContainer";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
@@ -10,27 +11,23 @@ export default function ProfilePage() {
   const { profile, posts, loading, error } = useProfile(id as string);
 
   return (
-    <>
-      {loading && (
-        <main className="flex items-center justify-center h-screen bg-barcelona">
-          <PageLoader />
-        </main>
-      )}
-      {error && (
-        <main className="flex items-center justify-center h-screen bg-barcelona">
-          <h1>Error</h1>
-        </main>
-      )}
-      {!loading && !error && (
-        <main className="flex flex-col lg:ml-20 h-screen justify-center items-center sm:pt-3 lg:pt-7 bg-barcelona">
-          <div className="flex flex-col lg:pt-2 bg-white sm:rounded-t-3xl sm:shadow-md border h-screen max-w-2xl w-full overflow-y-auto scrollbar-none">
+    <main className="flex flex-col lg:ml-20 h-screen justify-center items-center  bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
+      <h3 className="font-semibold text-threads hidden md:block">Perfil</h3>
+      <Card>
+        {loading && <PageLoader />}
+        {error && <h1>Error</h1>}
+        {!loading && !error && (
+          <div
+            id="scroll"
+            className="overflow-y-auto scrollbar-none h-fit pb-14 lg:pb-0"
+          >
             {profile && <ProfileHeader data={profile} />}
             <div className="w-full flex flex-col">
               <PostsContainer posts={posts} />
             </div>
           </div>
-        </main>
-      )}
-    </>
+        )}
+      </Card>
+    </main>
   );
 }
