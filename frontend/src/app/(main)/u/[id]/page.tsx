@@ -17,10 +17,7 @@ export default function ProfilePage() {
         {loading && <PageLoader />}
         {error && <h1>Error</h1>}
         {!loading && !error && (
-          <div
-            id="scroll"
-            className="overflow-y-auto scrollbar-none h-fit pb-14 lg:pb-0"
-          >
+          <div className="overflow-y-auto scrollbar-none">
             {profile && <ProfileHeader data={profile} />}
             <div className="w-full flex flex-col">
               <PostsContainer posts={posts} />

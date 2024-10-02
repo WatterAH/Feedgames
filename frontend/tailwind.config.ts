@@ -13,6 +13,7 @@ const config: Config = {
         foreground: "var(--foreground)",
         barcelona: "#fafafa",
         threads: "#202020",
+        icon: "#b8b8b8",
       },
       fontFamily: {
         pacifico: ["var(--font-pacifico)"],

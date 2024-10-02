@@ -31,7 +31,7 @@ export const useFeed = (userId: string) => {
 
   useEffect(() => {
     if (page == 0) getPosts();
-  }, [userId, getPosts]);
+  }, [userId, getPosts, page]);
 
   return { posts, loading, error, getPosts, allLoaded };
 };
