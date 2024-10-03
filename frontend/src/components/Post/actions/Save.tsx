@@ -10,7 +10,7 @@ interface Props {
   setSavedNum?: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
-export const SaveButton = ({ saveData }: { saveData: Props }) => {
+const Save = ({ saveData }: { saveData: Props }) => {
   const { user } = useUser();
   const { id, isSaved, setSavedNum } = saveData;
   const [saved, setSaved] = useState(isSaved);
@@ -49,3 +49,5 @@ export const SaveButton = ({ saveData }: { saveData: Props }) => {
     </button>
   );
 };
+
+export default Save;

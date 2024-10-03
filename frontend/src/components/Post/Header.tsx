@@ -11,7 +11,7 @@ interface Props {
   data: PostInterface;
 }
 
-const PostHeader: React.FC<Props> = ({ data }) => {
+const Header: React.FC<Props> = ({ data }) => {
   const { id, user_id, user, order } = data;
   const { username } = user;
   const { user: session } = useUser();
@@ -37,4 +37,4 @@ const PostHeader: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default PostHeader;
+export default Header;

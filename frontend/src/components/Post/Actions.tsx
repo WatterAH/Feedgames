@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { LikeButton } from "./actions/LikeButton";
-import { CommentButton } from "./actions/CommentButton";
-import { SaveButton } from "./actions/SaveButton";
+import Like from "./actions/Like";
+import CommentButton from "./actions/CommentButton";
+import Save from "./actions/Save";
 import { formatNumber } from "@/functions/numbers";
 import { PostInterface } from "@/interfaces/Post";
 
@@ -9,7 +9,7 @@ interface Props {
   data: PostInterface;
 }
 
-export const PostActions: React.FC<Props> = ({ data }) => {
+const Actions: React.FC<Props> = ({ data }) => {
   const { id, user_id } = data;
   const { saved, isSaved, liked, isLiked, comments, isCommented } = data;
   const [savedNum, setSavedNum] = useState<number | undefined>(saved);
@@ -19,11 +19,11 @@ export const PostActions: React.FC<Props> = ({ data }) => {
     <div className="flex justify-between items-center mt-1">
       <section className="flex gap-x-3">
         <span className="flex items-center justify-center gap-1">
-          <LikeButton likeData={{ id, isLiked, setLikedNum, user_id }} />
+          <Like likeData={{ id, isLiked, setLikedNum, user_id }} />
           <p className="text-gray-500 text-xs">{formatNumber(likedNum)}</p>
         </span>
         <span className="flex items-center justify-center gap-1">
-          <SaveButton saveData={{ id, isSaved, setSavedNum }} />
+          <Save saveData={{ id, isSaved, setSavedNum }} />
           <p className="text-gray-500 text-xs">{formatNumber(savedNum)}</p>
         </span>
       </section>
@@ -36,3 +36,5 @@ export const PostActions: React.FC<Props> = ({ data }) => {
     </div>
   );
 };
+
+export default Actions;

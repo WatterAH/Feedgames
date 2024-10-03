@@ -4,7 +4,6 @@ import { MatchShowCase } from "./Valorant";
 export interface PostInterface {
   id: string;
   content: string;
-  tags: string[];
   order: string;
   user: User;
   user_id: string;
@@ -41,7 +40,6 @@ export const defaultPost: PostInterface = {
   isCommented: false,
   order: "",
   publicUrl: null,
-  tags: [],
   user: defaultUser,
   valMatch: null,
 };

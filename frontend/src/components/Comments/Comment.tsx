@@ -1,21 +1,22 @@
+"use client";
+import Link from "next/link";
 import React from "react";
 import ProfilePicture from "../Profile/ProfilePicture";
 import Header from "./Header";
 import Content from "./Content";
-import Link from "next/link";
 import Actions from "./Actions";
-import { PostInterface } from "@/interfaces/Post";
+import { CommentInterface } from "@/interfaces/Comment";
 
 interface Props {
-  data: PostInterface;
+  data: CommentInterface;
 }
 
-const Post: React.FC<Props> = ({ data }) => {
-  const { user, user_id } = data;
+const Comment: React.FC<Props> = ({ data }) => {
+  const { id_user, user } = data;
 
   return (
     <main className="flex flex-row gap-x-2 w-full border-b p-2 sm:px-4">
-      <Link href={`/u/${user_id}`}>
+      <Link href={`/u/${id_user}`}>
         <ProfilePicture h={40} w={40} src={user.pfp} />
       </Link>
       <div className="flex flex-col gap-y-1 w-full">
@@ -27,4 +28,4 @@ const Post: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default Post;
+export default Comment;

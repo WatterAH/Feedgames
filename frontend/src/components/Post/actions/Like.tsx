@@ -11,7 +11,7 @@ interface Props {
   user_id: string;
 }
 
-export const LikeButton = ({ likeData }: { likeData: Props }) => {
+const Like = ({ likeData }: { likeData: Props }) => {
   const { user } = useUser();
   const { id, isLiked, setLikedNum, user_id } = likeData;
   const [liked, setLiked] = useState(isLiked);
@@ -46,3 +46,5 @@ export const LikeButton = ({ likeData }: { likeData: Props }) => {
     </button>
   );
 };
+
+export default Like;

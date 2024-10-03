@@ -6,7 +6,7 @@ interface Props {
   data: PostInterface;
 }
 
-const PostContent: React.FC<Props> = ({ data }) => {
+const Content: React.FC<Props> = ({ data }) => {
   const { content, valMatch, publicUrl } = data;
   const src = `https://zptrwdrgobouoriwsfoj.supabase.co/storage/v1/object/public/Images/images/${publicUrl}`;
 
@@ -21,4 +21,4 @@ const PostContent: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default PostContent;
+export default Content;

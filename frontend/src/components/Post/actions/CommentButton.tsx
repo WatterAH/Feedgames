@@ -1,13 +1,14 @@
-import { MessageCircle } from "lucide-react";
 import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 
 interface Props {
   id: string;
   isCommented: boolean;
 }
 
-export const CommentButton = ({ commentData }: { commentData: Props }) => {
+const CommentButton = ({ commentData }: { commentData: Props }) => {
   const { id, isCommented } = commentData;
+
   return (
     <Link href={`/p/${id}`}>
       <button className="active:scale-125 transition-transform">
@@ -20,3 +21,5 @@ export const CommentButton = ({ commentData }: { commentData: Props }) => {
     </Link>
   );
 };
+
+export default CommentButton;
