@@ -7,6 +7,7 @@ import {
   Transition,
 } from "@headlessui/react";
 import { Home } from "lucide-react";
+import { stopPropagation } from "@/functions/utils";
 
 export interface Option {
   icon: ReactNode;
@@ -28,8 +29,8 @@ function classNames(...classes: string[]) {
 const Options: React.FC<Props> = ({ Icon_options, className, options }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <MenuButton className="inline-flex w-full justify-center gap-x-1.5">
+      <div onClick={stopPropagation} className="">
+        <MenuButton className=" gap-x-1.5 hover:bg-[#efefef] transition-all duration-500 rounded-full flex items-center justify-center h-8 w-8">
           <Icon_options aria-hidden="true" className={className} />
         </MenuButton>
       </div>
@@ -52,13 +53,15 @@ const Options: React.FC<Props> = ({ Icon_options, className, options }) => {
                     <a
                       className={classNames(
                         focus ? "bg-gray-100" : "",
-                        "flex items-center gap-x-2 px-4 py-2 text-gray-700 text-sm hover:cursor-pointer"
+                        "flex items-center gap-x-2 px-4 py-2 hover:cursor-pointer"
                       )}
                       href={option.href}
                       onClick={option.onClick}
                     >
                       {option.icon}
-                      {option.label}
+                      <span className="text-gray-700 text-sm">
+                        {option.label}
+                      </span>
                     </a>
                   )}
                 </MenuItem>

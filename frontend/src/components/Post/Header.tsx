@@ -6,6 +6,7 @@ import { calculateDate } from "@/functions/date";
 import { postOptions } from "@/constants/postOptions";
 import { useUser } from "@/context/AuthContext";
 import { Ellipsis } from "lucide-react";
+import { stopPropagation } from "@/functions/utils";
 
 interface Props {
   data: PostInterface;
@@ -21,7 +22,7 @@ const Header: React.FC<Props> = ({ data }) => {
   return (
     <header className="flex flex-row justify-between">
       <section className="flex flex-row items-center gap-x-1">
-        <Link href={`/u/${user_id}`}>
+        <Link href={`/u/${user_id}`} onClick={stopPropagation}>
           <p className="hover:underline text-sm font-semibold">{username}</p>
         </Link>
         <p className="text-gray-400 text-xs mt-1">{date}</p>

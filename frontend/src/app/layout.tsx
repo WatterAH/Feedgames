@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "react-photo-view/dist/react-photo-view.css";
 import { Pacifico, Raleway, Montserrat, Inter } from "next/font/google";
 import Providers from "./providers";
 

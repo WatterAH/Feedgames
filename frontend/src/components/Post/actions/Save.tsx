@@ -16,7 +16,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
   const [saved, setSaved] = useState(isSaved);
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    e.stopPropagation();
     try {
       setSaved(!saved);
       if (!saved) {
@@ -43,7 +43,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
     >
       <Bookmark
         aria-hidden="true"
-        className="h-5 text-amber-300"
+        className="h-6 text-amber-300"
         fill={saved ? "#fcd34d" : "white"}
       />
     </button>

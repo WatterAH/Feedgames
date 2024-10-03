@@ -15,7 +15,7 @@ const CommentButton = ({ commentData }: { commentData: Props }) => {
         <MessageCircle
           aria-hidden="true"
           fill={isCommented ? "#67e8f9" : "white"}
-          className="h-5 text-cyan-300"
+          className="h-6 w-6 text-cyan-300"
         />
       </button>
     </Link>

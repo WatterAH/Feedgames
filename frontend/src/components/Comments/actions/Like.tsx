@@ -19,8 +19,8 @@ const Like = ({ likeData }: { likeData: Props }) => {
   const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      setLiked(!isLiked);
-      if (!isLiked) {
+      setLiked(!liked);
+      if (!liked) {
         setLikedNum((prevNum) => prevNum + 1);
         await likeComment(user.id, id, user.username, id_user);
       } else {

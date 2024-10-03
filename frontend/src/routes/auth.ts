@@ -1,10 +1,11 @@
 import { User } from "../interfaces/User";
+const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 export const loginApi = async (
   username: string,
   password: string
 ): Promise<{ user: User; token: string }> => {
-  const res = await fetch("/api/login", {
+  const res = await fetch(`${URL}/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +26,7 @@ export const registerApi = async (
   details: string,
   password: string
 ): Promise<{ user: User; token: string }> => {
-  const res = await fetch("/api/register", {
+  const res = await fetch(`${URL}/api/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,7 +34,6 @@ export const registerApi = async (
     body: JSON.stringify({ name, username, details, password }),
   });
   const resData = await res.json();
-
   if (res.ok) {
     return resData;
   } else {
@@ -42,11 +42,9 @@ export const registerApi = async (
 };
 
 export const checkAuth = async (userToken: string): Promise<{ user: User }> => {
-  const res = await fetch("/api/session", {
-    method: "GET",
-    headers: { Authorization: userToken },
-  });
-
+  const res = await fetch(
+    `${URL}/api/checkAuth?userToken=${encodeURIComponent(userToken)}`
+  );
   const data = await res.json();
   if (res.ok) {
     return data;

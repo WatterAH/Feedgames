@@ -17,7 +17,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
   const [liked, setLiked] = useState(isLiked);
 
   const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    e.stopPropagation();
     try {
       setLiked(!liked);
       if (!liked) {
@@ -40,7 +40,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
     >
       <Heart
         aria-hidden="true"
-        className="h-5 text-rose-500"
+        className="h-6 w-6 text-rose-500"
         fill={liked ? "#f43f5e" : "white"}
       />
     </button>

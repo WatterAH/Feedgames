@@ -15,21 +15,21 @@ interface Props {
 
 const Notify: React.FC<Props> = ({ data }) => {
   const { text, created_at, type, read } = data;
-  const classname = "text-threads h-10 w-10";
+  const classname = "h-10 w-10";
   const date = calculateDate(created_at);
   const icons = [
     <Heart key={0} className={`${classname} text-red-400`} />,
-    <MessageCircle key={1} className={`${classname} text-cyan-400`} />,
+    <MessageCircle key={1} className={`${classname} text-cyan-300`} />,
     <UserRoundPlus key={2} className={`${classname} text-teal-300`} />,
   ];
 
   return (
     <div className="flex w-full border-b p-4 items-center justify-between">
       <section className="flex items-center gap-x-3">
-        {icons[type]}
+        <div>{icons[type]}</div>
         <section className="flex flex-col">
           <p className="text-icon text-sm">{date}</p>
-          <p className="text-threads">{text}</p>
+          <p className="text-threads text-sm md:text-base">{text}</p>
         </section>
       </section>
       <section>
