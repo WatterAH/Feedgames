@@ -3,6 +3,8 @@ import { useUser } from "../../../context/AuthContext";
 import { likePost, dontLikePost } from "@/routes/interactions";
 import { toast } from "sonner";
 import { Heart } from "lucide-react";
+import { animated } from "react-spring";
+import { useAnimations } from "@/hooks/useAnimations";
 
 interface Props {
   id: string;
@@ -14,10 +16,12 @@ interface Props {
 const Like = ({ likeData }: { likeData: Props }) => {
   const { user } = useUser();
   const { id, isLiked, setLikedNum, user_id } = likeData;
+  const { triggerAnimation, triggerStyle } = useAnimations();
   const [liked, setLiked] = useState(isLiked);
 
   const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    triggerAnimation();
     try {
       setLiked(!liked);
       if (!liked) {
@@ -34,16 +38,17 @@ const Like = ({ likeData }: { likeData: Props }) => {
   };
 
   return (
-    <button
+    <animated.button
+      style={triggerStyle}
       onClick={handleLike}
-      className="active:scale-125 transition-transform"
+      className="transition-transform"
     >
       <Heart
         aria-hidden="true"
-        className="h-6 w-6 text-rose-500"
+        className="h-6 w-6 md:h-5 md:w-5 text-rose-500"
         fill={liked ? "#f43f5e" : "white"}
       />
-    </button>
+    </animated.button>
   );
 };
 

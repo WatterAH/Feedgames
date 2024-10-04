@@ -5,11 +5,13 @@ import Input from "@/components/Global/Input";
 import Label from "@/components/Global/Label";
 import Link from "next/link";
 import Loader from "@/components/Global/Loader";
+import Footer from "@/components/Auth/Footer";
 import { useRegister } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Toaster } from "sonner";
-import Footer from "@/components/Auth/Footer";
+import { useAnimations } from "@/hooks/useAnimations";
+import { animated } from "react-spring";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -18,6 +20,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [viewPass, setViewPass] = useState(false);
   const { submit, loading } = useRegister();
+  const { fadeIn } = useAnimations();
   const PasswordIcon = viewPass ? Eye : EyeOff;
   const toggleViewPass = () => setViewPass(!viewPass);
 
@@ -29,7 +32,10 @@ export default function Register() {
   return (
     <>
       <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 sm:bg-barcelona">
-        <div className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-md sm:w-full sm:border">
+        <animated.div
+          style={fadeIn}
+          className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-md sm:w-full sm:border"
+        >
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-lg px-2 sm:px-9 py-4 sm:py-12"
@@ -96,7 +102,7 @@ export default function Register() {
             </div>
           </form>
           <Footer />
-        </div>
+        </animated.div>
       </main>
       <Toaster richColors position="top-center" />
     </>

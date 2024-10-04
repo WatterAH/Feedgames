@@ -3,6 +3,8 @@ import { useUser } from "../../../context/AuthContext";
 import { dontSavePost, savePost } from "@/routes/interactions";
 import { toast } from "sonner";
 import { Bookmark } from "lucide-react";
+import { useAnimations } from "@/hooks/useAnimations";
+import { animated } from "react-spring";
 
 interface Props {
   id: string;
@@ -14,9 +16,11 @@ const Save = ({ saveData }: { saveData: Props }) => {
   const { user } = useUser();
   const { id, isSaved, setSavedNum } = saveData;
   const [saved, setSaved] = useState(isSaved);
+  const { triggerAnimation, triggerStyle } = useAnimations();
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    triggerAnimation();
     try {
       setSaved(!saved);
       if (!saved) {
@@ -37,16 +41,17 @@ const Save = ({ saveData }: { saveData: Props }) => {
   };
 
   return (
-    <button
+    <animated.button
+      style={triggerStyle}
       onClick={handleSave}
-      className="active:scale-125 transition-transform"
+      className="transition-transform"
     >
       <Bookmark
         aria-hidden="true"
-        className="h-6 text-amber-300"
+        className="h-6 w-6 md:h-5 md:w-5 text-amber-300"
         fill={saved ? "#fcd34d" : "white"}
       />
-    </button>
+    </animated.button>
   );
 };
 

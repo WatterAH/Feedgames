@@ -5,16 +5,19 @@ import Label from "@/components/Global/Label";
 import Loader from "@/components/Global/Loader";
 import Header from "@/components/Auth/Header";
 import Footer from "@/components/Auth/Footer";
+import Link from "next/link";
 import { useState } from "react";
 import { useLogin } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { Toaster } from "sonner";
-import Link from "next/link";
+import { animated } from "react-spring";
+import { useAnimations } from "@/hooks/useAnimations";
 
 export default function Auth() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [viewPass, setViewPass] = useState(false);
+  const { fadeIn } = useAnimations();
   const { submit, loading } = useLogin();
   const PasswordIcon = viewPass ? Eye : EyeOff;
   const toggleViewPass = () => setViewPass(!viewPass);
@@ -27,7 +30,10 @@ export default function Auth() {
   return (
     <>
       <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 sm:bg-barcelona">
-        <div className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border">
+        <animated.div
+          style={fadeIn}
+          className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border"
+        >
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12"
@@ -78,7 +84,7 @@ export default function Auth() {
             </div>
           </form>
           <Footer />
-        </div>
+        </animated.div>
       </main>
       <Toaster richColors position="top-center" />
     </>

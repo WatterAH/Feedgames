@@ -1,4 +1,3 @@
-"use client";
 import { useCallback, useState } from "react";
 import { loginApi, registerApi } from "@/routes/auth";
 import { useUser } from "@/context/AuthContext";

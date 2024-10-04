@@ -2,9 +2,9 @@
 import Card from "@/components/Global/Card";
 import PageLoader from "@/components/Global/PageLoader";
 import Post from "@/components/Post/Post";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useUser } from "@/context/AuthContext";
 import { useFeed } from "@/hooks/useFeed";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function HomePage() {
   const { user } = useUser();
