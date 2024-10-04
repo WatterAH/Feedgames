@@ -48,7 +48,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
     >
       <Bookmark
         aria-hidden="true"
-        className="h-6 w-6 md:h-5 md:w-5 text-amber-300"
+        className="h-5 w-5 text-amber-300"
         fill={saved ? "#fcd34d" : "white"}
       />
     </animated.button>

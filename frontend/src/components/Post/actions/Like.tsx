@@ -45,7 +45,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
     >
       <Heart
         aria-hidden="true"
-        className="h-6 w-6 md:h-5 md:w-5 text-rose-500"
+        className="h-5 w-5 text-rose-500"
         fill={liked ? "#f43f5e" : "white"}
       />
     </animated.button>
