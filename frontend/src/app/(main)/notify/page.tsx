@@ -18,7 +18,7 @@ export default function NotifyPage() {
         {loading && <PageLoader />}
         {error && <h1>Error</h1>}
         {!loading && !error && (
-          <div className="flex flex-col w-full h-fit pb-14 lg:pb-0">
+          <div className="h-screen pb-16">
             {notifications.map((notify) => (
               <Notify key={notify.id} data={notify} />
             ))}

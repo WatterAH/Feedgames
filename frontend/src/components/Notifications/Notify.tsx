@@ -1,3 +1,4 @@
+import React from "react";
 import { calculateDate } from "@/functions/date";
 import { Notification } from "@/interfaces/Notification";
 import {
@@ -7,7 +8,7 @@ import {
   MessageCircle,
   UserRoundPlus,
 } from "lucide-react";
-import React from "react";
+// import Link from "next/link";
 
 interface Props {
   data: Notification;
@@ -24,6 +25,7 @@ const Notify: React.FC<Props> = ({ data }) => {
   ];
 
   return (
+    // <Link href={`/${content}/${id_linked}`}>
     <div className="flex w-full border-b p-4 items-center justify-between">
       <section className="flex items-center gap-x-3">
         <div>{icons[type]}</div>
@@ -40,6 +42,7 @@ const Notify: React.FC<Props> = ({ data }) => {
         )}
       </section>
     </div>
+    // </Link>
   );
 };
 
