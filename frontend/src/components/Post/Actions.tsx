@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Like from "./actions/Like";
 import CommentButton from "./actions/CommentButton";
 import Save from "./actions/Save";
-import { formatNumber } from "@/functions/numbers";
 import { PostInterface } from "@/interfaces/Post";
+import { formatNumber } from "@/functions/utils";
 
 interface Props {
   data: PostInterface;

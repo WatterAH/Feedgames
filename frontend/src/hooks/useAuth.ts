@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { loginApi, registerApi } from "@/routes/auth";
+import { useCallback, useEffect, useState } from "react";
+import { checkAuth, loginApi, registerApi } from "@/routes/auth";
 import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
@@ -75,4 +75,37 @@ export const useRegister = () => {
   );
 
   return { submit, loading };
+};
+
+export const useToken = () => {
+  const { login } = useUser();
+  const [cookies] = useCookies();
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!cookies.token) {
+      setLoading(false);
+      router.push("/login");
+      return;
+    }
+
+    const check = async () => {
+      try {
+        const data = await checkAuth(cookies.token);
+        const { user } = data;
+        login(user);
+      } catch (error: any) {
+        router.push("/login");
+        throw new Error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    check();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return { loading };
 };

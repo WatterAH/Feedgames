@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Like from "./actions/Like";
-import { formatNumber } from "@/functions/numbers";
 import { Forward } from "lucide-react";
 import { CommentInterface } from "@/interfaces/Comment";
+import { formatNumber } from "@/functions/utils";
 
 interface Props {
   data: CommentInterface;

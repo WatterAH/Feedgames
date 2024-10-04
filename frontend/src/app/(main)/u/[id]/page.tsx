@@ -3,12 +3,12 @@ import Card from "@/components/Global/Card";
 import PageLoader from "@/components/Global/PageLoader";
 import PostsContainer from "@/components/Post/PostsContainer";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
-import { useProfile } from "@/hooks/useProfile";
+import { useExploreProfile } from "@/hooks/useExplorer";
 import { useParams } from "next/navigation";
 
 export default function ProfilePage() {
   const { id } = useParams();
-  const { profile, posts, loading, error } = useProfile(id as string);
+  const { profile, posts, loading, error } = useExploreProfile(id as string);
 
   return (
     <main className="flex flex-col lg:ml-20 h-screen justify-center items-center  bg-barcelona sm:pt-1 md:pt-4 gap-y-3">

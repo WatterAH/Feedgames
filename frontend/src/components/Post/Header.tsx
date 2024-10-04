@@ -1,12 +1,11 @@
 import React from "react";
-import Options from "../Global/Options";
 import Link from "next/link";
+import Dropdown from "../Global/Dropdown";
 import { PostInterface } from "@/interfaces/Post";
 import { calculateDate } from "@/functions/date";
-import { postOptions } from "@/constants/postOptions";
-import { useUser } from "@/context/AuthContext";
 import { Ellipsis } from "lucide-react";
 import { stopPropagation } from "@/functions/utils";
+import { usePostOptions } from "@/hooks/useOptions";
 
 interface Props {
   data: PostInterface;
@@ -15,9 +14,8 @@ interface Props {
 const Header: React.FC<Props> = ({ data }) => {
   const { id, user_id, user, order } = data;
   const { username } = user;
-  const { user: session } = useUser();
   const date = calculateDate(order);
-  const options = postOptions(id, user_id, session, () => {});
+  const options = usePostOptions(id);
 
   return (
     <header className="flex flex-row justify-between">
@@ -28,10 +26,11 @@ const Header: React.FC<Props> = ({ data }) => {
         <p className="text-gray-400 text-xs mt-1">{date}</p>
       </section>
       <section>
-        <Options
-          Icon_options={Ellipsis}
-          className="h-5 text-gray-500"
+        <Dropdown
+          Icon={Ellipsis}
           options={options}
+          iconClass="h-5 text-secondaryicon"
+          position="left"
         />
       </section>
     </header>

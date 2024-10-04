@@ -2,8 +2,8 @@
 import React from "react";
 import "../globals.css";
 import Menu from "@/components/Menu/Menu";
-import { useToken } from "@/hooks/useToken";
 import PageLoader from "@/components/Global/PageLoader";
+import { useToken } from "@/hooks/useAuth";
 
 export default function MainLayout({
   children,

@@ -4,13 +4,16 @@ import Card from "@/components/Global/Card";
 import PageLoader from "@/components/Global/PageLoader";
 import Post from "@/components/Post/Post";
 import { useUser } from "@/context/AuthContext";
-import { usePostView } from "@/hooks/usePostView";
+import { useExplorePost } from "@/hooks/useExplorer";
 import { useParams } from "next/navigation";
 
 export default function PostPage() {
   const { id } = useParams();
   const { user } = useUser();
-  const { post, loading, comments, error } = usePostView(id as string, user.id);
+  const { post, loading, comments, error } = useExplorePost(
+    id as string,
+    user.id
+  );
 
   return (
     <main className="flex flex-col lg:ml-20 h-screen justify-center items-center  bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
