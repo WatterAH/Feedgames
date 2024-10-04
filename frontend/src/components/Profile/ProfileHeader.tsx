@@ -1,7 +1,7 @@
 import React from "react";
 import Options from "../Global/Options";
-import Button from "../Global/Button";
 import ProfilePicture from "./ProfilePicture";
+import Follow from "./Follow";
 import { User } from "@/interfaces/User";
 import { calculateDate } from "@/functions/date";
 import { ProfileOptions } from "@/constants/profileOptions";
@@ -39,7 +39,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
       </div>
       <p className="text-gray-500 text-sm font-inter">{details}</p>
       <div className="followContainer">
-        <Button>Seguir</Button>
+        <Follow data={data} />
       </div>
       <div className="detailsContainer flex flex-col gap-y-2 text-gray-500 font-inter text-sm">
         <p>Se unió el {date}</p>

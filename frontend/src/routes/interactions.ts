@@ -97,14 +97,13 @@ export const followUser = async (
   id_followed: string,
   username: string
 ): Promise<void> => {
-  const body = { id_follower, id_followed, username };
   const res = await fetch(`${URL}/api/followUser`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ id_follower, id_followed, username }),
   });
 
   if (!res.ok) {
