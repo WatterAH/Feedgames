@@ -66,8 +66,8 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
         <ValStat title="ACS" stat={stats.scorePerRound} Icon={Sparkles} />
         <ValStat title="HS" stat={stats.hsPercentage} Icon={Percent} />
         <ValStat title="Economía" stat={stats.economyRatio} Icon={DollarSign} />
-        <ValStat title="ADR" stat={stats.killsPerRound} Icon={UserRoundX} />
-        <ValStat title="KPR" stat={stats.damagePerRound} Icon={ShieldAlert} />
+        <ValStat title="KPR" stat={stats.killsPerRound} Icon={UserRoundX} />
+        <ValStat title="ADR" stat={stats.damagePerRound} Icon={ShieldAlert} />
       </main>
     </div>
   );
