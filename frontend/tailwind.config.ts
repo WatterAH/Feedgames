@@ -15,6 +15,7 @@ const config: Config = {
         threads: "#202020",
         icon: "#b8b8b8",
         secondaryicon: "#999",
+        loading: "#eaeaea",
       },
       fontFamily: {
         pacifico: ["var(--font-pacifico)"],

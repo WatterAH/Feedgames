@@ -5,14 +5,19 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import Button from "../Global/Button";
+import ProfilePicture from "../Profile/ProfilePicture";
+import { useUser } from "@/context/AuthContext";
+import { Image as ImageIcon } from "lucide-react";
 
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const New: React.FC<Props> = ({ open, setOpen }) => {
-  const [text, setText] = useState("");
+  const { user } = useUser();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const [text, setText] = useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -21,17 +26,14 @@ const New: React.FC<Props> = ({ open, setOpen }) => {
 
   const adjustHeight = () => {
     if (textareaRef.current) {
-      // Resetea la altura para recalcular en base al contenido actual
       textareaRef.current.style.height = "auto";
-      // Ajusta la altura en función del scrollHeight
       textareaRef.current.style.height = `${Math.min(
         textareaRef.current.scrollHeight,
-        200 // Altura máxima en píxeles, ajustable según lo que necesites
+        200
       )}px`;
     }
   };
 
-  // Ajustar la altura cuando el componente se monta o cambia el contenido
   useEffect(() => {
     adjustHeight();
   }, [text]);
@@ -58,8 +60,14 @@ const New: React.FC<Props> = ({ open, setOpen }) => {
                   >
                     Nuevo Post
                   </DialogTitle>
-                  <div className="mt-2">
-                    <form action="">
+                  <div className="mt-2 flex flex-col gap-x-2">
+                    <div className="flex items-center gap-x-2">
+                      <ProfilePicture src={user.pfp} w={40} h={40} />
+                      <div className="mb-2">
+                        <p className="font-semibold">{user.username}</p>
+                      </div>
+                    </div>
+                    <form className="w-full mt-3">
                       <textarea
                         ref={textareaRef}
                         value={text}
@@ -69,7 +77,13 @@ const New: React.FC<Props> = ({ open, setOpen }) => {
                         rows={1}
                         style={{ maxHeight: "200px", overflowY: "auto" }}
                       />
+                      <div className="mt-3 flex">
+                        <ImageIcon className="text-secondaryicon h-5" />
+                      </div>
                     </form>
+                    <div className="mt-5 w-full">
+                      <Button>Publicar</Button>
+                    </div>
                   </div>
                 </div>
               </div>

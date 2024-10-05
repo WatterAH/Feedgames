@@ -1,7 +1,7 @@
 import React from "react";
 import Imagep from "./contents/Image";
+import MatchPost from "./contents/Match";
 import { PostInterface } from "@/interfaces/Post";
-import { MatchPost } from "./contents/Match";
 
 interface Props {
   data: PostInterface;

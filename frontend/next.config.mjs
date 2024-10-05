@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: "zptrwdrgobouoriwsfoj.supabase.co",
         pathname: "/storage/v1/object/public/Images/pfp/**",
       },
+      {
+        protocol: "https",
+        hostname: "media.valorant-api.com",
+        pathname: "/agents/**",
+      },
     ],
   },
 };
