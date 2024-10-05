@@ -9,7 +9,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { useLogin } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
-import { Toaster } from "sonner";
 import { animated } from "react-spring";
 import { useAnimations } from "@/hooks/useAnimations";
 
@@ -28,65 +27,62 @@ export default function Auth() {
   };
 
   return (
-    <>
-      <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 sm:bg-barcelona">
-        <animated.div
-          style={fadeIn}
-          className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border"
+    <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 sm:bg-barcelona">
+      <animated.div
+        style={fadeIn}
+        className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border"
+      >
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12"
         >
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12"
-          >
-            <Header />
-            <div id="usernameContainer" className="flex flex-col">
-              <Label htmlFor="username">Nombre de usuario</Label>
+          <Header />
+          <div id="usernameContainer" className="flex flex-col">
+            <Label htmlFor="username">Nombre de usuario</Label>
+            <Input
+              id="username"
+              placeholder="Nombre de usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoFocus
+            />
+          </div>
+          <div id="passwordContainer" className="flex flex-col">
+            <span className="relative">
+              <Label htmlFor="password">Contraseña</Label>
               <Input
-                id="username"
-                placeholder="Nombre de usuario"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                autoFocus
+                id="password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type={`${viewPass ? "text" : "password"}`}
               />
-            </div>
-            <div id="passwordContainer" className="flex flex-col">
-              <span className="relative">
-                <Label htmlFor="password">Contraseña</Label>
-                <Input
-                  id="password"
-                  placeholder="Contraseña"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type={`${viewPass ? "text" : "password"}`}
-                />
-                <button
-                  className="absolute bottom-2 right-2 text-gray-400 active:scale-125 transition-transform"
-                  type="button"
-                  onClick={toggleViewPass}
-                >
-                  <PasswordIcon className="h-6 sm:h-5 text-gray-400" />
-                </button>
-              </span>
-            </div>
-            <Link
-              href={"/register"}
-              className="font-raleway mt-2 text-xs text-center text-gray-400"
-            >
-              ¿No tienes cuenta?
-            </Link>
-            <div
-              id="submitContainer"
-              className="flex justify-center items-center relative"
-            >
-              <Button type="submit" disabled={!password || !username}>
-                {loading ? <Loader /> : "Continuar"}
-              </Button>
-            </div>
-          </form>
-          <Footer />
-        </animated.div>
-      </main>
-      <Toaster richColors position="top-center" />
-    </>
+              <button
+                className="absolute bottom-2 right-2 text-gray-400 active:scale-125 transition-transform"
+                type="button"
+                onClick={toggleViewPass}
+              >
+                <PasswordIcon className="h-6 sm:h-5 text-gray-400" />
+              </button>
+            </span>
+          </div>
+          <Link
+            href={"/register"}
+            className="font-raleway mt-2 text-xs text-center text-gray-400"
+          >
+            ¿No tienes cuenta?
+          </Link>
+          <div
+            id="submitContainer"
+            className="flex justify-center items-center relative"
+          >
+            <Button type="submit" disabled={!password || !username}>
+              {loading ? <Loader /> : "Continuar"}
+            </Button>
+          </div>
+        </form>
+        <Footer />
+      </animated.div>
+    </main>
   );
 }

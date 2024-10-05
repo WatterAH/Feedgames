@@ -87,6 +87,7 @@ export const useToken = () => {
     if (!cookies.token) {
       setLoading(false);
       router.push("/login");
+      setLoading(false);
       return;
     }
 

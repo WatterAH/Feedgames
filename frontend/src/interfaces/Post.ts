@@ -1,4 +1,4 @@
-import { User, defaultUser } from "./User";
+import { User } from "./User";
 import { MatchShowCase } from "./Valorant";
 
 export interface PostInterface {
@@ -27,19 +27,3 @@ export interface Note {
   note: string;
   created_at: string;
 }
-
-export const defaultPost: PostInterface = {
-  id: "",
-  user_id: "",
-  comments: 0,
-  liked: 0,
-  saved: 0,
-  content: "",
-  isLiked: false,
-  isSaved: false,
-  isCommented: false,
-  order: "",
-  publicUrl: null,
-  user: defaultUser,
-  valMatch: null,
-};

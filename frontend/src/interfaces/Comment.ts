@@ -1,17 +1,4 @@
-import { User, defaultUser } from "./User";
-
-export const defaultComment: CommentInterface = {
-  id: "",
-  comment: "",
-  order: "",
-  id_post: "",
-  id_user: "",
-  response: false,
-  responses: [],
-  user: defaultUser,
-  comments_liked: [],
-  isLiked: false,
-};
+import { User } from "./User";
 
 export interface CommentInterface {
   id: string;
