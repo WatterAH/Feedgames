@@ -6,6 +6,7 @@ import {
   BellRing,
   House,
   Search,
+  Send,
   SquarePen,
   User,
 } from "lucide-react";
@@ -25,8 +26,11 @@ const Menu = () => {
       <ul className="flex flex-row justify-between lg:flex-col items-center lg:py-16 gap-y-5">
         <Item href="/home" currentPathname={pathname} Icon={House} />
         <Item href="/search" currentPathname={pathname} Icon={Search} />
-        <Item href="" currentPathname={pathname} Icon={SquarePen} />
+        <div className="lg:hidden">
+          <Item href="" currentPathname={pathname} Icon={SquarePen} />
+        </div>
         <Item href="/notify" currentPathname={pathname} Icon={BellRing} />
+        <Item href="" currentPathname={pathname} Icon={Send} />
         <Item href={`/u/${user.id}`} currentPathname={pathname} Icon={User} />
       </ul>
       <div className="hidden lg:block hover:cursor-pointer">

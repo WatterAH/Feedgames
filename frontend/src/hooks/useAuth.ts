@@ -25,6 +25,7 @@ export const useLogin = () => {
           secure: true,
           sameSite: "none",
         });
+        toast.success(`Sesión iniciada como ${user.username}`);
         router.push("/");
       } catch (error: any) {
         const { message } = error;
@@ -87,7 +88,6 @@ export const useToken = () => {
     if (!cookies.token) {
       setLoading(false);
       router.push("/login");
-      setLoading(false);
       return;
     }
 

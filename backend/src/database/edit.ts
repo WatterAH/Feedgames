@@ -11,7 +11,7 @@ export const editProfile = async (
     .from("users")
     .update({ username, name, details, pfp })
     .eq("id", id)
-    .select("id, created_at, name, username, details")
+    .select("id, created_at, name, username, details, pfp")
     .single();
   return { user, error };
 };

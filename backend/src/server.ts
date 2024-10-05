@@ -7,7 +7,7 @@ const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
     origin: [
-      "http://localhost:5173",
+      "http://localhost:3000",
       "https://feedgames.vercel.app",
       "http://192.168.1.70:19006",
     ],

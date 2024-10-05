@@ -3,6 +3,7 @@ import React from "react";
 import "../globals.css";
 import Menu from "@/components/Menu/Menu";
 import PageLoader from "@/components/Global/PageLoader";
+import Create from "@/components/Menu/Create";
 import { useToken } from "@/hooks/useAuth";
 
 export default function MainLayout({
@@ -18,6 +19,7 @@ export default function MainLayout({
     <>
       <Menu />
       {children}
+      <Create />
     </>
   );
 }
