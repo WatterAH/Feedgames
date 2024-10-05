@@ -11,16 +11,13 @@ export default function HomePage() {
   const { loading, posts, error, getPosts, allLoaded } = useFeed(user.id);
 
   return (
-    <main className="flex flex-col lg:ml-20 h-screen justify-center items-center  bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
+    <main className="flex flex-col lg:ml-20 h-screen justify-center items-center  bg-barcelona sm:pt-1 md:pt-4 gap-y-3 pb-14 lg:pb-0">
       <h3 className="font-semibold text-threads hidden md:block">Feed</h3>
       <Card loading={loading}>
         {loading && <PageLoader />}
         {error && <h1>Error</h1>}
         {!loading && !error && (
-          <div
-            id="scroll"
-            className="overflow-y-auto scrollbar-none h-fit pb-14 lg:pb-0"
-          >
+          <div id="scroll" className="overflow-y-auto scrollbar-none">
             <InfiniteScroll
               className="scrollbar-none"
               dataLength={posts.length}

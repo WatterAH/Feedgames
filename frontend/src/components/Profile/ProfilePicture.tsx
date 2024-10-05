@@ -8,9 +8,7 @@ interface Props {
 }
 
 const ProfilePicture: React.FC<Props> = ({ src, h, w }) => {
-  const href = src
-    ? `https://zptrwdrgobouoriwsfoj.supabase.co/storage/v1/object/public/Images/pfp/${src}`
-    : "/default.png";
+  const href = src ? process.env.NEXT_PUBLIC_IMAGES + src : "/default.png";
 
   return (
     <div className={`w-[${w}] w-[${h}] bg-[#eaeaea] rounded-full`}>

@@ -33,7 +33,7 @@ const Menu = () => {
         <Dropdown
           Icon={AlignLeft}
           options={options}
-          iconClass="h-8 w-8 hover:text-threads"
+          iconClass="h-8 w-8 text-icon hover:text-threads transition-all duration-500"
           position="top"
         />
       </div>

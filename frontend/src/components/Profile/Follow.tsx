@@ -3,6 +3,7 @@ import { User } from "@/interfaces/User";
 import { dontFollowUser, followUser } from "@/routes/interactions";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import Edit from "./Edit";
 
 interface Props {
   data: User;
@@ -13,6 +14,7 @@ const Follow: React.FC<Props> = (props) => {
   const { user } = useUser();
   const isSameUser = user.id === id;
   const [followState, setFollowState] = useState(isSameUser ? true : follow);
+  const [editing, setEditing] = useState(false);
 
   const handleFollow = async () => {
     try {
@@ -28,14 +30,17 @@ const Follow: React.FC<Props> = (props) => {
   };
 
   return (
-    <button
-      onClick={isSameUser ? () => null : handleFollow}
-      className={`p-2 h-9 text-sm flex justify-center items-center ${
-        followState ? "bg-white text-black border" : "bg-threads text-white"
-      } rounded-lg w-full font-semibold active:scale-90 transition-all duration-300`}
-    >
-      {isSameUser ? "Editar perfil" : followState ? "Siguiendo" : "Seguir"}
-    </button>
+    <>
+      <button
+        onClick={isSameUser ? () => setEditing(true) : handleFollow}
+        className={`p-2 h-9 text-sm flex justify-center items-center ${
+          followState ? "bg-white text-black border" : "bg-threads text-white"
+        } rounded-lg w-full font-semibold active:scale-90 transition-all duration-300`}
+      >
+        {isSameUser ? "Editar perfil" : followState ? "Siguiendo" : "Seguir"}
+      </button>
+      <Edit open={editing} setOpen={setEditing} />
+    </>
   );
 };
 
