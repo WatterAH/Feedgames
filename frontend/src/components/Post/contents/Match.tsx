@@ -16,7 +16,7 @@ interface Props {
   stats: MatchShowCase;
 }
 const MatchPost: React.FC<Props> = ({ stats }) => {
-  const [characterIcon, setCharacterIcon] = useState("");
+  const [characterIcon, setCharacterIcon] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchIcons = async () => {
@@ -30,13 +30,15 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
     <div className="flex flex-col border shadow-md gap-y-6 rounded-md py-6 md:py-10">
       <header className="flex gap-3 w-full justify-center flex-col items-center">
         <div id="playerCharacter" className="rounded-full bg-loading">
-          <Image
-            src={characterIcon}
-            width={64}
-            height={64}
-            alt=""
-            className="rounded-full"
-          />
+          {characterIcon && (
+            <Image
+              src={characterIcon}
+              width={64}
+              height={64}
+              alt=""
+              className="rounded-full"
+            />
+          )}
         </div>
         <div
           id="playerInfo"

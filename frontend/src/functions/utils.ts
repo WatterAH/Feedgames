@@ -1,5 +1,6 @@
 import copy from "clipboard-copy";
 import { MouseEvent } from "react";
+import { toast } from "sonner";
 
 export const isImage = (file: File): boolean => {
   const extensionList: string[] = ["jpg", "jpeg", "gif", "png", "webp", "heic"];
@@ -29,5 +30,6 @@ export const share = (content: "u" | "p", id: string) => {
     });
   } else {
     copy(`https://feedgames.vercel.app/${content}/${id}`);
+    toast.success("Se copió al portapapeles");
   }
 };

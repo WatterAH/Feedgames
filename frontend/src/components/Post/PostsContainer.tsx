@@ -8,7 +8,7 @@ interface Props {
 
 const PostsContainer: React.FC<Props> = ({ posts }) => {
   return (
-    <div className="flex flex-col overflow-y-auto">
+    <div className="flex flex-col overflow-y-auto scrollbar-none">
       {posts.map((post) => (
         <Post data={post} key={post.id} />
       ))}

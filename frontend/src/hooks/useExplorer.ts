@@ -42,7 +42,7 @@ export const useExploreProfile = (userId: string | undefined) => {
 
   useEffect(() => {
     setLoading(true);
-    loadProfile().then(() => setLoading(false));
+    loadProfile().finally(() => setLoading(false));
   }, [user.id, userId, loadProfile]);
 
   return { profile, posts, loading, error };
@@ -81,7 +81,7 @@ export const useExplorePost = (
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([getPost(), getComments()]).then(() => setLoading(false));
+    Promise.all([getPost(), getComments()]).finally(() => setLoading(false));
   }, [getPost, getComments]);
 
   return { post, comments, loading, error };

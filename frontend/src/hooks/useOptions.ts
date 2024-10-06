@@ -1,5 +1,5 @@
 import { User } from "@/interfaces/User";
-import { LogOut, Share } from "lucide-react";
+import { Bookmark, Heart, LogOut, Share } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
@@ -49,6 +49,16 @@ const useMenuOptions = () => {
   const router = useRouter();
 
   return [
+    {
+      label: "Me gusta",
+      icon: Heart,
+      onClick: () => router.push("/liked"),
+    },
+    {
+      label: "Guardado",
+      icon: Bookmark,
+      onClick: () => router.push("/saved"),
+    },
     {
       label: "Cerrar Sesión",
       icon: LogOut,
