@@ -20,9 +20,9 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
 
   return (
     <header className="flex flex-col gap-y-4 w-full p-3 lg:px-4 border-b">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between items-center">
         <div className="namesContainer flex flex-row items-center gap-x-3">
-          <ProfilePicture src={pfp} w={96} h={96} />
+          <ProfilePicture src={pfp} w={96} h={96} viewer />
           <Names data={data} />
         </div>
         <Dropdown Icon={Menu} options={options} position="left" />

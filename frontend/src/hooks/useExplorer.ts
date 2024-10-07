@@ -42,7 +42,9 @@ export const useExploreProfile = (userId: string | undefined) => {
 
   useEffect(() => {
     setLoading(true);
-    loadProfile().finally(() => setLoading(false));
+    loadProfile()
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, [user.id, userId, loadProfile]);
 
   return { profile, posts, loading, error };

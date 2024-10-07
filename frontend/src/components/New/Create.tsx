@@ -70,7 +70,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
     <Dialog open={open} onClose={setOpen} className="relative z-30">
       <DialogBackdrop
         transition
-        className="fixed inset-0 backdrop-blur bg-black/20 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+        className="fixed inset-0 backdrop-blur-sm bg-black/15 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
       />
 
       <div className="fixed inset-0 z-10">

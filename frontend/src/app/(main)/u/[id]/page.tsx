@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/components/Global/Card";
+import Error from "@/components/Global/Error";
 import PageLoader from "@/components/Global/PageLoader";
 import PostsContainer from "@/components/Post/PostsContainer";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
@@ -15,7 +16,7 @@ export default function ProfilePage() {
       <h3 className="font-semibold text-threads hidden md:block">Perfil</h3>
       <Card loading={loading}>
         {loading && <PageLoader />}
-        {error && <h1>Error</h1>}
+        {error && <Error />}
         {!loading && !error && (
           <div className="overflow-y-auto scrollbar-none">
             {profile && <ProfileHeader data={profile} />}
