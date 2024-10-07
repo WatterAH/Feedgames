@@ -10,15 +10,15 @@ import { processPost } from "../libs/server";
 
 export const createNewPost: RequestHandler = async (req, res) => {
   try {
-    let { user_id, content, tags, valMatch } = req.body;
-    tags = JSON.parse(tags);
+    let { user_id, content, valMatch } = req.body;
     valMatch = JSON.parse(valMatch);
-
     const image = req.file;
     let publicUrl = null;
+
     if (!content.trim() && !image && !valMatch) {
       return res.status(400).json({ message: "No se permiten posts vacios" });
     }
+
     if (image?.buffer) {
       const { filename, error } = await uploadImage(image, "images");
       if (error) {
@@ -28,8 +28,7 @@ export const createNewPost: RequestHandler = async (req, res) => {
     }
     const data = {
       user_id,
-      content: content.trim(),
-      tags,
+      content,
       publicUrl,
       valMatch,
     };
