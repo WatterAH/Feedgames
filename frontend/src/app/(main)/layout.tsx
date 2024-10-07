@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import "../globals.css";
+import New from "@/components/New/New";
 import Menu from "@/components/Menu/Menu";
 import PageLoader from "@/components/Global/PageLoader";
-import New from "@/components/New/New";
 import { useToken } from "@/hooks/useAuth";
 
 export default function MainLayout({
@@ -17,8 +17,8 @@ export default function MainLayout({
     </div>
   ) : (
     <>
-      <Menu />
       {children}
+      <Menu />
       <New />
     </>
   );

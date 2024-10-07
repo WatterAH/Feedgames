@@ -23,7 +23,7 @@ export default function SearchPage() {
                 <Search className="text-icon h-5 absolute top-4 left-3" />
                 <input
                   type="text"
-                  className="p-4 font-montserrat text-base sm:text-sm pl-12 outline-none border rounded-2xl w-full bg-barcelona placeholder-icon text-threads"
+                  className="p-3 lg:py-4 font-montserrat text-base sm:text-sm pl-12 outline-none border rounded-2xl w-full bg-barcelona placeholder-icon text-threads"
                   placeholder="Busca personas, posts..."
                 />
               </div>

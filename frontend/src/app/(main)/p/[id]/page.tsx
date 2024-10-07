@@ -22,7 +22,7 @@ export default function PostPage() {
         {loading && <PageLoader />}
         {error && <h1>Error</h1>}
         {!loading && !error && post && (
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-14 lg:pt-0">
             <Post data={post} />
             <h4 className="text-gray-500 px-3 border-b py-2">
               Comentarios
