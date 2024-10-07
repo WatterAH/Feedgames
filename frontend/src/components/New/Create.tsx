@@ -115,7 +115,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                     </form>
                   </div>
                 </div>
-                <div className="flex items-center justify-between w-full backdrop-blur-md px-4 py-2 bg-barcelona bg-opacity-90 rounded-b-md">
+                <div className="flex items-center justify-between w-full backdrop-blur-md px-4 pb-5 md:py-2 md:bg-barcelona">
                   <p className="text-xs text-secondaryicon font-raleway">
                     Cualquiera en{" "}
                     <span className="font-pacifico">Feedgames</span> puede ver
