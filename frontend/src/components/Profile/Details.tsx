@@ -8,7 +8,7 @@ interface Props {
 
 const Details: React.FC<Props> = ({ data }) => {
   const { followers, followed, created_at } = data;
-  const date = calculateDate(created_at);
+  const date = calculateDate(created_at, true);
 
   return (
     <div className="detailsContainer flex flex-col gap-y-2 text-secondaryicon font-inter text-sm">
