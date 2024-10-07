@@ -10,7 +10,7 @@ export default function NotifyPage() {
   const { notifications, loading, error } = useNotifications(user.id);
 
   return (
-    <main className="flex flex-col h-screen justify-center items-center  bg-barcelona sm:pt-1 md:pt-4 gap-y-3 pb-14 lg:pb-0">
+    <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
       <h1 className="font-semibold text-threads hidden md:block">
         Notificaciones
       </h1>
@@ -18,7 +18,7 @@ export default function NotifyPage() {
         {loading && <PageLoader />}
         {error && <h1>Error</h1>}
         {!loading && !error && (
-          <div>
+          <div className="pb-14 lg:pb-0">
             {notifications.map((notify) => (
               <Notify key={notify.id} data={notify} />
             ))}

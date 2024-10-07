@@ -27,7 +27,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
         </div>
         <Dropdown Icon={Menu} options={options} position="left" />
       </div>
-      <p className="text-gray-500 text-sm font-inter">{details}</p>
+      <p className="text-secondaryicon text-sm font-inter">{details}</p>
       <div className="followContainer">
         <Follow data={data} />
       </div>

@@ -11,7 +11,7 @@ const Details: React.FC<Props> = ({ data }) => {
   const date = calculateDate(created_at);
 
   return (
-    <div className="detailsContainer flex flex-col gap-y-2 text-gray-500 font-inter text-sm">
+    <div className="detailsContainer flex flex-col gap-y-2 text-secondaryicon font-inter text-sm">
       <p>Se unió el {date}</p>
       <span>
         {followers} {followers == 1 ? "Seguidor" : "Seguidores"} · {followed}{" "}
