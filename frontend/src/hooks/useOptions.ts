@@ -1,5 +1,5 @@
 import { User } from "@/interfaces/User";
-import { Bookmark, Heart, LogOut, Share } from "lucide-react";
+import { Bookmark, Gamepad2, Heart, LogOut, Share } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
@@ -18,6 +18,7 @@ const useProfileOptions = (user: User, id: string) => {
       ? {
           label: "Riot Games",
           onClick: () => null,
+          icon: Gamepad2,
         }
       : null,
     user.id === id

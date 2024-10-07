@@ -13,7 +13,7 @@ const Image: React.FC<Props> = ({ publicUrl }) => {
   return (
     <PhotoProvider maskOpacity={0.8} bannerVisible={false}>
       <div
-        className="w-full relative h-96 hover:cursor-pointer"
+        className="w-full relative bg-loading rounded-md h-96 hover:cursor-pointer"
         onClick={stopPropagation}
       >
         <PhotoView src={src}>
