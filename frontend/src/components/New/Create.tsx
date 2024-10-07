@@ -79,8 +79,8 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
             transition
             className="relative transform overflow-hidden md:rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 w-full md:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
-            <div className="bg-white px-4 pb-5 pt-5 h-screen md:h-full sm:pb-5 relative">
-              <div className="sm:flex sm:items-start">
+            <div className="bg-white pt-5 h-screen md:h-full relative">
+              <div className="sm:flex sm:items-end flex-col">
                 <div className="mt-3 sm:mt-0 sm:text-left w-full">
                   <DialogTitle
                     as="h3"
@@ -94,14 +94,14 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                   >
                     <X className="text-threads" />
                   </div>
-                  <div className="mt-2 flex flex-col gap-x-2">
+                  <div className="mt-2 flex flex-col gap-x-2 px-4">
                     <div className="flex items-center gap-x-2">
                       <ProfilePicture src={user.pfp} w={40} h={40} />
                       <div className="mb-2">
                         <p className="font-semibold">{user.username}</p>
                       </div>
                     </div>
-                    <form className="w-full mt-3 overflow-y-auto scrollbar-thin h-96 md:h-64">
+                    <form className="w-full mt-3 overflow-y-auto scrollbar-thin h-96 md:h-64 pb-2">
                       <TextArea text={text} setText={setText} />
                       <div className="">
                         <Preview preview={preview} setPreview={setPreview} />
@@ -115,8 +115,15 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                     </form>
                   </div>
                 </div>
-                <div className="mt-5 absolute bottom-3 right-3">
-                  <Button onClick={handleSubmit}>Publicar</Button>
+                <div className="flex items-center justify-between w-full backdrop-blur-md px-4 py-2 bg-barcelona bg-opacity-90 rounded-b-md">
+                  <p className="text-xs text-secondaryicon font-raleway">
+                    Cualquiera en{" "}
+                    <span className="font-pacifico">Feedgames</span> puede ver
+                    esto.
+                  </p>
+                  <div className="w-20">
+                    <Button onClick={handleSubmit}>Publicar</Button>
+                  </div>
                 </div>
               </div>
             </div>
