@@ -1,7 +1,8 @@
 "use client";
 import Comment from "@/components/Comments/Comment";
 import Card from "@/components/Global/Card";
-import PageLoader from "@/components/Global/PageLoader";
+import Error from "@/components/Global/Error";
+import Loader from "@/components/Global/Loader";
 import Post from "@/components/Post/Post";
 import { useUser } from "@/context/AuthContext";
 import { useExplorePost } from "@/hooks/useExplorer";
@@ -19,8 +20,8 @@ export default function PostPage() {
     <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
       <h3 className="font-semibold text-threads hidden md:block">Post</h3>
       <Card loading={loading}>
-        {loading && <PageLoader />}
-        {error && <h1>Error</h1>}
+        {loading && <Loader size="large" color="dark" />}
+        {error || (!post && <Error item="Post" />)}
         {!loading && !error && post && (
           <div className="flex flex-col pb-14 lg:pt-0">
             <Post data={post} />

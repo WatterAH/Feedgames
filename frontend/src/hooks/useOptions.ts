@@ -1,8 +1,11 @@
 import { User } from "@/interfaces/User";
-import { Bookmark, Gamepad2, Heart, LogOut, Share } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
+import { useUser } from "@/context/AuthContext";
+import { deletePostById } from "@/routes/post";
+import { toast } from "sonner";
+import { Bookmark, Gamepad2, Heart, LogOut, Share, Trash2 } from "lucide-react";
 
 const useProfileOptions = (user: User, id: string) => {
   const [, , removeCookie] = useCookies();
@@ -35,13 +38,33 @@ const useProfileOptions = (user: User, id: string) => {
   ].filter(Boolean);
 };
 
-const usePostOptions = (id: string) => {
+const usePostOptions = (id: string, userId: string) => {
+  const { user } = useUser();
+
+  const deletePost = () => {
+    toast.promise(deletePostById(id), {
+      loading: "Eliminando...",
+      success: () => {
+        return "Eliminado";
+      },
+      error: (err) => err.message,
+    });
+  };
+
   return [
     {
       label: "Compartir",
       icon: Share,
       onClick: () => share("p", id),
     },
+    user.id === userId
+      ? {
+          label: "Eliminar",
+          icon: Trash2,
+          color: "text-red-400",
+          onClick: deletePost,
+        }
+      : null,
   ].filter(Boolean);
 };
 

@@ -95,7 +95,7 @@ export default function Register() {
           </Link>
           <div className="flex justify-center items-center relative">
             <Button type="submit" disabled={!password || !username}>
-              {loading ? <Loader /> : "Continuar"}
+              {loading ? <Loader size="small" color="white" /> : "Continuar"}
             </Button>
           </div>
         </form>

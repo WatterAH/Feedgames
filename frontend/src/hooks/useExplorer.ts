@@ -65,7 +65,6 @@ export const useExplorePost = (
       const data = await getPostById(postId, userId);
       setPost(data);
     } catch (error: any) {
-      setError(true);
       throw new Error(error.message);
     }
   }, [postId, userId]);
@@ -76,14 +75,15 @@ export const useExplorePost = (
       const data = await fetchComments(postId, userId);
       setComments(data);
     } catch (error: any) {
-      setError(true);
       throw new Error(error.message);
     }
   }, [postId, userId]);
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([getPost(), getComments()]).finally(() => setLoading(false));
+    Promise.all([getPost(), getComments()])
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, [getPost, getComments]);
 
   return { post, comments, loading, error };

@@ -58,7 +58,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
         setImage(null);
         setValMatch(null);
         setPreview(null);
-        return "Hecho!";
+        return "Publicado";
       },
       error: (err) => {
         return err.message;
@@ -80,7 +80,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
             className="relative transform overflow-hidden md:rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 w-full md:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
             <div className="bg-white pt-5 h-screen md:h-full relative">
-              <div className="sm:flex sm:items-end flex-col">
+              <div className="flex flex-col">
                 <div className="mt-3 sm:mt-0 sm:text-left w-full">
                   <DialogTitle
                     as="h3"
@@ -115,7 +115,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                     </form>
                   </div>
                 </div>
-                <div className="flex items-center justify-between w-full backdrop-blur-md px-4 pb-5 md:py-2 md:bg-barcelona">
+                <div className="flex items-center justify-between w-full px-4 md:py-2 md:bg-barcelona absolute bottom-5 md:bottom-0">
                   <p className="text-xs text-secondaryicon font-raleway">
                     Cualquiera en{" "}
                     <span className="font-pacifico">Feedgames</span> puede ver

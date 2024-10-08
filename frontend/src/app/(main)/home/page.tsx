@@ -1,11 +1,11 @@
 "use client";
 import Card from "@/components/Global/Card";
-import PageLoader from "@/components/Global/PageLoader";
 import Post from "@/components/Post/Post";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useUser } from "@/context/AuthContext";
-import { useFeed } from "@/hooks/useFeed";
 import Header from "@/components/Menu/Header";
+import Loader from "@/components/Global/Loader";
+import { useFeed } from "@/hooks/useFeed";
+import { useUser } from "@/context/AuthContext";
 
 export default function HomePage() {
   const { user } = useUser();
@@ -16,19 +16,19 @@ export default function HomePage() {
       <Header />
       <h3 className="font-semibold text-threads hidden md:block">Feed</h3>
       <Card loading={loading}>
-        {loading && <PageLoader />}
+        {loading && <Loader size="large" color="dark" />}
         {error && <h1>Error</h1>}
         {!loading && !error && (
           <div
             id="scroll"
-            className="overflow-y-auto scrollbar-none pt-16 lg:pt-0 pb-14 lg:pb-0"
+            className="overflow-y-auto scrollbar-none pt-16 md:pt-0 pb-14 lg:pb-0"
           >
             <InfiniteScroll
               className="scrollbar-none"
               dataLength={posts.length}
               next={getPosts}
               hasMore={!allLoaded}
-              loader={<PageLoader />}
+              loader={<Loader size="large" color="dark" />}
               scrollableTarget={"scroll"}
             >
               {posts.map((post) => (

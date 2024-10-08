@@ -15,7 +15,7 @@ const Header: React.FC<Props> = ({ data }) => {
   const { id, user_id, user, order } = data;
   const { username } = user;
   const date = calculateDate(order);
-  const options = usePostOptions(id);
+  const options = usePostOptions(id, user_id);
 
   return (
     <header className="flex flex-row justify-between">

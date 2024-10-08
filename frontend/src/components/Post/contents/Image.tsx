@@ -1,6 +1,6 @@
 import React from "react";
 import NextImage from "next/image";
-import PageLoader from "@/components/Global/PageLoader";
+import Loader from "@/components/Global/Loader";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import { stopPropagation } from "@/functions/utils";
 
@@ -16,7 +16,7 @@ const Image: React.FC<Props> = ({ publicUrl }) => {
       className="backdrop-blur-sm"
       maskOpacity={0.5}
       bannerVisible={false}
-      loadingElement={<PageLoader color="loading" />}
+      loadingElement={<Loader size="large" color="white" />}
     >
       <div
         className="w-full relative bg-loading rounded-md h-96 hover:cursor-pointer"

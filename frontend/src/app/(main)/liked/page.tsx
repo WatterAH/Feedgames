@@ -1,6 +1,6 @@
 "use client";
 import Card from "@/components/Global/Card";
-import PageLoader from "@/components/Global/PageLoader";
+import Loader from "@/components/Global/Loader";
 import PostsContainer from "@/components/Post/PostsContainer";
 import { useUser } from "@/context/AuthContext";
 import { usePosts } from "@/hooks/usePosts";
@@ -14,7 +14,7 @@ export default function LikedPage() {
         Tus me gusta
       </h3>
       <Card loading={loading}>
-        {loading && <PageLoader />}
+        {loading && <Loader size="large" color="dark" />}
         {error && <h1>error</h1>}
         {!loading && !error && <PostsContainer posts={posts} />}
       </Card>

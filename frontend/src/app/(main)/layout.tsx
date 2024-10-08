@@ -3,7 +3,7 @@ import React from "react";
 import "../globals.css";
 import New from "@/components/New/New";
 import Menu from "@/components/Menu/Menu";
-import PageLoader from "@/components/Global/PageLoader";
+import Loader from "@/components/Global/Loader";
 import { useToken } from "@/hooks/useAuth";
 
 export default function MainLayout({
@@ -13,7 +13,7 @@ export default function MainLayout({
 
   return loading ? (
     <div className="h-screen flex items-center justify-center">
-      <PageLoader />
+      <Loader size="large" color="dark" />
     </div>
   ) : (
     <>

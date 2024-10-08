@@ -1,6 +1,6 @@
 "use client";
 import Card from "@/components/Global/Card";
-import PageLoader from "@/components/Global/PageLoader";
+import Loader from "@/components/Global/Loader";
 import Notify from "@/components/Notifications/Notify";
 import { useUser } from "@/context/AuthContext";
 import { useNotifications } from "@/hooks/useNotifications";
@@ -15,7 +15,7 @@ export default function NotifyPage() {
         Notificaciones
       </h1>
       <Card loading={loading}>
-        {loading && <PageLoader />}
+        {loading && <Loader size="large" color="dark" />}
         {error && <h1>Error</h1>}
         {!loading && !error && (
           <div className="pb-14 lg:pb-0">

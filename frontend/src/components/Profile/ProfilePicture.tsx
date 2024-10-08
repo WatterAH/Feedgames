@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import PageLoader from "../Global/PageLoader";
+import Loader from "../Global/Loader";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 
 interface Props {
@@ -18,7 +18,7 @@ const ProfilePicture: React.FC<Props> = ({ src, h, w, viewer }) => {
       className="backdrop-blur-sm"
       maskOpacity={0.5}
       bannerVisible={false}
-      loadingElement={<PageLoader color="loading" />}
+      loadingElement={<Loader size="large" color="white" />}
     >
       <div
         className="relative bg-loading rounded-full overflow-hidden"
@@ -30,11 +30,18 @@ const ProfilePicture: React.FC<Props> = ({ src, h, w, viewer }) => {
               src={href}
               alt=""
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover cursor-pointer rounded-full"
             />
           </PhotoView>
         ) : (
-          <Image src={href} alt="" fill className="object-cover" />
+          <Image
+            src={href}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
         )}
       </div>
     </PhotoProvider>
