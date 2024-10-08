@@ -10,6 +10,8 @@ import { Bookmark, Gamepad2, Heart, LogOut, Share, Trash2 } from "lucide-react";
 const useProfileOptions = (user: User, id: string) => {
   const [, , removeCookie] = useCookies();
   const router = useRouter();
+  const RSO =
+    "https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid";
 
   return [
     {
@@ -20,7 +22,9 @@ const useProfileOptions = (user: User, id: string) => {
     user.id === id
       ? {
           label: "Riot Games",
-          onClick: () => null,
+          onClick: () => {
+            router.push(RSO);
+          },
           icon: Gamepad2,
         }
       : null,

@@ -1,6 +1,6 @@
 import { useMenuOptions } from "@/hooks/useOptions";
 import React from "react";
-import { AlignLeft } from "lucide-react";
+import { AlignRight } from "lucide-react";
 import Dropdown from "../Global/Dropdown";
 
 const Header = () => {
@@ -12,7 +12,7 @@ const Header = () => {
         <h1 className="font-pacifico text-threads text-3xl text-center">Fg</h1>
         <div className="hover:cursor-pointer absolute right-2 top-0">
           <Dropdown
-            Icon={AlignLeft}
+            Icon={AlignRight}
             options={options}
             iconClass="h-8 w-8 text-icon hover:text-threads transition-all duration-500"
             position="left"

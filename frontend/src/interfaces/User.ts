@@ -8,6 +8,11 @@ export const defaultUser: User = {
   followed: 0,
   followers: 0,
   follow: false,
+  riotId: {
+    puuid: "",
+    gameName: "",
+    tagLine: "",
+  },
 };
 
 export interface Followed {
@@ -28,4 +33,9 @@ export interface User {
   followed: number;
   followers: number;
   follow: boolean;
+  riotId: {
+    puuid: string;
+    gameName: string;
+    tagLine: string;
+  };
 }

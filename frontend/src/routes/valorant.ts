@@ -1,3 +1,4 @@
+import { User } from "@/interfaces/User";
 import { Match, MatchList } from "@/interfaces/Valorant";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
@@ -41,21 +42,28 @@ export const getCharacterIcon = async (
     throw new Error("Error al cargar la imagen");
   } else {
     const resData = await res.json();
-    // let { abilities } = resData.data;
     const { displayIconSmall, bustPortrait } = resData.data;
-    // abilities = abilities.map((abilitie: any) => abilitie.displayIcon);
     return full ? bustPortrait : displayIconSmall;
   }
 };
 
-export const getMapIcon = async (mapId: string) => {
-  const ENDPOINT = `https://valorant-api.com/v1/maps/${mapId}`;
-  const res = await fetch(ENDPOINT);
-  if (!res.ok) {
-    throw new Error("Error al cargar la imagen");
+export const setRiotId = async (
+  token: string,
+  userId: string
+): Promise<{ user: User; token: string }> => {
+  const res = await fetch(`${URL}/val/setRiotId`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token, userId }),
+  });
+
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData;
   } else {
-    const resData = await res.json();
-    const { listViewIcon } = resData.data;
-    return listViewIcon;
+    throw new Error(resData.message);
   }
 };
