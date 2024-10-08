@@ -21,7 +21,7 @@ export default function PostPage() {
       <h3 className="font-semibold text-threads hidden md:block">Post</h3>
       <Card loading={loading}>
         {loading && <Loader size="large" color="dark" />}
-        {error || (!post && <Error item="Post" />)}
+        {error && !post && <Error item="Post" />}
         {!loading && !error && post && (
           <div className="flex flex-col pb-14 lg:pt-0">
             <Post data={post} />
