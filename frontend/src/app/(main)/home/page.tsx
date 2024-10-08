@@ -6,10 +6,12 @@ import Header from "@/components/Menu/Header";
 import Loader from "@/components/Global/Loader";
 import { useFeed } from "@/hooks/useFeed";
 import { useUser } from "@/context/AuthContext";
+import { useRiotToken } from "@/hooks/useAuth";
 
 export default function HomePage() {
   const { user } = useUser();
   const { loading, posts, error, getPosts, allLoaded } = useFeed(user.id);
+  useRiotToken();
 
   return (
     <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 md:pt-4 gap-y-3 relative">

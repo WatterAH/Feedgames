@@ -115,21 +115,20 @@ export const useRiotToken = () => {
   useEffect(() => {
     if (riotToken && user.id) {
       const setData = async () => {
-        try {
-          const data = await setRiotId(riotToken, user.id);
-          login(data.user);
-          setCookie("token", data.token, {
-            expires: getExpirationDate(),
-          });
-          toast.success(
-            `Cuenta de Riot vinculada con éxito. (${user.riotId.gameName} #${user.riotId.tagLine})`
-          );
-        } catch (error: any) {
-          toast.error(error.message);
-        }
+        toast.promise(setRiotId(riotToken, user.id), {
+          loading: "Vinculando...",
+          success: (data) => {
+            login(data.user);
+            setCookie("token", data.token, {
+              expires: getExpirationDate(),
+            });
+            return "Cuenta de Riot vinculada con éxito.";
+          },
+          error: (err) => err.message,
+        });
       };
       setData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [riotToken, login, setCookie, user.id]);
+  }, [riotToken, user.id]);
 };
