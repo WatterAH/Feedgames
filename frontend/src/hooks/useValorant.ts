@@ -3,7 +3,7 @@ import { getExpirationDate } from "@/functions/date";
 import { Match } from "@/interfaces/Valorant";
 import { getMatchByUuid, getMatchesList, setRiotId } from "@/routes/valorant";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
 
@@ -40,7 +40,7 @@ export const useGetMatches = () => {
   const { puuid } = user.riotId;
   const [matches, setMatches] = useState<Match[]>([]);
 
-  const fetchMatches = async () => {
+  const fetchMatches = useCallback(async () => {
     try {
       const matchsIds = await getMatchesList(puuid);
       const promises = matchsIds.history.map((match) =>
@@ -49,14 +49,14 @@ export const useGetMatches = () => {
       const matchesList = await Promise.all(promises);
       setMatches(matchesList);
     } catch (error: any) {
-      throw new Error(error.message);
       toast.error("Algo salió mal");
+      throw new Error(error.message);
     }
-  };
+  }, [puuid]);
 
   useEffect(() => {
     fetchMatches();
-  }, []);
+  }, [fetchMatches]);
 
   return { matches };
 };

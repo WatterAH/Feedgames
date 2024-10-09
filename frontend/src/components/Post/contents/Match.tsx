@@ -48,10 +48,8 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
             {stats.gameName}
             <span className="text-gray-600 text-xs"> #{stats.tagLine}</span>
           </p>
-          <span className="flex items-center gap-x-1 text-gray-600">
+          <span className="flex items-center gap-x-1 text-gray-600 pb-1">
             <p className="text-xs">{stats.queueId}</p>
-            <p className="text-lg font-montserrat">·</p>
-            <p className="text-xs">{stats.mapName}</p>
           </span>
           <span className="flex items-center text-gray-600 text-xs font-inter">
             <p>{stats.playerStats.kills}/</p>

@@ -18,14 +18,6 @@ export interface Round {
   };
 }
 
-export type queueId =
-  | "ggteam"
-  | "competitive"
-  | "unrated"
-  | "swiftplay"
-  | "spikerush"
-  | "";
-
 export interface Stats {
   score: number;
   kills: number;
@@ -66,7 +58,7 @@ export interface Match {
     matchInfo: {
       matchId: string;
       mapId: string;
-      queueId: queueId;
+      queueId: "competitive" | "unrated" | "swiftplay";
     };
     teams: [
       { teamId: "Blue" | "Red"; won: boolean; roundsWon: number },
@@ -79,7 +71,7 @@ export interface Match {
     kda: string;
     characterId: string;
     results: string;
-    queueId: string;
+    queueId: "competitive" | "unrated" | "swiftplay";
     mapId: string;
     won: boolean;
   };
@@ -88,8 +80,7 @@ export interface Match {
 export interface MatchShowCase {
   gameName: string | null;
   tagLine: string | null;
-  mapName: string;
-  queueId: string;
+  queueId: "Competitivo" | "Normal" | "Swiftplay";
   characterId: string;
   playerStats: Stats;
   kda: number;

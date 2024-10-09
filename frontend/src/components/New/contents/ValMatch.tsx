@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getCharacterIcon } from "@/routes/valorant";
 import { useEffect, useState } from "react";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
-import { getMapName, getQueueId, valMatchStats } from "@/functions/valorant";
+import { getQueueId, valMatchStats } from "@/functions/valorant";
 
 interface Props {
   riotId: {
@@ -56,7 +56,6 @@ const ValMatch: React.FC<Props> = ({ match, riotId, setVal }) => {
         <p className="text-xs text-center text-gray-600">{preview.results}</p>
       </div>
       <div className="flex flex-col text-xs w-1/3 text-end">
-        <p className="text-gray-500">{getMapName(preview.mapId)}</p>
         <p className="text-gray-700">{getQueueId(preview.queueId)}</p>
       </div>
     </li>
