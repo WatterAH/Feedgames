@@ -79,7 +79,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                 <div className="mt-3 sm:mt-0 sm:text-left w-full">
                   <div
                     id="title"
-                    className="flex justify-between px-4 text-threads"
+                    className="flex justify-between px-2 text-threads"
                   >
                     <button
                       className="rounded-full hover:bg-gray-100 hover:cursor-pointer p-2 transition-all duration-500"

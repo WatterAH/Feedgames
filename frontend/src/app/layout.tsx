@@ -41,6 +41,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+      />
       <body
         className={`${pacifico.variable} ${raleway.variable} ${montserrat.variable} ${inter.variable} antialiased scrollbar-thumb-secondaryicon scrollbar-thumb-rounded-full scrollbar-track-white scrollbar-track-rounded-full`}
       >
