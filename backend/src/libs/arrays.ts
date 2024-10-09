@@ -2,8 +2,8 @@ import { Match } from "../interfaces/Valorant";
 
 export const filterMatch = (match: Match, puuid: string) => {
   let { matchInfo, players, teams, roundResults } = match;
-  let { matchId, mapId, queueId } = matchInfo;
-  matchInfo = { matchId, mapId, queueId };
+  let { matchId, queueId } = matchInfo;
+  matchInfo = { matchId, queueId };
   let player: any = players.find((player) => player.puuid == puuid);
   let { teamId, characterId, stats } = player;
   let { score, kills, deaths, assists } = stats;

@@ -1,4 +1,5 @@
 import { PostInterface } from "../interfaces/Post";
+import { Match, PlayerInGame } from "../interfaces/Valorant";
 
 export const processPost = (post: PostInterface, userId: string) => {
   const { liked, saved, comments, ...rest } = post;
@@ -13,5 +14,24 @@ export const processPost = (post: PostInterface, userId: string) => {
     isSaved,
     comments: comments.length,
     isCommented,
+  };
+};
+
+export const processMatch = (match: Match) => {
+  const { matchInfo, player, teams } = match;
+  const { queueId } = matchInfo;
+  const { characterId, teamId, stats } = player as PlayerInGame;
+  const myTeam = teams.find((team) => team.teamId == teamId);
+  const enemyTeam = teams.find((team) => team.teamId !== teamId);
+
+  return {
+    preview: {
+      kda: `${stats.kills}/${stats.deaths}/${stats.assists}`,
+      characterId,
+      results: `${myTeam?.roundsWon}:${enemyTeam?.roundsWon} `,
+      queueId,
+      won: myTeam?.won,
+    },
+    match,
   };
 };

@@ -2,7 +2,8 @@ import dotenv from "dotenv";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { RequestHandler } from "express";
-import { Player } from "../interfaces/Valorant";
+import { supabase } from "../database/connection";
+import { processMatch } from "../libs/server";
 
 dotenv.config();
 
@@ -35,7 +36,7 @@ export const oauth2_callback: RequestHandler = async (req, res) => {
       return res.redirect(`/val/getPlayerUuid?access_token=${access_token}`);
     }
   } catch (error) {
-    return res.redirect("https://feedgames.vercel.app");
+    return res.redirect("https://feedgames.vercel.app/home");
   }
 };
 
@@ -58,23 +59,18 @@ export const getPlayerUuid: RequestHandler = async (req, res) => {
       const userData = await response.json();
       const riotToken = await createAccessToken(userData);
       return res.redirect(
-        "https://feedgames.vercel.app?riotToken=" +
+        "https://feedgames.vercel.app/home?riotToken=" +
           encodeURIComponent(riotToken as string)
       );
     }
   } catch (error) {
-    return res.redirect("https://feedgames.vercel.app?");
+    return res.redirect("https://feedgames.vercel.app/home");
   }
 };
 
 export const getMatchesList: RequestHandler = async (req, res) => {
   try {
-    const { token } = req.query;
-    const userData = await validateToken(token as string);
-    if (!userData) {
-      return res.status(401).json({ message: "Token invalido o expirado" });
-    }
-    const { puuid } = userData as Player;
+    const { puuid } = req.query;
     const ENDPOINT_URL = `https://na.api.riotgames.com/val/match/v1/matchlists/by-puuid/${puuid}`;
     const response = await fetch(ENDPOINT_URL, {
       // @ts-ignore
@@ -95,7 +91,7 @@ export const getMatchesList: RequestHandler = async (req, res) => {
           match.queueId == "unrated" ||
           match.queueId == "swiftplay"
       );
-      return res.status(200).json({ history: history.slice(0, 20), puuid });
+      return res.status(200).json({ history: history.slice(0, 15), puuid });
     }
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
@@ -117,8 +113,31 @@ export const getMatchByUuid: RequestHandler = async (req, res) => {
     } else {
       let match = await response.json();
       match = filterMatch(match, puuid as string);
-      return res.status(200).json(match);
+      return res.status(200).json(processMatch(match));
     }
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const setRiotId: RequestHandler = async (req, res) => {
+  try {
+    const { token, userId } = req.body;
+    const userData = await validateToken(token);
+    if (!userData) return res.status(403).json({ message: "Ocurrió un error" });
+    const riotId = userData as any;
+    delete riotId.exp;
+    delete riotId.iat;
+    const { data, error } = await supabase
+      .from("users")
+      .update({ riotId })
+      .eq("id", userId)
+      .select("id, created_at, name, username, details, pfp, riotId")
+      .single();
+
+    if (error) return res.status(403).json({ message: "Ocurrió un error" });
+    const userToken = await createAccessToken(data);
+    return res.status(200).json({ token: userToken, user: data });
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }

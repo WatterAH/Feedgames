@@ -51,7 +51,6 @@ export interface Round {
 export interface Match {
   matchInfo: {
     matchId: string;
-    mapId: string;
     queueId: queueId;
   };
   players: Player[];

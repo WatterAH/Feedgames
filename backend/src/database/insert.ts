@@ -6,7 +6,7 @@ export const registerUser = async (user: User) => {
   const { data, error } = await supabase
     .from("users")
     .insert([user])
-    .select("id, name, username, details, pfp")
+    .select("id, name, username, details, pfp, riotId")
     .single();
   return { data, error };
 };
