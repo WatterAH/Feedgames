@@ -112,10 +112,12 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                           setImage={setImage}
                           setPreview={setPreview}
                         />
-                        <MatchInput
-                          setValMatch={setValMatch}
-                          setPreview={setPreview}
-                        />
+                        {user.riotId && (
+                          <MatchInput
+                            setValMatch={setValMatch}
+                            setPreview={setPreview}
+                          />
+                        )}
                       </div>
                     </form>
                   </div>
