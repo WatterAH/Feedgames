@@ -32,7 +32,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 gap-y-3 relative scrollbar-thin">
+    <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 md:pt-4 gap-y-3 relative scrollbar-thin">
       <Header />
       <h3 className="font-semibold text-threads hidden md:block">Feed</h3>
       <Card loading={loading}>
