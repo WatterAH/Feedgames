@@ -35,7 +35,7 @@ const MatchInput: React.FC<Props> = ({ setValMatch, setPreview }) => {
           <Gamepad2 className="text-secondaryicon h-5" />
         </button>
         {isOpen && (
-          <ul className="absolute mt-2 z-20 w-64 h-40 scrollbar-thin overflow-y-auto border rounded-md bg-white shadow-lg">
+          <ul className="absolute mt-2 z-20 w-64 h-56 md:h-40 scrollbar-thin overflow-y-auto border rounded-md bg-white shadow-lg">
             {matches.map((match, i) => (
               <ValMatch
                 key={i}

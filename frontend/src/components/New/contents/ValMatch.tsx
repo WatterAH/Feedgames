@@ -34,7 +34,7 @@ const ValMatch: React.FC<Props> = ({ match, riotId, setVal }) => {
   return (
     <li
       onClick={handleClick}
-      className={`flex justify-between hover:cursor-pointer items-center p-2 font-inter border-b ${
+      className={`flex justify-between hover:cursor-pointer items-center p-3 font-inter border-b border-neutral-400 ${
         preview.won ? "bg-blue-200" : "bg-red-200"
       }`}
     >
@@ -56,7 +56,7 @@ const ValMatch: React.FC<Props> = ({ match, riotId, setVal }) => {
         <p className="text-xs text-center text-gray-600">{preview.results}</p>
       </div>
       <div className="flex flex-col text-xs w-1/3 text-end">
-        <p className="text-gray-700">{getQueueId(preview.queueId)}</p>
+        <p className="text-gray-600">{getQueueId(preview.queueId)}</p>
       </div>
     </li>
   );
