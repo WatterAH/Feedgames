@@ -17,7 +17,7 @@ export default function SearchPage() {
         {loading && <Loader size="large" color="dark" />}
         {error && <h1>Error</h1>}
         {!loading && !error && (
-          <div className="overflow-y-auto scrollbar-none pt-5">
+          <div className="lg:overflow-y-auto scrollbar-none pt-5">
             <header className="w-full px-5 space-y-3 mb-3">
               <div className="relative">
                 <Search className="text-icon h-5 absolute top-4 left-3" />

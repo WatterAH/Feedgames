@@ -33,7 +33,7 @@ const Dropdown: React.FC<Props> = ({ Icon, iconClass, options, position }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div onClick={stopPropagation}>
-        <MenuButton className="w-full justify-center gap-x-1.5 p-2 text-threads sm:hover:bg-gray-100 rounded-full transition-all duration-500 lg:active:scale-75">
+        <MenuButton className="w-full justify-center gap-x-1.5 p-2 text-threads sm:hover:bg-gray-100 rounded-full transition-all duration-500 active:scale-75">
           <Icon className={iconClass} />
         </MenuButton>
       </div>

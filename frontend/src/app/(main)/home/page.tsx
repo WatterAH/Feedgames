@@ -7,14 +7,32 @@ import Loader from "@/components/Global/Loader";
 import { useFeed } from "@/hooks/useFeed";
 import { useUser } from "@/context/AuthContext";
 import { useRiotToken } from "@/hooks/useValorant";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const { user } = useUser();
   const { loading, posts, error, getPosts, allLoaded } = useFeed(user.id);
+  const [scrollableTarget, setScrollableTarget] = useState("");
   useRiotToken();
 
+  useEffect(() => {
+    const updateScrollableTarget = () => {
+      if (window.innerWidth >= 1024) {
+        setScrollableTarget("scr");
+      } else {
+        setScrollableTarget("");
+      }
+    };
+    updateScrollableTarget();
+    window.addEventListener("resize", updateScrollableTarget);
+
+    return () => {
+      window.removeEventListener("resize", updateScrollableTarget);
+    };
+  }, []);
+
   return (
-    <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 md:pt-4 gap-y-3 relative">
+    <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 gap-y-3 relative scrollbar-thin">
       <Header />
       <h3 className="font-semibold text-threads hidden md:block">Feed</h3>
       <Card loading={loading}>
@@ -22,16 +40,20 @@ export default function HomePage() {
         {error && <h1>Error</h1>}
         {!loading && !error && (
           <div
-            id="scroll"
-            className="overflow-y-auto scrollbar-none pt-16 md:pt-0 pb-14 lg:pb-0"
+            id="scr"
+            className="lg:overflow-auto scrollbar-none pt-16 md:pt-0 pb-14 lg:pb-0"
           >
             <InfiniteScroll
               className="scrollbar-none"
               dataLength={posts.length}
               next={getPosts}
               hasMore={!allLoaded}
-              loader={<Loader size="large" color="dark" />}
-              scrollableTarget={"scroll"}
+              scrollableTarget={scrollableTarget}
+              loader={
+                <div className="py-2">
+                  <Loader size="large" color="dark" />
+                </div>
+              }
             >
               {posts.map((post) => (
                 <Post data={post} key={post.id} />

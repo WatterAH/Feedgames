@@ -18,7 +18,7 @@ export default function ProfilePage() {
         {loading && <Loader size="large" color="dark" />}
         {error && <Error item="Usuario" />}
         {!loading && !error && (
-          <div className="overflow-y-auto scrollbar-none">
+          <div className="lg:overflow-y-auto scrollbar-none">
             {profile && <ProfileHeader data={profile} />}
             <div className="w-full h-fit flex flex-col">
               <PostsContainer posts={posts} />

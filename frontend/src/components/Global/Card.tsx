@@ -9,7 +9,7 @@ const Card: React.FC<Props> = ({ children, loading }) => {
     <div
       className={`flex flex-col ${
         loading && "justify-center items-center"
-      } lg:pt-2 bg-white sm:rounded-t-3xl sm:shadow-md border-x border-t h-screen max-w-2xl w-full overflow-y-auto scrollbar-none`}
+      } lg:pt-2 bg-white sm:rounded-t-3xl sm:shadow-md border-x border-t h-screen max-w-2xl w-full lg:overflow-y-auto scrollbar-none`}
     >
       {children}
     </div>
