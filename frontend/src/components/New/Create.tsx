@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { useUser } from "@/context/AuthContext";
 import { createPost } from "@/routes/post";
 import { MatchShowCase } from "@/interfaces/Valorant";
+import MatchInput from "./contents/MatchInput";
 
 interface Props {
   open: boolean;
@@ -106,9 +107,13 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                       <div className="">
                         <Preview preview={preview} setPreview={setPreview} />
                       </div>
-                      <div className="flex">
+                      <div className="flex gap-x-2">
                         <ImageInput
                           setImage={setImage}
+                          setPreview={setPreview}
+                        />
+                        <MatchInput
+                          setValMatch={setValMatch}
                           setPreview={setPreview}
                         />
                       </div>

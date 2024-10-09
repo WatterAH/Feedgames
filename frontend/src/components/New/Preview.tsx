@@ -21,7 +21,7 @@ const Preview: React.FC<Props> = ({ preview, setPreview }) => {
   };
 
   return (
-    <div className=" p-2 relative">
+    <div className="p-2 relative">
       {preview && (
         <div
           className="absolute rounded-full bg-gray-100 right-3 top-3 hover:cursor-pointer p-1"

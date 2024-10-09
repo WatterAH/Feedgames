@@ -62,17 +62,27 @@ export interface MatchList {
 }
 
 export interface Match {
-  matchInfo: {
-    matchId: string;
-    mapId: string;
-    queueId: queueId;
+  match: {
+    matchInfo: {
+      matchId: string;
+      mapId: string;
+      queueId: queueId;
+    };
+    teams: [
+      { teamId: "Blue" | "Red"; won: boolean; roundsWon: number },
+      { teamId: "Blue" | "Red"; won: boolean; roundsWon: number }
+    ];
+    player: PlayerInGame;
+    roundResults: Round[];
   };
-  teams: [
-    { teamId: "Blue" | "Red"; won: boolean; roundsWon: number },
-    { teamId: "Blue" | "Red"; won: boolean; roundsWon: number }
-  ];
-  player: PlayerInGame;
-  roundResults: Round[];
+  preview: {
+    kda: string;
+    characterId: string;
+    results: string;
+    queueId: string;
+    mapId: string;
+    won: boolean;
+  };
 }
 
 export interface MatchShowCase {
@@ -83,8 +93,6 @@ export interface MatchShowCase {
   characterId: string;
   playerStats: Stats;
   kda: number;
-  roundsWon: number | undefined;
-  roundsLoose: number | undefined;
   killsPerRound: number;
   scorePerRound: string;
   damagePerRound: number;

@@ -4,8 +4,7 @@ import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
-import { setRiotId } from "@/routes/valorant";
+import { useRouter } from "next/navigation";
 
 export const useLogin = () => {
   const { login } = useUser();
@@ -104,31 +103,4 @@ export const useToken = () => {
   }, []);
 
   return { loading };
-};
-
-export const useRiotToken = () => {
-  const { login, user } = useUser();
-  const searchParams = useSearchParams();
-  const riotToken = searchParams.get("riotToken");
-  const [, setCookie] = useCookies();
-
-  useEffect(() => {
-    if (riotToken && user.id) {
-      const setData = async () => {
-        toast.promise(setRiotId(riotToken, user.id), {
-          loading: "Vinculando...",
-          success: (data) => {
-            login(data.user);
-            setCookie("token", data.token, {
-              expires: getExpirationDate(),
-            });
-            return "Cuenta de Riot vinculada con éxito.";
-          },
-          error: (err) => err.message,
-        });
-      };
-      setData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [riotToken, user.id]);
 };

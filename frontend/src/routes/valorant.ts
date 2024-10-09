@@ -2,9 +2,9 @@ import { User } from "@/interfaces/User";
 import { Match, MatchList } from "@/interfaces/Valorant";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
-export const getMatchesList = async (token: string): Promise<MatchList> => {
+export const getMatchesList = async (puuid: string): Promise<MatchList> => {
   const res = await fetch(
-    `${URL}/val/getMatchesList?token=${encodeURIComponent(token)}`
+    `${URL}/val/getMatchesList?puuid=${encodeURIComponent(puuid)}`
   );
   const resData = await res.json();
 

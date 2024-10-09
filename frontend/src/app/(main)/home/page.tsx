@@ -6,7 +6,7 @@ import Header from "@/components/Menu/Header";
 import Loader from "@/components/Global/Loader";
 import { useFeed } from "@/hooks/useFeed";
 import { useUser } from "@/context/AuthContext";
-import { useRiotToken } from "@/hooks/useAuth";
+import { useRiotToken } from "@/hooks/useValorant";
 
 export default function HomePage() {
   const { user } = useUser();
