@@ -26,7 +26,7 @@ export default function ProfilePage() {
       <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10">
         {(loadP || loadU) && <ProfileLoader />}
         {(errorU || errP) && <Error />}
-        {profile && (
+        {!loadP && !loadU && profile && (
           <>
             <ProfileHeader data={profile} />
             <PostContainer posts={posts} hasMore={hasMore} getPost={getPosts} />
