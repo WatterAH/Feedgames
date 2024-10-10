@@ -1,31 +1,38 @@
 "use client";
-import Card from "@/components/Global/Card";
-import Error from "@/components/Global/Error";
-import Loader from "@/components/Global/Loader";
-import PostsContainer from "@/components/Post/PostsContainer";
+import Title from "@/layout/Pages/Title";
+import Card from "@/layout/Pages/Card";
+import Error from "@/layout/Pages/Error";
+import PostContainer from "@/layout/Pages/PostContainer";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
-import { useExploreProfile } from "@/hooks/useExplorer";
 import { useParams } from "next/navigation";
+import { usePosts } from "@/hooks/usePosts";
+import { useUser } from "@/context/AuthContext";
+import { ProfileLoader } from "@/layout/Pages/Loaders";
+import { useExploreProfile } from "@/hooks/useExplorer";
 
 export default function ProfilePage() {
   const { id } = useParams();
-  const { profile, posts, loading, error } = useExploreProfile(id as string);
+  const { user } = useUser();
+  const userId = id as string;
+  const userData = useExploreProfile(userId, user.id);
+  const postsData = usePosts(userId, "profile", user.id);
+  const { profile, loading: loadU, error: errorU } = userData;
+  const { posts, hasMore, getPosts, error: errP } = postsData;
 
   return (
-    <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
-      <h3 className="font-semibold text-threads hidden md:block">Perfil</h3>
-      <Card loading={loading}>
-        {loading && <Loader size="large" color="dark" />}
-        {error && <Error item="Usuario" />}
-        {!loading && !error && (
-          <div className="lg:overflow-y-auto scrollbar-none">
-            {profile && <ProfileHeader data={profile} />}
-            <div className="w-full h-fit flex flex-col">
-              <PostsContainer posts={posts} />
-            </div>
-          </div>
+    <main className="flex flex-col h-screen items-center bg-barcelona relative">
+      <Title title="Perfil" />
+      <Card />
+      <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10">
+        {loadU && <ProfileLoader />}
+        {(errorU || errP) && <Error />}
+        {profile && (
+          <>
+            <ProfileHeader data={profile} />
+            <PostContainer posts={posts} hasMore={hasMore} getPost={getPosts} />
+          </>
         )}
-      </Card>
+      </div>
     </main>
   );
 }

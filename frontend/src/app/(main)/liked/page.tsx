@@ -1,23 +1,31 @@
 "use client";
-import Card from "@/components/Global/Card";
-import Loader from "@/components/Global/Loader";
-import PostsContainer from "@/components/Post/PostsContainer";
+import Card from "@/layout/Pages/Card";
+import Error from "@/layout/Pages/Error";
+import Title from "@/layout/Pages/Title";
+import PostContainer from "@/layout/Pages/PostContainer";
 import { useUser } from "@/context/AuthContext";
 import { usePosts } from "@/hooks/usePosts";
+import { PostsLoader } from "@/layout/Pages/Loaders";
 
 export default function LikedPage() {
-  const { user } = useUser();
-  const { posts, loading, error } = usePosts(user.id, "liked");
+  const {
+    user: { id },
+  } = useUser();
+  const { posts, loading, error, getPosts, hasMore } = usePosts(id, "liked");
+
+  const RenderContent = () => {
+    if (loading) return <PostsLoader count={8} />;
+    if (error) return <Error />;
+    return <PostContainer posts={posts} hasMore={hasMore} getPost={getPosts} />;
+  };
+
   return (
-    <main className="flex flex-col h-screen justify-center items-center bg-barcelona sm:pt-1 md:pt-4 gap-y-3">
-      <h3 className="font-semibold text-threads hidden md:block">
-        Tus me gusta
-      </h3>
-      <Card loading={loading}>
-        {loading && <Loader size="large" color="dark" />}
-        {error && <h1>error</h1>}
-        {!loading && !error && <PostsContainer posts={posts} />}
-      </Card>
+    <main className="flex flex-col h-screen items-center bg-barcelona relative">
+      <Title title="Te gusta" />
+      <Card />
+      <div className="w-full max-w-2xl md:mt-[11vh] pb-14 lg:pb-0 z-10">
+        <RenderContent />
+      </div>
     </main>
   );
 }

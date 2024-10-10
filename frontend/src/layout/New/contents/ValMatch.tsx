@@ -6,7 +6,7 @@ import { getQueueId, valMatchStats } from "@/functions/valorant";
 
 interface Props {
   riotId: {
-    puuid: string;
+    puuid: string | undefined;
     gameName: string;
     tagLine: string;
   };

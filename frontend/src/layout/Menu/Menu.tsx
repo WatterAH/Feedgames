@@ -10,10 +10,10 @@ import {
   SquarePen,
   User,
 } from "lucide-react";
-import Dropdown from "../Global/Dropdown";
 import { useMenuOptions } from "@/hooks/useOptions";
 import { useState } from "react";
 import Create from "../New/Create";
+import Dropdown from "@/components/Global/Dropdown";
 
 const Menu = () => {
   const { user } = useUser();
@@ -23,7 +23,7 @@ const Menu = () => {
 
   return (
     <>
-      <div className="w-full lg:w-20 bottom-0 fixed left-0 lg:top-0 px-3 z-20 h-14 lg:h-full bg-barcelona backdrop-blur-md bg-opacity-80 flex flex-col justify-center lg:justify-between lg:py-4 lg:items-center">
+      <div className="w-full lg:w-20 bottom-0 fixed left-0 lg:top-0 px-3 z-50 h-14 lg:h-full bg-barcelona backdrop-blur-md bg-opacity-80 flex flex-col justify-center lg:justify-between lg:py-4 lg:items-center">
         <h1 className="font-pacifico text-3xl text-threads text-center hidden lg:block">
           Fg
         </h1>

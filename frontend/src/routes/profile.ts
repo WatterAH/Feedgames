@@ -22,15 +22,19 @@ export const getProfile = async (
   }
 };
 
-export const getProfilePost = async (
+export const profilePosts = async (
   id: string,
-  myID: string
+  page: number,
+  limit: number,
+  myID?: string
 ): Promise<PostInterface[]> => {
-  const res = await fetch(
-    `${URL}/api/getProfilePosts?id=${encodeURIComponent(
+  let endpoint = "";
+  if (myID) {
+    endpoint = `${URL}/api/getProfilePosts?id=${encodeURIComponent(
       id
-    )}&myID=${encodeURIComponent(myID)}`
-  );
+    )}&page=${page}&limit=${limit}&myID=${encodeURIComponent(myID)}`;
+  }
+  const res = await fetch(endpoint);
   const resData = await res.json();
   if (res.ok) {
     return resData as PostInterface[];

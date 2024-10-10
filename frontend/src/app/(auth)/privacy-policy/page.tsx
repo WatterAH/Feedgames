@@ -1,5 +1,5 @@
-import LegalPoint from "@/components/Auth/LegalPoint";
-import ListItem from "@/components/Auth/LegalItem";
+import LegalPoint from "@/layout/Auth/LegalPoint";
+import ListItem from "@/layout/Auth/LegalItem";
 
 export default function PrivacyPolicy() {
   return (

@@ -3,13 +3,14 @@ import Preview from "./Preview";
 import TextArea from "./TextArea";
 import ImageInput from "./contents/ImageInput";
 import MatchInput from "./contents/MatchInput";
-import ProfilePicture from "../Profile/ProfilePicture";
+import ProfilePicture from "@/components/Profile/ProfilePicture";
 import { Check, X } from "lucide-react";
 import { toast } from "sonner";
 import { useUser } from "@/context/AuthContext";
 import { createPost } from "@/routes/post";
 import { MatchShowCase } from "@/interfaces/Valorant";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import { useGetMatches } from "@/hooks/useValorant";
 
 interface Props {
   open: boolean;
@@ -17,6 +18,7 @@ interface Props {
 }
 const Create: React.FC<Props> = ({ open, setOpen }) => {
   const { user } = useUser();
+  const { matches } = useGetMatches(user.riotId.puuid);
   const [text, setText] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [valMatch, setValMatch] = useState<MatchShowCase | null>(null);
@@ -62,10 +64,10 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
   };
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-30">
+    <Dialog open={open} onClose={setOpen} className="relative z-50">
       <DialogBackdrop
         transition
-        className="fixed inset-0 backdrop-blur-sm bg-black/15 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+        className="fixed inset-0 backdrop-blur-sm bg-black/15 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in overflow-y-scroll"
       />
 
       <div className="fixed inset-0 z-10">
@@ -114,6 +116,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
                         />
                         {user.riotId && (
                           <MatchInput
+                            matches={matches}
                             setValMatch={setValMatch}
                             setPreview={setPreview}
                           />

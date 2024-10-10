@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ValMatch from "./ValMatch";
-import { MatchShowCase } from "@/interfaces/Valorant";
-import { useGetMatches } from "@/hooks/useValorant";
+import { Match, MatchShowCase } from "@/interfaces/Valorant";
 import { Gamepad2 } from "lucide-react";
 import { useUser } from "@/context/AuthContext";
 
@@ -10,11 +9,11 @@ interface Props {
   setPreview: React.Dispatch<
     React.SetStateAction<string | ArrayBuffer | MatchShowCase | null>
   >;
+  matches: Match[];
 }
 
-const MatchInput: React.FC<Props> = ({ setValMatch, setPreview }) => {
+const MatchInput: React.FC<Props> = ({ setValMatch, setPreview, matches }) => {
   const { user } = useUser();
-  const { matches } = useGetMatches();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {

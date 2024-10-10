@@ -35,12 +35,11 @@ export const useRiotToken = () => {
   }, [riotToken, user.id]);
 };
 
-export const useGetMatches = () => {
-  const { user } = useUser();
-  const { puuid } = user.riotId;
+export const useGetMatches = (puuid: string | undefined) => {
   const [matches, setMatches] = useState<Match[]>([]);
 
   const fetchMatches = useCallback(async () => {
+    if (!puuid) return;
     try {
       const matchsIds = await getMatchesList(puuid);
       const promises = matchsIds.history.map((match) =>

@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import "../globals.css";
-import New from "@/components/New/New";
-import Menu from "@/components/Menu/Menu";
 import Loader from "@/components/Global/Loader";
+import Menu from "@/layout/Menu/Menu";
+import New from "@/layout/New/New";
 import { useToken } from "@/hooks/useAuth";
 
 export default function MainLayout({

@@ -1,8 +1,8 @@
 import React from "react";
-import MatchPost from "../Post/contents/Match";
 import ImagePreview from "./contents/ImagePreview";
-import { MatchShowCase } from "@/interfaces/Valorant";
+import MatchPost from "@/components/Post/contents/Match";
 import { X } from "lucide-react";
+import { MatchShowCase } from "@/interfaces/Valorant";
 
 interface Props {
   preview: string | ArrayBuffer | MatchShowCase | null;

@@ -2,14 +2,13 @@ import { PostInterface } from "@/interfaces/Post";
 import { MatchShowCase } from "@/interfaces/Valorant";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
-export const fetchPosts = async (
+export const feedPosts = async (
   user: string,
   page: number,
   limit: number
 ): Promise<PostInterface[]> => {
-  const res = await fetch(
-    `${URL}/api/loadPosts?id_user=${user}&page=${page}&limit=${limit}`
-  );
+  const endpoint = `${URL}/api/loadPosts?id_user=${user}&page=${page}&limit=${limit}`;
+  const res = await fetch(endpoint);
   const resData = await res.json();
 
   if (res.ok) {
@@ -84,4 +83,38 @@ export const deletePostById = async (id: string): Promise<void> => {
     throw new Error(message);
   }
   return;
+};
+
+export const likedPosts = async (
+  userId: string,
+  page: number,
+  limit: number
+): Promise<PostInterface[]> => {
+  const endpoint = `${URL}/api/loadLiked?id=${userId}&page=${page}&limit=${limit}`;
+  const res = await fetch(endpoint);
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData;
+  } else {
+    const { message } = resData;
+    throw new Error(message);
+  }
+};
+
+export const savedPosts = async (
+  userId: string,
+  page: number,
+  limit: number
+): Promise<PostInterface[]> => {
+  const endpoint = `${URL}/api/loadSaved?id=${userId}&page=${page}&limit=${limit}`;
+  const res = await fetch(endpoint);
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData;
+  } else {
+    const { message } = resData;
+    throw new Error(message);
+  }
 };

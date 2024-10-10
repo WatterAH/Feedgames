@@ -34,7 +34,7 @@ export interface User {
   followers: number;
   follow: boolean;
   riotId: {
-    puuid: string;
+    puuid: string | undefined;
     gameName: string;
     tagLine: string;
   };
