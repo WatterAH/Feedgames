@@ -58,22 +58,6 @@ export const getFollows = async (userId: string) => {
   return { follows, error };
 };
 
-export const countUsers = async () => {
-  const { count } = await supabase
-    .from("users")
-    .select("*", { count: "exact" });
-  return { count };
-};
-
-export const popularUsers = async () => {
-  const { data, error } = await supabase
-    .from("users")
-    .select(
-      "id, username, pfp, followers:follows!follows_id_followed_fkey(id_follower)"
-    );
-  return { data, error };
-};
-
 export const checkUsername = async (username: string) => {
   const { data, error } = await supabase
     .from("users")

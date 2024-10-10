@@ -1,9 +1,5 @@
 import { supabase } from "../database/connection";
-import {
-  getLikedById,
-  getPostsByIds,
-  getSavedById,
-} from "../database/postGetter";
+import { getLiked, getSaved } from "../database/postGetter";
 import { uploadImage } from "../database/insert";
 import { RequestHandler } from "express";
 import { processPost } from "../libs/server";
@@ -44,18 +40,15 @@ export const createNewPost: RequestHandler = async (req, res) => {
 
 export const loadSaved: RequestHandler = async (req, res) => {
   try {
-    const { id } = req.query;
-    const idString = id as string;
-    const { data, error } = await getSavedById(idString);
+    const { id, page, limit } = req.query;
+    const userId = id as string;
+    const pageInt = parseInt(page as string, 10);
+    const limitInt = parseInt(limit as string, 10);
+    const { data, error } = await getSaved(userId, pageInt, limitInt);
     if (error || !data) {
       return res.status(400).json({ message: "Algo salió mal" });
     } else {
-      const postsIds = data.map((savedPost) => savedPost.id_post);
-      const { data: posts, error: postsError } = await getPostsByIds(postsIds);
-      if (postsError || !posts) {
-        return res.status(400).json({ message: "Algo salió mal" });
-      }
-      const processedPosts = posts.map((post) => processPost(post, idString));
+      const processedPosts = data.map((post) => processPost(post.p, userId));
       return res.status(200).json(processedPosts);
     }
   } catch (error) {
@@ -65,18 +58,15 @@ export const loadSaved: RequestHandler = async (req, res) => {
 
 export const loadLiked: RequestHandler = async (req, res) => {
   try {
-    const { id } = req.query;
-    const idString = id as string;
-    const { data, error } = await getLikedById(idString);
+    const { id, page, limit } = req.query;
+    const userId = id as string;
+    const pageInt = parseInt(page as string, 10);
+    const limitInt = parseInt(limit as string, 10);
+    const { data, error } = await getLiked(userId, pageInt, limitInt);
     if (error || !data) {
       return res.status(400).json({ message: "Algo salió mal" });
     } else {
-      const postsIds = data.map((likedPost) => likedPost.id_post);
-      let { data: posts, error: postsError } = await getPostsByIds(postsIds);
-      if (postsError || !posts) {
-        return res.status(400).json({ message: "Algo salió mal" });
-      }
-      const processedPosts = posts.map((post) => processPost(post, idString));
+      const processedPosts = data.map((post) => processPost(post.p, userId));
       return res.status(200).json(processedPosts);
     }
   } catch (error) {

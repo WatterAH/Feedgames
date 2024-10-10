@@ -11,16 +11,6 @@ export const registerUser = async (user: User) => {
   return { data, error };
 };
 
-export const createNote = async (userId: string, note: string) => {
-  const toInsert = { id_user: userId, note };
-  const { data, error } = await supabase
-    .from("notes")
-    .insert([toInsert])
-    .select("*, user:users(username, pfp)")
-    .single();
-  return { data, error };
-};
-
 export const uploadImage = async (
   image: { mimetype: any; buffer: any },
   folder: string
