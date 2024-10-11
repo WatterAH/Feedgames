@@ -21,7 +21,10 @@ export const deletePost: RequestHandler = async (req, res) => {
 export const deleteNotify: RequestHandler = async (req, res) => {
   try {
     const { id } = req.body;
-    await deleteNotification(id);
+    const { error } = await deleteNotification(id);
+    if (error) {
+      return res.status(400).json("No se pudo eliminar la notificación");
+    }
     return res.status(200).end();
   } catch {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

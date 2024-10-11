@@ -31,7 +31,7 @@ export const getProfilesByIds = async (
   return {};
 };
 
-export const getProfileByUsername = async (username: string) => {
+export const getProfilesByUsername = async (username: string) => {
   if (!username) {
     return { user: [], error: null };
   }

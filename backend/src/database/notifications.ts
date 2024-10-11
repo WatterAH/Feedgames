@@ -21,13 +21,18 @@ export const notify = async (
   return { error };
 };
 
-export const getNotificationsById = async (id: string) => {
-  const { data: notifications, error } = await supabase
+export const getNotifyById = async (
+  id: string,
+  page: number,
+  limit: number
+) => {
+  const { data: notify, error } = await supabase
     .from("notify")
     .select("*")
     .eq("id_user", id)
-    .order("created_at", { ascending: false });
-  return { notifications, error };
+    .order("created_at", { ascending: false })
+    .range(page * limit, page * limit + limit - 1);
+  return { notify, error };
 };
 
 export const readAllByIds = async (ids: string[]) => {

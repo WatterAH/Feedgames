@@ -1,26 +1,27 @@
 import { supabase } from "../database/connection";
-import {
-  getNotificationsById,
-  notify,
-  readAllByIds,
-} from "../database/notifications";
+import { getNotifyById, notify, readAllByIds } from "../database/notifications";
 import { insertFollow, stopFollow } from "../database/insert";
 import { RequestHandler } from "express";
 
 export const getNotifications: RequestHandler = async (req, res) => {
   try {
-    const { id } = req.query;
-    const { notifications, error } = await getNotificationsById(id as string);
+    const { id, page, limit } = req.query;
+    const userId = id as string;
+    const pageInt = parseInt(page as string, 10);
+    const limitInt = parseInt(limit as string, 10);
+
+    const { notify, error } = await getNotifyById(userId, pageInt, limitInt);
     if (error) {
+      console.log(error);
       return res
         .status(400)
         .json({ message: "No se pudieron obtener las notificaciones" });
     }
-    if (notifications) {
-      const ids = notifications.map((notification) => notification.id);
+    if (notify) {
+      const ids = notify.map((notification) => notification.id);
       readAllByIds(ids);
     }
-    return res.status(200).json(notifications);
+    return res.status(200).json(notify);
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }

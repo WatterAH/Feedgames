@@ -2,7 +2,7 @@ import {
   getFollowers,
   getFollows,
   getProfileById,
-  getProfileByUsername,
+  getProfilesByUsername,
   getProfilesByIds,
 } from "../database/profileGetter";
 import {
@@ -62,7 +62,7 @@ export const getPost: RequestHandler = async (req, res) => {
 export const searchUser: RequestHandler = async (req, res) => {
   try {
     const { searchTerm } = req.query;
-    let { user, error } = await getProfileByUsername(searchTerm as string);
+    let { user, error } = await getProfilesByUsername(searchTerm as string);
     if (error) {
       return res
         .status(400)
