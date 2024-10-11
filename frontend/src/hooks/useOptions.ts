@@ -6,6 +6,9 @@ import { useUser } from "@/context/AuthContext";
 import { deletePostById } from "@/routes/post";
 import { toast } from "sonner";
 import { Bookmark, Gamepad2, Heart, LogOut, Share, Trash2 } from "lucide-react";
+import { deleteNotificationById } from "@/routes/notifications";
+import React from "react";
+import { Notification } from "@/interfaces/Notification";
 
 const useProfileOptions = (user: User, id: string) => {
   const [, , removeCookie] = useCookies();
@@ -99,4 +102,29 @@ const useMenuOptions = () => {
   ].filter(Boolean);
 };
 
-export { useProfileOptions, usePostOptions, useMenuOptions };
+const useNotifyOptions = (
+  id: string,
+  setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>
+) => {
+  const deleteNotify = () => {
+    toast.promise(deleteNotificationById(id), {
+      loading: "Eliminando...",
+      success: () => {
+        setNotifications((prev) => prev.filter((notify) => notify.id != id));
+        return "Eliminado";
+      },
+      error: (err) => err.message,
+    });
+  };
+
+  return [
+    {
+      label: "Eliminar",
+      icon: Trash2,
+      color: "text-red-400",
+      onClick: () => deleteNotify(),
+    },
+  ].filter(Boolean);
+};
+
+export { useProfileOptions, usePostOptions, useMenuOptions, useNotifyOptions };

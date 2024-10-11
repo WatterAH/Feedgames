@@ -23,7 +23,10 @@ export default function HomePage() {
   };
 
   return (
-    <main className="flex flex-col h-screen justify-start items-center bg-barcelona relative">
+    <main
+      id="main"
+      className="flex flex-col h-screen justify-start items-center bg-barcelona relative"
+    >
       <Header />
       <Title title="Feed" />
       <Card />

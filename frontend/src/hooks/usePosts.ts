@@ -21,7 +21,7 @@ export const usePosts = (userId: string, type: Type, requestId?: string) => {
   const [hasMore, setHasMore] = useState(true);
 
   const getPosts = useCallback(async () => {
-    if (!userId && !hasMore) return;
+    if (!userId || !hasMore) return;
     try {
       if (page == 0) setLoading(true);
       const data = await functions[type](

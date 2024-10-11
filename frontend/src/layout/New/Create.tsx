@@ -18,7 +18,7 @@ interface Props {
 }
 const Create: React.FC<Props> = ({ open, setOpen }) => {
   const { user } = useUser();
-  const { matches } = useGetMatches(user.riotId.puuid);
+  const { matches } = useGetMatches(user.riotId?.puuid);
   const [text, setText] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [valMatch, setValMatch] = useState<MatchShowCase | null>(null);

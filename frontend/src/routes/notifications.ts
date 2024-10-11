@@ -2,11 +2,14 @@ import { Notification } from "../interfaces/Notification";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 export const getMyNotifications = async (
-  userId: string
+  userId: string,
+  page: number,
+  limit: number
 ): Promise<Notification[]> => {
-  const res = await fetch(
-    `${URL}/api/getNotifications?id=${encodeURIComponent(userId)}`
-  );
+  const endpoint = `${URL}/api/getNotifications?id=${encodeURIComponent(
+    userId
+  )}&page=${page}&limit=${limit}`;
+  const res = await fetch(endpoint);
   const resData = await res.json();
 
   if (res.ok) {
@@ -18,18 +21,17 @@ export const getMyNotifications = async (
 };
 
 export const deleteNotificationById = async (id: string): Promise<void> => {
-  const body = { id };
   const res = await fetch(`${URL}/api/deleteNotification`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ id }),
   });
-  const resData = await res.json();
 
   if (!res.ok) {
+    const resData = await res.json();
     const { message } = resData;
     throw new Error(message);
   }

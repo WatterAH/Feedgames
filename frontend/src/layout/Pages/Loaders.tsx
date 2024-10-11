@@ -1,5 +1,24 @@
+import { Ellipsis } from "lucide-react";
+
 const Loader = ({ h, w }: { h: string; w: string }) => {
   return <div className={`bg-loading ${h} ${w} rounded-full`}></div>;
+};
+
+export const NotifyLoader = () => {
+  return (
+    <div className="flex w-full border-b p-4 items-center justify-between">
+      <div className="flex items-center gap-x-3 w-full">
+        <Loader h="h-10" w="w-11" />
+        <section className="flex flex-col gap-y-2 w-full">
+          <Loader h="h-1" w="w-16" />
+          <Loader h="h-2" w="w-1/2" />
+        </section>
+      </div>
+      <div>
+        <Ellipsis className="text-secondaryicon" />
+      </div>
+    </div>
+  );
 };
 
 export const PostLoader = () => {
@@ -28,6 +47,16 @@ export const PostsLoader = ({ count }: { count: number }) => {
   );
 };
 
+export const NotifysLoader = ({ count }: { count: number }) => {
+  return (
+    <div className="flex flex-col transition-opacity duration-500 opacity-100">
+      {Array.from({ length: count }).map((_, index) => (
+        <NotifyLoader key={index} />
+      ))}
+    </div>
+  );
+};
+
 export const ProfileLoader = () => {
   return (
     <div className="flex flex-col">
@@ -43,7 +72,7 @@ export const ProfileLoader = () => {
         <Loader h="h-2" w="w-2/3" />
         <Loader h="h-2" w="w-1/4" />
       </header>
-      <PostsLoader count={2} />
+      <PostsLoader count={4} />
     </div>
   );
 };
