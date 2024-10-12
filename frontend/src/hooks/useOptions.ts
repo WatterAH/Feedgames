@@ -1,14 +1,16 @@
+import React from "react";
 import { User } from "@/interfaces/User";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
 import { useUser } from "@/context/AuthContext";
-import { deletePostById } from "@/routes/post";
 import { toast } from "sonner";
 import { Bookmark, Gamepad2, Heart, LogOut, Share, Trash2 } from "lucide-react";
 import { deleteNotificationById } from "@/routes/notifications";
-import React from "react";
 import { Notification } from "@/interfaces/Notification";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { removePost } from "@/store/feedSlice";
 
 const useProfileOptions = (user: User, id: string) => {
   const [, , removeCookie] = useCookies();
@@ -47,16 +49,7 @@ const useProfileOptions = (user: User, id: string) => {
 
 const usePostOptions = (id: string, userId: string) => {
   const { user } = useUser();
-
-  const deletePost = () => {
-    toast.promise(deletePostById(id), {
-      loading: "Eliminando...",
-      success: () => {
-        return "Eliminado";
-      },
-      error: (err) => err.message,
-    });
-  };
+  const dispatch: AppDispatch = useDispatch();
 
   return [
     {
@@ -69,7 +62,7 @@ const usePostOptions = (id: string, userId: string) => {
           label: "Eliminar",
           icon: Trash2,
           color: "text-red-400",
-          onClick: deletePost,
+          onClick: () => dispatch(removePost(id)),
         }
       : null,
   ].filter(Boolean);

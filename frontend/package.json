@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",
+    "@reduxjs/toolkit": "^2.2.8",
     "@supabase/supabase-js": "^2.45.4",
     "clipboard-copy": "^4.0.1",
     "lucide-react": "^0.446.0",
@@ -19,7 +20,9 @@
     "react-dom": "^18",
     "react-infinite-scroll-component": "^6.1.0",
     "react-photo-view": "^1.2.6",
+    "react-redux": "^9.1.2",
     "react-spring": "^9.7.4",
+    "redux": "^5.0.1",
     "sonner": "^1.5.0",
     "tailwind-scrollbar": "^3.1.0"
   },

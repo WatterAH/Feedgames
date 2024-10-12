@@ -6,7 +6,7 @@ import { PostsLoader } from "./Loaders";
 
 interface Props {
   posts: PostInterface[];
-  getPost: () => Promise<void>;
+  getPost: () => void;
   hasMore: boolean;
 }
 

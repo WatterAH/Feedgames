@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useUser } from "../../../context/AuthContext";
 import { dontSavePost, savePost } from "@/routes/interactions";
-import { toast } from "sonner";
 import { Bookmark } from "lucide-react";
 import { useAnimations } from "@/hooks/useAnimations";
 import { animated } from "react-spring";
@@ -35,8 +34,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
         await dontSavePost(user.id, id);
       }
     } catch (error: any) {
-      const { message } = error;
-      toast.error(message);
+      throw new Error(error.message);
     }
   };
 

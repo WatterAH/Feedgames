@@ -6,11 +6,21 @@ import Card from "@/layout/Pages/Card";
 import { Search } from "lucide-react";
 import { useUser } from "@/context/AuthContext";
 import { PostsLoader } from "@/layout/Pages/Loaders";
-import { useTendencyPost } from "@/hooks/usePosts";
+import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchTendency } from "@/store/tendencySlice";
 
 export default function SearchPage() {
   const { user } = useUser();
-  const { posts, loading, error } = useTendencyPost(user.id);
+  const dispatch: AppDispatch = useDispatch();
+  const { posts, error, loading } = useSelector(
+    (state: RootState) => state.tendency
+  );
+
+  useEffect(() => {
+    if (user?.id && posts.length == 0) dispatch(fetchTendency(user.id));
+  }, [dispatch, user?.id, posts.length]);
 
   const RenderContent = () => {
     if (loading) return <PostsLoader count={4} />;

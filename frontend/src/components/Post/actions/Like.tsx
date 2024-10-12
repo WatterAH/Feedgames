@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useUser } from "../../../context/AuthContext";
 import { likePost, dontLikePost } from "@/routes/interactions";
-import { toast } from "sonner";
 import { Heart } from "lucide-react";
 import { animated } from "react-spring";
 import { useAnimations } from "@/hooks/useAnimations";
@@ -32,8 +31,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
         await dontLikePost(user.id, id, user.username, user_id);
       }
     } catch (error: any) {
-      const { message } = error;
-      toast.error(message);
+      throw new Error(error.message);
     }
   };
 
