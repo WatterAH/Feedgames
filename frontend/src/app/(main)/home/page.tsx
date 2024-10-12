@@ -22,13 +22,13 @@ export default function HomePage() {
 
   useEffect(() => {
     if (user?.id && posts.length == 0) {
-      dispatch(fetchPosts(user.id, 10, "feed"));
+      dispatch(fetchPosts(user.id, 10));
     }
   }, [dispatch, user?.id, posts.length]);
 
   const getMorePosts = () => {
     if (hasMore && !loading && user?.id) {
-      dispatch(fetchPosts(user.id, 10, "feed"));
+      dispatch(fetchPosts(user.id, 10));
     }
   };
 
