@@ -28,7 +28,7 @@ const Post: React.FC<Props> = ({ data }) => {
       <Link href={`/u/${user_id}`} className="h-10" onClick={stopPropagation}>
         <ProfilePicture h={40} w={40} src={user.pfp} />
       </Link>
-      <div className="flex flex-col gap-y-1 w-full">
+      <div className="flex flex-col w-full">
         <Header data={data} />
         <Content data={data} />
         <Actions data={data} />

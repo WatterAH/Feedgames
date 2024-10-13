@@ -1,10 +1,11 @@
 import React from "react";
-import { calculateDate } from "@/functions/date";
-import { Notification } from "@/interfaces/Notification";
-import { Ellipsis, Heart, MessageCircle, UserRoundPlus } from "lucide-react";
+import Link from "next/link";
 import Dropdown from "../Global/Dropdown";
+import ProfilePicture from "../Profile/ProfilePicture";
+import { Ellipsis } from "lucide-react";
+import { Notification } from "@/interfaces/Notification";
+import { calculateDate } from "@/functions/date";
 import { useNotifyOptions } from "@/hooks/useOptions";
-// import Link from "next/link";
 
 interface Props {
   data: Notification;
@@ -12,24 +13,28 @@ interface Props {
 }
 
 const Notify: React.FC<Props> = ({ data, setNotify }) => {
-  const { text, created_at, type, id } = data;
-  const classname = "h-10 w-10";
+  const { text, created_at, id, user } = data;
+  const { id: userId, username, pfp } = user;
   const date = calculateDate(created_at);
   const options = useNotifyOptions(id, setNotify);
-  const icons = [
-    <Heart key={0} className={`${classname} text-red-400`} />,
-    <MessageCircle key={1} className={`${classname} text-cyan-300`} />,
-    <UserRoundPlus key={2} className={`${classname} text-teal-300`} />,
-  ];
 
   return (
     // <Link href={`/${content}/${id_linked}`}>
     <div className="flex w-full border-b p-4 items-center justify-between">
       <div className="flex items-center gap-x-3">
-        <div>{icons[type]}</div>
+        <Link href={`/u/${userId}`}>
+          <ProfilePicture src={pfp} h={36} w={36} />
+        </Link>
         <section className="flex flex-col">
-          <p className="text-icon text-sm">{date}</p>
-          <p className="text-threads text-sm md:text-base">{text}</p>
+          <span className="flex items-center gap-x-1">
+            <Link href={`/u/${userId}`}>
+              <p className="font-semibold hover:underline text-sm">
+                {username}
+              </p>
+            </Link>
+            <p className="text-icon text-sm">{date}</p>
+          </span>
+          <p className="text-threads text-sm">{text}</p>
         </section>
       </div>
       <section>

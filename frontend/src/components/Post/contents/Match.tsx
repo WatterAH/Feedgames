@@ -60,7 +60,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
       </header>
       <main
         id="stats"
-        className="flex flex-wrap justify-center gap-x-20 gap-y-5"
+        className="flex flex-wrap justify-center gap-x-20 gap-y-5 px-3"
       >
         <ValStat title="KDA" stat={stats.kda} Icon={Flame} />
         <ValStat title="ACS" stat={stats.scorePerRound} Icon={Sparkles} />

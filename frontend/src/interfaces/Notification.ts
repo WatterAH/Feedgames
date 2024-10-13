@@ -6,5 +6,9 @@ export interface Notification {
   id_linked: string;
   text: string;
   created_at: string;
-  type: number;
+  user: {
+    id: string;
+    username: string;
+    pfp: string;
+  };
 }
