@@ -10,9 +10,10 @@ import { deleteNotificationById } from "@/routes/notifications";
 import { Notification } from "@/interfaces/Notification";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { removePost } from "@/store/feedSlice";
+import { removePost, resetPosts } from "@/store/feedSlice";
 
 const useProfileOptions = (user: User, id: string) => {
+  const dispatch: AppDispatch = useDispatch();
   const [, , removeCookie] = useCookies();
   const router = useRouter();
   const RSO =
@@ -39,6 +40,7 @@ const useProfileOptions = (user: User, id: string) => {
           icon: LogOut,
           color: "text-red-400",
           onClick: () => {
+            dispatch(resetPosts());
             removeCookie("token");
             router.push("/login");
           },
@@ -69,6 +71,7 @@ const usePostOptions = (id: string, userId: string) => {
 };
 
 const useMenuOptions = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [, , removeCookie] = useCookies();
   const router = useRouter();
 
@@ -88,6 +91,7 @@ const useMenuOptions = () => {
       icon: LogOut,
       color: "text-red-400",
       onClick: () => {
+        dispatch(resetPosts());
         removeCookie("token");
         router.push("/login");
       },
