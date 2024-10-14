@@ -10,7 +10,7 @@ export const getUserPosts = async (
   const { data: posts, error } = await supabase
     .from("posts")
     .select(
-      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, pfp, name)"
+      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, pfp, name, followers:follows!follows_id_followed_fkey(count))"
     )
     .eq("user_id", userId)
     .order("order", { ascending: false })
@@ -25,7 +25,7 @@ export const getPostsByRange = async (
   const { data: posts, error } = await supabase
     .from("posts")
     .select(
-      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp)"
+      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp, followers:follows!follows_id_followed_fkey(count))"
     )
     .order("order", { ascending: false })
     .range(page * limit, page * limit + limit - 1);
@@ -39,7 +39,7 @@ export const getPostById = async (
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp)"
+      "*, liked!left(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp, followers:follows!follows_id_followed_fkey(count))"
     )
     .eq("id", postId)
     .single();
@@ -62,7 +62,7 @@ export const getSaved = async (userId: string, page: number, limit: number) => {
   const { data, error } = await supabase
     .from("saved")
     .select(
-      "p:posts(*, user: users(username, name, pfp), liked(id_user), saved(id_user), comments(id, id_user))"
+      "p:posts(*, user: users(username, name, pfp, followers:follows!follows_id_followed_fkey(count)), liked(id_user), saved(id_user), comments(id, id_user))"
     )
     .eq("id_user", userId)
     .range(page * limit, page * limit + limit - 1);
@@ -74,7 +74,7 @@ export const getLiked = async (userId: string, page: number, limit: number) => {
   const { data, error } = await supabase
     .from("liked")
     .select(
-      "p:posts(*, user: users(username, name, pfp), liked(id_user), saved(id_user), comments(id, id_user))"
+      "p:posts(*, user: users(username, name, pfp, followers:follows!follows_id_followed_fkey(count)), liked(id_user), saved(id_user), comments(id, id_user))"
     )
     .eq("id_user", userId)
     .range(page * limit, page * limit + limit - 1);

@@ -6,7 +6,7 @@ export const notify = async (
   content: string,
   id_linked: string,
   text: string,
-  type: 0 | 1 | 2
+  notifier: string
 ) => {
   const { error } = await supabase.from("notify").insert([
     {
@@ -15,7 +15,7 @@ export const notify = async (
       content,
       id_linked,
       text,
-      type,
+      notifier,
     },
   ]);
   return { error };
@@ -28,10 +28,11 @@ export const getNotifyById = async (
 ) => {
   const { data: notify, error } = await supabase
     .from("notify")
-    .select("*")
+    .select("*, user:notifier(id, username, pfp)")
     .eq("id_user", id)
     .order("created_at", { ascending: false })
     .range(page * limit, page * limit + limit - 1);
+
   return { notify, error };
 };
 

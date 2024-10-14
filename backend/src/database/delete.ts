@@ -26,6 +26,24 @@ export const deleteCommentsByIds = async (ids: string[]) => {
   return { error };
 };
 
+export const deleteLike = async (userId: string, postId: string) => {
+  const { error } = await supabase
+    .from("liked")
+    .delete()
+    .eq("id_user", userId)
+    .eq("id_post", postId);
+  return { error };
+};
+
+export const deleteSave = async (userId: string, postId: string) => {
+  const { error } = await supabase
+    .from("saved")
+    .delete()
+    .eq("id_user", userId)
+    .eq("id_post", postId);
+  return { error };
+};
+
 export const deleteNotification = async (id: string) => {
   const { error } = await supabase.from("notify").delete().eq("id", id);
   return { error };

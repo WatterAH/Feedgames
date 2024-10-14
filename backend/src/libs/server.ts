@@ -2,7 +2,8 @@ import { PostInterface } from "../interfaces/Post";
 import { Match, PlayerInGame } from "../interfaces/Valorant";
 
 export const processPost = (post: PostInterface | any, userId: string) => {
-  const { liked, saved, comments, ...rest } = post;
+  const { liked, saved, comments, user, ...rest } = post;
+  const { followers, ...userRest } = user;
   const isLiked = liked.some((like: any) => like.id_user == userId);
   const isSaved = saved.some((save: any) => save.id_user == userId);
   const isCommented = comments.some(
@@ -10,6 +11,10 @@ export const processPost = (post: PostInterface | any, userId: string) => {
   );
   return {
     ...rest,
+    user: {
+      ...userRest,
+      followers: followers[0].count,
+    },
     liked: liked.length,
     isLiked,
     saved: saved.length,
@@ -39,9 +44,13 @@ export const processMatch = (match: Match) => {
 };
 
 export const processUser = (user: any, userId: string) => {
-  user.follow = user.followers.some(
-    (followers: any) => followers.id_follower == userId
-  );
-  user.followers = user.followers.length;
-  user.followed = user.followed.length;
+  const { followers, followed, ...rest } = user;
+  const follow = followers.some((u: any) => u.id_follower == userId);
+
+  return {
+    ...rest,
+    follow: follow,
+    followers: followers.length,
+    followed: followed[0].count,
+  };
 };

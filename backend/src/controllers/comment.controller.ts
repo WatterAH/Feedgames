@@ -45,8 +45,8 @@ export const comment: RequestHandler = async (req, res) => {
       return res.status(400).json({ message: "Error al subir comentario" });
     }
     if (toNotify != id_user) {
-      const text = `${name} comento tu publicación`;
-      notify(toNotify, false, "p", id_post, text, 1);
+      const text = `Comentó tu publicación`;
+      notify(toNotify, false, "p", id_post, text, name);
     }
     commented.isLiked = false;
     commented.comments_liked = [];
@@ -79,8 +79,8 @@ export const response: RequestHandler = async (req, res) => {
         return res.status(400).json({ message: "Error al subir comentario" });
       } else {
         if (id_user != toNotify) {
-          const text = `${name} respondió tu comentario`;
-          notify(toNotify, false, "c", comment_res, text, 1);
+          const text = `Respondió tu comentario`;
+          notify(toNotify, false, "c", comment_res, text, name);
         }
         commented.responses = [];
         commented.isLiked = false;
@@ -161,8 +161,8 @@ export const likeComment: RequestHandler = async (req, res) => {
       return res.status(400).json({ message: "Ocurrió un error" });
     } else {
       if (id_user != user_comment) {
-        const text = `A ${username} le gustó tu comentario`;
-        notify(user_comment, false, "c", id_comment, text, 0);
+        const text = `Le gustó tu comentario`;
+        notify(user_comment, false, "c", id_comment, text, username);
       }
       return res.status(200).json({ message: "OK" });
     }

@@ -16,11 +16,11 @@ import { processPost, processUser } from "../libs/server";
 export const getProfile: RequestHandler = async (req, res) => {
   try {
     const { id, myID } = req.query;
-    const { user, error } = await getProfileById(id as string);
+    let { user, error } = await getProfileById(id as string);
     if (error || !user) {
       return res.status(404).json({ message: "Not Found" });
     }
-    processUser(user, myID as string);
+    user = processUser(user, myID as string);
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
