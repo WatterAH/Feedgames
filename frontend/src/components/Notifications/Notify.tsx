@@ -9,14 +9,13 @@ import { useNotifyOptions } from "@/hooks/useOptions";
 
 interface Props {
   data: Notification;
-  setNotify: React.Dispatch<React.SetStateAction<Notification[]>>;
 }
 
-const Notify: React.FC<Props> = ({ data, setNotify }) => {
+const Notify: React.FC<Props> = ({ data }) => {
   const { text, created_at, id, user } = data;
   const { id: userId, username, pfp } = user;
   const date = calculateDate(created_at);
-  const options = useNotifyOptions(id, setNotify);
+  const options = useNotifyOptions(id);
 
   return (
     // <Link href={`/${content}/${id_linked}`}>

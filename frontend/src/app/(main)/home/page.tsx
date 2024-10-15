@@ -17,7 +17,7 @@ export default function HomePage() {
   const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
   const { posts, loading, error, hasMore } = useSelector(
-    (state: RootState) => state.posts
+    (state: RootState) => state.feed
   );
 
   useEffect(() => {
@@ -34,10 +34,7 @@ export default function HomePage() {
 
   const RenderContent = () => {
     if (loading && posts.length == 0) return <PostsLoader count={8} />;
-    if (error && posts.length == 0) {
-      console.log(error);
-      return <Error />;
-    }
+    if (error && posts.length == 0) return <Error />;
     return (
       <PostContainer posts={posts} hasMore={hasMore} getPost={getMorePosts} />
     );

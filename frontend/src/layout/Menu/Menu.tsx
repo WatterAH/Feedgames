@@ -14,12 +14,17 @@ import {
 } from "lucide-react";
 import { useMenuOptions } from "@/hooks/useOptions";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { clearNewNotification } from "@/store/activity";
 
 const Menu = () => {
-  const { user } = useUser();
+  const { logout } = useUser();
   const pathname = usePathname();
-  const options = useMenuOptions();
+  const options = useMenuOptions(logout);
   const [open, setOpen] = useState(false);
+  const newNotify = useSelector((state: RootState) => state.activity.newNotify);
+  const dispatch: AppDispatch = useDispatch();
 
   return (
     <>
@@ -33,9 +38,17 @@ const Menu = () => {
           <div className="lg:hidden" onClick={() => setOpen(true)}>
             <Item href="" currentPathname={pathname} Icon={SquarePen} />
           </div>
-          <Item href="/notify" currentPathname={pathname} Icon={BellRing} />
+          <div
+            className="relative"
+            onClick={() => dispatch(clearNewNotification())}
+          >
+            {newNotify && (
+              <div className="absolute z-20 right-2 top-1 bg-red-500 h-4 w-4 rounded-full"></div>
+            )}
+            <Item href="/notify" currentPathname={pathname} Icon={BellRing} />
+          </div>
           <Item href="" currentPathname={pathname} Icon={Send} />
-          <Item href={`/u/${user.id}`} currentPathname={pathname} Icon={User} />
+          <Item href="/me" currentPathname={pathname} Icon={User} />
         </ul>
         <div className="hidden lg:block hover:cursor-pointer">
           <Dropdown

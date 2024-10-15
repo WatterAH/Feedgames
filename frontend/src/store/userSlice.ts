@@ -1,60 +1,78 @@
 import { PostInterface } from "@/interfaces/Post";
+import { User } from "@/interfaces/User";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { deletePostById, feedPosts } from "@/routes/post";
-import { toast } from "sonner";
+import { getProfile, profilePosts } from "@/routes/profile";
 import {
-  deletePost,
   REMOVE_POST,
   RemovePostAction,
   UPDATE_POST_INTERACTION,
   UpdatePostInteractionAction,
 } from "./actions";
 
-interface FeedState {
+interface userSlice {
+  user: User | null;
   posts: PostInterface[];
-  loading: boolean;
-  error: string | null;
+  loadingUser: boolean;
+  loadingPosts: boolean;
+  errorUser: string | null;
+  errorPosts: string | null;
   hasMore: boolean;
   page: number;
 }
 
-const initialState: FeedState = {
+const initialState: userSlice = {
+  user: null,
   posts: [],
-  loading: false,
-  error: null,
+  loadingUser: false,
+  loadingPosts: false,
+  errorUser: null,
+  errorPosts: null,
   hasMore: true,
   page: 0,
 };
 
-const feedSlice = createSlice({
-  name: "feed",
+const userSlice = createSlice({
+  name: "userSlice",
   initialState,
   reducers: {
+    fetchUserStart: (state) => {
+      state.loadingUser = true;
+      state.errorUser = null;
+    },
+    fetchUserSuccess: (state, action) => {
+      state.user = action.payload.user;
+      state.loadingUser = false;
+    },
+    fetchUserFailure: (state, action) => {
+      state.loadingUser = false;
+      state.errorUser = action.payload;
+    },
+    resetUser: (state) => {
+      state.user = null;
+      state.posts = [];
+      state.page = 0;
+      state.hasMore = true;
+    },
     fetchPostsStart: (state) => {
-      state.loading = true;
-      state.error = null;
+      state.loadingPosts = true;
+      state.errorPosts = null;
     },
     fetchPostsSuccess: (state, action) => {
       state.posts = [...state.posts, ...action.payload.posts];
       state.hasMore = action.payload.hasMore;
       state.page = action.payload.hasMore ? state.page + 1 : state.page;
-      state.loading = false;
+      state.loadingPosts = false;
     },
     fetchPostsFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
+      state.errorPosts = action.payload;
+      state.loadingPosts = false;
     },
-    resetFeedPosts: (state) => {
-      state.posts = [];
-      state.hasMore = true;
-      state.page = 0;
-    },
-    addPost: (state, action) => {
+    addMyPost: (state, action) => {
       state.posts.unshift(action.payload);
     },
   },
-  extraReducers: (builder) => {
+  extraReducers(builder) {
     builder.addCase(
       UPDATE_POST_INTERACTION,
       (state, action: UpdatePostInteractionAction) => {
@@ -89,25 +107,39 @@ const feedSlice = createSlice({
 });
 
 export const {
+  fetchUserStart,
+  fetchUserSuccess,
+  fetchUserFailure,
   fetchPostsStart,
   fetchPostsSuccess,
   fetchPostsFailure,
-  resetFeedPosts,
-  addPost,
-} = feedSlice.actions;
+  resetUser,
+  addMyPost,
+} = userSlice.actions;
 
-export default feedSlice.reducer;
+export default userSlice.reducer;
 
-// GET FEED THUNK
+// GET USER THUNK
+export const fetchUser = (userId: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(fetchUserStart());
+    const data = await getProfile(userId, userId);
+    dispatch(fetchUserSuccess({ user: data }));
+  } catch (error: any) {
+    dispatch(fetchUserFailure(error.message));
+  }
+};
+
+// GET USER POSTS THUNK
 export const fetchPosts =
   (userId: string, limit: number) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
-    const { hasMore, page } = getState().feed;
+    const { page, hasMore } = getState().user;
     if (!hasMore) return;
 
     try {
       dispatch(fetchPostsStart());
-      const data = await feedPosts(userId, page, limit);
+      const data = await profilePosts(userId, page, limit, userId);
       const hasMore = data.length > 0;
       dispatch(
         fetchPostsSuccess({
@@ -120,15 +152,3 @@ export const fetchPosts =
       dispatch(fetchPostsFailure(error.message));
     }
   };
-
-//  DELETE POST THUNK
-export const removePost = (id: string) => async (dispatch: AppDispatch) => {
-  toast.promise(deletePostById(id), {
-    loading: "Eliminando...",
-    success: () => {
-      dispatch(deletePost(id));
-      return "Eliminado";
-    },
-    error: (err) => err.message,
-  });
-};

@@ -2,6 +2,12 @@ import { PostInterface } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "./store";
 import { getTendencyPost } from "@/routes/suggestions";
+import {
+  REMOVE_POST,
+  RemovePostAction,
+  UPDATE_POST_INTERACTION,
+  UpdatePostInteractionAction,
+} from "./actions";
 
 interface tendencySlice {
   posts: PostInterface[];
@@ -36,6 +42,38 @@ const tendencySlice = createSlice({
       state.loading = false;
       state.error = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      UPDATE_POST_INTERACTION,
+      (state, action: UpdatePostInteractionAction) => {
+        const { postId, type } = action.payload;
+        const post = state.posts.find((post) => post.id === postId);
+        if (post) {
+          switch (type) {
+            case "like":
+              post.isLiked = true;
+              post.liked++;
+              break;
+            case "unlike":
+              post.isLiked = false;
+              post.liked--;
+              break;
+            case "save":
+              post.isSaved = true;
+              post.saved++;
+              break;
+            case "unsave":
+              post.isSaved = false;
+              post.saved--;
+              break;
+          }
+        }
+      }
+    );
+    builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
+    });
   },
 });
 

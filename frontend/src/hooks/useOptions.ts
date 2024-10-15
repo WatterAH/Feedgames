@@ -1,23 +1,31 @@
-import React from "react";
 import { User } from "@/interfaces/User";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
 import { useUser } from "@/context/AuthContext";
-import { toast } from "sonner";
 import { Bookmark, Gamepad2, Heart, LogOut, Share, Trash2 } from "lucide-react";
-import { deleteNotificationById } from "@/routes/notifications";
-import { Notification } from "@/interfaces/Notification";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { removePost, resetPosts } from "@/store/feedSlice";
+import { removePost, resetFeedPosts } from "@/store/feedSlice";
+import { removeNotify, resetNotifications } from "@/store/activity";
+import { resetUser } from "@/store/userSlice";
+import { resetTendency } from "@/store/tendencySlice";
 
-const useProfileOptions = (user: User, id: string) => {
+const useProfileOptions = (user: User, id: string, logout: () => void) => {
   const dispatch: AppDispatch = useDispatch();
   const [, , removeCookie] = useCookies();
   const router = useRouter();
   const RSO =
     "https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid";
+  const exit = () => {
+    router.push("/login");
+    removeCookie("token");
+    logout();
+    dispatch(resetNotifications());
+    dispatch(resetFeedPosts());
+    dispatch(resetUser());
+    dispatch(resetTendency());
+  };
 
   return [
     {
@@ -39,11 +47,7 @@ const useProfileOptions = (user: User, id: string) => {
           label: "Cerrar sesión",
           icon: LogOut,
           color: "text-red-400",
-          onClick: () => {
-            dispatch(resetPosts());
-            removeCookie("token");
-            router.push("/login");
-          },
+          onClick: exit,
         }
       : null,
   ].filter(Boolean);
@@ -70,10 +74,19 @@ const usePostOptions = (id: string, userId: string) => {
   ].filter(Boolean);
 };
 
-const useMenuOptions = () => {
+const useMenuOptions = (logout: () => void) => {
   const dispatch: AppDispatch = useDispatch();
   const [, , removeCookie] = useCookies();
   const router = useRouter();
+  const exit = () => {
+    router.push("/login");
+    removeCookie("token");
+    logout();
+    dispatch(resetNotifications());
+    dispatch(resetFeedPosts());
+    dispatch(resetUser());
+    dispatch(resetTendency());
+  };
 
   return [
     {
@@ -90,36 +103,20 @@ const useMenuOptions = () => {
       label: "Cerrar Sesión",
       icon: LogOut,
       color: "text-red-400",
-      onClick: () => {
-        dispatch(resetPosts());
-        removeCookie("token");
-        router.push("/login");
-      },
+      onClick: exit,
     },
   ].filter(Boolean);
 };
 
-const useNotifyOptions = (
-  id: string,
-  setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>
-) => {
-  const deleteNotify = () => {
-    toast.promise(deleteNotificationById(id), {
-      loading: "Eliminando...",
-      success: () => {
-        setNotifications((prev) => prev.filter((notify) => notify.id != id));
-        return "Eliminado";
-      },
-      error: (err) => err.message,
-    });
-  };
+const useNotifyOptions = (id: string) => {
+  const dispatch: AppDispatch = useDispatch();
 
   return [
     {
       label: "Eliminar",
       icon: Trash2,
       color: "text-red-400",
-      onClick: () => deleteNotify(),
+      onClick: () => dispatch(removeNotify(id)),
     },
   ].filter(Boolean);
 };

@@ -27,9 +27,9 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
   }, [stats.characterId]);
 
   return (
-    <div className="flex flex-col border shadow-md gap-y-6 rounded-md py-6 md:py-10">
+    <div className="flex flex-col border shadow-md gap-y-6 rounded-md pt-4 h-80 py-2">
       <header className="flex gap-3 w-full justify-center flex-col items-center">
-        <div id="playerCharacter" className="rounded-full bg-loading">
+        <div id="playerCharacter" className="rounded-full h-16 w-16 bg-loading">
           {characterIcon && (
             <Image
               src={characterIcon}
@@ -60,7 +60,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
       </header>
       <main
         id="stats"
-        className="flex flex-wrap justify-center gap-x-20 gap-y-5 px-3"
+        className="flex flex-wrap justify-center gap-x-20 gap-y-3 px-3"
       >
         <ValStat title="KDA" stat={stats.kda} Icon={Flame} />
         <ValStat title="ACS" stat={stats.scorePerRound} Icon={Sparkles} />

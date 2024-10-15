@@ -12,7 +12,7 @@ interface Props {
 const Actions: React.FC<Props> = ({ data }) => {
   const { id, user_id } = data;
   const { saved, isSaved, liked, isLiked, comments, isCommented } = data;
-  const [savedNum, setSavedNum] = useState<number | undefined>(saved);
+  const [savedNum, setSavedNum] = useState<number>(saved);
   const [likedNum, setLikedNum] = useState(liked);
 
   return (

@@ -1,11 +1,15 @@
 import feedSlice from "./feedSlice";
 import tendencySlice from "./tendencySlice";
+import activitySlice from "./activity";
+import userSlice from "./userSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
   reducer: {
-    posts: feedSlice,
+    feed: feedSlice,
+    user: userSlice,
     tendency: tendencySlice,
+    activity: activitySlice,
   },
 });
 

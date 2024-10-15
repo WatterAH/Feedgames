@@ -14,9 +14,9 @@ interface Props {
 }
 
 const ProfileHeader: React.FC<Props> = ({ data }) => {
-  const { user } = useUser();
+  const { user, logout } = useUser();
   const { id, pfp, details } = data;
-  const options = useProfileOptions(user, id);
+  const options = useProfileOptions(user, id, logout);
 
   return (
     <header className="flex flex-col gap-y-4 w-full p-3 lg:px-4 border-b">

@@ -3,6 +3,7 @@ import Post from "@/components/Post/Post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PostInterface } from "@/interfaces/Post";
 import { PostsLoader } from "./Loaders";
+import Empty from "./Empty";
 
 interface Props {
   posts: PostInterface[];
@@ -23,9 +24,7 @@ const PostContainer: React.FC<Props> = ({ posts, hasMore, getPost }) => {
       ))}
     </InfiniteScroll>
   ) : (
-    <p className="text-secondaryicon text-center py-3">
-      Parece que no hay posts...
-    </p>
+    <Empty text="Parece que no hay posts..." />
   );
 };
 

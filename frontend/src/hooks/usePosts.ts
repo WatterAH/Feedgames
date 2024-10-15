@@ -1,13 +1,12 @@
 import { PostInterface } from "@/interfaces/Post";
-import { feedPosts, likedPosts, savedPosts } from "@/routes/post";
+import { likedPosts, savedPosts } from "@/routes/post";
 import { profilePosts } from "@/routes/profile";
 import { getTendencyPost } from "@/routes/suggestions";
 import { useCallback, useEffect, useState } from "react";
 
-type Type = "feed" | "profile" | "liked" | "saved";
+type Type = "profile" | "liked" | "saved";
 
 const functions = {
-  feed: feedPosts,
   profile: profilePosts,
   liked: likedPosts,
   saved: savedPosts,
