@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import shortUUID from "short-uuid";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { RequestHandler } from "express";
@@ -6,6 +7,7 @@ import { supabase } from "../database/connection";
 import { processMatch } from "../libs/server";
 
 dotenv.config();
+const translator = shortUUID();
 
 export const oauth2_callback: RequestHandler = async (req, res) => {
   const clientID = "904e7558-66be-4c49-b89d-1020aad6da43";
@@ -123,20 +125,27 @@ export const getMatchByUuid: RequestHandler = async (req, res) => {
 export const setRiotId: RequestHandler = async (req, res) => {
   try {
     const { token, userId } = req.body;
-    const userData = await validateToken(token);
-    if (!userData) return res.status(403).json({ message: "Ocurrió un error" });
-    const riotId = userData as any;
+    const id_user = translator.toUUID(userId);
+
+    const user = await validateToken(token);
+
+    if (!user) return res.status(400).json({ message: "Token no valido" });
+
+    const riotId = user as any;
     delete riotId.exp;
     delete riotId.iat;
+
     const { data, error } = await supabase
       .from("users")
       .update({ riotId })
-      .eq("id", userId)
+      .eq("id", id_user)
       .select("id, created_at, name, username, details, pfp, riotId")
       .single();
 
     if (error) return res.status(403).json({ message: "Ocurrió un error" });
+
     const userToken = await createAccessToken(data);
+
     return res.status(200).json({ token: userToken, user: data });
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });

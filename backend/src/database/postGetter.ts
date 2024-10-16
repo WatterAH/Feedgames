@@ -39,9 +39,10 @@ export const getPostById = async (
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "*, liked!left(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp, followers:follows!follows_id_followed_fkey(count))"
+      "*, liked!left(id_user), saved(id_user), comments(*, user:users(username, name, pfp), comments_liked(id_user)), user:users(username, name, pfp, followers:follows!follows_id_followed_fkey(count))"
     )
     .eq("id", postId)
+    .eq("comments.response", "false")
     .single();
   return { data, error };
 };

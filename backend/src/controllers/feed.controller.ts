@@ -1,11 +1,14 @@
+import shortUUID from "short-uuid";
 import { RequestHandler } from "express";
 import { getPostsByRange } from "../database/postGetter";
 import { processPost } from "../libs/server";
 
+const translator = shortUUID();
+
 export const loadPosts: RequestHandler = async (req, res) => {
   try {
     const { id_user, page, limit } = req.query;
-    const userId = id_user as string;
+    const userId = translator.toUUID(id_user as string);
     const parsedPage = parseInt(page as string, 10);
     const parsedLimit = parseInt(limit as string, 10);
     let { posts, error } = await getPostsByRange(parsedPage, parsedLimit);

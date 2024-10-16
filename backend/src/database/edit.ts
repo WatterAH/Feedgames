@@ -1,6 +1,6 @@
 import { supabase } from "./connection";
 
-export const editProfile = async (
+export const editProfileById = async (
   id: string,
   username: string,
   name: string,

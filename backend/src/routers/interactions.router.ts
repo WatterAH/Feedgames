@@ -1,20 +1,18 @@
 import { Router } from "express";
 import {
-  dontLikePost,
-  dontSavePost,
+  unLikePost,
+  unSavePost,
   followUser,
-  getNotifications,
   likePost,
   savePost,
-  stopFollowUser,
+  unFollowUser,
 } from "../controllers/interactions.controller";
 
 export const interactionsRouter = Router();
 
 interactionsRouter.post("/api/savePost", savePost);
 interactionsRouter.post("/api/likePost", likePost);
-interactionsRouter.delete("/api/dontLikePost", dontLikePost);
-interactionsRouter.delete("/api/dontSavePost", dontSavePost);
+interactionsRouter.delete("/api/unLikePost", unLikePost);
+interactionsRouter.delete("/api/unSavePost", unSavePost);
 interactionsRouter.post("/api/followUser", followUser);
-interactionsRouter.delete("/api/stopFollowUser", stopFollowUser);
-interactionsRouter.get("/api/getNotifications", getNotifications);
+interactionsRouter.delete("/api/unFollowUser", unFollowUser);
