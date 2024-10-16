@@ -38,22 +38,6 @@ export const deleteNotificationById = async (id: string): Promise<void> => {
   return;
 };
 
-// export const subscribeToNotify = async (
-//   handleNewNotification: (payload: Notification) => void
-// ) => {
-//   supabase
-//     .channel("custom-insert-channel")
-//     .on(
-//       "postgres_changes",
-//       { event: "INSERT", schema: "public", table: "notify" },
-//       (payload: any) => {
-//         const notification = payload.new;
-//         handleNewNotification(notification);
-//       }
-//     )
-//     .subscribe();
-// };
-
 // export const hasNotifications = async (userId: string): Promise<boolean> => {
 //   const {
 //     data: notifications,

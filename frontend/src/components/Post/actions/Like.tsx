@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useUser } from "../../../context/AuthContext";
-import { likePost, dontLikePost } from "@/routes/interactions";
+import { likePost, unLikePost } from "@/routes/interactions";
 import { Heart } from "lucide-react";
 import { animated } from "react-spring";
 import { useAnimations } from "@/hooks/useAnimations";
@@ -35,7 +35,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
         } else {
           setLikedNum((prev) => prev - 1);
           dispatch(updatePostInteraction(id, "unlike"));
-          await dontLikePost(user.id, id, user.username, user_id);
+          await unLikePost(user.id, id);
         }
       } catch (error: any) {
         throw new Error(error.message);

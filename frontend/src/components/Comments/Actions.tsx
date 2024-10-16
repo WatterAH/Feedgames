@@ -10,8 +10,8 @@ interface Props {
 
 const Actions: React.FC<Props> = ({ data }) => {
   const { id, id_user } = data;
-  const { isLiked, comments_liked } = data;
-  const [likedNum, setLikedNum] = useState(comments_liked.length);
+  const { isLiked, liked } = data;
+  const [likedNum, setLikedNum] = useState(liked);
 
   return (
     <div className="flex justify-between items-center mt-1">

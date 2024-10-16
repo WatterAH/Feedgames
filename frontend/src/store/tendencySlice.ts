@@ -1,13 +1,13 @@
 import { PostInterface } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "./store";
-import { getTendencyPost } from "@/routes/suggestions";
 import {
   REMOVE_POST,
   RemovePostAction,
   UPDATE_POST_INTERACTION,
   UpdatePostInteractionAction,
 } from "./actions";
+import { loadTopLikedPosts } from "@/routes/post";
 
 interface tendencySlice {
   posts: PostInterface[];
@@ -90,7 +90,7 @@ export const fetchTendency =
   (userId: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(fetchTendencyStart());
-      const data = await getTendencyPost(userId);
+      const data = await loadTopLikedPosts(userId);
       dispatch(fetchTendencySuccess(data));
     } catch (error: any) {
       dispatch(fetchTendencyFailure(error.message));

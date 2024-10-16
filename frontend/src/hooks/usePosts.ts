@@ -1,13 +1,11 @@
 import { PostInterface } from "@/interfaces/Post";
-import { likedPosts, savedPosts } from "@/routes/post";
-import { profilePosts } from "@/routes/profile";
-import { getTendencyPost } from "@/routes/suggestions";
+import { getPostsByUser, likedPosts, savedPosts } from "@/routes/post";
 import { useCallback, useEffect, useState } from "react";
 
 type Type = "profile" | "liked" | "saved";
 
 const functions = {
-  profile: profilePosts,
+  profile: getPostsByUser,
   liked: likedPosts,
   saved: savedPosts,
 };
@@ -47,30 +45,4 @@ export const usePosts = (userId: string, type: Type, requestId?: string) => {
   }, [userId, page, getPosts, type]);
 
   return { posts, loading, error, hasMore, getPosts };
-};
-
-export const useTendencyPost = (userId: string) => {
-  const [posts, setPosts] = useState<PostInterface[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const getPosts = useCallback(async () => {
-    if (!userId) return;
-    try {
-      setLoading(true);
-      const data = await getTendencyPost(userId);
-      setPosts(data);
-    } catch (error: any) {
-      setError(true);
-      throw new Error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    getPosts();
-  }, [userId, getPosts]);
-
-  return { loading, posts, error };
 };

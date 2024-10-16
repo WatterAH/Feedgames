@@ -9,6 +9,6 @@ export interface CommentInterface {
   response: boolean;
   responses: string[];
   user: User;
-  comments_liked: string[];
+  liked: number;
   isLiked: boolean;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useUser } from "../../../context/AuthContext";
-import { dontSavePost, savePost } from "@/routes/interactions";
+import { unSavePost, savePost } from "@/routes/interactions";
 import { Bookmark } from "lucide-react";
 import { useAnimations } from "@/hooks/useAnimations";
 import { animated } from "react-spring";
@@ -34,7 +34,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
         } else {
           setSavedNum((prev) => prev - 1);
           dispatch(updatePostInteraction(id, "unsave"));
-          await dontSavePost(user.id, id);
+          await unSavePost(user.id, id);
         }
       } catch (error: any) {
         throw new Error(error.message);

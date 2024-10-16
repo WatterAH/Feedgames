@@ -1,100 +1,87 @@
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 export const likePost = async (
-  id_user: string,
-  id_post: string,
+  userId: string,
+  postId: string,
   username: string,
-  user_post: string
+  postUser: string
 ): Promise<void> => {
-  const body = { id_user, id_post, username, user_post };
   const res = await fetch(`${URL}/api/likePost`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ userId, postId, username, postUser }),
   });
 
+  console.log(res);
   if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("No se  pudo realizar la acción");
   }
   return;
 };
 
-export const dontLikePost = async (
-  id_user: string,
-  id_post: string,
-  username: string,
-  user_post: string
+export const unLikePost = async (
+  userId: string,
+  postId: string
 ): Promise<void> => {
-  const body = { id_user, id_post, username, user_post };
-  const res = await fetch(`${URL}/api/dontLikePost`, {
+  const res = await fetch(`${URL}/api/unLikePost`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ userId, postId }),
   });
 
   if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("No se pudo realizar la acción");
   }
   return;
 };
 
 export const savePost = async (
-  id_user: string,
-  id_post: string
+  userId: string,
+  postId: string
 ): Promise<void> => {
-  const body = { id_user, id_post };
   const res = await fetch(`${URL}/api/savePost`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ userId, postId }),
   });
 
   if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("No se pudo realizar la acción");
   }
   return;
 };
 
-export const dontSavePost = async (
-  id_user: string,
-  id_post: string
+export const unSavePost = async (
+  userId: string,
+  postId: string
 ): Promise<void> => {
-  const body = { id_user, id_post };
-  const res = await fetch(`${URL}/api/dontSavePost`, {
+  const res = await fetch(`${URL}/api/unSavePost`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ userId, postId }),
   });
 
   if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("No se pudo realizar la acción");
   }
   return;
 };
 
 export const followUser = async (
-  id_follower: string,
-  id_followed: string,
+  followerId: string,
+  followedId: string,
   username: string
 ): Promise<void> => {
   const res = await fetch(`${URL}/api/followUser`, {
@@ -103,36 +90,31 @@ export const followUser = async (
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ id_follower, id_followed, username }),
+    body: JSON.stringify({ followerId, followedId, username }),
   });
 
   if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("No se pudo realizar la acción");
   }
   return;
 };
 
-export const dontFollowUser = async (
-  id_follower: string,
-  id_followed: string,
+export const unFollowUser = async (
+  followerId: string,
+  followedId: string,
   username: string
 ): Promise<void> => {
-  const body = { id_follower, id_followed, username };
-  const res = await fetch(`${URL}/api/stopFollowUser`, {
+  const res = await fetch(`${URL}/api/unFollowUser`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ followerId, followedId, username }),
   });
 
   if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("No se pudo realizar la acción");
   }
   return;
 };

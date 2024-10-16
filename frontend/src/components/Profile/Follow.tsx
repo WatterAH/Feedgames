@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Edit from "./Edit";
 import { useUser } from "@/context/AuthContext";
 import { User } from "@/interfaces/User";
-import { dontFollowUser, followUser } from "@/routes/interactions";
+import { unFollowUser, followUser } from "@/routes/interactions";
 import { toast } from "sonner";
 
 interface Props {
@@ -22,7 +22,7 @@ const Follow: React.FC<Props> = (props) => {
       if (!followState) {
         await followUser(user.id, id, user.username);
       } else {
-        await dontFollowUser(user.id, id, user.username);
+        await unFollowUser(user.id, id, user.username);
       }
     } catch (error: any) {
       toast.error(error.message);

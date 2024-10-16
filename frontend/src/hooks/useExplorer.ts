@@ -4,7 +4,6 @@ import { User } from "@/interfaces/User";
 import { getProfile } from "@/routes/profile";
 import { CommentInterface } from "@/interfaces/Comment";
 import { getPostById } from "@/routes/post";
-import { fetchComments } from "@/routes/comments";
 
 export const useExploreProfile = (userId: string, requestId: string) => {
   const [profile, setProfile] = useState<User | null>(null);
@@ -44,29 +43,24 @@ export const useExplorePost = (
   const getPost = useCallback(async () => {
     if (!postId || !userId) return;
     try {
+      setLoading(true);
       const data = await getPostById(postId, userId);
-      setPost(data);
+      const { post, comments } = data;
+      setPost(post);
+      setComments(comments);
     } catch (error: any) {
+      setError(true);
       throw new Error(error.message);
-    }
-  }, [postId, userId]);
-
-  const getComments = useCallback(async () => {
-    if (!postId || !userId) return;
-    try {
-      const data = await fetchComments(postId, userId);
-      setComments(data);
-    } catch (error: any) {
-      throw new Error(error.message);
+    } finally {
+      setLoading(false);
     }
   }, [postId, userId]);
 
   useEffect(() => {
-    setLoading(true);
-    Promise.all([getPost(), getComments()])
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, [getPost, getComments]);
+    if (userId) {
+      getPost();
+    }
+  }, [getPost, userId]);
 
   return { post, comments, loading, error };
 };

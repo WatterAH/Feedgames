@@ -2,13 +2,14 @@ import { PostInterface } from "@/interfaces/Post";
 import { User } from "@/interfaces/User";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { getProfile, profilePosts } from "@/routes/profile";
+import { getProfile } from "@/routes/profile";
 import {
   REMOVE_POST,
   RemovePostAction,
   UPDATE_POST_INTERACTION,
   UpdatePostInteractionAction,
 } from "./actions";
+import { getPostsByUser } from "@/routes/post";
 
 interface userSlice {
   user: User | null;
@@ -139,7 +140,7 @@ export const fetchPosts =
 
     try {
       dispatch(fetchPostsStart());
-      const data = await profilePosts(userId, page, limit, userId);
+      const data = await getPostsByUser(userId, page, limit, userId);
       const hasMore = data.length > 0;
       dispatch(
         fetchPostsSuccess({

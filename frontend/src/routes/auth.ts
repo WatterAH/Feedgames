@@ -53,8 +53,3 @@ export const checkAuth = async (userToken: string): Promise<{ user: User }> => {
     throw new Error(message);
   }
 };
-
-export const logoutApi = async (): Promise<void> => {
-  document.cookie = `token=; Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=none`;
-  return;
-};
