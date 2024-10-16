@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 export const postRouter = Router();
 
 postRouter.post("/api/createPost", upload.single("image"), createPost);
-postRouter.post("/api/deletePost", deletePost);
+postRouter.delete("/api/deletePost", deletePost);
 postRouter.get("/api/loadSaved", loadSaved);
 postRouter.get("/api/loadLiked", loadLiked);
 postRouter.get("/api/getPost", getPost);

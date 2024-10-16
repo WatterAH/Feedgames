@@ -16,8 +16,8 @@ const translator = shortUUID();
 
 export const createPost: RequestHandler = async (req, res) => {
   try {
-    let { user_id, content, valMatch } = req.body;
-    const userId = translator.toUUID(user_id);
+    let { userId, content, valMatch } = req.body;
+    const user_id = translator.toUUID(userId);
     valMatch = JSON.parse(valMatch);
     const image = req.file;
 
@@ -35,14 +35,14 @@ export const createPost: RequestHandler = async (req, res) => {
       publicUrl = filename;
     }
 
-    const data = { userId, content, publicUrl, valMatch };
+    const data = { user_id, content, publicUrl, valMatch };
     const { error } = await supabase.from("posts").insert([data]);
 
     if (error) {
       return res.status(400).json({ message: "Error al crear el post" });
     }
 
-    return res.status(201).end();
+    return res.status(201).json({ message: "Hecho!" });
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }

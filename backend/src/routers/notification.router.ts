@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { getNotifications } from "../controllers/notification.controller";
-import { deleteNotification } from "../database/delete";
+import {
+  deleteNotify,
+  getNotifications,
+} from "../controllers/notification.controller";
 
 export const notifyRouter = Router();
 
 notifyRouter.get("/api/getNotifications", getNotifications);
-notifyRouter.get("/api/deleteNotification", deleteNotification);
+notifyRouter.delete("/api/deleteNotification", deleteNotify);

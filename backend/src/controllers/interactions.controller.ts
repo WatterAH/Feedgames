@@ -10,6 +10,7 @@ const translator = shortUUID();
 export const likePost: RequestHandler = async (req, res) => {
   try {
     const { userId, postId, username, postUser } = req.body;
+    const post_user = translator.toUUID(postUser);
     const id_user = translator.toUUID(userId);
     const id_post = translator.toUUID(postId);
     await unlike(id_user, id_post);
@@ -21,7 +22,7 @@ export const likePost: RequestHandler = async (req, res) => {
 
     if (userId != postUser) {
       const text = "Le gustó tu publicación";
-      await notify(postUser, false, "p", postId, text, username);
+      await notify(post_user, false, "p", postId, text, username);
     }
 
     return res.status(200).end();
@@ -92,7 +93,7 @@ export const followUser: RequestHandler = async (req, res) => {
     if (error) return res.status(400).end();
 
     const text = "Comenzó a seguirte";
-    notify(followedId, false, "u", followerId, text, username);
+    notify(id_followed, false, "u", followerId, text, username);
 
     return res.status(200).end();
   } catch (error) {
