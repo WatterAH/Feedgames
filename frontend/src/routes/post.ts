@@ -39,20 +39,20 @@ export const getPostById = async (
 };
 
 export const createPost = async (
-  user_id: string,
+  userId: string,
   content: string,
   image: File | null,
   valMatch: MatchShowCase | null
 ): Promise<void> => {
   const formData = new FormData();
-  formData.append("user_id", user_id);
+  formData.append("userId", userId);
   formData.append("content", content);
   formData.append("valMatch", JSON.stringify(valMatch));
   if (image) {
     formData.append("image", image);
   }
 
-  const res = await fetch(`${URL}/api/createNewPost`, {
+  const res = await fetch(`${URL}/api/createPost`, {
     method: "POST",
     credentials: "include",
     body: formData,
