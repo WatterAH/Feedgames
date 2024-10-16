@@ -33,7 +33,7 @@ const TextArea: React.FC<Props> = ({ text, setText }) => {
       value={text}
       onChange={handleInput}
       placeholder="¿Qué hay en tu mente?"
-      className="font-montserrat outline-none w-full resize-none sm:text-xs h-20 scrollbar-thin"
+      className="font-montserrat outline-none w-full resize-none sm:text-xs scrollbar-thin"
       rows={1}
       style={{ maxHeight: "200px", overflowY: "auto" }}
     />

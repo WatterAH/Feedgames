@@ -1,9 +1,9 @@
+import React, { useState } from "react";
+import Edit from "./Edit";
 import { useUser } from "@/context/AuthContext";
 import { User } from "@/interfaces/User";
 import { dontFollowUser, followUser } from "@/routes/interactions";
-import React, { useState } from "react";
 import { toast } from "sonner";
-import Edit from "./Edit";
 
 interface Props {
   data: User;
@@ -39,6 +39,7 @@ const Follow: React.FC<Props> = (props) => {
       >
         {isSameUser ? "Editar perfil" : followState ? "Siguiendo" : "Seguir"}
       </button>
+
       <Edit open={editing} setOpen={setEditing} />
     </>
   );

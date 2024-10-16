@@ -10,9 +10,10 @@ import { stopPropagation } from "@/functions/utils";
 
 interface Props {
   data: PostInterface;
+  isLast?: boolean;
 }
 
-const Post: React.FC<Props> = ({ data }) => {
+const Post: React.FC<Props> = ({ data, isLast }) => {
   const { id, user, user_id } = data;
   const router = useRouter();
 
@@ -28,8 +29,8 @@ const Post: React.FC<Props> = ({ data }) => {
       <Link href={`/u/${user_id}`} className="h-10" onClick={stopPropagation}>
         <ProfilePicture h={40} w={40} src={user.pfp} />
       </Link>
-      <div className="flex flex-col w-full">
-        <Header data={data} />
+      <div className="flex flex-col w-full gap-y-2">
+        <Header data={data} isLast={isLast} />
         <Content data={data} />
         <Actions data={data} />
       </div>

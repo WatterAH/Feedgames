@@ -9,16 +9,17 @@ import { usePostOptions } from "@/hooks/useOptions";
 
 interface Props {
   data: PostInterface;
+  isLast?: boolean;
 }
 
-const Header: React.FC<Props> = ({ data }) => {
+const Header: React.FC<Props> = ({ data, isLast }) => {
   const { id, user_id, user, order } = data;
   const { username, followers } = user;
   const date = calculateDate(order);
   const options = usePostOptions(id, user_id);
 
   return (
-    <header className="flex flex-row justify-between">
+    <header className="flex flex-row justify-between relative">
       <section className="flex flex-row items-center gap-x-1">
         <Link href={`/u/${user_id}`} onClick={stopPropagation}>
           <span className="flex items-center gap-x-1">
@@ -31,12 +32,14 @@ const Header: React.FC<Props> = ({ data }) => {
         <p className="text-secondaryicon text-xs mt-1">{date}</p>
       </section>
       <section>
-        <Dropdown
-          Icon={Ellipsis}
-          options={options}
-          iconClass="h-5 text-secondaryicon"
-          position="left"
-        />
+        <div className="absolute right-1">
+          <Dropdown
+            Icon={Ellipsis}
+            options={options}
+            iconClass="h-5 text-secondaryicon"
+            position={isLast ? "top_left" : "left"}
+          />
+        </div>
       </section>
     </header>
   );

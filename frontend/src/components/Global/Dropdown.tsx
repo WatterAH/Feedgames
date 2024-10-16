@@ -9,58 +9,55 @@ interface Props {
   options: ({
     label: string;
     icon?: typeof User;
-    color?: string;
     onClick: () => void;
   } | null)[];
-  position: "top" | "bottom" | "left" | "right";
+  position: "top" | "top_left" | "left" | "right";
 }
 
 const Dropdown: React.FC<Props> = ({ Icon, iconClass, options, position }) => {
   const positionClasses = {
     top: "bottom-full mb-1",
-    bottom: "top-full mb-1",
+    top_left: "bottom-1/4 right-full",
     left: "right-0 mt-1",
     right: "left-0 mt-1",
   };
 
   const originClasses = {
     top: "origin-bottom-left",
-    bottom: "origin-top-right",
+    top_left: "origin-bottom-right",
     left: "origin-top-right",
     right: "origin-top-right",
   };
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative text-left">
       <div onClick={stopPropagation}>
-        <MenuButton className="w-full justify-center gap-x-1.5 p-2 text-threads sm:hover:bg-gray-100 rounded-full transition-all duration-500 active:scale-75">
+        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-full p-2 text-threads sm:hover:bg-gray-100 transition-all duration-500 active:scale-75">
           <Icon className={iconClass} />
         </MenuButton>
       </div>
 
       <MenuItems
         transition
-        className={`absolute z-20 ${positionClasses[position]} w-56 ${originClasses[position]} rounded-2xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in`}
+        className={`absolute z-50 ${positionClasses[position]} w-56 ${originClasses[position]} rounded-2xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in`}
       >
         <div className="py-2 px-1">
           {options.map((option) => {
             if (option) {
               const Icon = option.icon;
               return (
-                <div key={option.label} onClick={stopPropagation}>
+                <div
+                  key={option.label}
+                  onClick={stopPropagation}
+                  className="overflow-y-hidden"
+                >
                   <MenuItem>
                     <button
                       className="p-4 w-full flex justify-between text-sm font-semibold text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 rounded-2xl"
                       onClick={option.onClick}
                     >
                       {option.label}
-                      {Icon && (
-                        <Icon
-                          className={`${
-                            option.color ?? "text-threads"
-                          } h-5 w-5`}
-                        />
-                      )}
+                      {Icon && <Icon className={"text-threads h-5 w-5"} />}
                     </button>
                   </MenuItem>
                 </div>

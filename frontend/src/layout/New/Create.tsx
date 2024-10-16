@@ -9,8 +9,13 @@ import { toast } from "sonner";
 import { useUser } from "@/context/AuthContext";
 import { createPost } from "@/routes/post";
 import { MatchShowCase } from "@/interfaces/Valorant";
-import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useGetMatches } from "@/hooks/useValorant";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 
 interface Props {
   open: boolean;
@@ -67,37 +72,39 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
     <Dialog open={open} onClose={setOpen} className="relative z-50">
       <DialogBackdrop
         transition
-        className="fixed inset-0 backdrop-blur-sm bg-black/15 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in overflow-y-scroll"
+        className="fixed inset-0 backdrop-blur-sm bg-black/15 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
       />
 
       <div className="fixed inset-0 z-10">
-        <div className="flex items-center justify-center border h-screen text-center sm:items-center sm:p-0">
+        <div className="flex h-screen items-center justify-center text-center">
           <DialogPanel
             transition
-            className="relative transform overflow-hidden md:rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 w-full md:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+            className="relative transform overflow-hidden sm:rounded-lg bg-white  shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
-            <div className="bg-white pt-5 h-screen md:h-full relative">
-              <div className="flex flex-col">
-                <div className="mt-3 sm:mt-0 sm:text-left w-full">
-                  <div
-                    id="title"
-                    className="flex justify-between px-2 text-threads"
+            <div className="bg-white sm:p-4 h-screen sm:h-full">
+              <div className="sm:flex sm:items-start">
+                <div className="mt-7 sm:mt-3 w-full relative">
+                  <DialogTitle
+                    as="h3"
+                    className="text-base font-semibold leading-6 text-gray-900"
                   >
-                    <button
-                      className="rounded-full hover:bg-gray-100 hover:cursor-pointer p-2 transition-all duration-500"
-                      onClick={() => setOpen(false)}
-                    >
-                      <X />
-                    </button>
-                    <h3 className="font-semibold">Nuevo Post</h3>
-                    <button
-                      className="rounded-full hover:bg-gray-100 hover:cursor-pointer p-2 transition-all duration-500"
-                      onClick={handleSubmit}
-                    >
-                      <Check />
-                    </button>
-                  </div>
-                  <div className="mt-10 md:mt-5 flex flex-col gap-x-2 px-4 md:pb-4">
+                    Nuevo Post
+                  </DialogTitle>
+                  <div className="mt-7 flex flex-col gap-x-2 px-4 sm:px-0 md:pb-4">
+                    <div className="absolute flex w-full text-threads justify-between px-3 sm:px-0 -top-1 left-0">
+                      <button
+                        className="rounded-full hover:bg-gray-100 hover:cursor-pointer p-2 transition-all duration-500"
+                        onClick={() => setOpen(false)}
+                      >
+                        <X />
+                      </button>
+                      <button
+                        className="rounded-full hover:bg-gray-100 hover:cursor-pointer p-2 transition-all duration-500"
+                        onClick={handleSubmit}
+                      >
+                        <Check />
+                      </button>
+                    </div>
                     <div className="flex items-center gap-x-2">
                       <ProfilePicture src={user.pfp} w={40} h={40} />
                       <div className="mb-2">

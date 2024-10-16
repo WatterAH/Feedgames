@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Create from "./Create";
 import { SquarePen } from "lucide-react";
+import Create from "./Create";
 
 const New = () => {
   const [open, setOpen] = useState(false);

@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pacifico.variable} ${raleway.variable} ${montserrat.variable} ${inter.variable} antialiased scrollbar-thumb-secondaryicon scrollbar-thumb-rounded-full scrollbar-track-white scrollbar-track-rounded-full bg-barcelona`}
+        className={`${pacifico.variable} ${raleway.variable} ${montserrat.variable} ${inter.variable} antialiased bg-barcelona`}
       >
         <Providers>{children}</Providers>
       </body>

@@ -9,9 +9,10 @@ import { useNotifyOptions } from "@/hooks/useOptions";
 
 interface Props {
   data: Notification;
+  isLast: boolean;
 }
 
-const Notify: React.FC<Props> = ({ data }) => {
+const Notify: React.FC<Props> = ({ data, isLast }) => {
   const { text, created_at, id, user } = data;
   const { id: userId, username, pfp } = user;
   const date = calculateDate(created_at);
@@ -37,14 +38,12 @@ const Notify: React.FC<Props> = ({ data }) => {
         </section>
       </div>
       <section>
-        <div>
-          <Dropdown
-            Icon={Ellipsis}
-            options={options}
-            position="left"
-            iconClass="text-secondaryicon"
-          />
-        </div>
+        <Dropdown
+          Icon={Ellipsis}
+          options={options}
+          position={isLast ? "top_left" : "left"}
+          iconClass="text-secondaryicon"
+        />
       </section>
     </div>
     // </Link>

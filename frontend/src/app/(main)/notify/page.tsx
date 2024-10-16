@@ -42,20 +42,28 @@ export default function NotifyPage() {
         dataLength={notifications.length}
         hasMore={hasMore}
         next={getMoreNotify}
+        scrollableTarget="main"
         loader={<NotifysLoader count={2} />}
       >
-        {notifications.map((notify) => (
-          <Notify key={notify.id} data={notify} />
+        {notifications.map((notify, i) => (
+          <Notify
+            key={notify.id}
+            data={notify}
+            isLast={i == notifications.length - 1}
+          />
         ))}
       </InfiniteScroll>
     );
   };
 
   return (
-    <main className="flex flex-col h-screen items-center bg-barcelona relative">
+    <main
+      id="main"
+      className="flex flex-col h-screen items-center bg-barcelona relative overflow-y-scroll"
+    >
       <Title title="Notificaciones" />
       <Card />
-      <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10">
+      <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10 h-full">
         <RenderContent />
       </div>
     </main>

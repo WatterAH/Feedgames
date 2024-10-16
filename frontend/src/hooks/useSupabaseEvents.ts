@@ -12,7 +12,7 @@ export const useSubscribeToNewPosts = (userId: string) => {
 
   useEffect(() => {
     const chanel = supabase
-      .channel("custom-insert-channel")
+      .channel("chanel_posts")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "posts" },
@@ -28,7 +28,7 @@ export const useSubscribeToNewPosts = (userId: string) => {
               comments: comments.length,
             };
             dispatch(addPost(newPost));
-            if (post.user_id === userId) {
+            if (post.user_id == userId) {
               dispatch(addMyPost(newPost));
             } else {
               toast.info("Nuevos posts");
@@ -49,7 +49,7 @@ export const useSubscribeToNotify = (userId: string) => {
 
   useEffect(() => {
     const chanel = supabase
-      .channel("custom-insert-channel")
+      .channel("chanel_notify")
       .on(
         "postgres_changes",
         {

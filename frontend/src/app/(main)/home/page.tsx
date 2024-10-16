@@ -43,7 +43,7 @@ export default function HomePage() {
   return (
     <main
       id="main"
-      className="flex flex-col h-screen justify-start items-center bg-barcelona relative"
+      className="flex flex-col h-screen justify-start items-center bg-barcelona relative overflow-y-scroll"
     >
       <Header />
       <Title title="Feed" />

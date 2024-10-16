@@ -1,10 +1,4 @@
 import React, { useState } from "react";
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/react";
 import Image from "next/image";
 import FormField from "../Global/FormField";
 import Button from "../Global/Button";
@@ -15,6 +9,12 @@ import { isImage } from "@/functions/utils";
 import { editProfile } from "@/routes/profile";
 import { useCookies } from "react-cookie";
 import { getExpirationDate } from "@/functions/date";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 
 interface Props {
   open: boolean;
@@ -77,36 +77,46 @@ const Edit: React.FC<Props> = ({ open, setOpen }) => {
       />
 
       <div className="fixed inset-0 z-10">
-        <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+        <div className="flex h-screen items-center justify-center text-center">
           <DialogPanel
             transition
-            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 w-full max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+            className="relative transform overflow-hidden sm:rounded-lg bg-white  shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
-            <div className="bg-white px-4 pb-4 pt-5 sm:pb-5 relative">
+            <div className="bg-white sm:p-4 h-screen sm:h-full">
               <div className="sm:flex sm:items-start">
-                <div className="mt-3 sm:mt-0 sm:text-left w-full">
+                <div className="mt-7 sm:mt-0 w-full relative">
                   <DialogTitle
                     as="h3"
-                    className="text-base font-semibold leading-6 text-gray-900 text-center"
+                    className="text-base font-semibold leading-6 text-gray-900"
                   >
-                    Modo de edición
+                    Modo de Edición
                   </DialogTitle>
-                  <div className="mt-2">
+                  <div className="mt-4 px-4 sm:px-0">
                     <div
-                      className="absolute rounded-full hover:bg-gray-100 right-2 top-2 hover:cursor-pointer p-2 transition-all duration-500"
+                      className="absolute rounded-full hover:bg-gray-100 right-2 -top-2 hover:cursor-pointer p-2 transition-all duration-500"
                       onClick={() => setOpen(false)}
                     >
                       <X className="text-threads" />
                     </div>
                     <form onSubmit={handleSubmit}>
                       <div className="w-full flex flex-col items-center gap-y-2 mt-4">
-                        <Image
-                          src={picture}
-                          className="rounded-full"
-                          alt=""
-                          width={80}
-                          height={80}
-                        />
+                        <div
+                          className="rounded-full h-20 w-20 bg-loading"
+                          style={{
+                            width: "80px",
+                            height: "80px",
+                            position: "relative",
+                          }}
+                        >
+                          <Image
+                            src={picture}
+                            alt=""
+                            fill
+                            priority
+                            className="object-cover cursor-pointer rounded-full"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </div>
                         <label
                           htmlFor="img"
                           className="text-threads hover:cursor-pointer"

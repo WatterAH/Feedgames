@@ -18,7 +18,7 @@ export default function MyProfile() {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (userSession?.id && posts.length == 0 && !user) {
+    if (!user) {
       dispatch(fetchUser(userSession?.id));
       dispatch(fetchPosts(userSession.id, 10));
     }
@@ -31,7 +31,10 @@ export default function MyProfile() {
   };
 
   return (
-    <main className="flex flex-col h-screen items-center bg-barcelona relative">
+    <main
+      id="main"
+      className="flex flex-col h-screen items-center bg-barcelona relative overflow-y-scroll"
+    >
       <Title title={userSession.username} />
       <Card />
       <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10">

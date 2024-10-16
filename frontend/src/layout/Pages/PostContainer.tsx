@@ -1,9 +1,9 @@
 import React from "react";
 import Post from "@/components/Post/Post";
+import Empty from "./Empty";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PostInterface } from "@/interfaces/Post";
 import { PostsLoader } from "./Loaders";
-import Empty from "./Empty";
 
 interface Props {
   posts: PostInterface[];
@@ -18,9 +18,10 @@ const PostContainer: React.FC<Props> = ({ posts, hasMore, getPost }) => {
       hasMore={hasMore}
       loader={<PostsLoader count={2} />}
       next={getPost}
+      scrollableTarget="main"
     >
-      {posts.map((post) => (
-        <Post data={post} key={post.id} />
+      {posts.map((post, i) => (
+        <Post data={post} key={post.id} isLast={i == posts.length - 1} />
       ))}
     </InfiniteScroll>
   ) : (

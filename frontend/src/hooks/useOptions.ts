@@ -46,7 +46,6 @@ const useProfileOptions = (user: User, id: string, logout: () => void) => {
       ? {
           label: "Cerrar sesión",
           icon: LogOut,
-          color: "text-red-400",
           onClick: exit,
         }
       : null,
@@ -67,7 +66,6 @@ const usePostOptions = (id: string, userId: string) => {
       ? {
           label: "Eliminar",
           icon: Trash2,
-          color: "text-red-400",
           onClick: () => dispatch(removePost(id)),
         }
       : null,
@@ -102,7 +100,6 @@ const useMenuOptions = (logout: () => void) => {
     {
       label: "Cerrar Sesión",
       icon: LogOut,
-      color: "text-red-400",
       onClick: exit,
     },
   ].filter(Boolean);
@@ -115,7 +112,6 @@ const useNotifyOptions = (id: string) => {
     {
       label: "Eliminar",
       icon: Trash2,
-      color: "text-red-400",
       onClick: () => dispatch(removeNotify(id)),
     },
   ].filter(Boolean);
