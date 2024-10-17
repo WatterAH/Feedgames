@@ -6,6 +6,7 @@ import { getProfile } from "@/routes/profile";
 import {
   REMOVE_POST,
   RemovePostAction,
+  RESET_ALL,
   UPDATE_POST_INTERACTION,
   UpdatePostInteractionAction,
 } from "./actions";
@@ -48,12 +49,6 @@ const userSlice = createSlice({
     fetchUserFailure: (state, action) => {
       state.loadingUser = false;
       state.errorUser = action.payload;
-    },
-    resetUser: (state) => {
-      state.user = null;
-      state.posts = [];
-      state.page = 0;
-      state.hasMore = true;
     },
     fetchPostsStart: (state) => {
       state.loadingPosts = true;
@@ -104,6 +99,12 @@ const userSlice = createSlice({
     builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
     });
+    builder.addCase(RESET_ALL, (state) => {
+      state.user = null;
+      state.posts = [];
+      state.page = 0;
+      state.hasMore = true;
+    });
   },
 });
 
@@ -114,7 +115,6 @@ export const {
   fetchPostsStart,
   fetchPostsSuccess,
   fetchPostsFailure,
-  resetUser,
   addMyPost,
 } = userSlice.actions;
 

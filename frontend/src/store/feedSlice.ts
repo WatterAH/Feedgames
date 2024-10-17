@@ -7,6 +7,7 @@ import {
   deletePost,
   REMOVE_POST,
   RemovePostAction,
+  RESET_ALL,
   UPDATE_POST_INTERACTION,
   UpdatePostInteractionAction,
 } from "./actions";
@@ -45,11 +46,6 @@ const feedSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    resetFeedPosts: (state) => {
-      state.posts = [];
-      state.hasMore = true;
-      state.page = 0;
-    },
     addPost: (state, action) => {
       state.posts.unshift(action.payload);
     },
@@ -85,6 +81,11 @@ const feedSlice = createSlice({
     builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
     });
+    builder.addCase(RESET_ALL, (state) => {
+      state.posts = [];
+      state.hasMore = true;
+      state.page = 0;
+    });
   },
 });
 
@@ -92,7 +93,6 @@ export const {
   fetchPostsStart,
   fetchPostsSuccess,
   fetchPostsFailure,
-  resetFeedPosts,
   addPost,
 } = feedSlice.actions;
 

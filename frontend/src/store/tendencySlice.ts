@@ -4,6 +4,7 @@ import { AppDispatch } from "./store";
 import {
   REMOVE_POST,
   RemovePostAction,
+  RESET_ALL,
   UPDATE_POST_INTERACTION,
   UpdatePostInteractionAction,
 } from "./actions";
@@ -37,11 +38,6 @@ const tendencySlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    resetTendency: (state) => {
-      state.posts = [];
-      state.loading = false;
-      state.error = null;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -74,6 +70,11 @@ const tendencySlice = createSlice({
     builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
     });
+    builder.addCase(RESET_ALL, (state) => {
+      state.posts = [];
+      state.loading = false;
+      state.error = null;
+    });
   },
 });
 
@@ -81,7 +82,6 @@ export const {
   fetchTendencyStart,
   fetchTendencySuccess,
   fetchTendencyFailure,
-  resetTendency,
 } = tendencySlice.actions;
 
 export default tendencySlice.reducer;

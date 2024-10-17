@@ -21,7 +21,7 @@ export default function HomePage() {
   );
 
   useEffect(() => {
-    if (user?.id && posts.length == 0) {
+    if (user?.id && posts.length < 10) {
       dispatch(fetchPosts(user.id, 10));
     }
   }, [dispatch, user?.id, posts.length]);

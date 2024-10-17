@@ -6,25 +6,20 @@ import { useUser } from "@/context/AuthContext";
 import { Bookmark, Gamepad2, Heart, LogOut, Share, Trash2 } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { removePost, resetFeedPosts } from "@/store/feedSlice";
-import { removeNotify, resetNotifications } from "@/store/activity";
-import { resetUser } from "@/store/userSlice";
-import { resetTendency } from "@/store/tendencySlice";
+import { removePost } from "@/store/feedSlice";
+import { removeNotify } from "@/store/activity";
+import { resetAll } from "@/store/actions";
 
 const useProfileOptions = (user: User, id: string, logout: () => void) => {
   const dispatch: AppDispatch = useDispatch();
-  const [, , removeCookie] = useCookies();
+  const [_c, _s, removeCookie] = useCookies();
   const router = useRouter();
-  const RSO =
-    "https://auth.riotgames.com/authorize?redirect_uri=https://craftfeed.fly.dev/oauth2-callback&client_id=904e7558-66be-4c49-b89d-1020aad6da43&response_type=code&scope=openid";
+  const RSO = process.env.NEXT_PUBLIC_RSO_AUTH;
   const exit = () => {
     router.push("/login");
     removeCookie("token");
     logout();
-    dispatch(resetNotifications());
-    dispatch(resetFeedPosts());
-    dispatch(resetUser());
-    dispatch(resetTendency());
+    dispatch(resetAll());
   };
 
   return [
@@ -37,7 +32,7 @@ const useProfileOptions = (user: User, id: string, logout: () => void) => {
       ? {
           label: "Riot Games",
           onClick: () => {
-            router.push(RSO);
+            router.push(RSO ?? "");
           },
           icon: Gamepad2,
         }
@@ -80,10 +75,7 @@ const useMenuOptions = (logout: () => void) => {
     router.push("/login");
     removeCookie("token");
     logout();
-    dispatch(resetNotifications());
-    dispatch(resetFeedPosts());
-    dispatch(resetUser());
-    dispatch(resetTendency());
+    dispatch(resetAll());
   };
 
   return [

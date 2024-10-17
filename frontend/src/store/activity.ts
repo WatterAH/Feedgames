@@ -6,6 +6,7 @@ import {
   getMyNotifications,
 } from "@/routes/notifications";
 import { toast } from "sonner";
+import { RESET_ALL } from "./actions";
 
 interface ActivityState {
   notifications: Notification[];
@@ -46,11 +47,6 @@ const activitySlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    resetNotifications: (state) => {
-      state.notifications = [];
-      state.hasMore = true;
-      state.page = 0;
-    },
     addNotify: (state, action) => {
       state.notifications.unshift(action.payload);
       state.newNotify = true;
@@ -64,13 +60,19 @@ const activitySlice = createSlice({
       state.newNotify = false;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(RESET_ALL, (state) => {
+      state.notifications = [];
+      state.hasMore = true;
+      state.page = 0;
+    });
+  },
 });
 
 export const {
   fetchNotificationsStart,
   fetchNotificationsSuccess,
   fetchNotificationsFailure,
-  resetNotifications,
   addNotify,
   deleteNotify,
   clearNewNotification,
