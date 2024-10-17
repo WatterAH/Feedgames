@@ -74,7 +74,7 @@ const usePostOptions = (id: string, userId: string) => {
 
 const useMenuOptions = (logout: () => void) => {
   const dispatch: AppDispatch = useDispatch();
-  const [, , removeCookie] = useCookies();
+  const [_c, _s, removeCookie] = useCookies();
   const router = useRouter();
   const exit = () => {
     router.push("/login");

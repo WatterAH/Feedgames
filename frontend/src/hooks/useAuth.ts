@@ -20,6 +20,7 @@ export const useLogin = () => {
         const { user, token } = data;
         login(user);
         setCookie("token", token, {
+          path: "/",
           expires: getExpirationDate(),
         });
         toast.success(`Sesión iniciada como ${user.username}`);
