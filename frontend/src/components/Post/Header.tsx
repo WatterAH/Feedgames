@@ -32,7 +32,7 @@ const Header: React.FC<Props> = ({ data, isLast }) => {
         <p className="text-secondaryicon text-xs mt-1">{date}</p>
       </section>
       <section>
-        <div className="absolute right-1">
+        <div className="absolute right-1 -top-1">
           <Dropdown
             Icon={Ellipsis}
             options={options}

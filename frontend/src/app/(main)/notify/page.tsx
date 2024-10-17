@@ -42,7 +42,6 @@ export default function NotifyPage() {
         dataLength={notifications.length}
         hasMore={hasMore}
         next={getMoreNotify}
-        scrollableTarget="main"
         loader={<NotifysLoader count={2} />}
       >
         {notifications.map((notify, i) => (
@@ -57,10 +56,7 @@ export default function NotifyPage() {
   };
 
   return (
-    <main
-      id="main"
-      className="flex flex-col h-screen items-center bg-barcelona relative overflow-y-scroll"
-    >
+    <main className="flex flex-col h-screen items-center bg-barcelona relative">
       <Title title="Notificaciones" />
       <Card />
       <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10 h-full">

@@ -20,10 +20,7 @@ export default function SavedPage() {
   };
 
   return (
-    <main
-      id="main"
-      className="flex flex-col h-screen items-center bg-barcelona relative overflow-y-scroll"
-    >
+    <main className="flex flex-col h-screen items-center bg-barcelona relative">
       <Title title="Guardado" />
       <Card />
       <div className="w-full max-w-2xl mx-auto h-full md:mt-[11vh] pb-14 lg:pb-0 z-10 relative">

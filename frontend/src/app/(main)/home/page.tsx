@@ -41,10 +41,7 @@ export default function HomePage() {
   };
 
   return (
-    <main
-      id="main"
-      className="flex flex-col h-screen justify-start items-center bg-barcelona relative overflow-y-scroll"
-    >
+    <main className="flex flex-col h-screen justify-start items-center bg-barcelona relative">
       <Header />
       <Title title="Feed" />
       <Card />

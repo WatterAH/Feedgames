@@ -18,7 +18,6 @@ const PostContainer: React.FC<Props> = ({ posts, hasMore, getPost }) => {
       hasMore={hasMore}
       loader={<PostsLoader count={2} />}
       next={getPost}
-      scrollableTarget="main"
     >
       {posts.map((post, i) => (
         <Post data={post} key={post.id} isLast={i == posts.length - 1} />
