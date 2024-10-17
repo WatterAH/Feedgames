@@ -12,7 +12,7 @@ const Content: React.FC<Props> = ({ data }) => {
 
   return (
     <div className="flex flex-col gap-y-2 w-full">
-      {content && <p className="text-sm">{content}</p>}
+      {content && <p className="text-sm dark:text-white">{content}</p>}
       {publicUrl && <Imagep publicUrl={publicUrl} />}
       {valMatch && <MatchPost stats={valMatch} />}
     </div>

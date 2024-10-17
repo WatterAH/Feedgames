@@ -23,8 +23,9 @@ export const useSubscribeToNewPosts = (userId: string) => {
           const { new: post } = payload;
           const { data, error } = await getPostById(post.id);
           if (!error) {
-            const { liked, saved, comments, user_id, ...rest } = data;
+            const { id, liked, saved, comments, user_id, ...rest } = data;
             const newPost = {
+              id: translator.fromUUID(id),
               user_id: translator.fromUUID(user_id),
               liked: liked.length,
               saved: saved.length,

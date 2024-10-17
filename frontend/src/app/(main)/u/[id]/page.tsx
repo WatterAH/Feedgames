@@ -34,7 +34,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <main className="flex flex-col h-screen items-center bg-barcelona relative">
+    <main className="flex flex-col h-screen items-center bg-barcelona dark:bg-coal relative">
       <Title title="Perfil" />
       <Card />
       <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10">

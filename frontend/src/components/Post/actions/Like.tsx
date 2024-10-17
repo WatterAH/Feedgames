@@ -52,7 +52,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
       <Heart
         aria-hidden="true"
         className="h-5 w-5 text-rose-500"
-        fill={liked ? "#f43f5e" : "white"}
+        fill={liked ? "#f43f5e" : "transparent"}
       />
     </animated.button>
   );

@@ -27,7 +27,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
   }, [stats.characterId]);
 
   return (
-    <div className="flex flex-col items-center justify-center border shadow-md gap-y-6 rounded-md h-96">
+    <div className="flex flex-col mt-1 items-center justify-center border dark:border-outline shadow-md gap-y-6 rounded-md h-96">
       <header className="flex gap-3 w-full justify-center flex-col items-center">
         <div id="playerCharacter" className="rounded-full h-16 w-16 bg-loading">
           {characterIcon && (
@@ -44,11 +44,11 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
           id="playerInfo"
           className="flex flex-col items-center font-raleway"
         >
-          <p className="text-threads">
+          <p className="text-threads dark:text-white">
             {stats.gameName}
             <span className="text-gray-600 text-xs"> #{stats.tagLine}</span>
           </p>
-          <span className="flex items-center gap-x-1 text-gray-600 pb-1">
+          <span className="flex items-center gap-x-1 text-gray-600 dark:text-gray-200 pb-1">
             <p className="text-xs">{stats.queueId}</p>
           </span>
           <span className="flex items-center text-gray-600 text-xs font-inter">

@@ -34,7 +34,9 @@ const Follow: React.FC<Props> = (props) => {
       <button
         onClick={isSameUser ? () => setEditing(true) : handleFollow}
         className={`p-2 h-9 text-sm flex justify-center items-center outline-none ${
-          followState ? "bg-white text-black border" : "bg-threads text-white"
+          followState
+            ? "bg-white dark:bg-threads dark:border-outline dark:text-white text-black border"
+            : "bg-threads dark:bg-white dark:text-black text-white"
         } rounded-lg w-full font-semibold active:scale-90 transition-all duration-300`}
       >
         {isSameUser ? "Editar perfil" : followState ? "Siguiendo" : "Seguir"}

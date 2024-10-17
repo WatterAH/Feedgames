@@ -28,8 +28,8 @@ const Menu = () => {
 
   return (
     <>
-      <div className="w-full lg:w-20 bottom-0 fixed left-0 lg:top-0 px-3 z-50 h-14 lg:h-full bg-barcelona backdrop-blur-md bg-opacity-80 flex flex-col justify-center lg:justify-between lg:py-4 lg:items-center">
-        <h1 className="font-pacifico text-3xl text-threads text-center hidden lg:block">
+      <div className="w-full lg:w-20 bottom-0 fixed left-0 lg:top-0 px-3 z-50 h-14 lg:h-full bg-barcelona dark:bg-coal backdrop-blur-md bg-opacity-80 flex flex-col justify-center lg:justify-between lg:py-4 lg:items-center">
+        <h1 className="font-pacifico text-3xl text-threads dark:text-white text-center hidden lg:block">
           Fg
         </h1>
         <ul className="flex flex-row justify-between lg:flex-col items-center lg:py-16 gap-y-5">

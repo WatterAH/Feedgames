@@ -23,7 +23,9 @@ const Header: React.FC<Props> = ({ data, isLast }) => {
       <section className="flex flex-row items-center gap-x-1">
         <Link href={`/u/${user_id}`} onClick={stopPropagation}>
           <span className="flex items-center gap-x-1">
-            <p className="hover:underline text-sm font-semibold">{username}</p>
+            <p className="hover:underline text-sm dark:text-white font-semibold">
+              {username}
+            </p>
             {followers > 2 && (
               <BadgeCheck fill="#38bdf8" className="text-white h-4 w-4 mt-1" />
             )}

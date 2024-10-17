@@ -14,7 +14,7 @@ const CommentButton = ({ commentData }: { commentData: Props }) => {
       <button className="active:scale-125 transition-transform">
         <MessageCircle
           aria-hidden="true"
-          fill={isCommented ? "#67e8f9" : "white"}
+          fill={isCommented ? "#67e8f9" : "transparent"}
           className="h-5 w-5 text-cyan-300"
         />
       </button>

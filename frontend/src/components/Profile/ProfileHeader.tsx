@@ -4,7 +4,7 @@ import Follow from "./Follow";
 import Names from "./Names";
 import Details from "./Details";
 import Dropdown from "../Global/Dropdown";
-import { Menu } from "lucide-react";
+import { UserRoundCog } from "lucide-react";
 import { User } from "@/interfaces/User";
 import { useUser } from "@/context/AuthContext";
 import { useProfileOptions } from "@/hooks/useOptions";
@@ -19,13 +19,13 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
   const options = useProfileOptions(user, id, logout);
 
   return (
-    <header className="flex flex-col gap-y-4 w-full p-3 lg:px-4 border-b">
+    <header className="flex flex-col gap-y-4 w-full p-3 lg:px-4 border-b dark:border-outline">
       <div className="flex flex-row justify-between items-center">
         <div className="namesContainer flex flex-row items-center gap-x-3">
           <ProfilePicture src={pfp} w={96} h={96} viewer />
           <Names data={data} />
         </div>
-        <Dropdown Icon={Menu} options={options} position="left" />
+        <Dropdown Icon={UserRoundCog} options={options} position="left" />
       </div>
       <p className="text-secondaryicon text-sm font-inter">{details}</p>
       <div className="followContainer">

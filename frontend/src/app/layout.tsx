@@ -40,9 +40,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <body
-        className={`${pacifico.variable} ${raleway.variable} ${montserrat.variable} ${inter.variable} antialiased bg-barcelona`}
+        className={`${pacifico.variable} ${raleway.variable} ${montserrat.variable} ${inter.variable} antialiased bg-barcelona dark:bg-coal`}
       >
         <Providers>{children}</Providers>
       </body>

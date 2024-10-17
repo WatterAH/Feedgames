@@ -6,6 +6,7 @@ const config: Config = {
     "./src/layout/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -13,9 +14,11 @@ const config: Config = {
         foreground: "var(--foreground)",
         barcelona: "#fafafa",
         threads: "#202020",
+        coal: "#101010",
         icon: "#b8b8b8",
         secondaryicon: "#999",
         loading: "#eaeaea",
+        outline: "#333638",
       },
       fontFamily: {
         pacifico: ["var(--font-pacifico)"],
