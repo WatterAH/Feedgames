@@ -72,3 +72,15 @@ export const processUser = (user: any, userId: string) => {
     ...rest,
   };
 };
+
+export const processNotify = (notify: any) => {
+  const { user, ...rest } = notify;
+  const { id, ...userRest } = user;
+  return {
+    user: {
+      id: translator.fromUUID(id),
+      ...userRest,
+    },
+    ...rest,
+  };
+};

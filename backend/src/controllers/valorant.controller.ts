@@ -144,6 +144,8 @@ export const setRiotId: RequestHandler = async (req, res) => {
 
     if (error) return res.status(403).json({ message: "Ocurrió un error" });
 
+    data.id = translator.fromUUID(data.id);
+
     const userToken = await createAccessToken(data);
 
     return res.status(200).json({ token: userToken, user: data });

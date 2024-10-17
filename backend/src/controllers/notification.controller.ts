@@ -2,6 +2,7 @@ import shortUUID from "short-uuid";
 import { RequestHandler } from "express";
 import { getNotifyById, readAllByIds } from "../database/notifications";
 import { deleteNotification } from "../database/delete";
+import { processNotify } from "../libs/server";
 
 const translator = shortUUID();
 
@@ -21,10 +22,11 @@ export const getNotifications: RequestHandler = async (req, res) => {
     }
 
     const ids = notify.map((notification) => notification.id);
-
     readAllByIds(ids);
 
-    return res.status(200).json(notify);
+    const processedNotify = notify.map((noty) => processNotify(noty));
+
+    return res.status(200).json(processedNotify);
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
