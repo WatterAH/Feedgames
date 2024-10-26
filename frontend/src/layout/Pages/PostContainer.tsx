@@ -14,6 +14,7 @@ interface Props {
 const PostContainer: React.FC<Props> = ({ posts, hasMore, getPost }) => {
   return posts.length != 0 ? (
     <InfiniteScroll
+      className="mt-1"
       dataLength={posts.length}
       hasMore={hasMore}
       loader={<PostsLoader count={2} />}

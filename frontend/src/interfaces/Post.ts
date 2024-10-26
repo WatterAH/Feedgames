@@ -15,15 +15,5 @@ export interface PostInterface {
   comments: number;
   isCommented: boolean;
   valMatch: MatchShowCase | null;
-}
-
-export interface Note {
-  id: string;
-  id_user: string;
-  user: {
-    pfp: string | undefined;
-    username: string;
-  };
-  note: string;
-  created_at: string;
+  edited: boolean;
 }

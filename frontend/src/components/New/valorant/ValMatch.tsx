@@ -34,8 +34,8 @@ const ValMatch: React.FC<Props> = ({ match, riotId, setVal }) => {
   return (
     <li
       onClick={handleClick}
-      className={`flex justify-between hover:cursor-pointer items-center p-3 font-inter border-b border-neutral-400 ${
-        preview.won ? "bg-blue-200" : "bg-red-200"
+      className={`flex justify-between hover:cursor-pointer items-center p-3 font-inter border-b border-gray-300 ${
+        preview.won ? "bg-teal-100" : "bg-red-100"
       }`}
     >
       <div className="flex items-center gap-x-2 w-1/3">

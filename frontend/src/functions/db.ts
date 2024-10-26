@@ -10,7 +10,7 @@ export const getPostById = async (postId: string) => {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp)"
+      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(username, name, pfp, followers:follows!follows_id_followed_fkey(count))"
     )
     .eq("id", postId)
     .single();

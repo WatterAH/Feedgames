@@ -1,6 +1,11 @@
+import shortUUID from "short-uuid";
 import copy from "clipboard-copy";
 import { MouseEvent } from "react";
 import { toast } from "sonner";
+import { PostInterface } from "@/interfaces/Post";
+import { Notification } from "@/interfaces/Notification";
+
+const translator = shortUUID();
 
 export const isImage = (file: File): boolean => {
   const extensionList: string[] = ["jpg", "jpeg", "gif", "png", "webp", "heic"];
@@ -12,17 +17,6 @@ export const stopPropagation = (e: MouseEvent) => {
   e.stopPropagation();
 };
 
-export const formatNumber = (number: number | undefined): string | number => {
-  const safeNum = number ?? 0;
-  if (safeNum >= 1e6) {
-    return (safeNum / 1e6).toFixed(1) + "M";
-  } else if (safeNum >= 1e3) {
-    return (safeNum / 1e3).toFixed(1) + "K";
-  } else {
-    return safeNum;
-  }
-};
-
 export const share = (content: "u" | "p", id: string) => {
   if (navigator.share) {
     navigator.share({
@@ -32,4 +26,33 @@ export const share = (content: "u" | "p", id: string) => {
     copy(`https://feedgames.vercel.app/${content}/${id}`);
     toast.success("Se copió al portapapeles");
   }
+};
+
+export const processPost = (post: PostInterface | any) => {
+  const { id, liked, saved, comments, user, user_id, ...rest } = post;
+  const { followers, ...userRest } = user;
+  return {
+    id: translator.fromUUID(id),
+    user_id: translator.fromUUID(user_id),
+    user: {
+      followers: followers[0].count,
+      ...userRest,
+    },
+    liked: liked.length,
+    saved: saved.length,
+    comments: comments.length,
+    ...rest,
+  };
+};
+
+export const processNotify = (notify: Notification) => {
+  const { user, ...rest } = notify;
+  const { id, ...userRest } = user;
+  return {
+    user: {
+      id: translator.fromUUID(id),
+      ...userRest,
+    },
+    ...rest,
+  };
 };

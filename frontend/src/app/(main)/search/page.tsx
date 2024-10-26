@@ -29,10 +29,10 @@ export default function SearchPage() {
   };
 
   return (
-    <main className="flex flex-col h-screen justify-start items-center bg-barcelona dark:bg-coal relative">
+    <>
       <Title title="Buscar" />
       <Card />
-      <div className="w-full max-w-2xl mt-4 md:mt-[13vh] pb-14 lg:pb-0 z-10">
+      <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
         <header className="w-full px-5 space-y-3 mb-3">
           <div className="relative">
             <Search className="text-icon h-5 absolute top-4 left-3" />
@@ -46,6 +46,6 @@ export default function SearchPage() {
         </header>
         <RenderContent />
       </div>
-    </main>
+    </>
   );
 }

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Like from "./actions/Like";
 import { Forward } from "lucide-react";
 import { CommentInterface } from "@/interfaces/Comment";
-import { formatNumber } from "@/functions/utils";
 
 interface Props {
   data: CommentInterface;
@@ -18,7 +17,7 @@ const Actions: React.FC<Props> = ({ data }) => {
       <section className="flex gap-x-3">
         <span className="flex items-center justify-center gap-1">
           <Like likeData={{ id, isLiked, setLikedNum, id_user }} />
-          <p className="text-gray-500 text-xs">{formatNumber(likedNum)}</p>
+          <p className="text-gray-500 text-xs">{likedNum}</p>
         </span>
       </section>
       <section>

@@ -27,7 +27,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
   }, [stats.characterId]);
 
   return (
-    <div className="flex flex-col mt-1 items-center justify-center border dark:border-outline shadow-md gap-y-6 rounded-md h-96">
+    <div className="flex flex-col items-center justify-center border dark:border-outline shadow-md gap-y-6 rounded-md h-96 md:h-80">
       <header className="flex gap-3 w-full justify-center flex-col items-center">
         <div id="playerCharacter" className="rounded-full h-16 w-16 bg-loading">
           {characterIcon && (

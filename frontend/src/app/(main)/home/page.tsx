@@ -2,7 +2,6 @@
 import Card from "@/layout/Pages/Card";
 import Title from "@/layout/Pages/Title";
 import Error from "@/layout/Pages/Error";
-import Header from "@/layout/Menu/Header";
 import PostContainer from "@/layout/Pages/PostContainer";
 import { useUser } from "@/context/AuthContext";
 import { useRiotToken } from "@/hooks/useValorant";
@@ -41,13 +40,12 @@ export default function HomePage() {
   };
 
   return (
-    <main className="flex flex-col h-screen justify-start items-center bg-barcelona dark:bg-coal relative">
-      <Header />
+    <>
       <Title title="Feed" />
       <Card />
-      <div className="w-full max-w-2xl pt-16 md:pt-0 md:mt-[11vh] pb-14 lg:pb-0 z-10">
+      <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
         <RenderContent />
       </div>
-    </main>
+    </>
   );
 }

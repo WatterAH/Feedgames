@@ -31,10 +31,10 @@ export default function MyProfile() {
   };
 
   return (
-    <main className="flex flex-col h-screen items-center bg-barcelona dark:bg-coal relative">
+    <>
       <Title title={userSession.username} />
       <Card />
-      <div className="w-full max-w-2xl md:mt-[10vh] pb-14 lg:pb-0 z-10">
+      <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
         {loadingUser && <ProfileLoader />}
         {(errorUser || errorPosts) && <Error />}
         {user && <ProfileHeader data={user} />}
@@ -46,6 +46,6 @@ export default function MyProfile() {
           />
         )}
       </div>
-    </main>
+    </>
   );
 }

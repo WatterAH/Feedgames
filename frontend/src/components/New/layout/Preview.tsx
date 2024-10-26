@@ -1,18 +1,23 @@
 import React from "react";
-import ImagePreview from "./contents/ImagePreview";
+import ImagePreview from "../image/ImagePreview";
 import MatchPost from "@/components/Post/contents/Match";
 import { X } from "lucide-react";
 import { MatchShowCase } from "@/interfaces/Valorant";
 
 interface Props {
-  preview: string | ArrayBuffer | MatchShowCase | null;
+  preview: string | MatchShowCase | null;
   setPreview: React.Dispatch<
-    React.SetStateAction<string | ArrayBuffer | MatchShowCase | null>
+    React.SetStateAction<string | MatchShowCase | null>
   >;
+  showsClose?: boolean;
 }
 
-const Preview: React.FC<Props> = ({ preview, setPreview }) => {
-  const cases = (preview: string | ArrayBuffer | MatchShowCase | null) => {
+const Preview: React.FC<Props> = ({
+  preview,
+  setPreview,
+  showsClose = true,
+}) => {
+  const cases = (preview: string | MatchShowCase | null) => {
     if (preview == null) return <span></span>;
     else if (typeof preview == "string")
       return <ImagePreview image={preview} />;
@@ -21,8 +26,8 @@ const Preview: React.FC<Props> = ({ preview, setPreview }) => {
   };
 
   return (
-    <div className="p-2 relative">
-      {preview && (
+    <div className="p-1 relative">
+      {preview && showsClose && (
         <div
           className="absolute rounded-full bg-gray-100 right-3 top-3 hover:cursor-pointer p-1"
           onClick={() => setPreview(null)}

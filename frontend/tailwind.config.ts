@@ -19,6 +19,7 @@ const config: Config = {
         secondaryicon: "#999",
         loading: "#eaeaea",
         outline: "#333638",
+        darkgray: "#424242",
       },
       fontFamily: {
         pacifico: ["var(--font-pacifico)"],

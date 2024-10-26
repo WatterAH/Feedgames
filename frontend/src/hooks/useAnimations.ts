@@ -14,7 +14,7 @@ export const useAnimations = () => {
   }));
 
   const triggerAnimation = () => {
-    api.start({ transform: "scale(1.4)" });
+    api.start({ transform: "scale(1.3)" });
     setTimeout(() => {
       api.start({ transform: "scale(1)" });
     }, 150);

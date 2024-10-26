@@ -27,7 +27,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
     setSaved(!saved);
     setTimeout(async () => {
       try {
-        if (!isSaved) {
+        if (!saved) {
           setSavedNum((prev) => prev + 1);
           dispatch(updatePostInteraction(id, "save"));
           await savePost(user.id, id);
@@ -50,7 +50,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
     >
       <Bookmark
         aria-hidden="true"
-        className="h-5 w-5 text-amber-300"
+        className={`h-5 w-5 text-amber-300`}
         fill={saved ? "#fcd34d" : "transparent"}
       />
     </animated.button>

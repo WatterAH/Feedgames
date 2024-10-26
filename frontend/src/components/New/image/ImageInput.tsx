@@ -7,7 +7,7 @@ import { Image as ImageIcon } from "lucide-react";
 interface Props {
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
   setPreview: React.Dispatch<
-    React.SetStateAction<string | ArrayBuffer | MatchShowCase | null>
+    React.SetStateAction<string | MatchShowCase | null>
   >;
 }
 
@@ -21,7 +21,9 @@ const ImageInput: React.FC<Props> = ({ setImage, setPreview }) => {
     setImage(file);
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPreview(reader.result);
+      if (!(reader.result instanceof ArrayBuffer)) {
+        setPreview(reader.result);
+      }
     };
     reader.readAsDataURL(file);
   };

@@ -28,7 +28,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
     setLiked(!liked);
     setTimeout(async () => {
       try {
-        if (!isLiked) {
+        if (!liked) {
           setLikedNum((prev) => prev + 1);
           dispatch(updatePostInteraction(id, "like"));
           await likePost(user.id, id, user.username, user_id);
@@ -51,7 +51,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
     >
       <Heart
         aria-hidden="true"
-        className="h-5 w-5 text-rose-500"
+        className={`h-5 w-5 text-red-500`}
         fill={liked ? "#f43f5e" : "transparent"}
       />
     </animated.button>

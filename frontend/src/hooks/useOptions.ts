@@ -3,12 +3,21 @@ import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
 import { useUser } from "@/context/AuthContext";
-import { Bookmark, Gamepad2, Heart, LogOut, Share, Trash2 } from "lucide-react";
+import {
+  Bookmark,
+  Gamepad2,
+  Heart,
+  LogOut,
+  Pencil,
+  Share,
+  Trash2,
+} from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { removePost } from "@/store/feedSlice";
 import { removeNotify } from "@/store/activity";
 import { resetAll } from "@/store/actions";
+import React from "react";
 
 const useProfileOptions = (user: User, id: string, logout: () => void) => {
   const dispatch: AppDispatch = useDispatch();
@@ -47,7 +56,11 @@ const useProfileOptions = (user: User, id: string, logout: () => void) => {
   ].filter(Boolean);
 };
 
-const usePostOptions = (id: string, userId: string) => {
+const usePostOptions = (
+  id: string,
+  userId: string,
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
 
@@ -57,6 +70,14 @@ const usePostOptions = (id: string, userId: string) => {
       icon: Share,
       onClick: () => share("p", id),
     },
+
+    user.id === userId
+      ? {
+          label: "Editar",
+          icon: Pencil,
+          onClick: () => setEditing(true),
+        }
+      : null,
     user.id === userId
       ? {
           label: "Eliminar",

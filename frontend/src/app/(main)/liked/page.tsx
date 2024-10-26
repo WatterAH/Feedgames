@@ -20,12 +20,12 @@ export default function LikedPage() {
   };
 
   return (
-    <main className="flex flex-col h-screen items-center bg-barcelona dark:bg-coal relative">
-      <Title title="Te gusta" />
+    <>
+      <Title title="Me gusta" />
       <Card />
-      <div className="w-full max-w-2xl md:mt-[11vh] pb-14 lg:pb-0 z-10">
+      <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
         <RenderContent />
       </div>
-    </main>
+    </>
   );
 }

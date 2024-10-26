@@ -7,6 +7,7 @@ import { addMyPost } from "@/store/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { getNotifyById, getPostById, supabase } from "@/functions/db";
+import { processNotify, processPost } from "@/functions/utils";
 
 const translator = shortUUID();
 
@@ -23,15 +24,7 @@ export const useSubscribeToNewPosts = (userId: string) => {
           const { new: post } = payload;
           const { data, error } = await getPostById(post.id);
           if (!error) {
-            const { id, liked, saved, comments, user_id, ...rest } = data;
-            const newPost = {
-              id: translator.fromUUID(id),
-              user_id: translator.fromUUID(user_id),
-              liked: liked.length,
-              saved: saved.length,
-              comments: comments.length,
-              ...rest,
-            };
+            const newPost = processPost(data);
             dispatch(addPost(newPost));
             if (post.user_id == translator.toUUID(userId)) {
               dispatch(addMyPost(newPost));
@@ -65,9 +58,10 @@ export const useSubscribeToNotify = (userId: string) => {
         async (payload) => {
           const { new: notify } = payload;
           const { data, error } = await getNotifyById(notify.id);
+          const noty = processNotify(data);
           if (!error) {
             if (data.id_user == translator.toUUID(userId)) {
-              dispatch(addNotify(data));
+              dispatch(addNotify(noty));
               toast.info(`${data.user.username}: ${data.text}`);
             }
           }

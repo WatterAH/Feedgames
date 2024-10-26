@@ -1,6 +1,6 @@
+import Input from "@/components/Global/Input";
+import Label from "@/components/Global/Label";
 import React from "react";
-import Label from "./Label";
-import Input from "./Input";
 
 interface Props {
   label: string;

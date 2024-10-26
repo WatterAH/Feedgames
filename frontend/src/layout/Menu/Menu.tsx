@@ -1,5 +1,5 @@
 import Item from "./Item";
-import Create from "../New/Create";
+import Create from "@/components/New/Create";
 import Dropdown from "@/components/Global/Dropdown";
 import { useUser } from "@/context/AuthContext";
 import { usePathname } from "next/navigation";

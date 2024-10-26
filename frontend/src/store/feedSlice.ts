@@ -8,8 +8,10 @@ import {
   REMOVE_POST,
   RemovePostAction,
   RESET_ALL,
+  UPDATE_POST,
   UPDATE_POST_INTERACTION,
   UpdatePostInteractionAction,
+  UpdatePostAction,
 } from "./actions";
 
 interface FeedState {
@@ -85,6 +87,14 @@ const feedSlice = createSlice({
       state.posts = [];
       state.hasMore = true;
       state.page = 0;
+    });
+    builder.addCase(UPDATE_POST, (state, action: UpdatePostAction) => {
+      const { postId, content } = action.payload;
+      const post = state.posts.find((post) => post.id === postId);
+      if (post) {
+        post.edited = true;
+        post.content = content;
+      }
     });
   },
 });

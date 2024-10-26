@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "../globals.css";
 import Menu from "@/layout/Menu/Menu";
-import New from "@/layout/New/New";
+import New from "@/components/New/New";
 import { useToken } from "@/hooks/useAuth";
 import {
   useSubscribeToNewPosts,
@@ -10,6 +10,7 @@ import {
 } from "@/hooks/useSupabaseEvents";
 import { useUser } from "@/context/AuthContext";
 import { useSpring, animated } from "react-spring";
+import Header from "@/layout/Menu/Header";
 
 export default function MainLayout({
   children,
@@ -43,8 +44,11 @@ export default function MainLayout({
     </animated.div>
   ) : (
     <>
-      {children}
-      <Menu />
+      <main className="flex flex-col h-screen justify-start items-center bg-barcelona dark:bg-coal relative">
+        <Header />
+        {children}
+        <Menu />
+      </main>
       <New />
     </>
   );

@@ -48,7 +48,6 @@ export const useGetMatches = (puuid: string | undefined) => {
       const matchesList = await Promise.all(promises);
       setMatches(matchesList);
     } catch (error: any) {
-      toast.error("Algo salió mal");
       throw new Error(error.message);
     }
   }, [puuid]);

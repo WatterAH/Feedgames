@@ -5,7 +5,9 @@ import {
   REMOVE_POST,
   RemovePostAction,
   RESET_ALL,
+  UPDATE_POST,
   UPDATE_POST_INTERACTION,
+  UpdatePostAction,
   UpdatePostInteractionAction,
 } from "./actions";
 import { loadTopLikedPosts } from "@/routes/post";
@@ -74,6 +76,14 @@ const tendencySlice = createSlice({
       state.posts = [];
       state.loading = false;
       state.error = null;
+    });
+    builder.addCase(UPDATE_POST, (state, action: UpdatePostAction) => {
+      const { postId, content } = action.payload;
+      const post = state.posts.find((post) => post.id === postId);
+      if (post) {
+        post.edited = true;
+        post.content = content;
+      }
     });
   },
 });

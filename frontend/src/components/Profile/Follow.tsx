@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Edit from "./Edit";
+import Edit from "./Edit/Edit";
 import { useUser } from "@/context/AuthContext";
 import { User } from "@/interfaces/User";
 import { unFollowUser, followUser } from "@/routes/interactions";
