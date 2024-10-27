@@ -8,7 +8,7 @@ interface Props {
 
 const Actions: React.FC<Props> = ({ onClose, onSubmit }) => {
   return (
-    <div className="absolute flex w-full text-threads justify-between -top-1 left-0">
+    <div className="absolute px-3 md:px-2 flex w-full text-threads justify-between -top-1 left-0">
       <button
         className="rounded-full hover:bg-gray-100 hover:cursor-pointer p-2 transition-all duration-500"
         onClick={onClose}

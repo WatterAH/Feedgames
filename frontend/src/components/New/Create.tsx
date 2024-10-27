@@ -51,26 +51,28 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Modal open={open} setOpen={setOpen} title="Crear Post">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <Header username={user.username} pfp={user.pfp}>
-        <div className="max-h-[26rem] overflow-y-auto">
-          <TextArea
-            text={text}
-            setText={setText}
-            setPreview={setPreview}
-            setImage={setImage}
-          />
-          <Preview preview={preview} setPreview={setPreview} />
-        </div>
-        <div className={`flex gap-x-2 ${preview ? "pt-2" : "-mt-1"}`}>
-          <ImageInput setImage={setImage} setPreview={setPreview} />
-          <MatchInput
-            matches={matches}
-            riotId={user.riotId}
-            setValMatch={setValMatch}
-            setPreview={setPreview}
-          />
-        </div>
-      </Header>
+      <div className="max-h-[85vh] overflow-y-auto">
+        <Header username={user.username} pfp={user.pfp}>
+          <div>
+            <TextArea
+              text={text}
+              setText={setText}
+              setPreview={setPreview}
+              setImage={setImage}
+            />
+            <Preview preview={preview} setPreview={setPreview} />
+            <div className="flex gap-x-2">
+              <ImageInput setImage={setImage} setPreview={setPreview} />
+              <MatchInput
+                matches={matches}
+                riotId={user.riotId}
+                setValMatch={setValMatch}
+                setPreview={setPreview}
+              />
+            </div>
+          </div>
+        </Header>
+      </div>
     </Modal>
   );
 };

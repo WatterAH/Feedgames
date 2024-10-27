@@ -27,15 +27,15 @@ const Modal: React.FC<Props> = ({ open, setOpen, title, children }) => {
             transition
             className="relative transform overflow-hidden sm:rounded-2xl bg-white  shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in w-full sm:max-w-xl data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
-            <div className="bg-white px-2 sm:p-3 h-screen sm:h-full">
+            <div className="bg-white h-screen sm:h-full">
               <div className="mt-7 sm:mt-2 w-full relative">
                 <DialogTitle
                   as="h3"
-                  className="text-base text-center font-bold leading-6 text-gray-900"
+                  className="text-base text-center border-b font-bold leading-6 text-gray-900 pb-4"
                 >
                   {title}
                 </DialogTitle>
-                <div className="mt-7 pb-2 px-2 sm:px-0">{children}</div>
+                <div className="mt-2 pb-2 px-2">{children}</div>
               </div>
             </div>
           </DialogPanel>

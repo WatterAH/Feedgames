@@ -29,7 +29,7 @@ const Comment: React.FC<Props> = ({ open, setOpen, data }) => {
         onClose={() => setOpen(false)}
         onSubmit={(e) => console.log(e)}
       />
-      <div className="max-h-[29rem] overflow-y-auto">
+      <div className="max-h-[85vh] overflow-y-auto">
         <div className="mb-3 pr-5">
           <Header username={userData.username} pfp={userData.pfp}>
             <Content data={data} />
@@ -37,15 +37,17 @@ const Comment: React.FC<Props> = ({ open, setOpen, data }) => {
         </div>
         <div className="space-y-2">
           <Header username={user.username} pfp={user.pfp}>
-            <TextArea
-              text={text}
-              setText={setText}
-              setPreview={setPreview}
-              setImage={setImage}
-            />
-            <Preview preview={preview} setPreview={setPreview} />
-            <div className={`flex gap-x-2 ${!preview && "-mt-1"}`}>
-              <ImageInput setImage={setImage} setPreview={setPreview} />
+            <div>
+              <TextArea
+                text={text}
+                setText={setText}
+                setPreview={setPreview}
+                setImage={setImage}
+              />
+              <Preview preview={preview} setPreview={setPreview} />
+              <div className="flex gap-x-2">
+                <ImageInput setImage={setImage} setPreview={setPreview} />
+              </div>
             </div>
           </Header>
         </div>
