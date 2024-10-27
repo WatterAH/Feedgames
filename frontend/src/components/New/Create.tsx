@@ -51,7 +51,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Modal open={open} setOpen={setOpen} title="Crear Post">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="max-h-[85vh] overflow-y-auto">
+      <div className="max-h-[80vh] overflow-y-auto">
         <Header username={user.username} pfp={user.pfp}>
           <div>
             <TextArea

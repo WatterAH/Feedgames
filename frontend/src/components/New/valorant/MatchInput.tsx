@@ -57,7 +57,7 @@ const MatchInput: React.FC<Props> = ({
       {isOpen && (
         <ul
           ref={dropdownRef}
-          className="absolute ml-2 origin-bottom-left left-full bottom-1/4 mt-2 z-20 w-72 h-56 md:h-32 overflow-y-scroll rounded-md bg-white shadow-xl"
+          className="absolute ml-2 left-full bottom-1/4 mt-2 z-20 w-72 h-20 overflow-y-scroll rounded-md"
         >
           {matches.map((match, i) => (
             <ValMatch

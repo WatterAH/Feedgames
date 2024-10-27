@@ -29,7 +29,7 @@ const Comment: React.FC<Props> = ({ open, setOpen, data }) => {
         onClose={() => setOpen(false)}
         onSubmit={(e) => console.log(e)}
       />
-      <div className="max-h-[85vh] overflow-y-auto">
+      <div className="max-h-[80vh] overflow-y-auto">
         <div className="mb-3 pr-5">
           <Header username={userData.username} pfp={userData.pfp}>
             <Content data={data} />
