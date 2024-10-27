@@ -4,6 +4,7 @@ import Tooltip from "@/components/Global/Tooltip";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
 import { Gamepad2 } from "lucide-react";
 import { useUser } from "@/context/AuthContext";
+import Modal from "@/components/Global/Modal";
 
 interface Props {
   setValMatch: React.Dispatch<React.SetStateAction<MatchShowCase | null>>;
@@ -50,26 +51,26 @@ const MatchInput: React.FC<Props> = ({
   };
 
   return riotId && matches.length > 0 ? (
-    <div className="relative">
+    <>
       <button onClick={handleClick}>
         <Gamepad2 className="text-secondaryicon h-5" />
       </button>
-      {isOpen && (
-        <ul
-          ref={dropdownRef}
-          className="absolute ml-2 left-full bottom-1/4 mt-2 z-20 w-72 h-20 overflow-y-scroll rounded-md"
-        >
+      <Modal open={isOpen} setOpen={setIsOpen} title="Valorant Tracker">
+        <div className="absolute top-1 left-3 text-darkgray">
+          <button onClick={() => setIsOpen(false)}>Cancelar</button>
+        </div>
+        <div className="h-[80vh] overflow-y-auto px-3">
           {matches.map((match, i) => (
             <ValMatch
               key={i}
-              setVal={setVal}
               match={match}
               riotId={user.riotId}
+              setVal={setVal}
             />
           ))}
-        </ul>
-      )}
-    </div>
+        </div>
+      </Modal>
+    </>
   ) : (
     <Tooltip
       text={matches.length == 0 ? "No hay partidos" : "Vincula con Riot"}

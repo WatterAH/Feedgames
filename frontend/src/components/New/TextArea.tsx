@@ -9,6 +9,7 @@ interface Props {
     React.SetStateAction<string | MatchShowCase | null>
   >;
   pasteImages?: boolean;
+  placeholder?: string;
 }
 
 const TextArea: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const TextArea: React.FC<Props> = ({
   setPreview,
   setImage,
   pasteImages = true,
+  placeholder = "¿Qué hay en tu mente?",
 }) => {
   const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
     const clipboardItems = e.clipboardData.items;
@@ -44,10 +46,9 @@ const TextArea: React.FC<Props> = ({
   return (
     <textarea
       value={text}
-      autoFocus
       onChange={handleTextChange}
       onPaste={pasteImages ? handlePaste : undefined}
-      placeholder="¿Qué hay en tu mente?"
+      placeholder={placeholder}
       className="placeholder-secondaryicon outline-none w-full resize-none sm:text-sm bg-transparent overflow-hidden"
       rows={1}
     />

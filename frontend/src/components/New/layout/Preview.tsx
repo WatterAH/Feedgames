@@ -26,7 +26,11 @@ const Preview: React.FC<Props> = ({
   };
 
   return (
-    <div className="p-1 max-h-full object-cover relative pr-5">
+    <div
+      className={`p-1 max-h-full object-cover relative pr-5 ${
+        preview && "mb-3"
+      }`}
+    >
       {preview && showsClose && (
         <div
           className="absolute rounded-full bg-gray-100 right-7 top-3 hover:cursor-pointer p-1"

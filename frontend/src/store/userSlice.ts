@@ -67,7 +67,9 @@ const userSlice = createSlice({
       state.loadingPosts = false;
     },
     addMyPost: (state, action) => {
-      state.posts.unshift(action.payload);
+      if (state.posts.length != 0) {
+        state.posts.unshift(action.payload);
+      }
     },
   },
   extraReducers(builder) {

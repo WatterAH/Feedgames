@@ -51,7 +51,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Modal open={open} setOpen={setOpen} title="Crear Post">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="max-h-[80vh] overflow-y-auto">
+      <div className="max-h-[80vh] px-2 md:px-5 overflow-y-auto">
         <Header username={user.username} pfp={user.pfp}>
           <div>
             <TextArea
@@ -59,6 +59,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
               setText={setText}
               setPreview={setPreview}
               setImage={setImage}
+              placeholder={`¿Qué hay en tu mente ${user.name}?`}
             />
             <Preview preview={preview} setPreview={setPreview} />
             <div className="flex gap-x-2">

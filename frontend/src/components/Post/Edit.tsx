@@ -48,10 +48,17 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
   return (
     <Modal open={open} setOpen={setOpen} title="Modo de edición">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <Header username={user.username} pfp={user.pfp} />
-      <div className="w-full mt-3">
-        <TextArea text={text} setText={setText} pasteImages={false} />
-        <Preview preview={preview} setPreview={setPreview} showsClose={false} />
+      <div className="max-h-[80vh] px-2 md:px-5 overflow-y-auto">
+        <Header username={user.username} pfp={user.pfp}>
+          <div>
+            <TextArea text={text} setText={setText} pasteImages={false} />
+            <Preview
+              preview={preview}
+              setPreview={setPreview}
+              showsClose={false}
+            />
+          </div>
+        </Header>
       </div>
     </Modal>
   );

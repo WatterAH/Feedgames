@@ -66,7 +66,7 @@ const Edit: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Modal open={open} setOpen={setOpen} title="Modo de edición">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="w-full flex flex-col items-center gap-y-2">
+      <div className="w-full px-5 py-2 flex flex-col items-center gap-y-2">
         <Header picture={picture} />
         <label htmlFor="img" className="text-threads hover:cursor-pointer">
           Cambiar foto
@@ -78,10 +78,10 @@ const Edit: React.FC<Props> = ({ open, setOpen }) => {
           accept=".png, .jpeg, .jpg, .gif, .webp"
           className="hidden"
         />
+        <FormField label="Usuario" value={username} onChange={setUsername} />
+        <FormField label="Nombre" value={name} onChange={setName} />
+        <FormField label="Descripción" value={details} onChange={setDetails} />
       </div>
-      <FormField label="Usuario" value={username} onChange={setUsername} />
-      <FormField label="Nombre" value={name} onChange={setName} />
-      <FormField label="Descripción" value={details} onChange={setDetails} />
     </Modal>
   );
 };

@@ -35,7 +35,7 @@ const Modal: React.FC<Props> = ({ open, setOpen, title, children }) => {
                 >
                   {title}
                 </DialogTitle>
-                <div className="mt-2 pb-2 px-2">{children}</div>
+                <div className="mt-2 pb-4">{children}</div>
               </div>
             </div>
           </DialogPanel>

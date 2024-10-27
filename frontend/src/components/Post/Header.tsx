@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Edit from "./Edit";
 import Dropdown from "../Global/Dropdown";
 import { PostInterface } from "@/interfaces/Post";
 import { calculateDate } from "@/functions/date";
 import { BadgeCheck, Ellipsis, Pencil } from "lucide-react";
 import { stopPropagation } from "@/functions/utils";
 import { usePostOptions } from "@/hooks/useOptions";
-import Edit from "./Edit";
 
 interface Props {
   data: PostInterface;

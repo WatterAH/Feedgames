@@ -34,28 +34,26 @@ const ValMatch: React.FC<Props> = ({ match, riotId, setVal }) => {
   return (
     <li
       onClick={handleClick}
-      className={`flex justify-between hover:cursor-pointer items-center p-3 font-inter border-b border-gray-300 ${
-        preview.won ? "bg-teal-100" : "bg-red-100"
-      }`}
+      className="flex justify-between hover:cursor-pointer items-center px-2 py-4 font-montserrat border-b border-gray-300"
     >
       <div className="flex items-center gap-x-2 w-1/3">
-        <div className="rounded-full bg-loading">
+        <div className="rounded-full bg-loading w-9 h-9">
           {characterIcon && (
             <Image
               src={characterIcon}
-              width={28}
-              height={28}
+              width={36}
+              height={36}
               alt=""
               className="rounded-full"
             />
           )}
         </div>
-        <p className="text-xs text-gray-600">{preview.kda}</p>
+        <p className="text-sm text-gray-600">{preview.kda}</p>
       </div>
-      <div className="w-1/3">
+      <div className="w-1/3 flex justify-center">
         <p className="text-xs text-center text-gray-600">{preview.results}</p>
       </div>
-      <div className="flex flex-col text-xs w-1/3 text-end">
+      <div className="flex flex-col text-xs w-1/3 items-end">
         <p className="text-gray-600">{getQueueId(preview.queueId)}</p>
       </div>
     </li>
