@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ValMatch from "./ValMatch";
+import Tooltip from "@/components/Global/Tooltip";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
 import { Gamepad2 } from "lucide-react";
 import { useUser } from "@/context/AuthContext";
-import Tooltip from "@/components/Global/Tooltip";
 
 interface Props {
   setValMatch: React.Dispatch<React.SetStateAction<MatchShowCase | null>>;
@@ -22,6 +22,21 @@ const MatchInput: React.FC<Props> = ({
 }) => {
   const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -40,7 +55,10 @@ const MatchInput: React.FC<Props> = ({
         <Gamepad2 className="text-secondaryicon h-5" />
       </button>
       {isOpen && (
-        <ul className="absolute md:bottom-full mt-2 z-20 w-72 h-56 md:h-40 scrollbar-thin overflow-y-scroll rounded-md bg-white shadow-lg">
+        <ul
+          ref={dropdownRef}
+          className="absolute ml-2 origin-bottom-left left-full bottom-1/4 mt-2 z-20 w-72 h-56 md:h-32 overflow-y-scroll rounded-md bg-white shadow-xl"
+        >
           {matches.map((match, i) => (
             <ValMatch
               key={i}

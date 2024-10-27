@@ -9,7 +9,7 @@ const ImagePreview: React.FC<Props> = ({ image }) => {
     <img
       src={image as string}
       alt="Preview"
-      className="rounded-lg object-cover h-72 w-full mb-4"
+      className="rounded-lg shadow-lg object-cover h-96 w-full mb-4"
     />
   );
 };

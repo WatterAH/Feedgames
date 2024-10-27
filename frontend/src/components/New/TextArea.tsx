@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { MatchShowCase } from "@/interfaces/Valorant";
 
 interface Props {
@@ -18,8 +18,6 @@ const TextArea: React.FC<Props> = ({
   setImage,
   pasteImages = true,
 }) => {
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
   const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
     const clipboardItems = e.clipboardData.items;
 
@@ -37,35 +35,21 @@ const TextArea: React.FC<Props> = ({
     }
   };
 
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
-    adjustHeight();
+    e.target.style.height = "auto";
+    e.target.style.height = `${e.target.scrollHeight}px`;
   };
-
-  const adjustHeight = () => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${Math.min(
-        textareaRef.current.scrollHeight,
-        70
-      )}px`;
-    }
-  };
-
-  useEffect(() => {
-    adjustHeight();
-  }, [text]);
 
   return (
     <textarea
-      ref={textareaRef}
       value={text}
-      onChange={handleInput}
+      autoFocus
+      onChange={handleTextChange}
       onPaste={pasteImages ? handlePaste : undefined}
       placeholder="¿Qué hay en tu mente?"
-      className="font-montserrat outline-none w-full resize-none sm:text-xs scrollbar-thin"
+      className="placeholder-secondaryicon outline-none w-full resize-none sm:text-sm bg-transparent overflow-hidden"
       rows={1}
-      style={{ maxHeight: "200px", overflowY: "auto" }}
     />
   );
 };
