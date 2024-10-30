@@ -13,6 +13,7 @@ import {
   UpdatePostInteractionAction,
   UpdatePostAction,
 } from "./actions";
+import { updatePostInteraction } from "./listeners";
 
 interface FeedState {
   posts: PostInterface[];
@@ -60,26 +61,7 @@ const feedSlice = createSlice({
       (state, action: UpdatePostInteractionAction) => {
         const { postId, type } = action.payload;
         const post = state.posts.find((post) => post.id === postId);
-        if (post) {
-          switch (type) {
-            case "like":
-              post.isLiked = true;
-              post.liked++;
-              break;
-            case "unlike":
-              post.isLiked = false;
-              post.liked--;
-              break;
-            case "save":
-              post.isSaved = true;
-              post.saved++;
-              break;
-            case "unsave":
-              post.isSaved = false;
-              post.saved--;
-              break;
-          }
-        }
+        if (post) updatePostInteraction(post, type);
       }
     );
     builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {

@@ -136,11 +136,17 @@ export const useNotifyOptions = (id: string) => {
   ].filter(Boolean);
 };
 
-export const useResponseOptions = (id: string) => {
+export const useResponseOptions = (
+  id: string,
+  setComments: (id: string) => void
+) => {
   const deleteRes = () => {
     toast.promise(deleteResponse(id), {
       loading: "Eliminando...",
-      success: "Eliminado con éxito",
+      success: () => {
+        setComments(id);
+        return "Eliminado con éxito";
+      },
       error: (err) => err.message,
     });
   };

@@ -22,7 +22,10 @@ const ResponseButton: React.FC<Props> = ({ data }) => {
         onClick={handleOpen}
         className="active:scale-75 transition-transform"
       >
-        <MessageSquareQuote aria-hidden="true" className="h-5 w-5" />
+        <MessageSquareQuote
+          aria-hidden="true"
+          className="h-5 w-5 text-cyan-500"
+        />
       </button>
       <Response open={open} setOpen={setOpen} data={data} parentId={data.id} />
     </>

@@ -7,7 +7,7 @@ export interface CommentInterface {
   id_post: string;
   id_user: string;
   response: boolean;
-  responses: string[];
+  responses: number;
   user: User;
   liked: number;
   isLiked: boolean;

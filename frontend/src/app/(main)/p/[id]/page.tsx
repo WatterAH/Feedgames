@@ -12,7 +12,7 @@ import { PostsLoader } from "@/layout/Pages/Loaders";
 export default function PostPage() {
   const { id } = useParams();
   const { user } = useUser();
-  const { post, loading, comments, error } = useExplorePost(
+  const { post, loading, comments, error, deleteComment } = useExplorePost(
     id as string,
     user.id
   );
@@ -25,10 +25,14 @@ export default function PostPage() {
         <Post data={post} />
         <h4 className="text-gray-500 px-3 border-b py-2">
           Comentarios
-          <span className="font-semibold ml-1">{post.comments}</span>
+          <span className="font-semibold ml-1">{comments.length}</span>
         </h4>
         {comments.map((comment) => (
-          <Comment key={comment.id} data={comment} />
+          <Comment
+            key={comment.id}
+            data={comment}
+            deleteComment={deleteComment}
+          />
         ))}
       </>
     );

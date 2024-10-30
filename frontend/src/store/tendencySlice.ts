@@ -11,6 +11,7 @@ import {
   UpdatePostInteractionAction,
 } from "./actions";
 import { loadTopLikedPosts } from "@/routes/post";
+import { updatePostInteraction } from "./listeners";
 
 interface tendencySlice {
   posts: PostInterface[];
@@ -47,26 +48,7 @@ const tendencySlice = createSlice({
       (state, action: UpdatePostInteractionAction) => {
         const { postId, type } = action.payload;
         const post = state.posts.find((post) => post.id === postId);
-        if (post) {
-          switch (type) {
-            case "like":
-              post.isLiked = true;
-              post.liked++;
-              break;
-            case "unlike":
-              post.isLiked = false;
-              post.liked--;
-              break;
-            case "save":
-              post.isSaved = true;
-              post.saved++;
-              break;
-            case "unsave":
-              post.isSaved = false;
-              post.saved--;
-              break;
-          }
-        }
+        if (post) updatePostInteraction(post, type);
       }
     );
     builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {

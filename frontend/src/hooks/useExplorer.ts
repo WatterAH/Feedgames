@@ -41,6 +41,10 @@ export const useExplorePost = (
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const deleteComment = useCallback((id: string) => {
+    setComments((prev) => prev.filter((comment) => comment.id !== id));
+  }, []);
+
   const getPost = useCallback(async () => {
     if (!postId || !userId) return;
     try {
@@ -60,7 +64,7 @@ export const useExplorePost = (
     if (userId) getPost();
   }, [getPost, userId]);
 
-  return { post, comments, loading, error };
+  return { post, comments, loading, error, deleteComment };
 };
 
 export const useExploreResponse = (userId: string, responseId: string) => {
@@ -68,6 +72,10 @@ export const useExploreResponse = (userId: string, responseId: string) => {
   const [responses, setResponses] = useState<CommentInterface[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const deleteComment = useCallback((id: string) => {
+    setResponses((prev) => prev.filter((comment) => comment.id !== id));
+  }, []);
 
   const getResponse = useCallback(async () => {
     if (!userId || !responseId) return;
@@ -89,5 +97,5 @@ export const useExploreResponse = (userId: string, responseId: string) => {
     if (userId) getResponse();
   }, [getResponse, userId]);
 
-  return { response, responses, loading, error };
+  return { response, responses, loading, error, deleteComment };
 };

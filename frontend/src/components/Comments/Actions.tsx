@@ -21,7 +21,7 @@ const Actions: React.FC<Props> = ({ data }) => {
         </span>
       </section>
       <section>
-        <span className="flex items-center justify-center gap-1">
+        <span className="flex items-center justify-center gap-1 mr-3">
           <Response data={data} />
         </span>
       </section>

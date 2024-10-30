@@ -9,20 +9,23 @@ import { useResponseOptions } from "@/hooks/useOptions";
 
 interface Props {
   data: CommentInterface;
+  deleteComment: (id: string) => void;
 }
 
-const Header: React.FC<Props> = ({ data }) => {
+const Header: React.FC<Props> = ({ data, deleteComment }) => {
   const { user, order, id_user } = data;
   const { username, followers } = user;
   const date = calculateDate(order);
-  const options = useResponseOptions(data.id);
+  const options = useResponseOptions(data.id, deleteComment);
 
   return (
-    <header className="flex flex-row justify-between">
+    <header className="flex flex-row justify-between relative">
       <section className="flex flex-row items-center gap-x-1">
         <Link href={`/u/${id_user}`} onClick={stopPropagation}>
           <span className="flex items-center gap-x-1">
-            <p className="hover:underline text-sm font-semibold">{username}</p>
+            <p className="hover:underline text-sm dark:text-white font-semibold">
+              {username}
+            </p>
             {followers > 2 && (
               <BadgeCheck fill="#38bdf8" className="text-white h-4 w-4 mt-1" />
             )}
@@ -31,12 +34,14 @@ const Header: React.FC<Props> = ({ data }) => {
         <p className="text-gray-400 text-xs mt-1">{date}</p>
       </section>
       <section>
-        <Dropdown
-          Icon={Ellipsis}
-          position="left"
-          options={options}
-          iconClass="h-5 text-secondaryicon"
-        />
+        <div className="absolute right-1 -top-1 flex items-center">
+          <Dropdown
+            Icon={Ellipsis}
+            position="left"
+            options={options}
+            iconClass="h-5 text-secondaryicon"
+          />
+        </div>
       </section>
     </header>
   );

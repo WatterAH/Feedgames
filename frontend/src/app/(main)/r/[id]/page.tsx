@@ -11,23 +11,25 @@ import { PostsLoader } from "@/layout/Pages/Loaders";
 export default function ResponsePage() {
   const { id } = useParams();
   const { user } = useUser();
-  const { response, responses, loading, error } = useExploreResponse(
-    user.id,
-    id as string
-  );
+  const { response, responses, loading, error, deleteComment } =
+    useExploreResponse(user.id, id as string);
 
   const RenderContent = () => {
     if (loading) return <PostsLoader count={1} />;
     if (error || !response) return <Error />;
     return (
       <>
-        <Comment data={response} />
+        <Comment data={response} deleteComment={deleteComment} />
         <h4 className="text-gray-500 px-3 border-b py-2">
           Respuestas
           <span className="font-semibold ml-1">{responses.length}</span>
         </h4>
         {responses.map((response) => (
-          <Comment key={response.id} data={response} />
+          <Comment
+            key={response.id}
+            data={response}
+            deleteComment={deleteComment}
+          />
         ))}
       </>
     );

@@ -13,7 +13,6 @@ export interface PostInterface {
   saved: number;
   isSaved: boolean;
   comments: number;
-  isCommented: boolean;
   valMatch: MatchShowCase | null;
   edited: boolean;
 }
