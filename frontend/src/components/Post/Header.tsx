@@ -4,7 +4,7 @@ import Edit from "./Edit";
 import Dropdown from "../Global/Dropdown";
 import { PostInterface } from "@/interfaces/Post";
 import { calculateDate } from "@/functions/date";
-import { BadgeCheck, Ellipsis, Pencil } from "lucide-react";
+import { BadgeCheck, Ellipsis } from "lucide-react";
 import { stopPropagation } from "@/functions/utils";
 import { usePostOptions } from "@/hooks/useOptions";
 
