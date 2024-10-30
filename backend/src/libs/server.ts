@@ -10,9 +10,6 @@ export const processPost = (post: PostInterface | any, userId: string) => {
   const { followers, id: userIdInPost, ...userRest } = user;
   const isLiked = liked.some((like: any) => like.id_user == userId);
   const isSaved = saved.some((save: any) => save.id_user == userId);
-  const isCommented = comments.some(
-    (comment: any) => comment.id_user == userId
-  );
 
   const userIdParsed = translator.fromUUID(user_id);
 
@@ -29,7 +26,6 @@ export const processPost = (post: PostInterface | any, userId: string) => {
     saved: saved.length,
     isSaved,
     comments: comments.length,
-    isCommented,
     ...rest,
   };
 };
