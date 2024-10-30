@@ -5,6 +5,14 @@ export const deletePostById = async (postId: string) => {
   return { error };
 };
 
+export const deleteResponseById = async (responseId: string) => {
+  const { error } = await supabase
+    .from("comments")
+    .delete()
+    .eq("id", responseId);
+  return { error };
+};
+
 export const deleteCommentById = async (commentId: string) => {
   const { error } = await supabase
     .from("comments")

@@ -50,3 +50,34 @@ export const unfollow = async (followerId: string, followedId: string) => {
     .eq("id_followed", followedId);
   return { error };
 };
+
+export const responseContent = async (
+  id_post: string,
+  id_user: string,
+  id_parent: string | null,
+  comment: string,
+  imageUrl: string | null
+) => {
+  const { data: response, error } = await supabase
+    .from("comments")
+    .insert([
+      {
+        id_post,
+        id_user,
+        id_parent,
+        comment,
+        imageUrl,
+      },
+    ])
+    .select("*, user:users(username, name,pfp)")
+    .single();
+  return { response, error };
+};
+
+export const insertResponse = async (commentId: string, responseId: string) => {
+  const { error } = await supabase
+    .from("responses")
+    .insert([{ id_comment: commentId, id_responsed: responseId }]);
+
+  return { error };
+};

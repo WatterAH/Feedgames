@@ -9,26 +9,56 @@ import Content from "./Content";
 import { useUser } from "@/context/AuthContext";
 import { MatchShowCase } from "@/interfaces/Valorant";
 import { PostInterface } from "@/interfaces/Post";
+import { toast } from "sonner";
+import { response } from "@/routes/response";
+import { CommentInterface } from "@/interfaces/Comment";
 
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  data: PostInterface;
+  data: PostInterface | CommentInterface;
+  parentId: string | null;
 }
 
-const Comment: React.FC<Props> = ({ open, setOpen, data }) => {
+const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
   const { user } = useUser();
   const { user: userData } = data;
   const [text, setText] = useState("");
-  const [_image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | MatchShowCase | null>(null);
+
+  const isPost = (
+    data: PostInterface | CommentInterface
+  ): data is PostInterface => {
+    return (data as PostInterface).valMatch !== undefined;
+  };
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    toast.promise(
+      response(
+        user.id,
+        isPost(data) ? data.id : data.id_post,
+        parentId,
+        text,
+        image,
+        userData.id,
+        user.username
+      ),
+      {
+        loading: "Publicando...",
+        success: () => {
+          setOpen(false);
+          return "Publicado";
+        },
+        error: (err) => err.message,
+      }
+    );
+  };
 
   return (
     <Modal open={open} setOpen={setOpen} title="Respondiendo">
-      <Actions
-        onClose={() => setOpen(false)}
-        onSubmit={(e) => console.log(e)}
-      />
+      <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
       <div className="max-h-[80vh] px-2 md:px-5 overflow-y-auto">
         <div className="mb-3 space-y-2">
           <Header username={user.username} pfp={user.pfp}>
@@ -55,4 +85,4 @@ const Comment: React.FC<Props> = ({ open, setOpen, data }) => {
   );
 };
 
-export default Comment;
+export default Response;

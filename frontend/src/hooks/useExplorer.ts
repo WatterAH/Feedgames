@@ -4,6 +4,7 @@ import { User } from "@/interfaces/User";
 import { getProfile } from "@/routes/profile";
 import { CommentInterface } from "@/interfaces/Comment";
 import { getPostById } from "@/routes/post";
+import { getResponseById } from "@/routes/response";
 
 export const useExploreProfile = (userId: string, requestId: string) => {
   const [profile, setProfile] = useState<User | null>(null);
@@ -48,19 +49,45 @@ export const useExplorePost = (
       const { post, comments } = data;
       setPost(post);
       setComments(comments);
-    } catch (error: any) {
+    } catch {
       setError(true);
-      throw new Error(error.message);
     } finally {
       setLoading(false);
     }
   }, [postId, userId]);
 
   useEffect(() => {
-    if (userId) {
-      getPost();
-    }
+    if (userId) getPost();
   }, [getPost, userId]);
 
   return { post, comments, loading, error };
+};
+
+export const useExploreResponse = (userId: string, responseId: string) => {
+  const [response, setResponse] = useState<CommentInterface>();
+  const [responses, setResponses] = useState<CommentInterface[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const getResponse = useCallback(async () => {
+    if (!userId || !responseId) return;
+
+    try {
+      setLoading(true);
+      const data = await getResponseById(responseId, userId);
+      const { response, responses } = data;
+      setResponse(response);
+      setResponses(responses);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, [userId, responseId]);
+
+  useEffect(() => {
+    if (userId) getResponse();
+  }, [getResponse, userId]);
+
+  return { response, responses, loading, error };
 };

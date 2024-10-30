@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Like from "./actions/Like";
-import { Forward } from "lucide-react";
+import Response from "./actions/ResponseButton";
 import { CommentInterface } from "@/interfaces/Comment";
 
 interface Props {
@@ -22,7 +22,7 @@ const Actions: React.FC<Props> = ({ data }) => {
       </section>
       <section>
         <span className="flex items-center justify-center gap-1">
-          <Forward />
+          <Response data={data} />
         </span>
       </section>
     </div>

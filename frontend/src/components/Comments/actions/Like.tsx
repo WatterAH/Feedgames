@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useUser } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { Heart } from "lucide-react";
-import { dontLikeComment, likeComment } from "@/routes/comments";
+import { dontLikeComment, likeComment } from "@/routes/response";
 
 interface Props {
   id: string;
@@ -18,6 +18,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
 
   const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     try {
       setLiked(!liked);
       if (!liked) {

@@ -41,7 +41,7 @@ const Header: React.FC<Props> = ({ data, isLast }) => {
         </section>
         <section>
           <div className="absolute right-1 -top-1 flex items-center">
-            {edited && <Pencil className="text-icon h-4" />}
+            {edited && <p className="text-secondaryicon text-xs">Editado</p>}
             <Dropdown
               Icon={Ellipsis}
               options={options}

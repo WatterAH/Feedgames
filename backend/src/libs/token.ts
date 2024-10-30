@@ -1,7 +1,6 @@
 import jwt, { Secret } from "jsonwebtoken";
 import dotenv from "dotenv";
 import { User } from "../interfaces/User";
-import { Player } from "../interfaces/Valorant";
 dotenv.config();
 var JWT_KEY: Secret = process.env.JWT_KEY as string;
 
@@ -16,7 +15,7 @@ export const createAccessToken = (
   });
 };
 
-export const validateToken = (token: string): Promise<User | Player | null> => {
+export const validateToken = (token: string): Promise<User | null> => {
   return new Promise((resolve) => {
     if (!token) {
       return resolve(null);

@@ -5,6 +5,7 @@ import { filterMatch } from "../libs/arrays";
 import { RequestHandler } from "express";
 import { supabase } from "../database/connection";
 import { processMatch } from "../libs/server";
+import { editRiotId } from "../database/edit";
 
 dotenv.config();
 const translator = shortUUID();
@@ -149,6 +150,22 @@ export const setRiotId: RequestHandler = async (req, res) => {
     const userToken = await createAccessToken(data);
 
     return res.status(200).json({ token: userToken, user: data });
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const resetRiotId: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const userId = translator.toUUID(id);
+
+    const { error } = await editRiotId(userId);
+
+    if (error) {
+      return res.status(403).json({ message: "Ocurrió un error" });
+    }
+    return res.status(200).end();
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }

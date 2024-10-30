@@ -11,6 +11,7 @@ import { uploadImage } from "../database/insert";
 import { RequestHandler } from "express";
 import { processPost, processComment } from "../libs/server";
 import { deleteImage, deletePostById } from "../database/delete";
+import { editPostById } from "../database/edit";
 
 const translator = shortUUID();
 
@@ -25,15 +26,11 @@ export const createPost: RequestHandler = async (req, res) => {
       return res.status(400).json({ message: "No se permiten posts vacios" });
     }
 
-    let publicUrl = null;
-
-    if (image && image.buffer) {
-      const { filename, error } = await uploadImage(image, "images");
-      if (error) {
-        return res.status(400).json({ message: "No se pudo subir la imagen" });
-      }
-      publicUrl = filename;
-    }
+    const publicUrl = image?.buffer
+      ? (await uploadImage(image, "images")).filename
+      : null;
+    if (image && !publicUrl)
+      return res.status(400).json({ message: "No se pudo subir la imagen" });
 
     const data = { user_id, content, publicUrl, valMatch };
     const { error } = await supabase.from("posts").insert([data]);
@@ -43,6 +40,27 @@ export const createPost: RequestHandler = async (req, res) => {
     }
 
     return res.status(201).json({ message: "Hecho!" });
+  } catch (error) {
+    return res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const editPost: RequestHandler = async (req, res) => {
+  try {
+    const { id, content } = req.body;
+    const postId = translator.toUUID(id);
+
+    if (!content.trim()) {
+      return res.status(400).json({ message: "No se permiten posts vacios" });
+    }
+
+    const { error } = await editPostById(postId, content);
+
+    if (error) {
+      return res.status(400).json({ message: "Error al editar el post" });
+    }
+
+    return res.status(200).json({ message: "Hecho!" });
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
@@ -126,12 +144,8 @@ export const getPost: RequestHandler = async (req, res) => {
       return res.status(400).json({ message: "Error al obtener el post" });
     }
 
-    let comments = [];
-    if (data.comments.length > 0) {
-      comments = data.comments.map((comment) =>
-        processComment(comment, parsedUserId)
-      );
-    }
+    let comments = data.comments;
+    comments = comments.map((comment) => processComment(comment, parsedUserId));
     const post = processPost(data, parsedUserId);
 
     return res.status(200).json({ post, comments });

@@ -18,8 +18,14 @@ import { removePost } from "@/store/feedSlice";
 import { removeNotify } from "@/store/activity";
 import { resetAll } from "@/store/actions";
 import React from "react";
+import { deleteResponse } from "@/routes/response";
+import { toast } from "sonner";
 
-const useProfileOptions = (user: User, id: string, logout: () => void) => {
+export const useProfileOptions = (
+  user: User,
+  id: string,
+  logout: () => void
+) => {
   const dispatch: AppDispatch = useDispatch();
   const [_c, _s, removeCookie] = useCookies();
   const router = useRouter();
@@ -56,7 +62,7 @@ const useProfileOptions = (user: User, id: string, logout: () => void) => {
   ].filter(Boolean);
 };
 
-const usePostOptions = (
+export const usePostOptions = (
   id: string,
   userId: string,
   setEditing: React.Dispatch<React.SetStateAction<boolean>>
@@ -88,7 +94,7 @@ const usePostOptions = (
   ].filter(Boolean);
 };
 
-const useMenuOptions = (logout: () => void) => {
+export const useMenuOptions = (logout: () => void) => {
   const dispatch: AppDispatch = useDispatch();
   const [_c, _s, removeCookie] = useCookies();
   const router = useRouter();
@@ -118,7 +124,7 @@ const useMenuOptions = (logout: () => void) => {
   ].filter(Boolean);
 };
 
-const useNotifyOptions = (id: string) => {
+export const useNotifyOptions = (id: string) => {
   const dispatch: AppDispatch = useDispatch();
 
   return [
@@ -130,4 +136,20 @@ const useNotifyOptions = (id: string) => {
   ].filter(Boolean);
 };
 
-export { useProfileOptions, usePostOptions, useMenuOptions, useNotifyOptions };
+export const useResponseOptions = (id: string) => {
+  const deleteRes = () => {
+    toast.promise(deleteResponse(id), {
+      loading: "Eliminando...",
+      success: "Eliminado con éxito",
+      error: (err) => err.message,
+    });
+  };
+
+  return [
+    {
+      label: "Eliminar",
+      icon: Trash2,
+      onClick: () => deleteRes(),
+    },
+  ].filter(Boolean);
+};

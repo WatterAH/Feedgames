@@ -31,10 +31,14 @@ export const share = (content: "u" | "p", id: string) => {
 export const processPost = (post: PostInterface | any) => {
   const { id, liked, saved, comments, user, user_id, ...rest } = post;
   const { followers, ...userRest } = user;
+
+  const userIdParsed = translator.fromUUID(user_id);
+
   return {
     id: translator.fromUUID(id),
-    user_id: translator.fromUUID(user_id),
+    user_id: userIdParsed,
     user: {
+      id: userIdParsed,
       followers: followers[0].count,
       ...userRest,
     },

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Comment from "../Comment";
+import Response from "../Response";
 import { MessageCircle } from "lucide-react";
 import { PostInterface } from "@/interfaces/Post";
 import { stopPropagation } from "@/functions/utils";
@@ -8,7 +8,7 @@ interface Props {
   data: PostInterface;
 }
 
-const CommentButton: React.FC<Props> = ({ data }) => {
+const ResponseButton: React.FC<Props> = ({ data }) => {
   const { isCommented } = data;
   const [open, setOpen] = useState(false);
 
@@ -21,7 +21,7 @@ const CommentButton: React.FC<Props> = ({ data }) => {
     <>
       <button
         onClick={handleOpen}
-        className="active:scale-125 transition-transform"
+        className="active:scale-75 transition-transform"
       >
         <MessageCircle
           aria-hidden="true"
@@ -29,9 +29,9 @@ const CommentButton: React.FC<Props> = ({ data }) => {
           className="h-5 w-5 text-cyan-300"
         />
       </button>
-      <Comment open={open} setOpen={setOpen} data={data} />
+      <Response open={open} setOpen={setOpen} data={data} parentId={null} />
     </>
   );
 };
 
-export default CommentButton;
+export default ResponseButton;

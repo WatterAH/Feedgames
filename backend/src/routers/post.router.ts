@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   createPost,
   deletePost,
+  editPost,
   getPost,
   getPostsByUser,
   loadLiked,
@@ -16,6 +17,7 @@ const upload = multer({ storage: storage });
 export const postRouter = Router();
 
 postRouter.post("/api/createPost", upload.single("image"), createPost);
+postRouter.put("/api/editPost", editPost);
 postRouter.delete("/api/deletePost", deletePost);
 postRouter.get("/api/loadSaved", loadSaved);
 postRouter.get("/api/loadLiked", loadLiked);

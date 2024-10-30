@@ -7,16 +7,20 @@ const translator = shortUUID();
 
 export const processPost = (post: PostInterface | any, userId: string) => {
   const { id, liked, saved, comments, user, user_id, ...rest } = post;
-  const { followers, ...userRest } = user;
+  const { followers, id: userIdInPost, ...userRest } = user;
   const isLiked = liked.some((like: any) => like.id_user == userId);
   const isSaved = saved.some((save: any) => save.id_user == userId);
   const isCommented = comments.some(
     (comment: any) => comment.id_user == userId
   );
+
+  const userIdParsed = translator.fromUUID(user_id);
+
   return {
     id: translator.fromUUID(id),
-    user_id: translator.fromUUID(user_id),
+    user_id: userIdParsed,
     user: {
+      id: userIdParsed,
       followers: followers[0].count,
       ...userRest,
     },
@@ -30,14 +34,33 @@ export const processPost = (post: PostInterface | any, userId: string) => {
   };
 };
 
-export const processComment = (comment: Comment | any, userId: string) => {
-  const { id, comments_liked, ...rest } = comment;
-  const isLiked = comments_liked.some((like: any) => like.id_user == userId);
+export const processComment = (
+  comment: Comment | any,
+  userId: string
+): Comment => {
+  const {
+    id,
+    id_user: authorId,
+    id_post: postId,
+    comments_liked: likes,
+    user: { id: userIdInPost, followers, ...userDetails },
+    ...otherDetails
+  } = comment;
+
+  const isLiked = likes.some((like: any) => like.id_user === userId);
+
   return {
-    ...rest,
     id: translator.fromUUID(id),
-    liked: comments_liked.length,
+    id_user: translator.fromUUID(authorId),
+    id_post: translator.fromUUID(postId),
+    liked: likes.length,
     isLiked,
+    user: {
+      id: translator.fromUUID(userIdInPost),
+      followers: followers[0].count,
+      ...userDetails,
+    },
+    ...otherDetails,
   };
 };
 

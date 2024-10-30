@@ -11,4 +11,5 @@ export interface CommentInterface {
   user: User;
   liked: number;
   isLiked: boolean;
+  imageUrl: string;
 }

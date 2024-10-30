@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Like from "./actions/Like";
-import CommentButton from "./actions/CommentButton";
+import Response from "./actions/ResponseButton";
 import Save from "./actions/Save";
 import { PostInterface } from "@/interfaces/Post";
 import { stopPropagation } from "@/functions/utils";
@@ -29,7 +29,7 @@ const Actions: React.FC<Props> = ({ data }) => {
       </section>
       <section>
         <span className="flex items-center justify-center gap-1">
-          <CommentButton data={data} />
+          <Response data={data} />
           <p className="text-darkgray text-xs mb-1">{comments}</p>
         </span>
       </section>

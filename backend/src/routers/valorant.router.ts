@@ -4,6 +4,7 @@ import {
   getMatchesList,
   getPlayerUuid,
   oauth2_callback,
+  resetRiotId,
   setRiotId,
 } from "../controllers/valorant.controller";
 
@@ -14,3 +15,4 @@ valorantRouter.get("/val/getPlayerUuid", getPlayerUuid);
 valorantRouter.get("/val/getMatchesList", getMatchesList);
 valorantRouter.get("/val/getMatchByUuid", getMatchByUuid);
 valorantRouter.put("/val/setRiotId", setRiotId);
+valorantRouter.put("/val/resetRiotId", resetRiotId);
