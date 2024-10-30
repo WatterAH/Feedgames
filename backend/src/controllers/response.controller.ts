@@ -41,10 +41,9 @@ export const response: RequestHandler = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: "Error al subir comentario" });
     }
-
     if (id_notified !== id_user) {
       const text = id_parent ? "Respondió tu comentario" : "Comentó tu post";
-      notify(toNotify, false, "p", id_post, text, name);
+      notify(id_notified, false, "p", id_post, text, name);
     }
 
     return res.status(200).json(response);
