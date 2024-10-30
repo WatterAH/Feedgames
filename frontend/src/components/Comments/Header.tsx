@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
+import Dropdown from "../Global/Dropdown";
 import { calculateDate } from "@/functions/date";
 import { CommentInterface } from "@/interfaces/Comment";
 import { stopPropagation } from "@/functions/utils";
-import Dropdown from "../Global/Dropdown";
 import { BadgeCheck, Ellipsis } from "lucide-react";
 import { useResponseOptions } from "@/hooks/useOptions";
 
@@ -16,7 +16,7 @@ const Header: React.FC<Props> = ({ data, deleteComment }) => {
   const { user, order, id_user } = data;
   const { username, followers } = user;
   const date = calculateDate(order);
-  const options = useResponseOptions(data.id, deleteComment);
+  const options = useResponseOptions(data.id, id_user, deleteComment);
 
   return (
     <header className="flex flex-row justify-between relative">

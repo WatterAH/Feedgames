@@ -1,3 +1,4 @@
+import React from "react";
 import { User } from "@/interfaces/User";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
@@ -17,7 +18,6 @@ import { AppDispatch } from "@/store/store";
 import { removePost } from "@/store/feedSlice";
 import { removeNotify } from "@/store/activity";
 import { resetAll } from "@/store/actions";
-import React from "react";
 import { deleteResponse } from "@/routes/response";
 import { toast } from "sonner";
 
@@ -138,8 +138,11 @@ export const useNotifyOptions = (id: string) => {
 
 export const useResponseOptions = (
   id: string,
+  userId: string,
   setComments: (id: string) => void
 ) => {
+  const { user } = useUser();
+
   const deleteRes = () => {
     toast.promise(deleteResponse(id), {
       loading: "Eliminando...",
@@ -152,10 +155,12 @@ export const useResponseOptions = (
   };
 
   return [
-    {
-      label: "Eliminar",
-      icon: Trash2,
-      onClick: () => deleteRes(),
-    },
+    user.id === userId
+      ? {
+          label: "Eliminar",
+          icon: Trash2,
+          onClick: () => deleteRes(),
+        }
+      : null,
   ].filter(Boolean);
 };
