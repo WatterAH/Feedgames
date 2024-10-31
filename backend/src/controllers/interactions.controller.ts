@@ -13,6 +13,7 @@ export const likePost: RequestHandler = async (req, res) => {
     const post_user = translator.toUUID(postUser);
     const id_user = translator.toUUID(userId);
     const id_post = translator.toUUID(postId);
+
     await unlike(id_user, id_post);
 
     const data = { id_user, id_post };
@@ -36,6 +37,7 @@ export const savePost: RequestHandler = async (req, res) => {
     const { userId, postId } = req.body;
     const id_user = translator.toUUID(userId);
     const id_post = translator.toUUID(postId);
+
     await unsave(userId, postId);
 
     const data = { id_user, id_post };

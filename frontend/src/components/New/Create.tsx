@@ -34,10 +34,10 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setOpen(false);
     toast.promise(createPost(user.id, text, image, valMatch), {
       loading: "Publicando...",
       success: () => {
-        setOpen(false);
         setText("");
         setImage(null);
         setValMatch(null);

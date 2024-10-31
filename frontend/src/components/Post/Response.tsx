@@ -21,7 +21,9 @@ interface Props {
 }
 
 const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
-  const { user } = useUser();
+  const {
+    user: { id, username, pfp },
+  } = useUser();
   const { user: userData } = data;
   const [text, setText] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -32,23 +34,16 @@ const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
   ): data is PostInterface => {
     return (data as PostInterface).valMatch !== undefined;
   };
+  const postId = isPost(data) ? data.id : data.id_post;
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setOpen(false);
     toast.promise(
-      response(
-        user.id,
-        isPost(data) ? data.id : data.id_post,
-        parentId,
-        text,
-        image,
-        userData.id,
-        user.username
-      ),
+      response(id, postId, parentId, text, image, userData.id, username),
       {
         loading: "Publicando...",
         success: () => {
-          setOpen(false);
           return "Publicado";
         },
         error: (err) => err.message,
@@ -61,7 +56,7 @@ const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
       <div className="max-h-[80vh] px-2 md:px-5 overflow-y-auto">
         <div className="mb-3 space-y-2">
-          <Header username={user.username} pfp={user.pfp}>
+          <Header username={username} pfp={pfp}>
             <div>
               <TextArea
                 text={text}

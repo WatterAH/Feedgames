@@ -6,7 +6,11 @@ import { getResponseById } from "../database/commentGetter";
 import { RequestHandler } from "express";
 import { responseContent, uploadImage } from "../database/insert";
 import { processComment } from "../libs/server";
-import { deleteImage, deleteResponseById } from "../database/delete";
+import {
+  deleteImage,
+  deleteResponseById,
+  unlikeResponse,
+} from "../database/delete";
 
 const translator = shortUUID();
 
@@ -108,18 +112,24 @@ export const deleteResponse: RequestHandler = async (req, res) => {
 
 export const likeComment: RequestHandler = async (req, res) => {
   try {
-    const { id_user, id_comment, username, user_comment } = req.body;
-    const insertData = { id_user, id_comment };
-    const { error } = await supabase.from("comments_liked").insert(insertData);
-    if (error) {
-      return res.status(400).json({ message: "Ocurrió un error" });
-    } else {
-      if (id_user != user_comment) {
-        const text = `Le gustó tu comentario`;
-        notify(user_comment, false, "c", id_comment, text, username);
-      }
-      return res.status(200).json({ message: "OK" });
+    const { userId, responseId, username, responseUser } = req.body;
+
+    const id_user = translator.toUUID(userId);
+    const id_comment = translator.toUUID(responseId);
+    const id_user_response = translator.toUUID(responseUser);
+
+    await unlikeResponse(id_user, id_comment);
+
+    const data = { id_user, id_comment };
+    const { error } = await supabase.from("comments_liked").insert(data);
+    if (error) return res.status(400).end();
+
+    if (id_user != id_user_response) {
+      const text = `Le gustó tu comentario`;
+      notify(id_user_response, false, "c", id_comment, text, username);
     }
+
+    return res.status(200).end();
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }
@@ -127,17 +137,16 @@ export const likeComment: RequestHandler = async (req, res) => {
 
 export const dontLikeComment: RequestHandler = async (req, res) => {
   try {
-    const { id_user, id_comment } = req.body;
-    const { error } = await supabase
-      .from("comments_liked")
-      .delete()
-      .eq("id_user", id_user)
-      .eq("id_comment", id_comment);
-    if (error) {
-      return res.status(400).json({ message: "Ocurrió un error" });
-    } else {
-      return res.status(200).json({ message: "OK" });
-    }
+    const { userId, responseId } = req.body;
+
+    const id_user = translator.toUUID(userId);
+    const id_comment = translator.toUUID(responseId);
+
+    const { error } = await unlikeResponse(id_user, id_comment);
+
+    if (error) return res.status(400).end();
+
+    return res.status(200).end();
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }

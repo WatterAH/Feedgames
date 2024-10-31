@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useUser } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { Heart } from "lucide-react";
-import { dontLikeComment, likeComment } from "@/routes/response";
+import { likeResponse, unlikeResponse } from "@/routes/response";
 
 interface Props {
   id: string;
@@ -23,10 +23,10 @@ const Like = ({ likeData }: { likeData: Props }) => {
       setLiked(!liked);
       if (!liked) {
         setLikedNum((prevNum) => prevNum + 1);
-        await likeComment(user.id, id, user.username, id_user);
+        await likeResponse(user.id, id, user.username, id_user);
       } else {
         setLikedNum((prevNum) => prevNum - 1);
-        await dontLikeComment(user.id, id);
+        await unlikeResponse(user.id, id);
       }
     } catch (error: any) {
       const { message } = error;

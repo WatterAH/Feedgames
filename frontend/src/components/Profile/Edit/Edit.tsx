@@ -29,10 +29,10 @@ const Edit: React.FC<Props> = ({ open, setOpen }) => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setOpen(false);
     toast.promise(editProfile(user.id, name, username, details, image), {
       loading: "Cargando...",
       success: (data) => {
-        setOpen(false);
         const { user: userData, token } = data;
         login(userData);
         setCookie("token", token, {

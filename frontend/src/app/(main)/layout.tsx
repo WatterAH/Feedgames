@@ -11,6 +11,7 @@ import {
 import { useUser } from "@/context/AuthContext";
 import { useSpring, animated } from "react-spring";
 import Header from "@/layout/Menu/Header";
+import Create from "@/components/New/Create";
 
 export default function MainLayout({
   children,
@@ -18,6 +19,7 @@ export default function MainLayout({
   const { loading } = useToken();
   const { user } = useUser();
   const [loader, setLoader] = useState(loading);
+  const [creating, setCreating] = useState(false);
   useSubscribeToNewPosts(user.id);
   useSubscribeToNotify(user.id);
 
@@ -44,12 +46,13 @@ export default function MainLayout({
     </animated.div>
   ) : (
     <>
-      <main className="flex flex-col h-screen justify-start items-center bg-barcelona dark:bg-coal relative">
+      <main className="flex flex-col h-screen justify-start items-center bg-white lg:bg-barcelona dark:bg-coal relative">
         <Header />
         {children}
-        <Menu />
+        <Menu setCreating={setCreating} />
       </main>
-      <New />
+      <New setCreating={setCreating} />
+      <Create open={creating} setOpen={setCreating} />
     </>
   );
 }

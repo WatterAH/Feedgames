@@ -15,7 +15,6 @@ export const likePost = async (
     body: JSON.stringify({ userId, postId, username, postUser }),
   });
 
-  console.log(res);
   if (!res.ok) {
     throw new Error("No se  pudo realizar la acción");
   }

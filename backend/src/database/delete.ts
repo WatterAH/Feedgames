@@ -30,6 +30,15 @@ export const unlike = async (userId: string, postId: string) => {
   return { error };
 };
 
+export const unlikeResponse = async (userId: string, responseId: string) => {
+  const { error } = await supabase
+    .from("comments_liked")
+    .delete()
+    .eq("id_user", userId)
+    .eq("id_comment", responseId);
+  return { error };
+};
+
 export const unsave = async (userId: string, postId: string) => {
   const { error } = await supabase
     .from("saved")

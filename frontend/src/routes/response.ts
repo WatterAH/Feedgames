@@ -73,41 +73,38 @@ export const deleteResponse = async (id: string): Promise<void> => {
   return;
 };
 
-export const likeComment = async (
-  id_user: string,
-  id_comment: string,
+export const likeResponse = async (
+  userId: string,
+  responseId: string,
   username: string,
-  user_comment: string
+  responseUser: string
 ): Promise<void> => {
-  const body = { id_user, id_comment, username, user_comment };
   const res = await fetch(`${URL}/api/likeComment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ userId, responseId, username, responseUser }),
   });
+
   if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error("No se  pudo realizar la acción");
   }
   return;
 };
 
-export const dontLikeComment = async (
-  id_user: string,
-  id_comment: string
+export const unlikeResponse = async (
+  userId: string,
+  responseId: string
 ): Promise<void> => {
-  const body = { id_user, id_comment };
   const res = await fetch(`${URL}/api/dontLikeComment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(body),
+    body: JSON.stringify({ userId, responseId }),
   });
   if (!res.ok) {
     const resData = await res.json();
