@@ -32,6 +32,7 @@ export interface PostInterface {
   isLiked: boolean;
   saved: Saves[];
   isSaved: boolean;
-  comments: Comments[];
+  responsed: number;
+  responses: PostInterface[];
   isCommented: boolean;
 }

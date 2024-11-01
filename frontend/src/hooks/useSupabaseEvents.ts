@@ -21,10 +21,10 @@ export const useSubscribeToNewPosts = (userId: string) => {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "posts" },
         async (payload) => {
-          const { new: post } = payload;
-          const { data, error } = await getPostById(post.id);
-          if (!error) {
-            const newPost = processPost(data);
+          const { new: newPost } = payload;
+          const { post, error } = await getPostById(newPost.id);
+          if (!error && post && !post?.parentId) {
+            const newPost = processPost(post);
             dispatch(addPost(newPost));
             if (post.user_id == translator.toUUID(userId)) {
               dispatch(addMyPost(newPost));

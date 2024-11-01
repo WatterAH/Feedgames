@@ -9,7 +9,7 @@ import {
 } from "../database/postGetter";
 import { uploadImage } from "../database/insert";
 import { RequestHandler } from "express";
-import { processPost, processComment } from "../libs/server";
+import { processPost } from "../libs/server";
 import { deleteImage, deletePostById } from "../database/delete";
 import { editPostById } from "../database/edit";
 
@@ -17,8 +17,10 @@ const translator = shortUUID();
 
 export const createPost: RequestHandler = async (req, res) => {
   try {
-    let { userId, content, valMatch } = req.body;
+    let { userId, content, valMatch, parentId } = req.body;
+
     const user_id = translator.toUUID(userId);
+    parentId = parentId ? translator.toUUID(parentId) : null;
     valMatch = JSON.parse(valMatch);
     const image = req.file;
 
@@ -32,10 +34,11 @@ export const createPost: RequestHandler = async (req, res) => {
     if (image && !publicUrl)
       return res.status(400).json({ message: "No se pudo subir la imagen" });
 
-    const data = { user_id, content, publicUrl, valMatch };
+    const data = { user_id, content, publicUrl, valMatch, parentId };
     const { error } = await supabase.from("posts").insert([data]);
 
     if (error) {
+      console.log(error);
       return res.status(400).json({ message: "Error al crear el post" });
     }
 
@@ -144,11 +147,16 @@ export const getPost: RequestHandler = async (req, res) => {
       return res.status(400).json({ message: "Error al obtener el post" });
     }
 
-    let comments = data.comments;
-    comments = comments.map((comment) => processComment(comment, parsedUserId));
+    let responses = data.responses;
+    responses = responses.map((response) =>
+      processPost(response, parsedUserId)
+    );
+    //@ts-expect-error
+    delete data.responses;
+
     const post = processPost(data, parsedUserId);
 
-    return res.status(200).json({ post, comments });
+    return res.status(200).json({ post, responses });
   } catch (error) {
     return res.status(500).json({ message: "El servidor tuvo un problema" });
   }

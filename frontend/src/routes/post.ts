@@ -1,4 +1,3 @@
-import { CommentInterface } from "@/interfaces/Comment";
 import { PostInterface } from "@/interfaces/Post";
 import { MatchShowCase } from "@/interfaces/Valorant";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
@@ -23,7 +22,7 @@ export const feedPosts = async (
 export const getPostById = async (
   id: string,
   userId: string
-): Promise<{ post: PostInterface; comments: CommentInterface[] }> => {
+): Promise<{ post: PostInterface; responses: PostInterface[] }> => {
   const res = await fetch(
     `${URL}/api/getPost?postId=${encodeURIComponent(
       id
@@ -42,15 +41,15 @@ export const createPost = async (
   userId: string,
   content: string,
   image: File | null,
-  valMatch: MatchShowCase | null
+  valMatch: MatchShowCase | null,
+  parentId?: string
 ): Promise<void> => {
   const formData = new FormData();
   formData.append("userId", userId);
   formData.append("content", content);
   formData.append("valMatch", JSON.stringify(valMatch));
-  if (image) {
-    formData.append("image", image);
-  }
+  if (parentId) formData.append("parentId", parentId);
+  if (image) formData.append("image", image);
 
   const res = await fetch(`${URL}/api/createPost`, {
     method: "POST",

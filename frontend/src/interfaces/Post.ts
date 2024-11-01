@@ -12,7 +12,8 @@ export interface PostInterface {
   isLiked: boolean;
   saved: number;
   isSaved: boolean;
-  comments: number;
+  responsed: number;
+  parentId: string | null;
   valMatch: MatchShowCase | null;
   edited: boolean;
 }

@@ -1,4 +1,5 @@
 import { Notification } from "@/interfaces/Notification";
+import { PostInterface } from "@/interfaces/Post";
 import { createClient, PostgrestError } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
@@ -6,15 +7,17 @@ const supabaseKey = process.env.NEXT_PUBLIC_ANON_KEY as string;
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
-export const getPostById = async (postId: string) => {
-  const { data, error } = await supabase
+export const getPostById = async (
+  postId: string
+): Promise<{ post: PostInterface | null; error: PostgrestError | null }> => {
+  const { data: post, error } = await supabase
     .from("posts")
     .select(
-      "*, liked(id_user), saved(id_user), comments(id, id_user), user:users(id, username, name, pfp, followers:follows!follows_id_followed_fkey(count))"
+      "*, user:users(id, username, pfp, name, followers:follows!follows_id_followed_fkey(count))"
     )
     .eq("id", postId)
     .single();
-  return { data, error };
+  return { post, error };
 };
 
 export const getNotifyById = async (

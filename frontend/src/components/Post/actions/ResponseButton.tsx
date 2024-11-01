@@ -27,7 +27,7 @@ const ResponseButton: React.FC<Props> = ({ data }) => {
           className="h-5 w-5 text-cyan-500"
         />
       </button>
-      <Response open={open} setOpen={setOpen} data={data} parentId={null} />
+      <Response open={open} setOpen={setOpen} data={data} parentId={data.id} />
     </>
   );
 };

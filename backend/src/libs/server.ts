@@ -6,7 +6,7 @@ import { Comment } from "../interfaces/Comment";
 const translator = shortUUID();
 
 export const processPost = (post: PostInterface | any, userId: string) => {
-  const { id, liked, saved, comments, user, user_id, ...rest } = post;
+  const { id, liked, saved, responsed, user, user_id, ...rest } = post;
   const { followers, id: userIdInPost, ...userRest } = user;
   const isLiked = liked.some((like: any) => like.id_user == userId);
   const isSaved = saved.some((save: any) => save.id_user == userId);
@@ -25,7 +25,7 @@ export const processPost = (post: PostInterface | any, userId: string) => {
     isLiked,
     saved: saved.length,
     isSaved,
-    comments: comments.length,
+    responsed: responsed[0].count,
     ...rest,
   };
 };

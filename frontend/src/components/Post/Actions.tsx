@@ -11,7 +11,7 @@ interface Props {
 
 const Actions: React.FC<Props> = ({ data }) => {
   const { id, user_id } = data;
-  const { saved, isSaved, liked, isLiked, comments } = data;
+  const { saved, isSaved, liked, isLiked, responsed } = data;
   const [savedNum, setSavedNum] = useState<number>(saved);
   const [likedNum, setLikedNum] = useState(liked);
 
@@ -30,7 +30,7 @@ const Actions: React.FC<Props> = ({ data }) => {
       <section>
         <span className="flex items-center justify-center gap-1">
           <Response data={data} />
-          <p className="text-darkgray text-xs mb-1">{comments}</p>
+          <p className="text-darkgray text-xs mb-1">{responsed}</p>
         </span>
       </section>
     </div>

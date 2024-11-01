@@ -18,8 +18,6 @@ import { AppDispatch } from "@/store/store";
 import { removePost } from "@/store/feedSlice";
 import { removeNotify } from "@/store/activity";
 import { resetAll } from "@/store/actions";
-import { deleteResponse } from "@/routes/response";
-import { toast } from "sonner";
 
 export const useProfileOptions = (
   user: User,
@@ -133,34 +131,5 @@ export const useNotifyOptions = (id: string) => {
       icon: Trash2,
       onClick: () => dispatch(removeNotify(id)),
     },
-  ].filter(Boolean);
-};
-
-export const useResponseOptions = (
-  id: string,
-  userId: string,
-  setComments: (id: string) => void
-) => {
-  const { user } = useUser();
-
-  const deleteRes = () => {
-    toast.promise(deleteResponse(id), {
-      loading: "Eliminando...",
-      success: () => {
-        setComments(id);
-        return "Eliminado con éxito";
-      },
-      error: (err) => err.message,
-    });
-  };
-
-  return [
-    user.id === userId
-      ? {
-          label: "Eliminar",
-          icon: Trash2,
-          onClick: () => deleteRes(),
-        }
-      : null,
   ].filter(Boolean);
 };
