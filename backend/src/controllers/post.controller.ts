@@ -38,7 +38,6 @@ export const createPost: RequestHandler = async (req, res) => {
     const { error } = await supabase.from("posts").insert([data]);
 
     if (error) {
-      console.log(error);
       return res.status(400).json({ message: "Error al crear el post" });
     }
 

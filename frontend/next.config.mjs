@@ -18,6 +18,10 @@ const nextConfig = {
         hostname: "media.valorant-api.com",
         pathname: "/agents/**",
       },
+      {
+        protocol: "https",
+        hostname: "img.icons8.com",
+      },
     ],
   },
 };

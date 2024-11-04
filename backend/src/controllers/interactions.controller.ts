@@ -22,7 +22,7 @@ export const likePost: RequestHandler = async (req, res) => {
     if (error) return res.status(400).end();
 
     if (userId != postUser) {
-      const text = "Le gustó tu publicación";
+      const text = "Le gustó tu hilo";
       await notify(post_user, false, "p", postId, text, username);
     }
 

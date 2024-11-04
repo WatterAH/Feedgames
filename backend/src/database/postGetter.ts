@@ -41,6 +41,7 @@ export const getPostById = async (
     .from("posts")
     .select(`${QUERY}, responses:posts(${QUERY})`)
     .eq("id", postId)
+    .order("order", { referencedTable: "responses", ascending: false })
     .single();
   return { data, error };
 };

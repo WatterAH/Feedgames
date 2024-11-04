@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import ValMatch from "./ValMatch";
 import Tooltip from "@/components/Global/Tooltip";
-import { Match, MatchShowCase } from "@/interfaces/Valorant";
-import { Gamepad2 } from "lucide-react";
-import { useUser } from "@/context/AuthContext";
 import Modal from "@/components/Global/Modal";
+import Image from "next/image";
+import { Match, MatchShowCase } from "@/interfaces/Valorant";
+import { useUser } from "@/context/AuthContext";
 
 interface Props {
   setValMatch: React.Dispatch<React.SetStateAction<MatchShowCase | null>>;
@@ -53,7 +53,12 @@ const MatchInput: React.FC<Props> = ({
   return riotId && matches.length > 0 ? (
     <>
       <button onClick={handleClick}>
-        <Gamepad2 className="text-secondaryicon h-5" />
+        <Image
+          src="https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=999999"
+          alt="val"
+          height={20}
+          width={20}
+        />
       </button>
       <Modal open={isOpen} setOpen={setIsOpen} title="Valorant Tracker">
         <div className="absolute top-1 left-3 text-darkgray">
@@ -75,7 +80,12 @@ const MatchInput: React.FC<Props> = ({
     <Tooltip
       text={matches.length == 0 ? "No hay partidos" : "Vincula con Riot"}
     >
-      <Gamepad2 className="text-gray-200 h-5" />
+      <Image
+        src="https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=e5e7eb"
+        alt="val"
+        height={20}
+        width={20}
+      />
     </Tooltip>
   );
 };
