@@ -13,7 +13,6 @@ const Result: React.FC<User> = ({ id, pfp, name, username, followers }) => {
 
   return (
     <div
-      key={id}
       className="flex items-center justify-between w-full border-b py-3 px-5 hover:cursor-pointer"
       onClick={handleClick}
     >

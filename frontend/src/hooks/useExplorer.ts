@@ -82,8 +82,9 @@ export const useSearchUsers = (
         try {
           const users = await getUsers(searchTerm);
           setResultsUsers(users);
-        } catch (error) {
+        } catch (error: any) {
           setErrorUsers(true);
+          throw new Error(error.message);
         } finally {
           setLoadUsers(false);
         }
@@ -91,7 +92,7 @@ export const useSearchUsers = (
     }, 300);
 
     return () => clearTimeout(delayDebounce);
-  }, [searchTerm]);
+  }, [searchTerm, setCurrent]);
 
   return { resultsUsers, loadUsers, errorUsers };
 };
@@ -101,7 +102,7 @@ export const useSearchPosts = (term: string, userId: string) => {
   const [loadPosts, setLoadPosts] = useState(false);
   const [errorPosts, setErrorPosts] = useState(false);
 
-  const getPosts = async () => {
+  const getPosts = useCallback(async () => {
     if (term.length === 0 || !userId) {
       return;
     }
@@ -110,16 +111,17 @@ export const useSearchPosts = (term: string, userId: string) => {
       setLoadPosts(true);
       const posts = await getCurrentTerm(term, userId);
       setResultsPosts(posts);
-    } catch (error) {
+    } catch (error: any) {
       setErrorPosts(true);
+      throw new Error(error.message);
     } finally {
       setLoadPosts(false);
     }
-  };
+  }, [term, userId]);
 
   useEffect(() => {
     getPosts();
-  }, [term, userId]);
+  }, [term, userId, getPosts]);
 
   return { resultsPosts, loadPosts, errorPosts };
 };

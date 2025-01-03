@@ -42,7 +42,7 @@ export const RenderUsers: React.FC<UserProps> = ({
     <div className="flex flex-col py-3">
       <SearchCurrent setCurrent={setCurrent} searchTerm={searchTerm} />
       {users.map((user) => (
-        <Result {...user} />
+        <Result key={user.id} {...user} />
       ))}
     </div>
   );
