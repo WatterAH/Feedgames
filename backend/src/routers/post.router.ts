@@ -4,6 +4,7 @@ import {
   createPost,
   deletePost,
   editPost,
+  getCurrentTerm,
   getPost,
   getPostsByUser,
   loadLiked,
@@ -23,4 +24,5 @@ postRouter.get("/api/loadSaved", loadSaved);
 postRouter.get("/api/loadLiked", loadLiked);
 postRouter.get("/api/getPost", getPost);
 postRouter.get("/api/getPostsByUser", getPostsByUser);
+postRouter.get("/api/getCurrentTerm", getCurrentTerm);
 postRouter.get("/api/loadTopLikedPosts", loadTopLikedPosts);

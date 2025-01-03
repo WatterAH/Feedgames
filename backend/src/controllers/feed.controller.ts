@@ -13,11 +13,12 @@ export const loadPosts: RequestHandler = async (req, res) => {
     const parsedLimit = parseInt(limit as string, 10);
     let { posts, error } = await getPostsByRange(parsedPage, parsedLimit);
     if (error || !posts) {
-      return res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: "Algo salió mal" });
+      return;
     }
     const processedPosts = posts.map((post) => processPost(post, userId));
-    return res.status(200).json(processedPosts);
+    res.status(200).json(processedPosts);
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

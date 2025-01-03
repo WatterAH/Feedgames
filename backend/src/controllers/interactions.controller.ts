@@ -19,16 +19,16 @@ export const likePost: RequestHandler = async (req, res) => {
     const data = { id_user, id_post };
     const { error } = await supabase.from("liked").insert([data]);
 
-    if (error) return res.status(400).end();
+    if (error) res.status(400).end();
 
     if (userId != postUser) {
       const text = "Le gustó tu hilo";
       await notify(post_user, false, "p", postId, text, username);
     }
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    res.status(500).end();
   }
 };
 
@@ -43,11 +43,11 @@ export const savePost: RequestHandler = async (req, res) => {
     const data = { id_user, id_post };
     const { error } = await supabase.from("saved").insert([data]);
 
-    if (error) return res.status(400).end();
+    if (error) res.status(400).end();
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    res.status(500).end();
   }
 };
 
@@ -59,11 +59,11 @@ export const unLikePost: RequestHandler = async (req, res) => {
 
     const { error } = await unlike(id_user, id_post);
 
-    if (error) return res.status(400).end();
+    if (error) res.status(400).end();
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    res.status(500).end();
   }
 };
 
@@ -75,11 +75,11 @@ export const unSavePost: RequestHandler = async (req, res) => {
 
     const { error } = await unsave(id_user, id_post);
 
-    if (error) return res.status(400).end();
+    if (error) res.status(400).end();
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    res.status(500).end();
   }
 };
 
@@ -92,14 +92,14 @@ export const followUser: RequestHandler = async (req, res) => {
 
     const { error } = await follow(id_follower, id_followed);
 
-    if (error) return res.status(400).end();
+    if (error) res.status(400).end();
 
     const text = "Comenzó a seguirte";
     notify(id_followed, false, "u", followerId, text, username);
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    res.status(500).end();
   }
 };
 
@@ -111,10 +111,10 @@ export const unFollowUser: RequestHandler = async (req, res) => {
 
     const { error } = await unfollow(id_follower, id_followed);
 
-    if (error) return res.status(400).end();
+    if (error) res.status(400).end();
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    res.status(500).end();
   }
 };

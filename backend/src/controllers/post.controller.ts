@@ -3,6 +3,7 @@ import { supabase } from "../database/connection";
 import {
   getLiked,
   getPostById,
+  getPostsByContent,
   getPostsByRange,
   getSaved,
   getUserPosts,
@@ -25,25 +26,29 @@ export const createPost: RequestHandler = async (req, res) => {
     const image = req.file;
 
     if (!content.trim() && !image && !valMatch) {
-      return res.status(400).json({ message: "No se permiten posts vacios" });
+      res.status(400).json({ message: "No se permiten posts vacios" });
+      return;
     }
 
     const publicUrl = image?.buffer
       ? (await uploadImage(image, "images")).filename
       : null;
-    if (image && !publicUrl)
-      return res.status(400).json({ message: "No se pudo subir la imagen" });
+    if (image && !publicUrl) {
+      res.status(400).json({ message: "No se pudo subir la imagen" });
+      return;
+    }
 
     const data = { user_id, content, publicUrl, valMatch, parentId };
     const { error } = await supabase.from("posts").insert([data]);
 
     if (error) {
-      return res.status(400).json({ message: "Error al crear el post" });
+      res.status(400).json({ message: "Error al crear el post" });
+      return;
     }
 
-    return res.status(201).json({ message: "Hecho!" });
+    res.status(201).json({ message: "Hecho!" });
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -53,18 +58,20 @@ export const editPost: RequestHandler = async (req, res) => {
     const postId = translator.toUUID(id);
 
     if (!content.trim()) {
-      return res.status(400).json({ message: "No se permiten posts vacios" });
+      res.status(400).json({ message: "No se permiten posts vacios" });
+      return;
     }
 
     const { error } = await editPostById(postId, content);
 
     if (error) {
-      return res.status(400).json({ message: "Error al editar el post" });
+      res.status(400).json({ message: "Error al editar el post" });
+      return;
     }
 
-    return res.status(200).json({ message: "Hecho!" });
+    res.status(200).json({ message: "Hecho!" });
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -74,22 +81,28 @@ export const deletePost: RequestHandler = async (req, res) => {
     const postId = translator.toUUID(id);
 
     const { data, error } = await getPostById(postId);
-    if (error || !data) return res.status(400).end();
+    if (error || !data) {
+      res.status(400).end();
+      return;
+    }
 
     const { publicUrl } = data;
     if (publicUrl) {
       const { error } = await deleteImage(publicUrl, "images");
-      if (error)
-        return res.status(400).json({ message: "Error al eliminar la imagen" });
+      if (error) {
+        res.status(400).json({ message: "Error al eliminar la imagen" });
+        return;
+      }
     }
 
     const { error: deleteError } = await deletePostById(postId);
-    if (deleteError)
-      return res.status(400).json({ message: "Error al eliminar el post" });
+    if (deleteError) {
+      res.status(400).json({ message: "Error al eliminar el post" });
+    }
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -103,13 +116,14 @@ export const loadSaved: RequestHandler = async (req, res) => {
     const { data, error } = await getSaved(userId, pageInt, limitInt);
 
     if (error || !data) {
-      return res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: "Algo salió mal" });
+      return;
     }
 
     const processedPosts = data.map((post) => processPost(post.p, userId));
-    return res.status(200).json(processedPosts);
+    res.status(200).json(processedPosts);
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -123,14 +137,15 @@ export const loadLiked: RequestHandler = async (req, res) => {
     const { data, error } = await getLiked(userId, pageInt, limitInt);
 
     if (error || !data) {
-      return res.status(400).json({ message: "Error al obtener los posts" });
+      res.status(400).json({ message: "Error al obtener los posts" });
+      return;
     }
 
     const processedPosts = data.map((post) => processPost(post.p, userId));
 
-    return res.status(200).json(processedPosts);
+    res.status(200).json(processedPosts);
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -143,7 +158,8 @@ export const getPost: RequestHandler = async (req, res) => {
     const { data, error } = await getPostById(parsedPostId);
 
     if (error || !data) {
-      return res.status(400).json({ message: "Error al obtener el post" });
+      res.status(400).json({ message: "Error al obtener el post" });
+      return;
     }
 
     let responses = data.responses;
@@ -155,9 +171,9 @@ export const getPost: RequestHandler = async (req, res) => {
 
     const post = processPost(data, parsedUserId);
 
-    return res.status(200).json({ post, responses });
+    res.status(200).json({ post, responses });
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -172,14 +188,15 @@ export const getPostsByUser: RequestHandler = async (req, res) => {
     const { posts, error } = await getUserPosts(parsedUser, pageInt, limitInt);
 
     if (error || !posts) {
-      return res.status(400).json({ message: "Error al cargar los posts" });
+      res.status(400).json({ message: "Error al cargar los posts" });
+      return;
     }
 
     const processedPosts = posts.map((post) => processPost(post, parsedReq));
 
-    return res.status(200).json(processedPosts);
+    res.status(200).json(processedPosts);
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -191,7 +208,8 @@ export const loadTopLikedPosts: RequestHandler = async (req, res) => {
     const { posts, error } = await getPostsByRange(0, 50);
 
     if (error || !posts) {
-      return res.status(400).json({ message: "Error al cargar los posts" });
+      res.status(400).json({ message: "Error al cargar los posts" });
+      return;
     }
 
     const topLikedPosts = posts
@@ -199,8 +217,26 @@ export const loadTopLikedPosts: RequestHandler = async (req, res) => {
       .slice(0, 5)
       .map((post) => processPost(post, parsedId));
 
-    return res.status(200).json(topLikedPosts);
+    res.status(200).json(topLikedPosts);
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const getCurrentTerm: RequestHandler = async (req, res) => {
+  try {
+    const { term, userId } = req.query;
+    const parsedUserId = translator.toUUID(userId as string);
+
+    const { data, error } = await getPostsByContent(term as string);
+    if (error || !data) {
+      res.status(400).json({ message: "Error al cargar los posts" });
+      return;
+    }
+
+    const posts = data.map((post) => processPost(post, parsedUserId));
+    res.status(200).json({ posts });
+  } catch (error) {
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

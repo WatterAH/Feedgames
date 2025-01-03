@@ -18,3 +18,15 @@ export const checkUsername = async (username: string) => {
     .eq("username", username);
   return { data, error };
 };
+
+export const searchUser = async (searchTerm: string) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select(
+      "id, name, username, details, pfp, created_at, followed:follows!follows_id_follower_fkey(count), followers:follows!follows_id_followed_fkey(id_follower)"
+    )
+    .or(`username.ilike.%${searchTerm}%,name.ilike.%${searchTerm}%`)
+    .order("username", { ascending: false })
+    .limit(8);
+  return { data, error };
+};

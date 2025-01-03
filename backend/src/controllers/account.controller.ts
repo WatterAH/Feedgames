@@ -18,15 +18,16 @@ export const login: RequestHandler = async (req, res) => {
 
     const correctPass = await bcryptjs.compare(password, user.password);
     if (errorAuth || !user || !correctPass) {
-      return res.status(401).json({ message: "Verifica tus credenciales" });
+      res.status(401).json({ message: "Verifica tus credenciales" });
+      return;
     } else {
       user.id = translator.fromUUID(user.id);
       delete user.password;
       const token = await createAccessToken(user);
-      return res.status(200).json({ user, token });
+      res.status(200).json({ user, token });
     }
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -40,7 +41,8 @@ export const register: RequestHandler = async (req, res) => {
     if (image) {
       const { filename, error } = await uploadImage(image, "pfp");
       if (error) {
-        return res.status(500).json({ message: "Error al subir la imagen" });
+        res.status(500).json({ message: "Error al subir la imagen" });
+        return;
       }
       pfp = filename;
     }
@@ -54,14 +56,15 @@ export const register: RequestHandler = async (req, res) => {
     );
 
     if (error || !user) {
-      return res.status(500).json({ message: "Error al registrar usuario" });
+      res.status(500).json({ message: "Error al registrar usuario" });
+      return;
     }
 
     user.id = translator.fromUUID(user.id);
     const token = await createAccessToken(user);
-    return res.status(201).json({ user, token });
+    res.status(201).json({ user, token });
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -70,11 +73,11 @@ export const checkSessionToken: RequestHandler = async (req, res) => {
     const { userToken } = req.query;
     const user = await validateToken(userToken as string);
     if (!user) {
-      return res.status(401).json({ message: "Token invalido o expirado" });
-    } else {
-      return res.status(200).json({ user, userToken });
+      res.status(401).json({ message: "Token invalido o expirado" });
+      return;
     }
+    res.status(200).json({ user, userToken });
   } catch (error) {
-    return res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

@@ -16,9 +16,10 @@ export const getNotifications: RequestHandler = async (req, res) => {
     const { notify, error } = await getNotifyById(userId, pageInt, limitInt);
 
     if (error || !notify) {
-      return res
+      res
         .status(400)
         .json({ message: "No se pudieron obtener las notificaciones" });
+      return;
     }
 
     const ids = notify.map((notification) => notification.id);
@@ -26,9 +27,9 @@ export const getNotifications: RequestHandler = async (req, res) => {
 
     const processedNotify = notify.map((noty) => processNotify(noty));
 
-    return res.status(200).json(processedNotify);
+    res.status(200).json(processedNotify);
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -38,11 +39,12 @@ export const deleteNotify: RequestHandler = async (req, res) => {
     const { error } = await deleteNotification(id);
 
     if (error) {
-      return res.status(400).json("No se pudo eliminar la notificación");
+      res.status(400).json("No se pudo eliminar la notificación");
+      return;
     }
 
-    return res.status(200).end();
+    res.status(200).end();
   } catch {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

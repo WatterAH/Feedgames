@@ -7,18 +7,20 @@ export const usernameAvailable: RequestHandler = async (req, res, next) => {
     const { username } = req.body;
     const { data, error } = await checkUsername(username);
     if (error) {
-      return res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: "Algo salió mal" });
+      return;
     } else {
       if (!data || data.length > 0) {
-        return res.status(403).json({
+        res.status(403).json({
           message: "Lo sentimos, este nombre de usuario esta ocupado",
         });
+        return;
       } else {
-        return next();
+        next();
       }
     }
   } catch (error) {
-    return res.status(403).json({
+    res.status(403).json({
       message: "El servidor tuvó un problema",
     });
   }
@@ -27,15 +29,18 @@ export const usernameAvailable: RequestHandler = async (req, res, next) => {
 export const validateRegister: RequestHandler = async (req, res, next) => {
   const { name, username, password } = req.body;
   if (!isCorrectUsername(username)) {
-    return res.status(400).json({
+    res.status(400).json({
       message: "Usuario: alfanumérico, ¡#$&/?-_@ permitidos",
     });
+    return;
   }
   if (!name.trim()) {
-    return res.status(400).json({ message: "Introduce un nombre valido" });
+    res.status(400).json({ message: "Introduce un nombre valido" });
+    return;
   }
   if (!isStrongPassword(password)) {
-    return res.status(400).json({ message: "La contraseña no es segura" });
+    res.status(400).json({ message: "La contraseña no es segura" });
+    return;
   }
-  return next();
+  next();
 };

@@ -82,9 +82,11 @@ export const getMatchesList: RequestHandler = async (req, res) => {
       },
     });
     if (response.status == 404) {
-      return res.status(404).json({ message: "No hay partidos" });
+      res.status(404).json({ message: "No hay partidos" });
+      return;
     } else if (!response.ok) {
-      return res.status(400).json({ message: "Algo salio mal" });
+      res.status(400).json({ message: "Algo salio mal" });
+      return;
     } else {
       const resData = await response.json();
       let { puuid, history } = resData;
@@ -94,10 +96,10 @@ export const getMatchesList: RequestHandler = async (req, res) => {
           match.queueId == "unrated" ||
           match.queueId == "swiftplay"
       );
-      return res.status(200).json({ history: history.slice(0, 15), puuid });
+      res.status(200).json({ history: history.slice(0, 15), puuid });
     }
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -112,14 +114,14 @@ export const getMatchByUuid: RequestHandler = async (req, res) => {
       },
     });
     if (!response.ok) {
-      return res.status(400).json({ message: "Algo salio mal" });
-    } else {
-      let match = await response.json();
-      match = filterMatch(match, puuid as string);
-      return res.status(200).json(processMatch(match));
+      res.status(400).json({ message: "Algo salio mal" });
+      return;
     }
+    let match = await response.json();
+    match = filterMatch(match, puuid as string);
+    res.status(200).json(processMatch(match));
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -130,7 +132,10 @@ export const setRiotId: RequestHandler = async (req, res) => {
 
     const user = await validateToken(token);
 
-    if (!user) return res.status(400).json({ message: "Token no valido" });
+    if (!user) {
+      res.status(400).json({ message: "Token no valido" });
+      return;
+    }
 
     const riotId = user as any;
     delete riotId.exp;
@@ -143,15 +148,18 @@ export const setRiotId: RequestHandler = async (req, res) => {
       .select("id, created_at, name, username, details, pfp, riotId")
       .single();
 
-    if (error) return res.status(403).json({ message: "Ocurrió un error" });
+    if (error) {
+      res.status(403).json({ message: "Ocurrió un error" });
+      return;
+    }
 
     data.id = translator.fromUUID(data.id);
 
     const userToken = await createAccessToken(data);
 
-    return res.status(200).json({ token: userToken, user: data });
+    res.status(200).json({ token: userToken, user: data });
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -163,10 +171,11 @@ export const resetRiotId: RequestHandler = async (req, res) => {
     const { error } = await editRiotId(userId);
 
     if (error) {
-      return res.status(403).json({ message: "Ocurrió un error" });
+      res.status(403).json({ message: "Ocurrió un error" });
+      return;
     }
-    return res.status(200).end();
+    res.status(200).end();
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

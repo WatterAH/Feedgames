@@ -1,6 +1,6 @@
 import shortUUID from "short-uuid";
 import { RequestHandler } from "express";
-import { getProfileById } from "../database/profileGetter";
+import { getProfileById, searchUser } from "../database/profileGetter";
 import { processUser } from "../libs/server";
 import { deleteImage } from "../database/delete";
 import { uploadImage } from "../database/insert";
@@ -18,14 +18,15 @@ export const getProfile: RequestHandler = async (req, res) => {
     let { user, error } = await getProfileById(parsedId);
 
     if (error || !user) {
-      return res.status(400).json({ message: "Error al cargar el usuario." });
+      res.status(400).json({ message: "Error al cargar el usuario." });
+      return;
     }
 
     const processedUser = processUser(user, parsedReq);
 
-    return res.status(200).json(processedUser);
+    res.status(200).json(processedUser);
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
 
@@ -43,7 +44,8 @@ export const editProfile: RequestHandler = async (req, res) => {
       if (pfp) deleteImage(pfp, "pfp");
       const { filename, error } = await uploadImage(image, "pfp");
       if (error) {
-        return res.status(400).json({ message: "No se pudo subir la imagen" });
+        res.status(400).json({ message: "No se pudo subir la imagen" });
+        return;
       }
       pfp = filename;
     }
@@ -56,15 +58,32 @@ export const editProfile: RequestHandler = async (req, res) => {
       pfp
     );
     if (error || !newUser) {
-      return res
+      res
         .status(400)
         .json({ message: "Lo sentimos, nombre de usuario ya en uso" });
+      return;
     }
 
     newUser.id = translator.fromUUID(newUser.id);
     const token = await createAccessToken(newUser);
-    return res.status(200).json({ user: newUser, token });
+    res.status(200).json({ user: newUser, token });
   } catch (error) {
-    return res.status(500).json({ message: "El servidor tuvo un problema" });
+    res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const getUsersBySearchTerm: RequestHandler = async (req, res) => {
+  try {
+    const { searchterm } = req.query;
+    const { data, error } = await searchUser(searchterm as string);
+    if (error) {
+      res.status(400).json({ message: "Ocurrió un error" });
+      return;
+    }
+
+    const users = data?.map((user) => processUser(user, "00"));
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

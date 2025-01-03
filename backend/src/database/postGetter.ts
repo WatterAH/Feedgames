@@ -52,7 +52,8 @@ export const getPostsByContent = async (
   const { data, error } = await supabase
     .from("posts")
     .select(QUERY)
-    .ilike("content", `%${content}%`);
+    .ilike("content", `%${content}%`)
+    .limit(6);
   return { data, error };
 };
 
