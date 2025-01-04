@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import ValMatch from "./ValMatch";
 import Tooltip from "@/components/Global/Tooltip";
 import Modal from "@/components/Global/Modal";
 import Image from "next/image";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
-import { useUser } from "@/context/AuthContext";
 
 interface Props {
   setValMatch: React.Dispatch<React.SetStateAction<MatchShowCase | null>>;
@@ -21,23 +20,7 @@ const MatchInput: React.FC<Props> = ({
   matches,
   riotId,
 }) => {
-  const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -60,18 +43,19 @@ const MatchInput: React.FC<Props> = ({
           width={20}
         />
       </button>
-      <Modal open={isOpen} setOpen={setIsOpen} title="Valorant Tracker">
+      <Modal
+        open={isOpen}
+        setOpen={setIsOpen}
+        title="Valorant Tracker"
+        size="sm"
+        full={false}
+      >
         <div className="absolute top-1 left-3 text-darkgray">
           <button onClick={() => setIsOpen(false)}>Cancelar</button>
         </div>
-        <div className="h-[80vh] overflow-y-auto px-3">
+        <div className="h-[60vh] overflow-y-auto px-3 space-y-2">
           {matches.map((match, i) => (
-            <ValMatch
-              key={i}
-              match={match}
-              riotId={user.riotId}
-              setVal={setVal}
-            />
+            <ValMatch key={i} match={match} setVal={setVal} />
           ))}
         </div>
       </Modal>

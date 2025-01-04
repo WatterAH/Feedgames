@@ -32,21 +32,6 @@ export const getMatchByUuid = async (
   return response.json();
 };
 
-export const getCharacterIcon = async (
-  characterId: string,
-  full?: boolean
-): Promise<string> => {
-  const ENDPOINT = `https://valorant-api.com/v1/agents/${characterId}`;
-  const res = await fetch(ENDPOINT);
-  if (!res.ok) {
-    throw new Error("Error al cargar la imagen");
-  } else {
-    const resData = await res.json();
-    const { displayIconSmall, bustPortrait } = resData.data;
-    return full ? bustPortrait : displayIconSmall;
-  }
-};
-
 export const setRiotId = async (
   token: string,
   userId: string

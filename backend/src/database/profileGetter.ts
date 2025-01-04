@@ -26,7 +26,7 @@ export const searchUser = async (searchTerm: string) => {
       "id, name, username, details, pfp, created_at, followed:follows!follows_id_follower_fkey(count), followers:follows!follows_id_followed_fkey(id_follower)"
     )
     .or(`username.ilike.%${searchTerm}%,name.ilike.%${searchTerm}%`)
-    .order("username", { ascending: false })
+    .order("username")
     .limit(8);
   return { data, error };
 };

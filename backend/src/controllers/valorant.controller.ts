@@ -4,8 +4,8 @@ import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { RequestHandler } from "express";
 import { supabase } from "../database/connection";
-import { processMatch } from "../libs/server";
 import { editRiotId } from "../database/edit";
+import { processMatch } from "../libs/server";
 
 dotenv.config();
 const translator = shortUUID();
@@ -117,6 +117,7 @@ export const getMatchByUuid: RequestHandler = async (req, res) => {
       res.status(400).json({ message: "Algo salio mal" });
       return;
     }
+
     let match = await response.json();
     match = filterMatch(match, puuid as string);
     res.status(200).json(processMatch(match));

@@ -37,7 +37,7 @@ const Follow: React.FC<Props> = (props) => {
           followState
             ? "bg-white dark:bg-threads dark:border-outline dark:text-white text-black border"
             : "bg-threads dark:bg-white dark:text-black text-white"
-        } rounded-lg w-full font-semibold active:scale-90 transition-all duration-300`}
+        } rounded-xl w-full font-semibold active:scale-90 transition-all duration-300`}
       >
         {isSameUser ? "Editar perfil" : followState ? "Siguiendo" : "Seguir"}
       </button>

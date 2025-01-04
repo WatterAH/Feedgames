@@ -52,8 +52,9 @@ export interface Match {
   matchInfo: {
     matchId: string;
     queueId: queueId;
+    mapId: string;
   };
-  players: Player[];
+  players: PlayerInGame[];
   teams: [
     { teamId: "Blue" | "Red"; won: boolean; roundsWon: number },
     { teamId: "Blue" | "Red"; won: boolean; roundsWon: number }

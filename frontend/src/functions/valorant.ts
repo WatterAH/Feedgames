@@ -66,22 +66,20 @@ export const damagePerRound = (rounds: Round[]) => {
   return Number(damageRound.toFixed(1));
 };
 
-export const valMatchStats = (
-  match: Match,
-  gameName: string,
-  tagLine: string
-): MatchShowCase => {
-  const { matchInfo, player, roundResults } = match.match;
-  const { queueId } = matchInfo;
-  const { characterId, stats: playerStats } = player as PlayerInGame;
+export const valMatchStats = (match: Match): MatchShowCase => {
+  const { matchInfo, player, teams, roundResults } = match.match;
+  const { queueId, mapId } = matchInfo;
+  const { characterId, stats: playerStats, teamId } = player as PlayerInGame;
   const kills_perRound = killsPerRound(playerStats.kills, roundResults.length);
   const spent_perRound = spentPerRound(roundResults);
+  const myTeam = teams.find((team) => team.teamId == teamId);
+  const enemyTeam = teams.find((team) => team.teamId !== teamId);
 
   return {
-    gameName,
-    tagLine,
-    queueId: getQueueId(queueId),
+    mapId,
     characterId,
+    queueId: getQueueId(queueId),
+    results: `${myTeam?.roundsWon}-${enemyTeam?.roundsWon}`,
     playerStats,
     kda: getKDA(playerStats.kills, playerStats.assists, playerStats.deaths),
     scorePerRound: scorePerRound(playerStats.score, roundResults.length),
@@ -90,6 +88,10 @@ export const valMatchStats = (
     hsPercentage: hsPercentage(roundResults),
     economyRatio: economyKillsRatio(kills_perRound, spent_perRound),
   };
+};
+
+export const getKDAStats = (stats: MatchShowCase["playerStats"]) => {
+  return `${stats.kills}/${stats.deaths}/${stats.assists}`;
 };
 
 export const getQueueId = (

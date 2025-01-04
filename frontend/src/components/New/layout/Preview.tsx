@@ -33,7 +33,7 @@ const Preview: React.FC<Props> = ({
     >
       {preview && showsClose && (
         <div
-          className="absolute rounded-full bg-gray-100 right-7 top-3 hover:cursor-pointer p-1"
+          className="absolute z-30 rounded-full bg-gray-100 right-7 top-3 hover:cursor-pointer p-1"
           onClick={() => setPreview(null)}
         >
           <X className="text-threads" />

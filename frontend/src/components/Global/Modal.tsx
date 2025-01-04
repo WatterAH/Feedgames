@@ -11,9 +11,29 @@ interface Props extends PropsWithChildren {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  full?: boolean;
 }
 
-const Modal: React.FC<Props> = ({ open, setOpen, title, children }) => {
+const Modal: React.FC<Props> = ({
+  open,
+  setOpen,
+  title,
+  children,
+  size = "xl",
+  full = true,
+}) => {
+  const sizeClasses = {
+    xs: "sm:max-w-xs",
+    sm: "sm:max-w-sm",
+    md: "sm:max-w-md",
+    lg: "sm:max-w-lg",
+    xl: "sm:max-w-xl",
+    "2xl": "sm:max-w-2xl",
+  };
+
+  const maxWidthClass = sizeClasses[size] || "sm:max-w-xl";
+
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-50">
       <DialogBackdrop
@@ -25,9 +45,13 @@ const Modal: React.FC<Props> = ({ open, setOpen, title, children }) => {
         <div className="flex h-screen items-center justify-center">
           <DialogPanel
             transition
-            className="relative transform overflow-hidden sm:rounded-2xl bg-white  shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in w-full sm:max-w-xl data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+            className={`relative transform overflow-hidden rounded-xl bg-white  shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in ${
+              full ? "w-full" : "w-[24rem]"
+            } ${maxWidthClass} data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95`}
           >
-            <div className="bg-white h-screen sm:h-full">
+            <div
+              className={`bg-white ${full ? "h-screen" : "h-[70vh]"} sm:h-full`}
+            >
               <div className="mt-7 sm:mt-2 w-full relative">
                 <DialogTitle
                   as="h3"

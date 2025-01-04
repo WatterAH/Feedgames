@@ -27,6 +27,9 @@ const config: Config = {
         montserrat: ["var(--font-montserrat)"],
         inter: ["var(--font-inter)"],
       },
+      maxWidth: {
+        "2xl": "40rem",
+      },
     },
   },
   plugins: [],

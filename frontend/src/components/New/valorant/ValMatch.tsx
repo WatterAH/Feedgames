@@ -1,60 +1,65 @@
 import Image from "next/image";
-import { getCharacterIcon } from "@/routes/valorant";
-import { useEffect, useState } from "react";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
 import { getQueueId, valMatchStats } from "@/functions/valorant";
+import { getMap } from "@/constants/mapnames";
+import { getAgent } from "@/constants/agentnames";
+import { ChevronRight, Crosshair, Star, Swords } from "lucide-react";
 
 interface Props {
-  riotId: {
-    puuid: string | undefined;
-    gameName: string;
-    tagLine: string;
-  };
   match: Match;
   setVal: (stats: MatchShowCase) => void;
 }
 
-const ValMatch: React.FC<Props> = ({ match, riotId, setVal }) => {
+const ValMatch: React.FC<Props> = ({ match, setVal }) => {
   const { preview } = match;
-  const [characterIcon, setCharacterIcon] = useState("");
+  const { mapName, mapIcon } = getMap(preview.mapId);
+  const { agentName, agentImg } = getAgent(preview.characterId);
 
   const handleClick = () => {
-    const stats = valMatchStats(match, riotId.gameName, riotId.tagLine);
+    const stats = valMatchStats(match);
     setVal(stats);
   };
-
-  useEffect(() => {
-    const fetchIcons = async () => {
-      const iconFetched = await getCharacterIcon(preview.characterId);
-      setCharacterIcon(iconFetched);
-    };
-    fetchIcons();
-  }, [preview.characterId]);
 
   return (
     <li
       onClick={handleClick}
-      className="flex justify-between hover:cursor-pointer items-center px-2 py-4 font-montserrat border-b border-gray-300"
+      className="flex flex-col hover:cursor-pointer border rounded-lg shadow-sm max-w-xs w-full mx-auto"
     >
-      <div className="flex items-center gap-x-2 w-1/3">
-        <div className="rounded-full bg-loading w-9 h-9">
-          {characterIcon && (
-            <Image
-              src={characterIcon}
-              width={36}
-              height={36}
-              alt=""
-              className="rounded-full"
-            />
-          )}
+      <div className="relative">
+        <span className="absolute z-20 flex items-center gap-x-3">
+          <Image src={agentImg} width={64} height={64} alt={agentName} />
+          <div>
+            <h3 className="font-bold font-raleway text-white">{agentName}</h3>
+            <span className="text-white text-sm bg-gray-100 rounded-md backdrop-blur-md bg-opacity-10 px-2 font-raleway flex items-center justify-center">
+              {mapName} | {getQueueId(preview.queueId)}
+            </span>
+          </div>
+        </span>
+        <div className="relative w-full h-16">
+          <Image
+            src={mapIcon}
+            alt={mapName}
+            fill
+            className="w-full rounded-t-lg"
+          />
         </div>
-        <p className="text-sm text-gray-600">{preview.kda}</p>
       </div>
-      <div className="w-1/3 flex justify-center">
-        <p className="text-xs text-center text-gray-600">{preview.results}</p>
-      </div>
-      <div className="flex flex-col text-xs w-1/3 items-end">
-        <p className="text-gray-600">{getQueueId(preview.queueId)}</p>
+      <div className="flex justify-between px-3 py-1 font-medium text-xs text-outline">
+        <span className="flex items-center justify-center gap-x-0.5">
+          <Crosshair className="text-icon h-4" />
+          {preview.kda}
+        </span>
+        <span className="flex items-center justify-center gap-x-0.5">
+          <Star className="text-icon h-4" />
+          {preview.score}
+        </span>
+        <span className="flex items-center justify-center gap-x-0.5">
+          <Swords className="text-icon h-4" />
+          {preview.results}
+        </span>
+        <span className="p-0.5 bg-gray-200 rounded-md">
+          <ChevronRight className="h-5" />
+        </span>
       </div>
     </li>
   );

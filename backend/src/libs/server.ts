@@ -61,8 +61,8 @@ export const processComment = (
 };
 
 export const processMatch = (match: Match) => {
-  const { matchInfo, player, teams } = match;
-  const { queueId } = matchInfo;
+  const { matchInfo, player, teams, roundResults } = match;
+  const { queueId, mapId } = matchInfo;
   const { characterId, teamId, stats } = player as PlayerInGame;
   const myTeam = teams.find((team) => team.teamId == teamId);
   const enemyTeam = teams.find((team) => team.teamId !== teamId);
@@ -71,9 +71,10 @@ export const processMatch = (match: Match) => {
     preview: {
       kda: `${stats.kills}/${stats.deaths}/${stats.assists}`,
       characterId,
-      results: `${myTeam?.roundsWon}:${enemyTeam?.roundsWon} `,
+      mapId,
+      results: `${myTeam?.roundsWon}-${enemyTeam?.roundsWon}`,
       queueId,
-      won: myTeam?.won,
+      score: (stats.score / roundResults.length).toFixed(0),
     },
     match,
   };

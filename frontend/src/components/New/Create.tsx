@@ -49,7 +49,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
   };
 
   return (
-    <Modal open={open} setOpen={setOpen} title="Crear Post">
+    <Modal open={open} setOpen={setOpen} title="Crear Post" size="xl">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
       <div className="max-h-[80vh] px-2 md:px-5 overflow-y-auto">
         <Header username={user.username} pfp={user.pfp}>

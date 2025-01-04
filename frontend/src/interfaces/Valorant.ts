@@ -73,13 +73,13 @@ export interface Match {
     results: string;
     queueId: "competitive" | "unrated" | "swiftplay";
     mapId: string;
-    won: boolean;
+    score: number;
   };
 }
 
 export interface MatchShowCase {
-  gameName: string | null;
-  tagLine: string | null;
+  results: string;
+  mapId: string;
   queueId: "Competitivo" | "Normal" | "Swiftplay";
   characterId: string;
   playerStats: Stats;

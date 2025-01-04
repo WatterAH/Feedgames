@@ -74,14 +74,17 @@ export const editProfile: RequestHandler = async (req, res) => {
 
 export const getUsersBySearchTerm: RequestHandler = async (req, res) => {
   try {
-    const { searchterm } = req.query;
+    const { searchterm, userId } = req.query;
+    const parsedId = translator.toUUID(userId as string);
+
     const { data, error } = await searchUser(searchterm as string);
+
     if (error) {
       res.status(400).json({ message: "Ocurrió un error" });
       return;
     }
 
-    const users = data?.map((user) => processUser(user, "00"));
+    const users = data?.map((user) => processUser(user, parsedId));
     res.status(200).json({ users });
   } catch (error) {
     res.status(500).json({ message: "El servidor tuvo un problema" });
