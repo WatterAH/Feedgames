@@ -1,11 +1,19 @@
 import React from "react";
+import Follow from "@/components/Profile/Follow";
 import ProfilePicture from "@/components/Profile/ProfilePicture";
 import { User } from "@/interfaces/User";
 import { BadgeCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/context/AuthContext";
 
-const Result: React.FC<User> = ({ id, pfp, name, username, followers }) => {
+interface Props {
+  data: User;
+}
+
+const Result: React.FC<Props> = ({ data }) => {
   const router = useRouter();
+  const { user } = useUser();
+  const { id, name, username, pfp, followers } = data;
 
   const handleClick = () => {
     router.push(`/u/${id}`);
@@ -28,6 +36,7 @@ const Result: React.FC<User> = ({ id, pfp, name, username, followers }) => {
           <p className="text-secondaryicon text-sm">{name}</p>
         </div>
       </div>
+      <div className="w-28">{user.id !== id && <Follow data={data} />}</div>
     </div>
   );
 };
