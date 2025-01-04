@@ -64,23 +64,25 @@ export const useExplorePost = (
 
 export const useSearchUsers = (
   searchTerm: string,
-  setCurrent: React.Dispatch<React.SetStateAction<string>>
+  setCurrent: React.Dispatch<React.SetStateAction<string>>,
+  userId: string | undefined
 ) => {
   const [resultsUsers, setResultsUsers] = useState<User[]>([]);
   const [loadUsers, setLoadUsers] = useState(false);
   const [errorUsers, setErrorUsers] = useState(false);
 
   useEffect(() => {
-    if (searchTerm.trim().length === 0) {
+    if (searchTerm.trim().length === 0 || !userId) {
       setResultsUsers([]);
       setCurrent("");
+      return;
     }
 
     const delayDebounce = setTimeout(async () => {
       if (searchTerm.trim().length > 0) {
         setLoadUsers(true);
         try {
-          const users = await getUsers(searchTerm);
+          const users = await getUsers(searchTerm, userId);
           setResultsUsers(users);
         } catch (error: any) {
           setErrorUsers(true);
@@ -92,7 +94,7 @@ export const useSearchUsers = (
     }, 300);
 
     return () => clearTimeout(delayDebounce);
-  }, [searchTerm, setCurrent]);
+  }, [searchTerm, setCurrent, userId]);
 
   return { resultsUsers, loadUsers, errorUsers };
 };

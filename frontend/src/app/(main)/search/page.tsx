@@ -21,7 +21,7 @@ export default function SearchPage() {
   const { resultsUsers, errorUsers, loadUsers } = useSearchUsers(
     searchTerm,
     setCurrent,
-    user?.id
+    user.id
   );
   const { resultsPosts, errorPosts, loadPosts } = useSearchPosts(
     current,
