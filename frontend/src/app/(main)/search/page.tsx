@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { fetchTendency } from "@/store/tendencySlice";
 import { useSearchPosts, useSearchUsers } from "@/hooks/useExplorer";
 import { RenderPosts, RenderUsers } from "@/layout/Search/Render";
+import SearchCurrent from "@/layout/Search/SearchCurrent";
 
 export default function SearchPage() {
   const { user } = useUser();
@@ -19,7 +20,8 @@ export default function SearchPage() {
   const [current, setCurrent] = useState("");
   const { resultsUsers, errorUsers, loadUsers } = useSearchUsers(
     searchTerm,
-    setCurrent
+    setCurrent,
+    user?.id
   );
   const { resultsPosts, errorPosts, loadPosts } = useSearchPosts(
     current,
@@ -43,12 +45,10 @@ export default function SearchPage() {
       return posts.map((post) => <Post data={post} key={post.id} />);
     } else if (current.length == 0) {
       return (
-        <RenderUsers
-          loading={loadUsers}
-          users={resultsUsers}
-          searchTerm={searchTerm}
-          setCurrent={setCurrent}
-        />
+        <div>
+          <SearchCurrent setCurrent={setCurrent} searchTerm={searchTerm} />
+          <RenderUsers loading={loadUsers} users={resultsUsers} />
+        </div>
       );
     } else {
       return <RenderPosts loading={loadPosts} posts={resultsPosts} />;
