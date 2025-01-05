@@ -1,5 +1,5 @@
+import { ContentObject } from "@/components/New/Create";
 import { PostInterface } from "@/interfaces/Post";
-import { MatchShowCase } from "@/interfaces/Valorant";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 export const feedPosts = async (
@@ -39,17 +39,16 @@ export const getPostById = async (
 
 export const createPost = async (
   userId: string,
-  content: string,
-  image: File | null,
-  valMatch: MatchShowCase | null,
+  text: string,
+  content: ContentObject,
   parentId?: string
 ): Promise<void> => {
   const formData = new FormData();
   formData.append("userId", userId);
-  formData.append("content", content);
-  formData.append("valMatch", JSON.stringify(valMatch));
+  formData.append("text", text);
+  formData.append("content", JSON.stringify(content));
   if (parentId) formData.append("parentId", parentId);
-  if (image) formData.append("image", image);
+  if (content?.type == "image") formData.append("image", content.data);
 
   const res = await fetch(`${URL}/api/createPost`, {
     method: "POST",

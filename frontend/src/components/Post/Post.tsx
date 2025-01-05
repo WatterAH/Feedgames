@@ -31,7 +31,7 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
       </Link>
       <div className="flex flex-col w-full gap-y-2">
         <Header data={data} isLast={isLast} />
-        <Content data={data} />
+        <Content post={data} />
         <Actions data={data} />
       </div>
     </div>

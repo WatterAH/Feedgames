@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
-  image: string | null | ArrayBuffer;
+  image: File;
 }
 
 const ImagePreview: React.FC<Props> = ({ image }) => {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const url = URL.createObjectURL(image);
+    setImageUrl(url);
+
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [image]);
+
   return (
     <img
-      src={image as string}
+      src={imageUrl ?? undefined}
       alt="Preview"
       className="rounded-lg shadow-lg object-cover h-96 w-full"
     />

@@ -29,7 +29,7 @@ export const share = (content: "u" | "p", id: string) => {
 };
 
 export const processPost = (post: PostInterface | any) => {
-  const { id, user, user_id, ...rest } = post;
+  const { id, user, user_id, content, ...rest } = post;
   const { followers, ...userRest } = user;
 
   const userIdParsed = translator.fromUUID(user_id);
@@ -42,6 +42,7 @@ export const processPost = (post: PostInterface | any) => {
       followers: followers[0].count,
       ...userRest,
     },
+    content: { type: content[0].type, data: content[0].data },
     liked: 0,
     saved: 0,
     responsed: 0,

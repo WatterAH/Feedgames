@@ -1,13 +1,10 @@
 import React from "react";
-import { MatchShowCase } from "@/interfaces/Valorant";
+import { ContentObject } from "./Create";
 
 interface Props {
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
-  setImage?: React.Dispatch<React.SetStateAction<File | null>>;
-  setPreview?: React.Dispatch<
-    React.SetStateAction<string | MatchShowCase | null>
-  >;
+  setContent: (content: ContentObject) => void;
   pasteImages?: boolean;
   placeholder?: string;
 }
@@ -15,8 +12,7 @@ interface Props {
 const TextArea: React.FC<Props> = ({
   text,
   setText,
-  setPreview,
-  setImage,
+  setContent,
   pasteImages = true,
   placeholder = "¿Qué hay en tu mente?",
 }) => {
@@ -27,10 +23,8 @@ const TextArea: React.FC<Props> = ({
       const item = clipboardItems[i];
       if (item.type.startsWith("image/")) {
         const file = item.getAsFile();
-        if (file && setPreview && setImage) {
-          const url = URL.createObjectURL(file);
-          setPreview(url);
-          setImage(file);
+        if (file) {
+          setContent({ type: "image", data: file });
         }
         break;
       }

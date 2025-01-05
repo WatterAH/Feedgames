@@ -4,18 +4,18 @@ import MatchPost from "./contents/Match";
 import { PostInterface } from "@/interfaces/Post";
 
 interface Props {
-  data: PostInterface;
+  post: PostInterface;
 }
 
-const Content: React.FC<Props> = ({ data }) => {
+const Content: React.FC<Props> = ({ post }) => {
+  const { type, data } = post.content;
+
   return (
     <div className="flex flex-col gap-y-2 w-full">
       <>
-        {data.content && (
-          <p className="text-sm dark:text-white">{data.content}</p>
-        )}
-        {data.publicUrl && <Imagep publicUrl={data.publicUrl} />}
-        {data.valMatch && <MatchPost stats={data.valMatch} />}
+        {post.text && <p className="text-sm dark:text-white">{post.text}</p>}
+        {type == "image" && <Imagep publicUrl={data.url} />}
+        {type == "valorant" && <MatchPost stats={data} />}
       </>
     </div>
   );

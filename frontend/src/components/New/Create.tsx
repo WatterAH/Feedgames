@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Actions from "./layout/Actions";
 import Header from "./layout/Header";
 import TextArea from "./TextArea";
@@ -12,6 +12,13 @@ import { createPost } from "@/routes/post";
 import { MatchShowCase } from "@/interfaces/Valorant";
 import { useGetMatches } from "@/hooks/useValorant";
 
+export type ContentInterface =
+  | { type: "image"; data: File }
+  | { type: "valorant"; data: MatchShowCase }
+  | { type: "textonly"; data: null };
+
+export type ContentObject = ContentInterface | null;
+
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,27 +28,16 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
   const { user } = useUser();
   const { matches } = useGetMatches(user.riotId?.puuid);
   const [text, setText] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-  const [valMatch, setValMatch] = useState<MatchShowCase | null>(null);
-  const [preview, setPreview] = useState<string | MatchShowCase | null>(null);
-
-  useEffect(() => {
-    if (preview == null) {
-      setImage(null);
-      setValMatch(null);
-    }
-  }, [preview]);
+  const [content, setContent] = useState<ContentObject>(null);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    toast.promise(createPost(user.id, text, image, valMatch), {
+    toast.promise(createPost(user.id, text, content), {
       loading: "Publicando...",
       success: () => {
         setText("");
-        setImage(null);
-        setValMatch(null);
-        setPreview(null);
+        setContent(null);
         return "Publicado con éxito";
       },
       error: (err) => err.message,
@@ -57,18 +53,19 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
             <TextArea
               text={text}
               setText={setText}
-              setPreview={setPreview}
-              setImage={setImage}
+              setContent={setContent}
               placeholder={`¿Qué hay en tu mente ${user.name}?`}
             />
-            <Preview preview={preview} setPreview={setPreview} />
+            <Preview content={content} setContent={setContent} />
             <div className="flex gap-x-2">
-              <ImageInput setImage={setImage} setPreview={setPreview} />
+              <ImageInput setContent={setContent} />
+              {/* <button onClick={() => setPreview(defaultGrid)}>
+                <Palette className="text-secondaryicon h-5" />
+              </button> */}
               <MatchInput
                 matches={matches}
                 riotId={user.riotId}
-                setValMatch={setValMatch}
-                setPreview={setPreview}
+                setContent={setContent}
               />
             </div>
           </div>

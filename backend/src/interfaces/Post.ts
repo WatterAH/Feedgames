@@ -22,7 +22,8 @@ export interface Comments {
 export interface PostInterface {
   id: string;
   created_at: DateObj;
-  content: string;
+  text: string;
+  content: any;
   tags: string[];
   order: string;
   user: User;

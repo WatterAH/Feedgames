@@ -2,44 +2,40 @@ import React from "react";
 import ImagePreview from "../image/ImagePreview";
 import MatchPost from "@/components/Post/contents/Match";
 import { X } from "lucide-react";
-import { MatchShowCase } from "@/interfaces/Valorant";
+import { ContentObject } from "../Create";
 
 interface Props {
-  preview: string | MatchShowCase | null;
-  setPreview: React.Dispatch<
-    React.SetStateAction<string | MatchShowCase | null>
-  >;
+  content: ContentObject;
+  setContent: (content: ContentObject) => void;
   showsClose?: boolean;
 }
 
 const Preview: React.FC<Props> = ({
-  preview,
-  setPreview,
+  content,
+  setContent,
   showsClose = true,
 }) => {
-  const cases = (preview: string | MatchShowCase | null) => {
-    if (preview == null) return <span></span>;
-    else if (typeof preview == "string")
-      return <ImagePreview image={preview} />;
-    else if (preview instanceof ArrayBuffer) return;
-    else if (preview) return <MatchPost stats={preview} />;
+  const cases = (content: ContentObject) => {
+    if (content == null) return;
+    if (content.type == "image") return <ImagePreview image={content.data} />;
+    if (content.type == "valorant") return <MatchPost stats={content.data} />;
   };
 
   return (
     <div
       className={`p-1 max-h-full object-cover relative pr-5 ${
-        preview && "mb-3"
+        content && "mb-3"
       }`}
     >
-      {preview && showsClose && (
+      {content && showsClose && (
         <div
           className="absolute z-30 rounded-full bg-gray-100 right-7 top-3 hover:cursor-pointer p-1"
-          onClick={() => setPreview(null)}
+          onClick={() => setContent(null)}
         >
           <X className="text-threads" />
         </div>
       )}
-      {cases(preview)}
+      {cases(content)}
     </div>
   );
 };

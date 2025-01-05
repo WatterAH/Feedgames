@@ -40,7 +40,7 @@ export interface UpdatePostAction {
   type: typeof UPDATE_POST;
   payload: {
     postId: string;
-    content: string;
+    text: string;
   };
 }
 

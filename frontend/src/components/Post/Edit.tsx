@@ -5,7 +5,6 @@ import Header from "../New/layout/Header";
 import TextArea from "../New/TextArea";
 import Preview from "../New/layout/Preview";
 import { useUser } from "@/context/AuthContext";
-import { MatchShowCase } from "@/interfaces/Valorant";
 import { stopPropagation } from "@/functions/utils";
 import { PostInterface } from "@/interfaces/Post";
 import { AppDispatch } from "@/store/store";
@@ -13,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { editPostById } from "@/routes/post";
 import { updatePost } from "@/store/actions";
+import { ContentInterface } from "../New/Create";
+import { defaultGrid } from "@/constants/colors";
 
 interface Props {
   open: boolean;
@@ -27,8 +28,8 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
   const src = post.publicUrl
     ? `https://zptrwdrgobouoriwsfoj.supabase.co/storage/v1/object/public/Images/images/${post.publicUrl}`
     : null;
-  const [preview, setPreview] = useState<string | MatchShowCase | null>(
-    src || post.valMatch || null
+  const [preview, setPreview] = useState<ContentInterface>(
+    src || post.valMatch || defaultGrid || null
   );
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {

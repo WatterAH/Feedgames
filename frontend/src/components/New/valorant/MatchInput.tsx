@@ -4,22 +4,15 @@ import Tooltip from "@/components/Global/Tooltip";
 import Modal from "@/components/Global/Modal";
 import Image from "next/image";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
+import { ContentObject } from "../Create";
 
 interface Props {
-  setValMatch: React.Dispatch<React.SetStateAction<MatchShowCase | null>>;
-  setPreview: React.Dispatch<
-    React.SetStateAction<string | MatchShowCase | null>
-  >;
+  setContent: (content: ContentObject) => void;
   matches: Match[];
   riotId: object | null;
 }
 
-const MatchInput: React.FC<Props> = ({
-  setValMatch,
-  setPreview,
-  matches,
-  riotId,
-}) => {
+const MatchInput: React.FC<Props> = ({ setContent, matches, riotId }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,8 +21,7 @@ const MatchInput: React.FC<Props> = ({
   };
 
   const setVal = (stats: MatchShowCase) => {
-    setValMatch(stats);
-    setPreview(stats);
+    setContent({ type: "valorant", data: stats });
     setIsOpen(false);
   };
 

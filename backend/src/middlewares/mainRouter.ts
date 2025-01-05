@@ -6,12 +6,14 @@ import { interactionsRouter } from "../routers/interactions.router";
 import { valorantRouter } from "../routers/valorant.router";
 import { notifyRouter } from "../routers/notification.router";
 import { profileRouter } from "../routers/profile.router";
+import { postcrudRouter } from "../routers/postCrud.router";
 
 const app = express();
 
 app.use(accountRouter);
 app.use(feedRouter);
 app.use(postRouter);
+app.use(postcrudRouter);
 app.use(profileRouter);
 app.use(interactionsRouter);
 app.use(valorantRouter);

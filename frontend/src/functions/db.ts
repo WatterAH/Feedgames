@@ -13,7 +13,7 @@ export const getPostById = async (
   const { data: post, error } = await supabase
     .from("posts")
     .select(
-      "*, user:users(id, username, pfp, name, followers:follows!follows_id_followed_fkey(count))"
+      "*, user:users(id, username, pfp, name, followers:follows!follows_id_followed_fkey(count)), content(type, data)"
     )
     .eq("id", postId)
     .single();
