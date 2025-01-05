@@ -92,11 +92,11 @@ const userSlice = createSlice({
       state.hasMore = true;
     });
     builder.addCase(UPDATE_POST, (state, action: UpdatePostAction) => {
-      const { postId, content } = action.payload;
+      const { postId, text } = action.payload;
       const post = state.posts.find((post) => post.id === postId);
       if (post) {
         post.edited = true;
-        post.content = content;
+        post.text = text;
       }
     });
   },
