@@ -37,13 +37,15 @@ export default function MainLayout({
     }
   }, [loading]);
 
+  const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
+
   return loader ? (
-    <animated.div
+    <AnimatedDiv
       style={loaderSpring}
       className="h-screen flex items-center justify-center"
     >
       <h1 className="font-pacifico text-5xl dark:text-white">Fg</h1>
-    </animated.div>
+    </AnimatedDiv>
   ) : (
     <>
       <main className="flex flex-col h-screen justify-start items-center bg-white lg:bg-barcelona dark:bg-coal relative">

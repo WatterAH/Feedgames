@@ -43,8 +43,11 @@ const Like = ({ likeData }: { likeData: Props }) => {
     }, 250);
   };
 
+  const AnimatedButton: React.FC<React.PropsWithChildren<any>> =
+    animated.button;
+
   return (
-    <animated.button
+    <AnimatedButton
       style={triggerStyle}
       onClick={handleLike}
       className="transition-transform"
@@ -54,7 +57,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
         className={`h-5 w-5 text-red-500`}
         fill={liked ? "#f43f5e" : "transparent"}
       />
-    </animated.button>
+    </AnimatedButton>
   );
 };
 

@@ -42,8 +42,11 @@ const Save = ({ saveData }: { saveData: Props }) => {
     }, 250);
   };
 
+  const AnimatedButton: React.FC<React.PropsWithChildren<any>> =
+    animated.button;
+
   return (
-    <animated.button
+    <AnimatedButton
       style={triggerStyle}
       onClick={handleSave}
       className="transition-transform"
@@ -53,7 +56,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
         className={`h-5 w-5 text-amber-300`}
         fill={saved ? "#fcd34d" : "transparent"}
       />
-    </animated.button>
+    </AnimatedButton>
   );
 };
 

@@ -26,9 +26,11 @@ export default function Auth() {
     submit(username, password);
   };
 
+  const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
+
   return (
     <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-white sm:bg-barcelona">
-      <animated.div
+      <AnimatedDiv
         style={fadeIn}
         className="flex flex-col items-center shadow-transparent justify-center bg-white sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border"
       >
@@ -82,7 +84,7 @@ export default function Auth() {
           </div>
         </form>
         <Footer />
-      </animated.div>
+      </AnimatedDiv>
     </main>
   );
 }
