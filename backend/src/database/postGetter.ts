@@ -3,7 +3,7 @@ import { PostInterface } from "../interfaces/Post";
 import { supabase } from "./connection";
 
 const QUERY =
-  "*, liked(id_user), saved(id_user), user:users(id, username, pfp, name, followers:follows!follows_id_followed_fkey(count)), content(type, data)";
+  "*, liked(id_user), saved(id_user), user:users(id, username, pfp, name, followers:follows!follows_id_followed_fkey(count)), responsed:posts(count), content(type, data)";
 
 export const getUserPosts = async (
   userId: string,

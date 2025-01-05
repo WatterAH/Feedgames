@@ -11,6 +11,7 @@ export interface PostInterface {
   isLiked: boolean;
   saved: number;
   isSaved: boolean;
+  responsed: number;
   parentId: string | null;
   edited: boolean;
   content:
