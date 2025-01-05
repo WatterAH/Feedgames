@@ -7,10 +7,10 @@ import Preview from "../New/layout/Preview";
 import ImageInput from "../New/image/ImageInput";
 import Content from "./Content";
 import { useUser } from "@/context/AuthContext";
-import { MatchShowCase } from "@/interfaces/Valorant";
 import { PostInterface } from "@/interfaces/Post";
 import { toast } from "sonner";
 import { createPost } from "@/routes/post";
+import { ContentObject } from "../New/Create";
 
 interface Props {
   open: boolean;
@@ -23,13 +23,12 @@ const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
   const { user } = useUser();
   const { user: userData } = data;
   const [text, setText] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | MatchShowCase | null>(null);
+  const [content, setContent] = useState<ContentObject>(null);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    toast.promise(createPost(user.id, text, image, null, parentId), {
+    toast.promise(createPost(user.id, text, content, parentId), {
       loading: "Publicando...",
       success: () => {
         return "Publicado";
@@ -48,18 +47,17 @@ const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
               <TextArea
                 text={text}
                 setText={setText}
-                setPreview={setPreview}
-                setImage={setImage}
+                setContent={setContent}
                 placeholder={`Responde a ${userData.username}`}
               />
-              <Preview preview={preview} setPreview={setPreview} />
-              <ImageInput setImage={setImage} setPreview={setPreview} />
+              <Preview content={content} setContent={setContent} />
+              <ImageInput setContent={setContent} />
             </div>
           </Header>
         </div>
         <div className="pr-5">
           <Header username={userData.username} pfp={userData.pfp}>
-            <Content data={data} />
+            <Content post={data} />
           </Header>
         </div>
       </div>

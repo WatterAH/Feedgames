@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Modal from "../Global/Modal";
 import Actions from "../New/layout/Actions";
 import Header from "../New/layout/Header";
+import Content from "./Content";
 import TextArea from "../New/TextArea";
-import Preview from "../New/layout/Preview";
 import { useUser } from "@/context/AuthContext";
 import { stopPropagation } from "@/functions/utils";
 import { PostInterface } from "@/interfaces/Post";
@@ -12,8 +12,6 @@ import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { editPostById } from "@/routes/post";
 import { updatePost } from "@/store/actions";
-import { ContentInterface } from "../New/Create";
-import { defaultGrid } from "@/constants/colors";
 
 interface Props {
   open: boolean;
@@ -24,13 +22,7 @@ interface Props {
 const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
   const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
-  const [text, setText] = useState(post.content);
-  const src = post.publicUrl
-    ? `https://zptrwdrgobouoriwsfoj.supabase.co/storage/v1/object/public/Images/images/${post.publicUrl}`
-    : null;
-  const [preview, setPreview] = useState<ContentInterface>(
-    src || post.valMatch || defaultGrid || null
-  );
+  const [text, setText] = useState(post.text);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -53,11 +45,7 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
         <Header username={user.username} pfp={user.pfp}>
           <div>
             <TextArea text={text} setText={setText} pasteImages={false} />
-            <Preview
-              preview={preview}
-              setPreview={setPreview}
-              showsClose={false}
-            />
+            <Content post={post} />
           </div>
         </Header>
       </div>

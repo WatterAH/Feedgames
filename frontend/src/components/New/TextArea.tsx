@@ -3,8 +3,8 @@ import { ContentObject } from "./Create";
 
 interface Props {
   text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
-  setContent: (content: ContentObject) => void;
+  setText: (text: string) => void;
+  setContent?: (content: ContentObject) => void;
   pasteImages?: boolean;
   placeholder?: string;
 }
@@ -23,7 +23,7 @@ const TextArea: React.FC<Props> = ({
       const item = clipboardItems[i];
       if (item.type.startsWith("image/")) {
         const file = item.getAsFile();
-        if (file) {
+        if (file && setContent) {
           setContent({ type: "image", data: file });
         }
         break;
