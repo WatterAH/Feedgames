@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { GridInterface } from "./Grid";
 import { getColorFromCode } from "@/functions/grid";
+import { PixelArtProps } from "@/interfaces/Post";
 
-const Art: React.FC<GridInterface> = ({ gridSize, cells }) => {
+const Art: React.FC<PixelArtProps> = ({ gridSize, cells }) => {
   const [grid, setGrid] = useState<string[]>([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Art: React.FC<GridInterface> = ({ gridSize, cells }) => {
 
   return (
     <div
-      className="grid w-[25rem] h-[25rem] sm:w-[27rem] sm:h-[27rem]"
+      className="grid w-[25rem] h-[25rem] sm:w-[28rem] sm:h-[28rem]"
       style={{
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
       }}

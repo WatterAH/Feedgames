@@ -46,13 +46,13 @@ export const getPostById = async (
   return { data, error };
 };
 
-export const getPostsByContent = async (
-  content: string
+export const getPostsByText = async (
+  text: string
 ): Promise<{ data: PostInterface[] | null; error: PostgrestError | null }> => {
   const { data, error } = await supabase
     .from("posts")
     .select(QUERY)
-    .ilike("content", `%${content}%`)
+    .ilike("text", `%${text}%`)
     .limit(6);
   return { data, error };
 };

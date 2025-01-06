@@ -1,4 +1,4 @@
-import { GridInterface } from "@/components/New/pixels/Grid";
+import { GridInterface } from "@/components/New/pixels/Canvas";
 
 export const colors = [
   { code: "A", name: "Red 500", hex: "#EF4444" },

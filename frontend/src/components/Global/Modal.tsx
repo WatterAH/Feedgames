@@ -9,8 +9,9 @@ import { stopPropagation } from "@/functions/utils";
 
 interface Props extends PropsWithChildren {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: (open: boolean) => void;
   title: string;
+  onClose?: () => void;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
   full?: boolean;
 }
@@ -20,6 +21,7 @@ const Modal: React.FC<Props> = ({
   setOpen,
   title,
   children,
+  onClose,
   size = "xl",
   full = true,
 }) => {
@@ -35,7 +37,7 @@ const Modal: React.FC<Props> = ({
   const maxWidthClass = sizeClasses[size] || "sm:max-w-xl";
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-50">
+    <Dialog open={open} onClose={onClose ?? setOpen} className="relative z-50">
       <DialogBackdrop
         transition
         className="fixed inset-0 backdrop-blur-sm bg-black/65 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"

@@ -5,7 +5,7 @@ import React from "react";
 interface Props {
   label: string;
   value: string;
-  onChange: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (value: string) => void;
 }
 
 const FormField: React.FC<Props> = ({ label, value, onChange }) => {

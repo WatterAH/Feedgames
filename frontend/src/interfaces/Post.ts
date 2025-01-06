@@ -1,6 +1,11 @@
 import { User } from "./User";
 import { MatchShowCase } from "./Valorant";
 
+export interface PixelArtProps {
+  gridSize: number;
+  cells: string;
+}
+
 export interface PostInterface {
   id: string;
   text: string;
@@ -17,5 +22,6 @@ export interface PostInterface {
   content:
     | { type: "image"; data: { url: string } }
     | { type: "valorant"; data: MatchShowCase }
+    | { type: "pixelart"; data: { gridSize: number; cells: string } }
     | { type: "textonly"; data: null };
 }

@@ -1,8 +1,8 @@
 import shortUUID from "short-uuid";
 import {
   getLiked,
-  getPostsByContent,
   getPostsByRange,
+  getPostsByText,
   getSaved,
   getUserPosts,
 } from "../database/postGetter";
@@ -105,7 +105,7 @@ export const getCurrentTerm: RequestHandler = async (req, res) => {
     const { term, userId } = req.query;
     const parsedUserId = translator.toUUID(userId as string);
 
-    const { data, error } = await getPostsByContent(term as string);
+    const { data, error } = await getPostsByText(term as string);
     if (error || !data) {
       res.status(400).json({ message: "Error al cargar los posts" });
       return;

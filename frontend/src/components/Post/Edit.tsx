@@ -45,7 +45,7 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
         <Header username={user.username} pfp={user.pfp}>
           <div>
             <TextArea text={text} setText={setText} pasteImages={false} />
-            <Content post={post} />
+            <Content showText={false} post={post} />
           </div>
         </Header>
       </div>
