@@ -1,4 +1,4 @@
-import { GridInterface } from "@/components/New/pixels/Canvas";
+import { PixelArtProps } from "@/interfaces/Post";
 
 export const colors = [
   { code: "A", name: "Red 500", hex: "#EF4444" },
@@ -23,7 +23,7 @@ export const colors = [
   { code: "9", name: "Rose 500", hex: "#F43F5E" },
 ];
 
-export const defaultGrid: GridInterface = {
+export const defaultGrid: PixelArtProps = {
   gridSize: 10,
   cells:
     "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
