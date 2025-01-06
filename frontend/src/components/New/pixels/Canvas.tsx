@@ -60,20 +60,22 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
             setGrid={setGrid}
             setGridSize={setGridSize}
           />
-          <div
-            className="grid w-[25rem] h-[25rem] sm:w-[27rem] sm:h-[27rem]"
-            style={{
-              gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
-            }}
-          >
-            {grid.map((color, i) => (
-              <div
-                key={i}
-                className="border"
-                onClick={() => handleClick(i)}
-                style={{ backgroundColor: color }}
-              ></div>
-            ))}
+          <div className="max-w-sm w-full">
+            <div
+              className="grid w-full aspect-square"
+              style={{
+                gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
+              }}
+            >
+              {grid.map((color, i) => (
+                <div
+                  key={i}
+                  className="border"
+                  onClick={() => handleClick(i)}
+                  style={{ backgroundColor: color }}
+                ></div>
+              ))}
+            </div>
           </div>
         </div>
       </Modal>

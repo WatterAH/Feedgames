@@ -15,7 +15,7 @@ const Art: React.FC<PixelArtProps> = ({ gridSize, cells }) => {
 
   return (
     <div
-      className="grid w-[25rem] h-[25rem] sm:w-[28rem] sm:h-[28rem]"
+      className="grid w-full aspect-square"
       style={{
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
       }}
