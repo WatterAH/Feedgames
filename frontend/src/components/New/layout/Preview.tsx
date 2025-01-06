@@ -3,7 +3,7 @@ import ImagePreview from "../image/ImagePreview";
 import MatchPost from "@/components/Post/contents/Match";
 import { X } from "lucide-react";
 import { ContentObject } from "../Create";
-import Art from "@/Components/Post/contents/Art";
+import Art from "@/components/Post/contents/Art";
 
 interface Props {
   content: ContentObject;
