@@ -6,12 +6,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "zptrwdrgobouoriwsfoj.supabase.co",
-        pathname: "/storage/v1/object/public/Images/images/**",
-      },
-      {
-        protocol: "https",
-        hostname: "zptrwdrgobouoriwsfoj.supabase.co",
-        pathname: "/storage/v1/object/public/Images/pfp/**",
+        pathname: "/storage/v1/object/public/Images/**/**",
       },
       {
         protocol: "https",

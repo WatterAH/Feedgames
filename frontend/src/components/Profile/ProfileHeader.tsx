@@ -24,6 +24,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const classes = getThemeClasses(theme);
   const img = SERVICE_IMAGE_URL + classes.backGround;
+  console.log(img);
   const options = useProfileOptions(user, id, setOpen, logout);
 
   return (
