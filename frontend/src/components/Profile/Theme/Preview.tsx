@@ -1,3 +1,4 @@
+import { SERVICE_IMAGE_URL } from "@/constants/server";
 import { Theme } from "@/constants/themes";
 import { Check } from "lucide-react";
 import Image from "next/image";
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const Preview: React.FC<Props> = ({ src, theme, current, setTheme, value }) => {
+  const img = SERVICE_IMAGE_URL + src;
   const handleClick = (theme: Theme) => {
     setTheme(theme);
   };
@@ -29,7 +31,7 @@ const Preview: React.FC<Props> = ({ src, theme, current, setTheme, value }) => {
         {src !== "white" ? (
           <Image
             alt={theme}
-            src={src}
+            src={img}
             className="object-cover rounded-t-md"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
