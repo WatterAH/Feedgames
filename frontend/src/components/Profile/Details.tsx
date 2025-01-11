@@ -4,14 +4,15 @@ import { calculateDate } from "@/functions/date";
 
 interface Props {
   data: User;
+  detailsClass: string;
 }
 
-const Details: React.FC<Props> = ({ data }) => {
+const Details: React.FC<Props> = ({ data, detailsClass }) => {
   const { followers, followed, created_at } = data;
   const date = calculateDate(created_at, true);
 
   return (
-    <div className="detailsContainer flex flex-col gap-y-2 text-secondaryicon font-inter text-sm">
+    <div className={`flex flex-col gap-y-2 ${detailsClass} font-inter text-sm`}>
       <p>Se unió el {date}</p>
       <span>
         {followers} {followers == 1 ? "Seguidor" : "Seguidores"} · {followed}{" "}

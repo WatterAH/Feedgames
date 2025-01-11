@@ -50,7 +50,6 @@ export const createPost: RequestHandler = async (req, res) => {
       .insert([{ parent: created?.id, ...content }]);
 
     if (error || error2) {
-      console.log(error || error2);
       res.status(400).json({ message: "Error al crear el post" });
       return;
     }

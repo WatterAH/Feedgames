@@ -45,7 +45,13 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
           </div>
         </span>
         <div className="relative w-full h-20">
-          <Image alt={mapName} src={mapIcon} fill className="rounded-t-md" />
+          <Image
+            alt={mapName}
+            src={mapIcon}
+            fill
+            className="rounded-t-md"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         </div>
       </div>
 

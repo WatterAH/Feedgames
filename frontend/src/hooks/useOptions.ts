@@ -9,6 +9,7 @@ import {
   Gamepad2,
   Heart,
   LogOut,
+  Palette,
   Pencil,
   Share,
   Trash2,
@@ -22,6 +23,7 @@ import { resetAll } from "@/store/actions";
 export const useProfileOptions = (
   user: User,
   id: string,
+  setOpen: (value: boolean) => void,
   logout: () => void
 ) => {
   const dispatch: AppDispatch = useDispatch();
@@ -41,6 +43,13 @@ export const useProfileOptions = (
       icon: Share,
       onClick: () => share("u", id),
     },
+    user.id === id
+      ? {
+          label: "Elegir un tema",
+          icon: Palette,
+          onClick: () => setOpen(true),
+        }
+      : null,
     user.id === id
       ? {
           label: "Riot Games",

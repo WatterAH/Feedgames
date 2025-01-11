@@ -19,7 +19,6 @@ export const loadPosts: RequestHandler = async (req, res) => {
     const processedPosts = posts.map((post) => processPost(post, userId));
     res.status(200).json(processedPosts);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };

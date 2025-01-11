@@ -1,3 +1,5 @@
+import { Theme } from "@/constants/themes";
+
 export const defaultUser: User = {
   created_at: "",
   details: "",
@@ -13,6 +15,7 @@ export const defaultUser: User = {
     gameName: "",
     tagLine: "",
   },
+  theme: "default",
 };
 
 export interface Followed {
@@ -38,4 +41,5 @@ export interface User {
     gameName: string;
     tagLine: string;
   };
+  theme: Theme;
 }

@@ -6,6 +6,7 @@ import { stopPropagation } from "@/functions/utils";
 interface Props {
   Icon: typeof User;
   iconClass?: string;
+  hover?: boolean;
   options: ({
     label: string;
     icon?: typeof User;
@@ -14,7 +15,13 @@ interface Props {
   position: "top" | "top_left" | "left" | "right";
 }
 
-const Dropdown: React.FC<Props> = ({ Icon, iconClass, options, position }) => {
+const Dropdown: React.FC<Props> = ({
+  Icon,
+  iconClass,
+  options,
+  position,
+  hover = true,
+}) => {
   const positionClasses = {
     top: "bottom-full mb-1",
     top_left: "bottom-1/4 right-full",
@@ -32,7 +39,11 @@ const Dropdown: React.FC<Props> = ({ Icon, iconClass, options, position }) => {
   return (
     <Menu as="div" className="relative text-left">
       <div onClick={stopPropagation}>
-        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-full p-2 text-threads sm:hover:bg-gray-100 transition-all duration-500 active:scale-75">
+        <MenuButton
+          className={`inline-flex w-full justify-center gap-x-1.5 rounded-full p-2 text-threads ${
+            hover ? "sm:hover:bg-gray-100" : ""
+          } transition-all duration-300 active:scale-75`}
+        >
           <Icon className={iconClass} />
         </MenuButton>
       </div>
