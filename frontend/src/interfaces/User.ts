@@ -3,7 +3,7 @@ import { Theme } from "@/constants/themes";
 export const defaultUser: User = {
   created_at: "",
   details: "",
-  id: "",
+  id: "aRwwhM2xr7U9nWiFC12Ymb",
   name: "",
   pfp: "",
   username: "",

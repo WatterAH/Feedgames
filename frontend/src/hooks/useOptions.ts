@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "@/interfaces/User";
+import { defaultUser, User } from "@/interfaces/User";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
@@ -8,6 +8,7 @@ import {
   Bookmark,
   Gamepad2,
   Heart,
+  LogIn,
   LogOut,
   Palette,
   Pencil,
@@ -102,7 +103,9 @@ export const usePostOptions = (
 };
 
 export const useMenuOptions = (logout: () => void) => {
+  const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
+  const activeSession = user.id !== defaultUser.id;
   const [_c, _s, removeCookie] = useCookies();
   const router = useRouter();
   const exit = () => {
@@ -113,19 +116,23 @@ export const useMenuOptions = (logout: () => void) => {
   };
 
   return [
+    activeSession
+      ? {
+          label: "Me gusta",
+          icon: Heart,
+          onClick: () => router.push("/liked"),
+        }
+      : null,
+    activeSession
+      ? {
+          label: "Guardado",
+          icon: Bookmark,
+          onClick: () => router.push("/saved"),
+        }
+      : null,
     {
-      label: "Me gusta",
-      icon: Heart,
-      onClick: () => router.push("/liked"),
-    },
-    {
-      label: "Guardado",
-      icon: Bookmark,
-      onClick: () => router.push("/saved"),
-    },
-    {
-      label: "Cerrar Sesión",
-      icon: LogOut,
+      label: activeSession ? "Cerrar Sesión" : "Iniciar Sesión",
+      icon: activeSession ? LogOut : LogIn,
       onClick: exit,
     },
   ].filter(Boolean);

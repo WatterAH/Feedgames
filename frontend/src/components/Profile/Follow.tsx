@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Edit from "./Edit/Edit";
 import { useUser } from "@/context/AuthContext";
-import { User } from "@/interfaces/User";
+import { defaultUser, User } from "@/interfaces/User";
 import { unFollowUser, followUser } from "@/routes/interactions";
 import { toast } from "sonner";
 import { stopPropagation } from "@/functions/utils";
+import { alerts } from "@/constants/alerts";
+import DialogComponent from "../Global/Dialog";
 
 interface Props {
   data: User;
@@ -16,18 +18,24 @@ const Follow: React.FC<Props> = (props) => {
   const isSameUser = user.id === id;
   const [followState, setFollowState] = useState(isSameUser ? true : follow);
   const [editing, setEditing] = useState(false);
+  const [open, setOpen] = useState(false);
+  const alert = alerts.cantFollow;
 
   const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
     stopPropagation(e);
-    try {
-      setFollowState(!followState);
-      if (!followState) {
-        await followUser(user.id, id, user.username);
-      } else {
-        await unFollowUser(user.id, id, user.username);
+    if (user.id !== defaultUser.id) {
+      try {
+        setFollowState(!followState);
+        if (!followState) {
+          await followUser(user.id, id, user.username);
+        } else {
+          await unFollowUser(user.id, id, user.username);
+        }
+      } catch (error: any) {
+        toast.error(error.message);
       }
-    } catch (error: any) {
-      toast.error(error.message);
+    } else {
+      setOpen(true);
     }
   };
 
@@ -45,6 +53,7 @@ const Follow: React.FC<Props> = (props) => {
       </button>
 
       <Edit open={editing} setOpen={setEditing} />
+      <DialogComponent open={open} setOpen={setOpen} {...alert} />
     </>
   );
 };

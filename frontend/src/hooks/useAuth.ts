@@ -5,6 +5,7 @@ import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { defaultUser } from "@/interfaces/User";
 
 export const useLogin = () => {
   const { login } = useUser();
@@ -82,7 +83,8 @@ export const useToken = () => {
   useEffect(() => {
     if (!cookies.token) {
       setLoading(false);
-      router.push("/login");
+      login(defaultUser);
+      router.push("/home");
       return;
     }
 
@@ -92,7 +94,8 @@ export const useToken = () => {
         const { user } = data;
         login(user);
       } catch (error: any) {
-        router.push("/login");
+        login(defaultUser);
+        router.push("/home");
         throw new Error(error.message);
       } finally {
         setLoading(false);

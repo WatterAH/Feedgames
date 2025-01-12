@@ -50,7 +50,7 @@ const Dropdown: React.FC<Props> = ({
 
       <MenuItems
         transition
-        className={`absolute ${positionClasses[position]} w-56 ${originClasses[position]} rounded-2xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in`}
+        className={`absolute z-20 ${positionClasses[position]} w-56 ${originClasses[position]} rounded-2xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in`}
       >
         <div className="py-2 px-1">
           {options.map((option) => {

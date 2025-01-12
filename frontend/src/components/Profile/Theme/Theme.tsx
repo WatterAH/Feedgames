@@ -20,11 +20,12 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
   }, [sameUser, themeLoaded]);
 
   const handleOnLoad = () => {
+    console.log("here");
     if (sameUser) {
       dispatch(loadedTheme());
       setIsLoaded(true);
     } else {
-      setIsLoaded(false);
+      setIsLoaded(true);
     }
   };
 
@@ -37,7 +38,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
         preload="auto"
         playsInline
         onLoadedData={handleOnLoad}
-        className={`h-72 w-full object-cover lg:rounded-t-3xl transition-opacity duration-500 blur-xs filter ${
+        className={`h-72 w-full object-cover lg:rounded-t-3xl transition-opacity duration-500 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       >

@@ -12,6 +12,7 @@ import { useUser } from "@/context/AuthContext";
 import { useSpring, animated } from "react-spring";
 import Header from "@/layout/Menu/Header";
 import Create from "@/components/New/Create";
+import { defaultUser } from "@/interfaces/User";
 
 export default function MainLayout({
   children,
@@ -53,7 +54,7 @@ export default function MainLayout({
         {children}
         <Menu setCreating={setCreating} />
       </main>
-      <New setCreating={setCreating} />
+      {user.id !== defaultUser.id && <New setCreating={setCreating} />}
       <Create open={creating} setOpen={setCreating} />
     </>
   );
