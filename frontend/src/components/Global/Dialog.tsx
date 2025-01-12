@@ -45,9 +45,9 @@ const DialogComponent: React.FC<Props> = ({
             transition
             className="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-md data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
-            <div className="bg-white px-3 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div className="bg-white px-6 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
-                <div className="mt-3 text-center sm:ml-4 sm:mt-0">
+                <div className="mt-3 text-center">
                   <Icon className="mx-auto h-12 w-12" />
                   <DialogTitle
                     as="h3"

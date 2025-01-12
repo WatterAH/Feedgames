@@ -4,7 +4,7 @@ import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { defaultUser } from "@/interfaces/User";
 
 export const useLogin = () => {
@@ -79,12 +79,18 @@ export const useToken = () => {
   const [cookies] = useCookies();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+  const isPostOrUser =
+    pathname.slice(0, 2) === "/p" || pathname.slice(0, 2) === "/u";
 
   useEffect(() => {
     if (!cookies.token) {
       setLoading(false);
       login(defaultUser);
-      router.push("/home");
+
+      if (!isPostOrUser) {
+        router.push("/home");
+      }
       return;
     }
 
@@ -95,7 +101,9 @@ export const useToken = () => {
         login(user);
       } catch (error: any) {
         login(defaultUser);
-        router.push("/home");
+        if (!isPostOrUser) {
+          router.push("/home");
+        }
         throw new Error(error.message);
       } finally {
         setLoading(false);
