@@ -31,6 +31,9 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
           <video
             autoPlay
             loop
+            muted
+            preload="auto"
+            playsInline
             className="h-32 w-full object-cover rounded-t-md"
           >
             <source src={source} />

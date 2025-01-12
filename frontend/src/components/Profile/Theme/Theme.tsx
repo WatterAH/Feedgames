@@ -34,6 +34,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
         autoPlay
         loop
         muted
+        preload="auto"
         playsInline
         onLoadedData={handleOnLoad}
         className={`h-72 w-full object-cover lg:rounded-t-3xl transition-opacity duration-500 ${
