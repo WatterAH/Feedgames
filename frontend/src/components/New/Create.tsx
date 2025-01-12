@@ -5,6 +5,7 @@ import TextArea from "./TextArea";
 import MatchInput from "./valorant/MatchInput";
 import ImageInput from "./image/ImageInput";
 import Modal from "../Global/Modal";
+import Canvas from "./pixels/Canvas";
 import Preview from "./layout/Preview";
 import { toast } from "sonner";
 import { useUser } from "@/context/AuthContext";
@@ -12,7 +13,6 @@ import { createPost } from "@/routes/post";
 import { MatchShowCase } from "@/interfaces/Valorant";
 import { useGetMatches } from "@/hooks/useValorant";
 import { PixelArtProps } from "@/interfaces/Post";
-import Canvas from "./pixels/Canvas";
 
 export type ContentInterface =
   | { type: "image"; data: File }
@@ -66,14 +66,11 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
               placeholder={`¿Qué hay en tu mente ${user.name}?`}
             />
             <Preview content={content} setContent={setContent} />
-            <div className="flex gap-x-2">
+            <div className="flex gap-x-3">
               <ImageInput setContent={setContent} />
               <Canvas setContent={setContent} />
-              <MatchInput
-                matches={matches}
-                riotId={user.riotId}
-                setContent={setContent}
-              />
+              {/* <CreateGuide /> */}
+              <MatchInput matches={matches} setContent={setContent} />
             </div>
           </div>
         </Header>

@@ -5,7 +5,6 @@ import Header from "../New/layout/Header";
 import Content from "./Content";
 import TextArea from "../New/TextArea";
 import { useUser } from "@/context/AuthContext";
-import { stopPropagation } from "@/functions/utils";
 import { PostInterface } from "@/interfaces/Post";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
@@ -26,7 +25,8 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    stopPropagation(e);
+    e.stopPropagation();
+
     toast.promise(editPostById(post.id, text), {
       loading: "Editando...",
       success: () => {

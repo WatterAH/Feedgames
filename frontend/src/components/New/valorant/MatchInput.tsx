@@ -1,68 +1,47 @@
 import React, { useState } from "react";
 import ValMatch from "./ValMatch";
-import Tooltip from "@/components/Global/Tooltip";
 import Modal from "@/components/Global/Modal";
-import Image from "next/image";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
 import { ContentObject } from "../Create";
+import MatchButton from "./MatchButton";
+import { useUser } from "@/context/AuthContext";
 
 interface Props {
   setContent: (content: ContentObject) => void;
   matches: Match[];
-  riotId: object | null;
 }
 
-const MatchInput: React.FC<Props> = ({ setContent, matches, riotId }) => {
+const MatchInput: React.FC<Props> = ({ setContent, matches }) => {
+  const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsOpen(!isOpen);
-  };
 
   const setVal = (stats: MatchShowCase) => {
     setContent({ type: "valorant", data: stats });
     setIsOpen(false);
   };
 
-  return riotId && matches.length > 0 ? (
+  return (
     <>
-      <button onClick={handleClick}>
-        <Image
-          src="https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=999999"
-          alt="val"
-          height={20}
-          width={20}
-        />
-      </button>
-      <Modal
-        open={isOpen}
-        setOpen={setIsOpen}
-        title="Valorant Tracker"
-        size="sm"
-        full={false}
-      >
-        <div className="absolute top-1 left-3 text-darkgray">
-          <button onClick={() => setIsOpen(false)}>Cancelar</button>
-        </div>
-        <div className="h-[60vh] overflow-y-auto px-3 space-y-2">
-          {matches.map((match, i) => (
-            <ValMatch key={i} match={match} setVal={setVal} />
-          ))}
-        </div>
-      </Modal>
+      <MatchButton setIsOpen={setIsOpen} matchesLenght={matches.length} />
+      {user.riotId && (
+        <Modal
+          open={isOpen}
+          setOpen={setIsOpen}
+          title="Valorant Tracker"
+          size="sm"
+          full={false}
+        >
+          <div className="absolute top-1 left-3 text-darkgray">
+            <button onClick={() => setIsOpen(false)}>Cancelar</button>
+          </div>
+          <div className="h-[60vh] overflow-y-auto px-3 space-y-2">
+            {matches.map((match, i) => (
+              <ValMatch key={i} match={match} setVal={setVal} />
+            ))}
+          </div>
+        </Modal>
+      )}
     </>
-  ) : (
-    <Tooltip
-      text={matches.length == 0 ? "No hay partidos" : "Vincula con Riot"}
-    >
-      <Image
-        src="https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=e5e7eb"
-        alt="val"
-        height={20}
-        width={20}
-      />
-    </Tooltip>
   );
 };
 

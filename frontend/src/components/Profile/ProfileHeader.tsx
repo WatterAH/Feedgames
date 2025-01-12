@@ -11,7 +11,6 @@ import { User } from "@/interfaces/User";
 import { useUser } from "@/context/AuthContext";
 import { useProfileOptions } from "@/hooks/useOptions";
 import { getThemeClasses } from "@/constants/themes";
-import { SERVICE_IMAGE_URL } from "@/constants/server";
 
 interface Props {
   data: User;
@@ -23,7 +22,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const sameUser = user.id === id;
   const classes = getThemeClasses(theme);
-  const src = SERVICE_IMAGE_URL + classes.backGround;
+  const src = classes.backGround;
   const options = useProfileOptions(user, id, setOpen, logout);
 
   return (

@@ -4,7 +4,6 @@ export type Theme =
   | "link"
   | "minecraft"
   | "cherry-leaves"
-  | "yoru"
   | "killjoy"
   | "jett";
 type ThemesDictionary = {
@@ -23,7 +22,6 @@ export const previewThemes: { src: string; theme: string; value: Theme }[] = [
   { src: "/link.mp4", theme: "Link ToTk", value: "link" },
   { src: "/minecraft.mp4", theme: "Minecraft", value: "minecraft" },
   { src: "/cherry-leaves.mp4", theme: "Cherry Leaves", value: "cherry-leaves" },
-  { src: "/yoru.mp4", theme: "Yoru", value: "yoru" },
   { src: "/killjoy.mp4", theme: "Killjoy", value: "killjoy" },
   { src: "/jett.mp4", theme: "Jett", value: "jett" },
 ];
@@ -37,7 +35,8 @@ export const themes: ThemesDictionary = {
     detailsClass: "text-secondaryicon",
   },
   zelda: {
-    backGround: "/zelda.mp4",
+    backGround:
+      "https://sd-6.archive-host.com/membres/up/7d1be415cc17c5e1e5e3d091e6d95472cb27050d/Favorixp/Fond-ecran/livewallpaper/jeux-video/zelda/video-zelda-tears-of-the-kingdom-zelda-live-wallpaper.webm",
     usernameClass: "text-white",
     nameClass: "text-white font-bold",
     iconClass: "text-white",
@@ -59,13 +58,6 @@ export const themes: ThemesDictionary = {
   },
   "cherry-leaves": {
     backGround: "/cherry-leaves.mp4",
-    usernameClass: "text-white",
-    nameClass: "text-white font-bold",
-    iconClass: "text-white",
-    detailsClass: "text-white font-bold",
-  },
-  yoru: {
-    backGround: "/yoru.mp4",
     usernameClass: "text-white",
     nameClass: "text-white font-bold",
     iconClass: "text-white",

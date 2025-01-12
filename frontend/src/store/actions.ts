@@ -44,7 +44,7 @@ export interface UpdatePostAction {
   };
 }
 
-export const updatePost = (postId: string, content: string) => ({
+export const updatePost = (postId: string, text: string) => ({
   type: UPDATE_POST,
-  payload: { postId, content },
+  payload: { postId, text },
 });

@@ -1,4 +1,3 @@
-import { SERVICE_IMAGE_URL } from "@/constants/server";
 import { Theme } from "@/constants/themes";
 import { Check } from "lucide-react";
 
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
-  const source = SERVICE_IMAGE_URL + src;
   const handleClick = () => {
     setTheme(value);
   };
@@ -36,7 +34,7 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
             playsInline
             className="h-32 w-full object-cover rounded-t-md"
           >
-            <source src={source} />
+            <source src={src} />
           </video>
         ) : null}
       </div>

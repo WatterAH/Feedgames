@@ -28,7 +28,9 @@ const Item: React.FC<Props> = ({ href, Icon, currentPath, onClick }) => {
     }
 
     if (onClick) {
-      e.preventDefault();
+      if (href == "") {
+        e.preventDefault();
+      }
       onClick(e);
     }
   };

@@ -42,11 +42,12 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
       <button onClick={() => setOpen(true)}>
         <PaletteIcon className="text-secondaryicon h-5" />
       </button>
+
       <Modal
         open={open}
         setOpen={setOpen}
         onClose={handleClose}
-        title="Arte en Pixel: ¡A Crear!"
+        title="Pixel Arts"
       >
         <Actions onClose={handleClose} onSubmit={handleSubmit} />
         <div className="flex flex-col items-center justify-center p-3 gap-2">
