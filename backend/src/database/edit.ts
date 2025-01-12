@@ -16,6 +16,15 @@ export const editProfileById = async (
   return { user, error };
 };
 
+export const editTheme = async (userId: string, theme: string) => {
+  const { error } = await supabase
+    .from("users")
+    .update({ theme })
+    .eq("id", userId);
+
+  return { error };
+};
+
 export const editPostById = async (postId: string, content: string) => {
   const { data: post, error } = await supabase
     .from("posts")

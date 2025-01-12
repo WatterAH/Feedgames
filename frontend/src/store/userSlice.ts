@@ -24,6 +24,7 @@ interface userSlice {
   errorPosts: string | null;
   hasMore: boolean;
   page: number;
+  themeLoaded: boolean;
 }
 
 const initialState: userSlice = {
@@ -35,6 +36,7 @@ const initialState: userSlice = {
   errorPosts: null,
   hasMore: true,
   page: 0,
+  themeLoaded: false,
 };
 
 const userSlice = createSlice({
@@ -71,6 +73,9 @@ const userSlice = createSlice({
       if (state.posts.length != 0) {
         state.posts.unshift(action.payload);
       }
+    },
+    loadedTheme: (state) => {
+      state.themeLoaded = true;
     },
   },
   extraReducers(builder) {
@@ -110,6 +115,7 @@ export const {
   fetchPostsSuccess,
   fetchPostsFailure,
   addMyPost,
+  loadedTheme,
 } = userSlice.actions;
 
 export default userSlice.reducer;

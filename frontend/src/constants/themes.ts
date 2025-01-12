@@ -1,4 +1,9 @@
-export type Theme = "default" | "zelda" | "link" | "ganondorf";
+export type Theme =
+  | "default"
+  | "zelda"
+  | "link"
+  | "minecraft"
+  | "cherry-leaves";
 type ThemesDictionary = {
   [key in Theme]: {
     backGround: string;
@@ -10,9 +15,11 @@ type ThemesDictionary = {
 };
 
 export const previewThemes: { src: string; theme: string; value: Theme }[] = [
-  { src: "/zelda.gif", theme: "Zelda ToTK", value: "zelda" },
-  { src: "/ganon.gif", theme: "Ganon ToTk", value: "ganondorf" },
-  { src: "/link.gif", theme: "Link ToTk", value: "link" },
+  { src: "white", theme: "Default", value: "default" },
+  { src: "/zelda.mp4", theme: "Zelda ToTK", value: "zelda" },
+  { src: "/link.mp4", theme: "Link ToTk", value: "link" },
+  { src: "/minecraft.mp4", theme: "Minecraft", value: "minecraft" },
+  { src: "/cherry-leaves.mp4", theme: "Cherry Leaves", value: "cherry-leaves" },
 ];
 
 export const themes: ThemesDictionary = {
@@ -24,25 +31,32 @@ export const themes: ThemesDictionary = {
     detailsClass: "text-secondaryicon",
   },
   zelda: {
-    backGround: "/zelda.gif",
+    backGround: "/zelda.mp4",
     usernameClass: "text-white",
     nameClass: "text-white font-bold",
     iconClass: "text-white",
     detailsClass: "text-white font-bold",
   },
   link: {
-    backGround: "/link.gif",
+    backGround: "/link.mp4",
     usernameClass: "text-white",
     nameClass: "text-white font-bold",
     iconClass: "text-white",
     detailsClass: "text-white font-bold",
   },
-  ganondorf: {
-    backGround: "/ganon.gif",
+  minecraft: {
+    backGround: "/minecraft.mp4",
     usernameClass: "text-white",
-    nameClass: "text-white",
+    nameClass: "text-white font-bold",
     iconClass: "text-white",
-    detailsClass: "text-white",
+    detailsClass: "text-white font-bold",
+  },
+  "cherry-leaves": {
+    backGround: "/cherry-leaves.mp4",
+    usernameClass: "text-white",
+    nameClass: "text-white font-bold",
+    iconClass: "text-white",
+    detailsClass: "text-white font-bold",
   },
 };
 

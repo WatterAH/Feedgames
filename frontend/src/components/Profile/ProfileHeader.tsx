@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ProfilePicture from "./ProfilePicture";
 import Follow from "./Follow";
 import Names from "./Names";
+import Theme from "./Theme/Theme";
 import Details from "./Details";
 import Dropdown from "../Global/Dropdown";
-import Image from "next/image";
 import SelectTheme from "./Theme/SelectTheme";
 import { UserRoundCog } from "lucide-react";
 import { User } from "@/interfaces/User";
@@ -19,12 +19,11 @@ interface Props {
 
 const ProfileHeader: React.FC<Props> = ({ data }) => {
   const { user, logout } = useUser();
-  const { id, pfp, details } = data;
-  const [theme, setTheme] = useState(data.theme);
+  const { id, pfp, details, theme } = data;
   const [open, setOpen] = useState(false);
+  const sameUser = user.id === id;
   const classes = getThemeClasses(theme);
-  const img = SERVICE_IMAGE_URL + classes.backGround;
-  console.log(img);
+  const src = SERVICE_IMAGE_URL + classes.backGround;
   const options = useProfileOptions(user, id, setOpen, logout);
 
   return (
@@ -32,7 +31,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
       <div className="relative w-full h-72 -mt-1.5 border-b">
         <div className="absolute z-20 flex flex-col gap-y-4 w-full p-4 lg:px-4">
           <div className="flex flex-row justify-between items-center">
-            <div className="namesContainer flex flex-row items-center gap-x-3">
+            <div className="flex flex-row items-center gap-x-3">
               <ProfilePicture src={pfp} w={96} h={96} viewer />
               <Names data={data} {...classes} />
             </div>
@@ -53,23 +52,9 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
           <Details data={data} {...classes} />
         </div>
 
-        {theme !== "default" && (
-          <Image
-            src={img}
-            alt="link"
-            className="object-cover lg:rounded-t-3xl"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        )}
+        {data.theme !== "default" && <Theme sameUser={sameUser} src={src} />}
       </div>
-      <SelectTheme
-        setTheme={setTheme}
-        current={theme}
-        open={open}
-        setOpen={setOpen}
-      />
+      <SelectTheme data={data} open={open} setOpen={setOpen} />
     </>
   );
 };

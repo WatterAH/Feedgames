@@ -4,6 +4,7 @@ import { useUser } from "@/context/AuthContext";
 import { User } from "@/interfaces/User";
 import { unFollowUser, followUser } from "@/routes/interactions";
 import { toast } from "sonner";
+import { stopPropagation } from "@/functions/utils";
 
 interface Props {
   data: User;
@@ -16,7 +17,8 @@ const Follow: React.FC<Props> = (props) => {
   const [followState, setFollowState] = useState(isSameUser ? true : follow);
   const [editing, setEditing] = useState(false);
 
-  const handleFollow = async () => {
+  const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    stopPropagation(e);
     try {
       setFollowState(!followState);
       if (!followState) {

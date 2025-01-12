@@ -7,7 +7,6 @@ import {
   BellRing,
   House,
   Search,
-  Send,
   SquarePen,
   User,
 } from "lucide-react";
@@ -47,7 +46,6 @@ const Menu: React.FC<Props> = ({ setCreating }) => {
           )}
           <Item href="/notify" currentPathname={pathname} Icon={BellRing} />
         </div>
-        <Item href="" currentPathname={pathname} Icon={Send} />
         <Item href="/me" currentPathname={pathname} Icon={User} />
       </ul>
       <div className="hidden lg:block hover:cursor-pointer">

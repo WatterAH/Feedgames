@@ -1,3 +1,4 @@
+import { Theme } from "@/constants/themes";
 import { User } from "../interfaces/User";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
@@ -49,4 +50,23 @@ export const editProfile = async (
     const { message } = resData;
     throw new Error(message);
   }
+};
+
+export const changeTheme = async (userId: string, theme: Theme) => {
+  const res = await fetch(`${URL}/api/changeTheme`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId, theme }),
+  });
+
+  const resData = await res.json();
+  if (!res.ok) {
+    const { message } = resData;
+    throw new Error(message);
+  }
+
+  return;
 };

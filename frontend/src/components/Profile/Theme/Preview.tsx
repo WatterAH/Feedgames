@@ -1,41 +1,40 @@
 import { SERVICE_IMAGE_URL } from "@/constants/server";
 import { Theme } from "@/constants/themes";
 import { Check } from "lucide-react";
-import Image from "next/image";
 
 interface Props {
   src: string;
   theme: string;
   value: Theme;
-  current: Theme;
   setTheme: (theme: Theme) => void;
+  current: Theme;
 }
 
-const Preview: React.FC<Props> = ({ src, theme, current, setTheme, value }) => {
-  const img = SERVICE_IMAGE_URL + src;
-  const handleClick = (theme: Theme) => {
-    setTheme(theme);
+const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
+  const source = SERVICE_IMAGE_URL + src;
+  const handleClick = () => {
+    setTheme(value);
   };
 
   return (
     <div
-      onClick={() => handleClick(value)}
-      className="relative flex flex-col hover:cursor-pointer"
+      onClick={handleClick}
+      className="relative w-full flex flex-col hover:cursor-pointer"
     >
       {current === value && (
         <div className="absolute top-1 right-2 z-20 p-0.5 bg-white rounded-full">
           <Check className="h-4 w-4" />
         </div>
       )}
-      <div className="relative border rounded-t-md w-28 h-14">
+      <div className="relative border rounded-t-md w-full h-32">
         {src !== "white" ? (
-          <Image
-            alt={theme}
-            src={img}
-            className="object-cover rounded-t-md"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          <video
+            autoPlay
+            loop
+            className="h-32 w-full object-cover rounded-t-md"
+          >
+            <source src={source} />
+          </video>
         ) : null}
       </div>
       <div className="border rounded-b-md p-1">

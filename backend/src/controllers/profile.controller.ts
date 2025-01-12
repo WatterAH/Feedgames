@@ -4,7 +4,7 @@ import { getProfileById, searchUser } from "../database/profileGetter";
 import { processUser } from "../libs/server";
 import { deleteImage } from "../database/delete";
 import { uploadImage } from "../database/insert";
-import { editProfileById } from "../database/edit";
+import { editProfileById, editTheme } from "../database/edit";
 import { createAccessToken } from "../libs/token";
 
 const translator = shortUUID();
@@ -68,6 +68,23 @@ export const editProfile: RequestHandler = async (req, res) => {
     const token = await createAccessToken(newUser);
     res.status(200).json({ user: newUser, token });
   } catch (error) {
+    res.status(500).json({ message: "El servidor tuvo un problema" });
+  }
+};
+
+export const changeTheme: RequestHandler = async (req, res) => {
+  try {
+    const { userId, theme } = req.body;
+    const parsedId = translator.toUUID(userId);
+
+    const { error } = await editTheme(parsedId, theme);
+    if (error) {
+      res.status(400).json({ message: "Ocurrió un error" });
+      return;
+    }
+    res.status(200).json({ message: "Tema cambiado con éxito" });
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
