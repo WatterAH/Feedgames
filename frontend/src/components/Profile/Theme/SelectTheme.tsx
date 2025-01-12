@@ -38,7 +38,7 @@ const SelectTheme: React.FC<Props> = ({ open, setOpen, data }) => {
       full={false}
     >
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="flex flex-wrap p-3 gap-2 h-[22rem] overflow-y-auto">
+      <div className="flex flex-wrap p-3 gap-2 h-[60vh] overflow-y-auto">
         {previewThemes.map((preview) => (
           <Preview
             key={preview.value}
