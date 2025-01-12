@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Edit from "./Edit/Edit";
+import DialogComponent from "../Global/Dialog";
 import { useUser } from "@/context/AuthContext";
 import { defaultUser, User } from "@/interfaces/User";
 import { unFollowUser, followUser } from "@/routes/interactions";
 import { toast } from "sonner";
 import { stopPropagation } from "@/functions/utils";
 import { alerts } from "@/constants/alerts";
-import DialogComponent from "../Global/Dialog";
 
 interface Props {
   data: User;

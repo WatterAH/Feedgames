@@ -3,7 +3,10 @@ export type Theme =
   | "zelda"
   | "link"
   | "minecraft"
-  | "cherry-leaves";
+  | "cherry-leaves"
+  | "yoru"
+  | "killjoy"
+  | "jett";
 type ThemesDictionary = {
   [key in Theme]: {
     backGround: string;
@@ -20,6 +23,9 @@ export const previewThemes: { src: string; theme: string; value: Theme }[] = [
   { src: "/link.mp4", theme: "Link ToTk", value: "link" },
   { src: "/minecraft.mp4", theme: "Minecraft", value: "minecraft" },
   { src: "/cherry-leaves.mp4", theme: "Cherry Leaves", value: "cherry-leaves" },
+  { src: "/yoru.mp4", theme: "Yoru", value: "yoru" },
+  { src: "/killjoy.mp4", theme: "Killjoy", value: "killjoy" },
+  { src: "/jett.mp4", theme: "Jett", value: "jett" },
 ];
 
 export const themes: ThemesDictionary = {
@@ -53,6 +59,27 @@ export const themes: ThemesDictionary = {
   },
   "cherry-leaves": {
     backGround: "/cherry-leaves.mp4",
+    usernameClass: "text-white",
+    nameClass: "text-white font-bold",
+    iconClass: "text-white",
+    detailsClass: "text-white font-bold",
+  },
+  yoru: {
+    backGround: "/yoru.mp4",
+    usernameClass: "text-white",
+    nameClass: "text-white font-bold",
+    iconClass: "text-white",
+    detailsClass: "text-white font-bold",
+  },
+  jett: {
+    backGround: "/jett.mp4",
+    usernameClass: "text-white",
+    nameClass: "text-white font-bold",
+    iconClass: "text-white",
+    detailsClass: "text-white font-bold",
+  },
+  killjoy: {
+    backGround: "/killjoy.mp4",
     usernameClass: "text-white",
     nameClass: "text-white font-bold",
     iconClass: "text-white",

@@ -21,9 +21,7 @@ const Names: React.FC<Props> = ({ data, nameClass, usernameClass }) => {
         </h1>
         {followers > 2 && <BadgeCheck fill="#38bdf8" className="h-8" />}
       </span>
-      <p className={`${nameClass} filter brightness-150 dark:text-gray-200`}>
-        {name}
-      </p>
+      <p className={`${nameClass} dark:text-gray-200`}>{name}</p>
     </div>
   );
 };
