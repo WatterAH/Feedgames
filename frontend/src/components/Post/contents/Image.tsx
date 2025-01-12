@@ -19,7 +19,7 @@ const Image: React.FC<Props> = ({ publicUrl }) => {
       loadingElement={<Loader size="large" color="white" />}
     >
       <div
-        className="w-full relative bg-loading rounded-md hover:cursor-pointer h-96 shadow-lg"
+        className="w-full relative bg-loading rounded-md hover:cursor-pointer h-96 shadow-sm"
         onClick={stopPropagation}
       >
         <PhotoView src={src}>

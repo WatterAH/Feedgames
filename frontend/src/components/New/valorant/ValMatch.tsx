@@ -27,20 +27,26 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
     >
       <div className="relative">
         <span className="absolute z-20 flex items-center gap-x-3">
-          <Image src={agentImg} width={64} height={64} alt={agentName} />
+          <Image
+            src={agentImg}
+            width={64}
+            height={64}
+            alt={agentName}
+            className="rounded-t-lg"
+          />
           <div>
             <h3 className="font-bold font-raleway text-white">{agentName}</h3>
-            <span className="text-white text-sm bg-gray-100 rounded-md backdrop-blur-md bg-opacity-10 px-2 font-raleway flex items-center justify-center">
+            <span className="text-white text-sm font-raleway font-medium flex items-center justify-center">
               {mapName} | {getQueueId(preview.queueId)}
             </span>
           </div>
         </span>
-        <div className="relative w-full h-16">
+        <div className="relative w-full h-16 rounded-t-lg">
           <Image
             src={mapIcon}
             alt={mapName}
             fill
-            className="w-full rounded-t-lg"
+            className="w-full rounded-t-lg blur-[1px]"
           />
         </div>
       </div>

@@ -1,3 +1,4 @@
+import Button from "@/components/Global/Button";
 import {
   Dialog,
   DialogBackdrop,
@@ -5,7 +6,6 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { LucideIcon } from "lucide-react";
-import Button from "./Button";
 import { stopPropagation } from "@/functions/utils";
 import { useRouter } from "next/navigation";
 
@@ -17,7 +17,7 @@ interface Props {
   details: string;
 }
 
-const DialogComponent: React.FC<Props> = ({
+const AuthReminder: React.FC<Props> = ({
   to,
   Icon,
   details,
@@ -27,6 +27,7 @@ const DialogComponent: React.FC<Props> = ({
   const router = useRouter();
   const handleLogIn = () => {
     router.push("/login");
+    setOpen(false);
   };
 
   return (
@@ -57,9 +58,6 @@ const DialogComponent: React.FC<Props> = ({
                   </DialogTitle>
                   <div className="mt-3">
                     <p className="text-sm text-secondaryicon">{details}</p>
-                    <p className="text-sm text-secondaryicon">
-                      ¡Únete y forma parte de nuestra comunidad de jugadores!
-                    </p>
                   </div>
                   <div className="mt-6 w-full">
                     <Button onClick={handleLogIn}>Entrar al juego</Button>
@@ -74,4 +72,4 @@ const DialogComponent: React.FC<Props> = ({
   );
 };
 
-export default DialogComponent;
+export default AuthReminder;

@@ -25,31 +25,31 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
   const kda = getKDAStats(stats.playerStats);
 
   return (
-    <div className="flex flex-col border rounded-lg shadow-sm w-full">
+    <div className="flex flex-col border rounded-xl shadow-sm w-full">
       <div className="relative">
         <span className="absolute z-20 flex items-center gap-x-4">
           <Image
             src={agentImg}
-            width={80}
-            height={80}
+            width={112}
+            height={112}
             alt={agentName}
-            className="rounded-t-md"
+            className="rounded-t-xl"
           />
           <div>
             <h3 className="font-extrabold font-raleway text-lg text-white">
               {agentName}
             </h3>
-            <span className="text-white text-sm bg-gray-100 rounded-md backdrop-blur-md bg-opacity-10 px-2 font-raleway flex items-center justify-center">
+            <span className="text-white text-sm font-raleway font-medium flex items-center justify-center">
               {mapName} | {stats.queueId}
             </span>
           </div>
         </span>
-        <div className="relative w-full h-20">
+        <div className="relative w-full h-28">
           <Image
             alt={mapName}
             src={mapIcon}
             fill
-            className="rounded-t-md"
+            className="rounded-t-xl blur-[1.5px]"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
@@ -70,7 +70,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
         </span>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-x-20 gap-y-3 px-2 py-3">
+      <div className="flex flex-wrap w-full max-w-md justify-center mx-auto gap-x-20 gap-y-3 p-3">
         <ValStat title="KDA" stat={stats.kda} Icon={Crosshair} />
         <ValStat title="ACS" stat={stats.scorePerRound} Icon={Sparkles} />
         <ValStat title="HS" stat={stats.hsPercentage} Icon={Percent} />

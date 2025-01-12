@@ -64,14 +64,14 @@ export const createPost = async (
   return;
 };
 
-export const editPostById = async (id: string, content: string) => {
+export const editPostById = async (id: string, text: string) => {
   const res = await fetch(`${URL}/api/editPost`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ id, content }),
+    body: JSON.stringify({ id, text }),
   });
 
   if (!res.ok) {

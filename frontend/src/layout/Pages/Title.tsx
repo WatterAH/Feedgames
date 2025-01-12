@@ -6,7 +6,7 @@ interface Props {
 
 const Title: React.FC<Props> = ({ title }) => {
   return (
-    <h3 className="font-semibold w-full max-w-2xl text-center h-[10%] text-threads dark:text-white hidden md:block fixed pt-4 z-20 bg-barcelona dark:bg-coal">
+    <h3 className="font-semibold w-full max-w-3xl text-center h-[10%] text-threads dark:text-white hidden md:block fixed pt-4 z-20 bg-barcelona dark:bg-coal">
       {title}
     </h3>
   );

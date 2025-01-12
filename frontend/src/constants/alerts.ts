@@ -11,37 +11,37 @@ export const alerts = {
   cantLike: {
     to: "indicar que te gusta",
     details:
-      "Con FeedGames, podrás interactuar con publicaciones y mostrar tu apoyo con un me gusta.",
+      "¡Ups! Parece que quieres mostrar tu apoyo con un 'me gusta'. Pero sin cuenta, eso no es posible. 😅 ¡Únete a FeedGames y demuestra tu amor por los posts!",
     Icon: Heart,
   },
   cantSave: {
     to: "no perder el hilo",
     details:
-      "Con FeedGames, podrás guardar tus publicaciones favoritas y acceder a ellas fácilmente.",
+      "¿No quieres perder publicaciones geniales? 😬 Únete a FeedGames y guarda tus publicaciones favoritas como un verdadero gamer organizado.",
     Icon: Bookmark,
   },
   cantCreate: {
     to: "publicar contenido",
     details:
-      "Conéctate a FeedGames, comparte tus mejores jugadas, desafía a la comunidad y publica todo lo que tu mente gamer pueda imaginar.",
+      "¡Vaya! Quieres compartir tus jugadas épicas con el mundo, pero sin cuenta no es posible. 💥 ¡Regístrate y conquista FeedGames con tus publicaciones y desafíos!",
     Icon: PenSquareIcon,
   },
   cantNotify: {
     to: "interactuar con otros",
     details:
-      "Revisa tus notificaciones para estar al tanto de lo que sucede en FeedGames: interacciones, nuevos seguidores y más.",
+      "Te están esperando nuevas interacciones, seguidores y mucho más... pero sin cuenta, no podrás verlo. ¡Crea tu perfil en FeedGames y mantente al tanto de todo lo que pasa!",
     Icon: Bell,
   },
-  cantProfile: {
+  cantMe: {
     to: "expresarte con Feedgames",
     details:
-      "Crea tu perfil y muestra al mundo tus estadísticas, publicaciones y logros más épicos.",
+      "Tu perfil de campeón está esperando para ser creado, ¡pero parece que aún no estás registrado! Únete a FeedGames y muestra al mundo tu verdadero poder gamer. 💪",
     Icon: User,
   },
   cantFollow: {
     to: "seguir",
     details:
-      "Con FeedGames, podrás seguir a tus jugadores favoritos y estar al tanto de todas sus publicaciones.",
+      "¿Quieres seguir a los mejores jugadores? ¡Sin cuenta no puedes hacerlo! 😅 Regístrate y mantén a tus ídolos al alcance de tu dedo en FeedGames.",
     Icon: UserPlus,
   },
 };

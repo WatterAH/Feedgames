@@ -59,7 +59,7 @@ export default function SearchPage() {
     <>
       <Title title="Buscar" />
       <Card />
-      <div className="w-full max-w-xl pt-20 pb-14 md:pt-3 md:mt-[11vh] lg:pb-0 z-10">
+      <div className="w-full max-w-2xl pt-20 pb-14 md:pt-3 md:mt-[11vh] lg:pb-0 z-10">
         <header className="w-full px-5 space-y-3 mb-3">
           <InputSearch
             searchTerm={searchTerm}

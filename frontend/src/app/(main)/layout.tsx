@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import "../globals.css";
 import Menu from "@/layout/Menu/Menu";
 import New from "@/components/New/New";
+import Header from "@/layout/Menu/Header";
+import Create from "@/components/New/Create";
 import { useToken } from "@/hooks/useAuth";
 import {
   useSubscribeToNewPosts,
@@ -10,8 +12,6 @@ import {
 } from "@/hooks/useSupabaseEvents";
 import { useUser } from "@/context/AuthContext";
 import { useSpring, animated } from "react-spring";
-import Header from "@/layout/Menu/Header";
-import Create from "@/components/New/Create";
 import { defaultUser } from "@/interfaces/User";
 
 export default function MainLayout({
@@ -54,6 +54,7 @@ export default function MainLayout({
         {children}
         <Menu setCreating={setCreating} />
       </main>
+
       {user.id !== defaultUser.id && <New setCreating={setCreating} />}
       <Create open={creating} setOpen={setCreating} />
     </>

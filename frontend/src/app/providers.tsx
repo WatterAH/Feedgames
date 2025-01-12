@@ -5,13 +5,14 @@ import { UserProvider } from "@/context/AuthContext";
 import { Toaster } from "sonner";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
+import { AuthReminderProvider } from "@/context/AuthReminderProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <UserProvider>
       <CookiesProvider>
         <Provider store={store}>
-          {children}
+          <AuthReminderProvider>{children}</AuthReminderProvider>
           <Toaster richColors position="top-center" />
         </Provider>
       </CookiesProvider>

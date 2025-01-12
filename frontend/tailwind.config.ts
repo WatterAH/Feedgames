@@ -28,7 +28,7 @@ const config: Config = {
         inter: ["var(--font-inter)"],
       },
       maxWidth: {
-        "2xl": "40rem",
+        "2xl": "38rem",
       },
     },
   },

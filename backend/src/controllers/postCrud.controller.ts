@@ -62,15 +62,15 @@ export const createPost: RequestHandler = async (req, res) => {
 
 export const editPost: RequestHandler = async (req, res) => {
   try {
-    const { id, content } = req.body;
+    const { id, text } = req.body;
     const postId = translator.toUUID(id);
 
-    if (!content.trim()) {
+    if (!text.trim()) {
       res.status(400).json({ message: "No se permiten posts vacios" });
       return;
     }
 
-    const { error } = await editPostById(postId, content);
+    const { error } = await editPostById(postId, text);
 
     if (error) {
       res.status(400).json({ message: "Error al editar el post" });

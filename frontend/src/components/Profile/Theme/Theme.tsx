@@ -1,6 +1,6 @@
-import { AppDispatch, RootState } from "@/store/store";
-import { loadedTheme } from "@/store/userSlice";
 import React, { useEffect, useState } from "react";
+import { loadedTheme } from "@/store/userSlice";
+import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
@@ -20,17 +20,14 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
   }, [sameUser, themeLoaded]);
 
   const handleOnLoad = () => {
-    console.log("here");
     if (sameUser) {
       dispatch(loadedTheme());
-      setIsLoaded(true);
-    } else {
-      setIsLoaded(true);
     }
+    setIsLoaded(true);
   };
 
   return (
-    <div className="relative h-72 w-full">
+    <div className="relative overflow-hidden lg:rounded-t-3xl">
       <video
         autoPlay
         loop
@@ -38,7 +35,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
         preload="auto"
         playsInline
         onLoadedData={handleOnLoad}
-        className={`h-72 w-full object-cover lg:rounded-t-3xl transition-opacity duration-500 ${
+        className={`h-72 w-full object-cover transition-opacity duration-500 blur-[1.2px] ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       >

@@ -28,7 +28,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <div className="relative w-full h-72 -mt-1.5 border-b">
+      <div className={`relative w-full h-72 -mt-1.5`}>
         <div className="absolute z-20 flex flex-col gap-y-4 w-full p-4 lg:px-4">
           <div className="flex flex-row justify-between items-center">
             <div className="flex flex-row items-center gap-x-3">
