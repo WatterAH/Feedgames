@@ -36,7 +36,7 @@ export const themes: ThemesDictionary = {
   },
   zelda: {
     backGround:
-      "https://sd-6.archive-host.com/membres/up/7d1be415cc17c5e1e5e3d091e6d95472cb27050d/Favorixp/Fond-ecran/livewallpaper/jeux-video/zelda/video-zelda-tears-of-the-kingdom-zelda-live-wallpaper.webm",
+      "/zelda.mp4",
     usernameClass: "text-white",
     nameClass: "text-white font-bold",
     iconClass: "text-white",
