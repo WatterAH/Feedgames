@@ -41,7 +41,7 @@ const Dropdown: React.FC<Props> = ({
       <div onClick={stopPropagation}>
         <MenuButton
           className={`inline-flex w-full justify-center gap-x-1.5 rounded-full p-2 text-threads ${
-            hover ? "sm:hover:bg-gray-100" : ""
+            hover ? "sm:hover:bg-hover" : ""
           } transition-all duration-300 active:scale-75`}
         >
           <Icon className={iconClass} />
@@ -50,7 +50,7 @@ const Dropdown: React.FC<Props> = ({
 
       <MenuItems
         transition
-        className={`absolute z-30 ${positionClasses[position]} w-56 ${originClasses[position]} rounded-2xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in`}
+        className={`absolute z-30 ${positionClasses[position]} w-56 ${originClasses[position]} rounded-2xl bg-foreground border border-border shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in`}
       >
         <div className="py-2 px-1">
           {options.map((option) => {
@@ -64,11 +64,11 @@ const Dropdown: React.FC<Props> = ({
                 >
                   <MenuItem>
                     <button
-                      className="p-4 w-full flex justify-between text-sm font-semibold text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 rounded-2xl"
+                      className="p-4 w-full flex justify-between text-sm font-semibold text-text data-[focus]:bg-hover rounded-2xl"
                       onClick={option.onClick}
                     >
                       {option.label}
-                      {Icon && <Icon className={"text-threads h-5 w-5"} />}
+                      {Icon && <Icon className={"text-text h-5 w-5"} />}
                     </button>
                   </MenuItem>
                 </div>

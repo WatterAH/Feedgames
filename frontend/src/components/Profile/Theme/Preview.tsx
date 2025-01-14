@@ -17,14 +17,14 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
   return (
     <div
       onClick={handleClick}
-      className="relative w-full flex flex-col hover:cursor-pointer"
+      className="relative shadow-md w-full flex flex-col hover:cursor-pointer"
     >
       {current === value && (
-        <div className="absolute top-1 right-2 z-20 p-0.5 bg-white rounded-full">
-          <Check className="h-4 w-4" />
+        <div className="absolute top-2 right-2 z-20 p-1 bg-white rounded-full">
+          <Check className="h-4 w-4 text-threads" />
         </div>
       )}
-      <div className="relative border rounded-t-md w-full h-32">
+      <div className="relative border border-border rounded-t-md w-full h-32">
         {src !== "white" ? (
           <video
             autoPlay
@@ -38,7 +38,7 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
           </video>
         ) : null}
       </div>
-      <div className="border rounded-b-md p-1">
+      <div className="border border-border rounded-b-md p-2">
         <p className="text-xs font-montserrat font-medium text-center">
           {theme}
         </p>

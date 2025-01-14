@@ -13,12 +13,12 @@ const SearchCurrent: React.FC<Props> = ({ searchTerm, setCurrent }) => {
 
   return (
     <div
-      className="flex items-center justify-between w-full border-b pb-4 px-6 hover:cursor-pointer"
+      className="flex items-center justify-between w-full border-b border-border pb-4 px-6 hover:cursor-pointer"
       onClick={handleClick}
     >
       <span className="flex items-end gap-x-3">
         <Search className="text-icon h-5" />
-        <p>
+        <p className="text-text">
           Buscar <span className="font-semibold">{searchTerm}</span>
         </p>
       </span>

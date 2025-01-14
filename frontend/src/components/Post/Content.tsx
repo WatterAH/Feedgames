@@ -14,9 +14,7 @@ const Content: React.FC<Props> = ({ post, showText = true }) => {
 
   return (
     <div className="flex flex-col gap-y-2 w-full">
-      {post.text && showText && (
-        <p className="text-sm dark:text-white">{post.text}</p>
-      )}
+      {post.text && showText && <p className="text-sm">{post.text}</p>}
       {type == "image" && <Imagep publicUrl={data.url} />}
       {type == "valorant" && <MatchPost stats={data} />}
       {type == "pixelart" && <Art {...data} />}

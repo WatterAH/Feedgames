@@ -45,11 +45,11 @@ export default function MainLayout({
       style={loaderSpring}
       className="h-screen flex items-center justify-center"
     >
-      <h1 className="font-pacifico text-5xl dark:text-white">Fg</h1>
+      <h1 className="font-pacifico text-5xl text-text">Fg</h1>
     </AnimatedDiv>
   ) : (
     <>
-      <main className="flex flex-col h-screen justify-start items-center bg-white lg:bg-barcelona dark:bg-coal relative">
+      <main className="flex flex-col h-screen justify-start items-center relative">
         <Header />
         {children}
         <Menu setCreating={setCreating} />

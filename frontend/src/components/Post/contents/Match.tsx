@@ -25,7 +25,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
   const kda = getKDAStats(stats.playerStats);
 
   return (
-    <div className="flex flex-col border rounded-xl shadow-sm w-full">
+    <div className="flex flex-col border border-border rounded-xl shadow-sm w-full">
       <div className="relative">
         <span className="absolute z-20 flex items-center gap-x-4">
           <Image
@@ -44,7 +44,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
             </span>
           </div>
         </span>
-        <div className="relative w-full h-28">
+        <div className="relative w-full h-28 overflow-hidden">
           <Image
             alt={mapName}
             src={mapIcon}
@@ -55,7 +55,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
         </div>
       </div>
 
-      <div className="flex justify-around py-3 border-b">
+      <div className="flex justify-around py-3 border-b border-border">
         <span className="flex font-medium text-xs text-outline">
           <Crosshair className="text-icon h-4" />
           <p>{kda}</p>

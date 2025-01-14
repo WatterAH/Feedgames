@@ -21,7 +21,7 @@ const ProfilePicture: React.FC<Props> = ({ src, h, w, viewer }) => {
       loadingElement={<Loader size="large" color="white" />}
     >
       <div
-        className="relative bg-loading dark:bg-outline rounded-full overflow-hidden"
+        className="relative bg-loading rounded-full overflow-hidden"
         style={{ width: `${w}px`, height: `${h}px`, position: "relative" }}
       >
         {viewer ? (

@@ -18,10 +18,10 @@ const InputSearch: React.FC<Props> = ({ searchTerm, onChange, setCurrent }) => {
 
   return (
     <div className="relative">
-      <Search className="text-icon h-5 absolute top-4 left-3" />
+      <Search className="text-icon h-5 absolute top-3 left-4" />
       <input
         type="text"
-        className="p-3 lg:py-4 font-montserrat text-base sm:text-sm pl-12 outline-none border rounded-2xl w-full bg-barcelona placeholder-icon text-threads"
+        className="p-3 font-montserrat text-base sm:text-sm pl-12 outline-none border border-border rounded-2xl w-full bg-background placeholder-icon text-text"
         value={searchTerm}
         onChange={handleChange}
         placeholder="Busca personas, posts..."

@@ -67,8 +67,11 @@ const Edit: React.FC<Props> = ({ open, setOpen }) => {
     <Modal size="md" open={open} setOpen={setOpen} title="Modo de edición">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
       <div className="w-full px-3 pb-3 flex flex-col items-center gap-y-2">
-        <Header picture={picture} />
-        <label htmlFor="img" className="text-threads hover:cursor-pointer">
+        <label
+          htmlFor="img"
+          className="text-text font-medium flex flex-col items-center gap-y-2 hover:cursor-pointer"
+        >
+          <Header picture={picture} />
           Cambiar foto
         </label>
         <input

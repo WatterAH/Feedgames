@@ -26,7 +26,7 @@ const Header: React.FC<Props> = ({ data, isLast }) => {
         <section className="flex flex-row items-center gap-x-1">
           <Link href={`/u/${user_id}`} onClick={stopPropagation}>
             <span className="flex items-center gap-x-1">
-              <p className="hover:underline text-sm dark:text-white font-semibold">
+              <p className="hover:underline text-sm font-semibold">
                 {username}
               </p>
               {followers > 2 && (

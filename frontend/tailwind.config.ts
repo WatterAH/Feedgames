@@ -12,6 +12,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        text: "var(--text)",
+        border: "var(--border)",
+        "menu-icon": "var(--menu-icon)",
+        hover: "var(--hover)",
+        loader: "var(--loader)",
+        // GLOBAL COLORS
         barcelona: "#fafafa",
         threads: "#202020",
         coal: "#101010",

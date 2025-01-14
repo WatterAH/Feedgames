@@ -22,7 +22,7 @@ const Menu: React.FC<Props> = ({ setCreating }) => {
 
   return (
     <>
-      <nav className="w-full lg:w-20 bottom-0 fixed left-0 lg:top-0 px-3 z-50 h-14 lg:h-full bg-white lg:bg-barcelona dark:bg-coal backdrop-blur-md bg-opacity-80 flex flex-col justify-center lg:justify-between lg:py-4 lg:items-center">
+      <nav className="w-full lg:w-20 bottom-0 fixed left-0 lg:top-0 px-3 z-50 h-14 lg:h-full bg-background backdrop-blur-md bg-opacity-80 flex flex-col justify-center lg:justify-between lg:py-4 lg:items-center duration-500">
         <Logo />
         <MenuItems create={handleCreating} />
         <UserDropdown />

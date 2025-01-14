@@ -24,7 +24,7 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
   return (
     <div
       onClick={handleClick}
-      className="flex flex-row gap-x-2 w-full border-b dark:border-outline p-2 sm:px-5 hover:cursor-pointer"
+      className="flex flex-row text-text gap-x-2 w-full border-b border-border p-2 sm:px-5 hover:cursor-pointer"
     >
       <Link href={`/u/${user_id}`} className="h-10" onClick={stopPropagation}>
         <ProfilePicture h={40} w={40} src={user.pfp} />

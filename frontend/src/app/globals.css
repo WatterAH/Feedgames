@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background: #fafafa;
+  --foreground: #ffffff;
+  --border: #e5e7eb;
+  --text: #202020;
+  --menu-icon: #b8b8b8;
+  --hover: #0000000a;
+  --loader: #eaeaea;
+}
+
+.theme-dark {
+  --background: #101010;
+  --foreground: #202020;
+  --border: #333638;
+  --text: #ffffff;
+  --menu-icon: #424242;
+  --hover: #191919;
+  --loader: #424242;
+}
+
+.theme-rose {
+  --background: #ffe4e6;
+  --foreground: #fefcff;
+  --border: #f7dce5;
+  --text: #9b4d96;
+  --menu-icon: #d18a99;
+  --hover: #f6c3d1;
+  --loader: #d0b1c4;
+}
+
+.theme-menta {
+  --background: #e1f7f3;
+  --foreground: #f4fdf9;
+  --border: #d0f3f0;
+  --text: #38755b;
+  --menu-icon: #87c5b3;
+  --hover: #c7e7e0;
+  --loader: #b2d6d2;
+}

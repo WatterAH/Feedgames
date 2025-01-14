@@ -47,21 +47,23 @@ const Modal: React.FC<Props> = ({
         <div className="flex h-screen items-center justify-center">
           <DialogPanel
             transition
-            className={`relative transform overflow-hidden rounded-xl bg-white  shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in ${
+            className={`relative transform overflow-hidden rounded-xl bg-foreground shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in ${
               full ? "w-full" : "w-[24rem]"
             } ${maxWidthClass} data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95`}
           >
             <div
-              className={`bg-white ${full ? "h-screen" : "h-[70vh]"} sm:h-full`}
+              className={`bg-foreground ${
+                full ? "h-screen" : "h-[70vh]"
+              } sm:h-full`}
             >
               <div className="mt-7 sm:mt-2 w-full relative">
                 <DialogTitle
                   as="h3"
-                  className="text-base text-center border-b font-bold leading-6 text-gray-900 pb-4"
+                  className="text-base text-center border-b border-border font-bold leading-6 text-text pb-4"
                 >
                   {title}
                 </DialogTitle>
-                <div className="mt-2 pb-4">{children}</div>
+                <div className="mt-2 pb-4 text-text">{children}</div>
               </div>
             </div>
           </DialogPanel>

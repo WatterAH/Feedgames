@@ -4,7 +4,10 @@ const Label: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (
   props
 ) => {
   return (
-    <label {...props} className="mb-1 font-montserrat text-xs text-threads">
+    <label
+      {...props}
+      className="mb-1 font-montserrat font-medium text-xs text-text"
+    >
       {props.children}
     </label>
   );

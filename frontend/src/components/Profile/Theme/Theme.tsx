@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { loadedTheme } from "@/store/userSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
+import { SERVICE_IMAGE_URL } from "@/constants/server";
 
 interface Props {
   src: string;
@@ -12,6 +13,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
   const { themeLoaded } = useSelector((state: RootState) => state.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch: AppDispatch = useDispatch();
+  const source = SERVICE_IMAGE_URL + src;
 
   useEffect(() => {
     if (sameUser) {
@@ -39,7 +41,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       >
-        <source src={src} type="video/mp4" />
+        <source src={source} type="video/mp4" />
       </video>
     </div>
   );

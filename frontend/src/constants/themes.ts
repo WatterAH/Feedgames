@@ -29,7 +29,7 @@ export const previewThemes: { src: string; theme: string; value: Theme }[] = [
 export const themes: ThemesDictionary = {
   default: {
     backGround: "",
-    usernameClass: "",
+    usernameClass: "text-text",
     iconClass: "",
     nameClass: "text-secondaryicon",
     detailsClass: "text-secondaryicon",
