@@ -10,6 +10,7 @@
   --menu-icon: #b8b8b8;
   --hover: #0000000a;
   --loader: #eaeaea;
+  --blur: 255, 255, 255;
 }
 
 .theme-dark {
@@ -20,16 +21,18 @@
   --menu-icon: #424242;
   --hover: #191919;
   --loader: #424242;
+  --blur: 32, 32, 32;
 }
 
-.theme-rose {
+.theme-cherry {
   --background: #ffe4e6;
-  --foreground: #fefcff;
+  --foreground: #fff7f9;
   --border: #f7dce5;
   --text: #9b4d96;
   --menu-icon: #d18a99;
   --hover: #f6c3d1;
   --loader: #d0b1c4;
+  --blur: 255, 247, 249;
 }
 
 .theme-menta {
@@ -40,4 +43,49 @@
   --menu-icon: #87c5b3;
   --hover: #c7e7e0;
   --loader: #b2d6d2;
+  --blur: 244, 253, 249;
+}
+
+.theme-vanilla {
+  --background: #fef7e3;
+  --foreground: #fffdf4;
+  --border: #f9e6c8;
+  --text: #8c6d3a;
+  --menu-icon: #c7a76d;
+  --hover: #fbe2b0;
+  --loader: #e8d1a4;
+  --blur: 255, 253, 244;
+}
+
+.theme-fern {
+  --background: #212d27;
+  --foreground: #2c3b33;
+  --border: #3a4b44;
+  --text: #a8c5b5;
+  --menu-icon: #758c7f;
+  --hover: #3b4a42;
+  --loader: #4e5e53;
+  --blur: 44, 59, 51;
+}
+
+.theme-nightshade {
+  --background: #1a0f23;
+  --foreground: #26182f;
+  --border: #372343;
+  --text: #f0c7e2;
+  --menu-icon: #ab88c1;
+  --hover: #40264b;
+  --loader: #7e5d9d;
+  --blur: 38, 24, 47;
+}
+
+.theme-abyss {
+  --background: #0e141b;
+  --foreground: #18232e;
+  --border: #1c2936;
+  --text: #d1e4f1;
+  --menu-icon: #8193a8;
+  --hover: #1f3647;
+  --loader: #3a4b5c;
+  --blur: 24, 35, 46;
 }

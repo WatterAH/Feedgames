@@ -69,7 +69,7 @@ export const ProfileLoader = () => {
           </div>
         </div>
         <Loader h="h-3" w="w-1/2" />
-        <Loader h="h-10" w="w-full" />
+        <Loader h="h-7" w="w-full" />
         <Loader h="h-3" w="w-1/4" />
         <Loader h="h-3" w="w-1/4" />
       </header>

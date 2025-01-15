@@ -23,9 +23,9 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
   return (
     <li
       onClick={handleClick}
-      className="flex flex-col hover:cursor-pointer border rounded-lg shadow-sm max-w-xs w-full mx-auto"
+      className="flex flex-col hover:cursor-pointer border border-border rounded-lg shadow-sm max-w-xs w-full mx-auto"
     >
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <span className="absolute z-20 flex items-center gap-x-3">
           <Image
             src={agentImg}
@@ -41,7 +41,7 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
             </span>
           </div>
         </span>
-        <div className="relative w-full h-16 rounded-t-lg">
+        <div className="relative w-full h-16 rounded-t-lg overflow-hidden">
           <Image
             src={mapIcon}
             alt={mapName}
@@ -50,7 +50,7 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
           />
         </div>
       </div>
-      <div className="flex justify-between px-3 py-1 font-medium text-xs text-outline">
+      <div className="flex justify-between px-3 py-1 font-medium text-xs text-text">
         <span className="flex items-center justify-center gap-x-0.5">
           <Crosshair className="text-icon h-4" />
           {preview.kda}

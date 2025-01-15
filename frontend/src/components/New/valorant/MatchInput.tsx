@@ -31,7 +31,7 @@ const MatchInput: React.FC<Props> = ({ setContent, matches }) => {
           size="sm"
           full={false}
         >
-          <div className="absolute top-1 left-3 text-darkgray">
+          <div className="absolute top-1 left-3 text-text">
             <button onClick={() => setIsOpen(false)}>Cancelar</button>
           </div>
           <div className="h-[60vh] overflow-y-auto px-3 space-y-2">

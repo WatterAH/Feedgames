@@ -16,7 +16,7 @@ const MatchButton: React.FC<Props> = ({ setIsOpen, matchesLenght }) => {
   return matchesLenght > 0 ? (
     <button onClick={handleClick}>
       <Image
-        src="https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=999999"
+        src="https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=b3b3b3"
         alt="val"
         height={20}
         width={20}

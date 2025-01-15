@@ -45,7 +45,7 @@ const Header: React.FC<Props> = ({ data, isLast }) => {
             <Dropdown
               Icon={Ellipsis}
               options={options}
-              iconClass="h-5 text-secondaryicon"
+              iconClass="h-5 text-text"
               position={isLast ? "top_left" : "left"}
             />
           </div>

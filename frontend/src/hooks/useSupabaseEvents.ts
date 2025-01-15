@@ -29,7 +29,7 @@ export const useSubscribeToNewPosts = (userId: string) => {
             if (post.user_id == translator.toUUID(userId)) {
               dispatch(addMyPost(newPost));
             } else {
-              toast.info("Nuevos posts");
+              toast("Nuevos posts");
             }
           }
         }
@@ -62,7 +62,7 @@ export const useSubscribeToNotify = (userId: string) => {
           if (!error) {
             if (data.id_user == translator.toUUID(userId)) {
               dispatch(addNotify(noty));
-              toast.info(`${data.user.username}: ${data.text}`);
+              toast(`${data.user.username}: ${data.text}`);
             }
           }
         }

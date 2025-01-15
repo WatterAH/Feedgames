@@ -1,3 +1,5 @@
+// PROFILE THEMES
+
 export type Theme =
   | "default"
   | "zelda"
@@ -35,8 +37,7 @@ export const themes: ThemesDictionary = {
     detailsClass: "text-secondaryicon",
   },
   zelda: {
-    backGround:
-      "/zelda.mp4",
+    backGround: "/zelda.mp4",
     usernameClass: "text-white",
     nameClass: "text-white font-bold",
     iconClass: "text-white",
@@ -84,3 +85,73 @@ type theme = keyof typeof themes;
 export function getThemeClasses(theme: theme) {
   return themes[theme];
 }
+
+// GLOBAL THEMES
+
+export const appareances = [
+  {
+    name: "White",
+    classname: "theme-default",
+    colors: {
+      background: "#fafafa",
+      foreground: "#ffffff",
+    },
+  },
+
+  {
+    name: "Mint",
+    classname: "theme-menta",
+    colors: {
+      background: "#e1f7f3",
+      foreground: "#f4fdf9",
+    },
+  },
+  {
+    name: "Cherry",
+    classname: "theme-cherry",
+    colors: {
+      background: "#ffe4e6",
+      foreground: "#fff7f9",
+    },
+  },
+  {
+    name: "Vanilla",
+    classname: "theme-vanilla",
+    colors: {
+      background: "#fef7e3",
+      foreground: "#fffdf4",
+    },
+  },
+  {
+    name: "Dark",
+    classname: "theme-dark",
+    colors: {
+      background: "#101010",
+      foreground: "#202020",
+    },
+  },
+  {
+    name: "Fern",
+    classname: "theme-fern",
+    colors: {
+      background: "#212d27",
+      foreground: "#2c3b33",
+    },
+  },
+  {
+    name: "Nightshade",
+    classname: "theme-nightshade",
+    colors: {
+      background: "#1a0f23",
+      foreground: "#26182f",
+    },
+  },
+  {
+    name: "Abyss",
+    classname: "theme-abyss",
+    colors: {
+      background: "#0e141b",
+      foreground: "#18232e",
+    },
+  },
+];

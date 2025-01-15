@@ -1,15 +1,15 @@
 import React from "react";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { User } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import { stopPropagation } from "@/functions/utils";
 
 interface Props {
-  Icon: typeof User;
+  Icon: LucideIcon;
   iconClass?: string;
   hover?: boolean;
   options: ({
     label: string;
-    icon?: typeof User;
+    icon?: LucideIcon;
     onClick: () => void;
   } | null)[];
   position: "top" | "top_left" | "left" | "right";

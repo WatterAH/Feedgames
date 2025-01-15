@@ -6,6 +6,7 @@ import { Ellipsis } from "lucide-react";
 import { Notification } from "@/interfaces/Notification";
 import { calculateDate } from "@/functions/date";
 import { useNotifyOptions } from "@/hooks/useOptions";
+import { useRouter } from "next/navigation";
 
 interface Props {
   data: Notification;
@@ -13,40 +14,46 @@ interface Props {
 }
 
 const Notify: React.FC<Props> = ({ data, isLast }) => {
-  const { text, created_at, id, user } = data;
+  const { text, created_at, id, user, content, id_linked } = data;
   const { id: userId, username, pfp } = user;
   const date = calculateDate(created_at);
   const options = useNotifyOptions(id);
+  const router = useRouter();
+  const goProfile = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    router.push(`/u/${userId}`);
+  };
 
   return (
-    // <Link href={`/${content}/${id_linked}`}>
-    <div className="flex w-full border-b border-border p-4 items-center justify-between text-text">
-      <div className="flex items-center gap-x-3">
-        <Link href={`/u/${userId}`}>
-          <ProfilePicture src={pfp} h={36} w={36} />
-        </Link>
-        <section className="flex flex-col">
-          <span className="flex items-center gap-x-1">
-            <Link href={`/u/${userId}`}>
-              <p className="font-semibold hover:underline text-sm">
-                {username}
-              </p>
-            </Link>
-            <p className="text-icon text-sm">{date}</p>
-          </span>
-          <p className="text-text text-sm">{text}</p>
+    <Link href={`/${content}/${id_linked}`}>
+      <div className="flex w-full border-b border-border p-4 items-center justify-between text-text">
+        <div className="flex items-center gap-x-3">
+          <button onClick={goProfile}>
+            <ProfilePicture src={pfp} h={36} w={36} />
+          </button>
+          <section className="flex flex-col">
+            <span className="flex items-center gap-x-1">
+              <button onClick={goProfile}>
+                <p className="font-semibold hover:underline text-sm">
+                  {username}
+                </p>
+              </button>
+              <p className="text-icon text-xs">{date}</p>
+            </span>
+            <p className="text-text text-sm">{text}</p>
+          </section>
+        </div>
+        <section>
+          <Dropdown
+            Icon={Ellipsis}
+            options={options}
+            position={isLast ? "top_left" : "left"}
+            iconClass="text-secondaryicon"
+          />
         </section>
       </div>
-      <section>
-        <Dropdown
-          Icon={Ellipsis}
-          options={options}
-          position={isLast ? "top_left" : "left"}
-          iconClass="text-secondaryicon"
-        />
-      </section>
-    </div>
-    // </Link>
+    </Link>
   );
 };
 

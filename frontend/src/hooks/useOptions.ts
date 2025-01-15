@@ -1,151 +1,170 @@
-import React from "react";
 import { defaultUser, User } from "@/interfaces/User";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { share } from "@/functions/utils";
 import { useUser } from "@/context/AuthContext";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { removePost } from "@/store/feedSlice";
+import { removeNotify } from "@/store/activity";
+import { resetAll } from "@/store/actions";
 import {
   Bookmark,
   Gamepad2,
   Heart,
   LogIn,
   LogOut,
+  LucideIcon,
   Palette,
   Pencil,
   Share,
   Trash2,
 } from "lucide-react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store/store";
-import { removePost } from "@/store/feedSlice";
-import { removeNotify } from "@/store/activity";
-import { resetAll } from "@/store/actions";
 
+const useExitHandler = (logout: () => void) => {
+  const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
+  const [_c, _s, removeCookie] = useCookies();
+
+  return () => {
+    router.push("/login");
+    removeCookie("token");
+    logout();
+    dispatch(resetAll());
+  };
+};
+
+// Hook genérico para construir opciones
+const useOptions = (
+  options: Array<{
+    show: boolean;
+    label: string;
+    icon?: LucideIcon;
+    onClick: () => void;
+  }>
+) =>
+  options
+    .filter(({ show }) => show)
+    .map(({ label, icon, onClick }) => ({ label, icon, onClick }));
+
+// Opciones de perfil
 export const useProfileOptions = (
   user: User,
   id: string,
   setOpen: (value: boolean) => void,
   logout: () => void
 ) => {
-  const dispatch: AppDispatch = useDispatch();
-  const [_c, _s, removeCookie] = useCookies();
+  const exit = useExitHandler(logout);
   const router = useRouter();
   const RSO = process.env.NEXT_PUBLIC_RSO_AUTH;
-  const exit = () => {
-    router.push("/login");
-    removeCookie("token");
-    logout();
-    dispatch(resetAll());
-  };
 
-  return [
+  return useOptions([
     {
+      show: true,
       label: "Compartir perfil",
       icon: Share,
       onClick: () => share("u", id),
     },
-    user.id === id
-      ? {
-          label: "Elegir un tema",
-          icon: Palette,
-          onClick: () => setOpen(true),
-        }
-      : null,
-    user.id === id
-      ? {
-          label: "Riot Games",
-          onClick: () => {
-            router.push(RSO ?? "");
-          },
-          icon: Gamepad2,
-        }
-      : null,
-    user.id === id
-      ? {
-          label: "Cerrar sesión",
-          icon: LogOut,
-          onClick: exit,
-        }
-      : null,
-  ].filter(Boolean);
+    {
+      show: user.id === id,
+      label: "Elegir un tema",
+      icon: Palette,
+      onClick: () => setOpen(true),
+    },
+    {
+      show: user.id === id,
+      label: "Riot Games",
+      icon: Gamepad2,
+      onClick: () => router.push(RSO ?? ""),
+    },
+    {
+      show: user.id === id,
+      label: "Cerrar sesión",
+      icon: LogOut,
+      onClick: exit,
+    },
+  ]);
 };
 
+// Opciones de post
 export const usePostOptions = (
   id: string,
   userId: string,
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>
+  setEditing: (value: boolean) => void
 ) => {
   const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
 
-  return [
+  return useOptions([
     {
+      show: true,
       label: "Compartir",
       icon: Share,
       onClick: () => share("p", id),
     },
-
-    user.id === userId
-      ? {
-          label: "Editar",
-          icon: Pencil,
-          onClick: () => setEditing(true),
-        }
-      : null,
-    user.id === userId
-      ? {
-          label: "Eliminar",
-          icon: Trash2,
-          onClick: () => dispatch(removePost(id)),
-        }
-      : null,
-  ].filter(Boolean);
+    {
+      show: user.id === userId,
+      label: "Editar",
+      icon: Pencil,
+      onClick: () => setEditing(true),
+    },
+    {
+      show: user.id === userId,
+      label: "Eliminar",
+      icon: Trash2,
+      onClick: () => dispatch(removePost(id)),
+    },
+  ]);
 };
 
-export const useMenuOptions = (logout: () => void) => {
+// Opciones del menú
+export const useMenuOptions = (
+  logout: () => void,
+  setOpen: (value: boolean) => void
+) => {
   const { user } = useUser();
-  const dispatch: AppDispatch = useDispatch();
-  const activeSession = user.id !== defaultUser.id;
-  const [_c, _s, removeCookie] = useCookies();
+  const exit = useExitHandler(logout);
   const router = useRouter();
-  const exit = () => {
-    router.push("/login");
-    removeCookie("token");
-    logout();
-    dispatch(resetAll());
-  };
+  const activeSession = user.id !== defaultUser.id;
 
-  return [
-    activeSession
-      ? {
-          label: "Me gusta",
-          icon: Heart,
-          onClick: () => router.push("/liked"),
-        }
-      : null,
-    activeSession
-      ? {
-          label: "Guardado",
-          icon: Bookmark,
-          onClick: () => router.push("/saved"),
-        }
-      : null,
+  return useOptions([
     {
+      show: activeSession,
+      label: "Me gusta",
+      icon: Heart,
+      onClick: () => router.push("/liked"),
+    },
+    {
+      show: activeSession,
+      label: "Guardado",
+      icon: Bookmark,
+      onClick: () => router.push("/saved"),
+    },
+    {
+      show: true,
+      label: "Apariencia",
+      icon: Palette,
+      onClick: () => setOpen(true),
+    },
+    {
+      show: true,
       label: activeSession ? "Cerrar Sesión" : "Iniciar Sesión",
       icon: activeSession ? LogOut : LogIn,
       onClick: exit,
     },
-  ].filter(Boolean);
+  ]);
 };
 
+// Opciones de notificación
 export const useNotifyOptions = (id: string) => {
   const dispatch: AppDispatch = useDispatch();
 
-  return [
+  return useOptions([
     {
+      show: true,
       label: "Eliminar",
       icon: Trash2,
       onClick: () => dispatch(removeNotify(id)),
     },
-  ].filter(Boolean);
+  ]);
 };
