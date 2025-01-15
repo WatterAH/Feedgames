@@ -31,7 +31,7 @@ export default function Register() {
   const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
 
   return (
-    <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-background">
+    <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-[var(--foreground)] sm:bg-[var(--background)]">
       <AnimatedDiv
         style={fadeIn}
         className="flex flex-col items-center shadow-transparent justify-center bg-foreground sm:shadow-md rounded-xl sm:mx-auto sm:max-w-md sm:w-full sm:border border-border"

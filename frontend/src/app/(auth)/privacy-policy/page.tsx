@@ -3,13 +3,13 @@ import ListItem from "@/layout/Auth/LegalItem";
 
 export default function PrivacyPolicy() {
   return (
-    <main className="h-full flex justify-center bg-barcelona">
+    <main className="h-full flex justify-center bg-background">
       <div className="w-full max-w-3xl py-10 px-5 flex flex-col gap-y-8 h-full">
         <header className="flex flex-col gap-y-5">
-          <h1 className="font-pacifico text-5xl text-center mb-8 text-threads">
+          <h1 className="font-pacifico text-5xl text-center mb-8 text-text">
             Feedgames
           </h1>
-          <h1 className="font-bold text-2xl font-inter text-threads">
+          <h1 className="font-bold text-2xl font-inter text-text">
             Política de Privacidad
           </h1>
           <p className="text-gray-500">
@@ -68,11 +68,11 @@ export default function PrivacyPolicy() {
             text="Si un usuario tiene entre 15 y 17 años y desea utilizar nuestros servicios, requerimos el consentimiento expreso de un padre o tutor legal antes de recopilar, utilizar o compartir cualquier información personal del usuario."
           ></ListItem>
         </LegalPoint>
-        <h2 className="text-gray-500 text-center mt-4">
+        <h2 className="text-text text-center mt-4">
           Al utilizar nuestros servicios, reconoces que has leído, comprendido y
           aceptas nuestra política de privacidad.
         </h2>
-        <h1 className="font-pacifico text-center text-3xl text-threads">Fg</h1>
+        <h1 className="font-pacifico text-center text-3xl text-text">Fg</h1>
       </div>
     </main>
   );

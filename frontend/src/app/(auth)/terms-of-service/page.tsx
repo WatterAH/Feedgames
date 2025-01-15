@@ -3,16 +3,16 @@ import LegalPoint from "@/layout/Auth/LegalPoint";
 
 export default function TermsOfService() {
   return (
-    <main className="h-full flex justify-center bg-barcelona">
+    <main className="h-full flex justify-center bg-background">
       <div className="w-full max-w-3xl py-10 px-5 flex flex-col gap-y-8 h-full">
         <header className="flex flex-col gap-y-5">
-          <h1 className="font-pacifico text-5xl text-center mb-8 text-threads">
+          <h1 className="font-pacifico text-5xl text-center mb-8 text-text">
             Feedgames
           </h1>
-          <h1 className="font-bold text-2xl font-inter text-threads">
+          <h1 className="font-bold text-2xl font-inter text-text">
             Términos de Servicio
           </h1>
-          <p className="text-gray-500">
+          <p className="text-text">
             Bienvenido a Feedgames, una plataforma en línea dedicada a conectar
             a entusiastas de los videojuegos de todo el mundo. Antes de unirte a
             nuestra comunidad y utilizar nuestros servicios, te pedimos que leas
@@ -20,7 +20,7 @@ export default function TermsOfService() {
             las reglas y condiciones que rigen tu uso de la plataforma, así como
             tus derechos y responsabilidades como usuario.
           </p>
-          <p className="text-gray-500">
+          <p className="text-text">
             Fecha de entrada en vigor:{" "}
             <span className="font-bold">22 de abril del 2024</span>
           </p>
@@ -98,11 +98,11 @@ export default function TermsOfService() {
             text="Si no estás de acuerdo con los cambios realizados en los Términos de Servicio, tienes el derecho de dejar de utilizar Feedgames y cerrar tu cuenta. El uso continuado de la plataforma después de la entrada en vigencia de los nuevos términos se considerará como tu aceptación de los mismos."
           ></ListItem>
         </LegalPoint>
-        <h2 className="text-gray-500 text-center mt-4">
+        <h2 className="text-text text-center mt-4">
           Al utilizar nuestros servicios, reconoces que has leído, comprendido y
           aceptas regirte por estos términos de servicio.
         </h2>
-        <h1 className="font-pacifico text-center text-3xl text-threads">Fg</h1>
+        <h1 className="font-pacifico text-center text-3xl text-text">Fg</h1>
       </div>
     </main>
   );
