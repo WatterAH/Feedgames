@@ -18,14 +18,14 @@ const SelectTheme: React.FC<Props> = ({ open, setOpen, data }) => {
   const { user } = useUser();
   const [theme, setTheme] = useState(data.theme);
 
-  const handleSubmit = () => {
-    toast.promise(changeTheme(user.id, theme), {
+  const handleSubmit = async () => {
+    await toast.promise(changeTheme(user.id, theme), {
       loading: "Cambiando...",
       success: "Tema cambiado con éxito, la ventana se recargará",
       error: (err) => err.message,
     });
 
-    window.location.reload();
+    return window.location.reload();
   };
 
   return (
