@@ -25,7 +25,7 @@ const SelectTheme: React.FC<Props> = ({ open, setOpen, data }) => {
       error: (err) => err.message,
     });
 
-    return window.location.reload();
+    // return window.location.reload();
   };
 
   return (
