@@ -29,7 +29,7 @@
   --foreground: #ffd9e3;
   --border: #f8b7c3;
   --text: #7a296e;
-  --menu-icon: #b76375
+  --menu-icon: #b76375;
   --hover: #f3a7b6;
   --loader: #bf7a8e;
   --blur: 255, 217, 227;
@@ -43,7 +43,7 @@
   --menu-icon: #4da88d;
   --hover: #77d1c9;
   --loader: #4bb8a1;
-  --blur: 224, 249, 246; 
+  --blur: 224, 249, 246;
 }
 
 .theme-vanilla {

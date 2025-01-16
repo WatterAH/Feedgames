@@ -22,7 +22,7 @@ export default function PostPage() {
     return (
       <>
         <Post data={post} />
-        <h4 className="text-gray-500 px-3 border-b py-2">
+        <h4 className="text-gray-500 px-3 border-b border-border py-2">
           Comentarios
           <span className="font-semibold ml-1">{responses.length}</span>
         </h4>
