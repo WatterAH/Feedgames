@@ -9,13 +9,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://feedgames.vercel.app/u/*",
+      url: "https://feedgames.vercel.app/search",
       lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.9,
+      changeFrequency: "monthly",
+      priority: 0.5,
     },
     {
-      url: "https://feedgames.vercel.app/p/*",
+      url: "https://feedgames.vercel.app/login",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: "https://feedgames.vercel.app/register",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
     },
   ];
 }
