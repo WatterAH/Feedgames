@@ -25,36 +25,36 @@
 }
 
 .theme-cherry {
-  --background: #ffe4e6;
-  --foreground: #fff7f9;
-  --border: #f7dce5;
-  --text: #9b4d96;
-  --menu-icon: #d18a99;
-  --hover: #f6c3d1;
-  --loader: #d0b1c4;
-  --blur: 255, 247, 249;
+  --background: #ffcbd2;
+  --foreground: #ffd9e3;
+  --border: #f8b7c3;
+  --text: #7a296e;
+  --menu-icon: #b76375
+  --hover: #f3a7b6;
+  --loader: #bf7a8e;
+  --blur: 255, 217, 227;
 }
 
 .theme-menta {
-  --background: #e1f7f3;
-  --foreground: #f4fdf9;
-  --border: #d0f3f0;
-  --text: #38755b;
-  --menu-icon: #87c5b3;
-  --hover: #c7e7e0;
-  --loader: #b2d6d2;
-  --blur: 244, 253, 249;
+  --background: #b4f1eb;
+  --foreground: #e0f9f6;
+  --border: #b2e9e6;
+  --text: #105c47;
+  --menu-icon: #4da88d;
+  --hover: #77d1c9;
+  --loader: #4bb8a1;
+  --blur: 224, 249, 246; 
 }
 
 .theme-vanilla {
-  --background: #fef7e3;
-  --foreground: #fffdf4;
-  --border: #f9e6c8;
-  --text: #8c6d3a;
-  --menu-icon: #c7a76d;
-  --hover: #fbe2b0;
-  --loader: #e8d1a4;
-  --blur: 255, 253, 244;
+  --background: #f3e6c2;
+  --foreground: #fff7dd;
+  --border: #fbe8c6;
+  --text: #4a2f0a;
+  --menu-icon: #b38547;
+  --hover: #f5cc7a;
+  --loader: #d8b06e;
+  --blur: 255, 247, 221;
 }
 
 .theme-fern {

@@ -97,29 +97,28 @@ export const appareances = [
       foreground: "#ffffff",
     },
   },
-
   {
     name: "Mint",
     classname: "theme-menta",
     colors: {
-      background: "#e1f7f3",
-      foreground: "#f4fdf9",
+      background: "#b4f1eb",
+      foreground: "#e0f9f6",
     },
   },
   {
     name: "Cherry",
     classname: "theme-cherry",
     colors: {
-      background: "#ffe4e6",
-      foreground: "#fff7f9",
+      background: "#ffcbd2",
+      foreground: "#ffd9e3",
     },
   },
   {
     name: "Vanilla",
     classname: "theme-vanilla",
     colors: {
-      background: "#fef7e3",
-      foreground: "#fffdf4",
+      background: "#f3e6c2",
+      foreground: "#fff7dd",
     },
   },
   {
