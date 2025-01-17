@@ -57,7 +57,7 @@ const AuthReminder: React.FC<Props> = ({
                     Registrate para {to}
                   </DialogTitle>
                   <div className="mt-3">
-                    <p className="text-sm text-secondaryicon">{details}</p>
+                    <p className="text-sm text-placeholder">{details}</p>
                   </div>
                   <div className="mt-6 w-full">
                     <Button onClick={handleLogIn}>Entrar al juego</Button>

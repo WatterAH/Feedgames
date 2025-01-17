@@ -33,7 +33,7 @@ const Result: React.FC<Props> = ({ data }) => {
               <BadgeCheck fill="#38bdf8" className="h-4 mt-1 text-white" />
             )}
           </span>
-          <p className="text-secondaryicon text-sm">{name}</p>
+          <p className="text-placeholder text-sm">{name}</p>
         </div>
       </div>
       <div className="w-28">{user.id !== id && <Follow data={data} />}</div>

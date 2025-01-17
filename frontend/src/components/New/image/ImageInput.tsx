@@ -21,7 +21,7 @@ const ImageInput: React.FC<Props> = ({ setContent }) => {
   return (
     <div>
       <label htmlFor="img">
-        <ImageIcon className="text-secondaryicon h-5 hover:cursor-pointer" />
+        <ImageIcon className="text-placeholder h-5 hover:cursor-pointer" />
       </label>
       <input
         id="img"

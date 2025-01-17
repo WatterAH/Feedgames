@@ -6,7 +6,6 @@ const config: Config = {
     "./src/layout/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -17,13 +16,13 @@ const config: Config = {
         hover: "var(--hover)",
         loader: "var(--loader)",
         blur: "var(--blur)",
+        placeholder: "var(--placeholder)",
         "menu-icon": "var(--menu-icon)",
         // GLOBAL COLORS
         barcelona: "#fafafa",
         threads: "#202020",
         coal: "#101010",
         icon: "#b8b8b8",
-        secondaryicon: "#b3b3b3",
         loading: "#eaeaea",
         outline: "#333638",
         darkgray: "#424242",

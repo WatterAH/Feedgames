@@ -17,7 +17,7 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
   return (
     <div
       onClick={handleClick}
-      className="relative shadow-md w-full flex flex-col hover:cursor-pointer"
+      className="relative shadow-md w-full rounded-b-md flex flex-col hover:cursor-pointer"
     >
       {current === value && (
         <div className="absolute top-2 right-2 z-20 p-1 bg-white rounded-full">
@@ -34,7 +34,7 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
             playsInline
             className="h-32 w-full object-cover rounded-t-md"
           >
-            <source src={src} />
+            <source src={"/themes/" + src} />
           </video>
         ) : null}
       </div>

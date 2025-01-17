@@ -49,7 +49,7 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
             Icon={Ellipsis}
             options={options}
             position={isLast ? "top_left" : "left"}
-            iconClass="text-secondaryicon"
+            iconClass="text-placeholder"
           />
         </section>
       </div>

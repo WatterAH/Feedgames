@@ -33,8 +33,8 @@ export const themes: ThemesDictionary = {
     backGround: "",
     usernameClass: "text-text",
     iconClass: "",
-    nameClass: "text-secondaryicon",
-    detailsClass: "text-secondaryicon",
+    nameClass: "text-placeholder",
+    detailsClass: "text-placeholder",
   },
   zelda: {
     backGround: "/zelda.mp4",
@@ -88,6 +88,18 @@ export function getThemeClasses(theme: theme) {
 
 // GLOBAL THEMES
 
+interface ThemeColors {
+  background: string;
+  foreground: string;
+  placeholder: string;
+}
+
+interface AppTheme {
+  name: string;
+  classname: string;
+  colors: ThemeColors;
+}
+
 export const appareances = [
   {
     name: "White",
@@ -95,6 +107,7 @@ export const appareances = [
     colors: {
       background: "#fafafa",
       foreground: "#ffffff",
+      placeholder: "999999",
     },
   },
   {
@@ -103,6 +116,7 @@ export const appareances = [
     colors: {
       background: "#b4f1eb",
       foreground: "#e0f9f6",
+      placeholder: "75b09e",
     },
   },
   {
@@ -111,6 +125,7 @@ export const appareances = [
     colors: {
       background: "#ffcbd2",
       foreground: "#ffd9e3",
+      placeholder: "d68b9a",
     },
   },
   {
@@ -119,6 +134,7 @@ export const appareances = [
     colors: {
       background: "#f3e6c2",
       foreground: "#fff7dd",
+      placeholder: "c6a778",
     },
   },
   {
@@ -127,6 +143,7 @@ export const appareances = [
     colors: {
       background: "#101010",
       foreground: "#202020",
+      placeholder: "999999",
     },
   },
   {
@@ -135,14 +152,16 @@ export const appareances = [
     colors: {
       background: "#212d27",
       foreground: "#2c3b33",
+      placeholder: "9a9f8b",
     },
   },
   {
-    name: "Nightshade",
-    classname: "theme-nightshade",
+    name: "Shade",
+    classname: "theme-shade",
     colors: {
       background: "#1a0f23",
       foreground: "#26182f",
+      placeholder: "a07fa5",
     },
   },
   {
@@ -151,6 +170,22 @@ export const appareances = [
     colors: {
       background: "#0e141b",
       foreground: "#18232e",
+      placeholder: "8b9cb3",
     },
   },
 ];
+
+export const getThemeColors = (classname: string): ThemeColors => {
+  const theme: AppTheme | undefined = appareances.find(
+    (theme) => theme.classname === classname
+  );
+
+  return (
+    theme?.colors ??
+    appareances.find((theme) => theme.classname == "theme-default")?.colors ?? {
+      background: "",
+      foreground: "",
+      placeholder: "b3b3b3",
+    }
+  );
+};

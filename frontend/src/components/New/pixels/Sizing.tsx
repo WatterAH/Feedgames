@@ -25,10 +25,10 @@ const Sizing: React.FC<Props> = ({ gridSize, setGridSize, grid, setGrid }) => {
       </div>
       <div className="flex items-center">
         <button onClick={() => handleSize(gridSize - 1)}>
-          <ChevronLeft className="text-secondaryicon" />
+          <ChevronLeft className="text-placeholder" />
         </button>
         <button onClick={() => handleSize(gridSize + 1)}>
-          <ChevronRight className="text-secondaryicon" />
+          <ChevronRight className="text-placeholder" />
         </button>
       </div>
     </div>

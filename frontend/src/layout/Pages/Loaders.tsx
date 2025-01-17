@@ -15,7 +15,7 @@ export const NotifyLoader = () => {
         </section>
       </div>
       <div>
-        <Ellipsis className="text-secondaryicon" />
+        <Ellipsis className="text-placeholder" />
       </div>
     </div>
   );

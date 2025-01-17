@@ -43,7 +43,10 @@ const Modal: React.FC<Props> = ({
         className="fixed inset-0 backdrop-blur-sm bg-black/65 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
       />
 
-      <div className="fixed inset-0 z-10 px-3" onClick={stopPropagation}>
+      <div
+        className={`fixed inset-0 z-10 ${!full ? "px-3" : ""}`}
+        onClick={stopPropagation}
+      >
         <div className="flex h-screen items-center justify-center">
           <DialogPanel
             transition

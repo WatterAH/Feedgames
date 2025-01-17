@@ -37,15 +37,15 @@ const Header: React.FC<Props> = ({ data, isLast }) => {
               )}
             </span>
           </Link>
-          <p className="text-secondaryicon text-xs mt-1">{date}</p>
+          <p className="text-placeholder text-xs mt-1">{date}</p>
         </section>
         <section>
           <div className="absolute right-1 -top-1 flex items-center">
-            {edited && <p className="text-secondaryicon text-xs">Editado</p>}
+            {edited && <p className="text-placeholder text-xs">Editado</p>}
             <Dropdown
               Icon={Ellipsis}
               options={options}
-              iconClass="h-5 text-text"
+              iconClass="h-5 text-placeholder"
               position={isLast ? "top_left" : "left"}
             />
           </div>

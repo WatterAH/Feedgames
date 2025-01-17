@@ -10,6 +10,7 @@
   --menu-icon: #b8b8b8;
   --hover: #0000000a;
   --loader: #eaeaea;
+  --placeholder: #999999;
   --blur: 255, 255, 255;
 }
 
@@ -21,6 +22,7 @@
   --menu-icon: #424242;
   --hover: #191919;
   --loader: #424242;
+  --placeholder: #999999;
   --blur: 32, 32, 32;
 }
 
@@ -32,6 +34,7 @@
   --menu-icon: #b76375;
   --hover: #f3a7b6;
   --loader: #bf7a8e;
+  --placeholder: #d68b9a;
   --blur: 255, 217, 227;
 }
 
@@ -43,6 +46,7 @@
   --menu-icon: #4da88d;
   --hover: #77d1c9;
   --loader: #4bb8a1;
+  --placeholder: #75b09e;
   --blur: 224, 249, 246;
 }
 
@@ -54,6 +58,7 @@
   --menu-icon: #b38547;
   --hover: #f5cc7a;
   --loader: #d8b06e;
+  --placeholder: #c6a778;
   --blur: 255, 247, 221;
 }
 
@@ -61,21 +66,23 @@
   --background: #212d27;
   --foreground: #2c3b33;
   --border: #3a4b44;
-  --text: #a8c5b5;
+  --text: #e4f1e7;
   --menu-icon: #758c7f;
   --hover: #3b4a42;
   --loader: #4e5e53;
+  --placeholder: #9a9f8b;
   --blur: 44, 59, 51;
 }
 
-.theme-nightshade {
+.theme-shade {
   --background: #1a0f23;
   --foreground: #26182f;
   --border: #372343;
-  --text: #f0c7e2;
+  --text: #f9f2f0;
   --menu-icon: #ab88c1;
   --hover: #40264b;
   --loader: #7e5d9d;
+  --placeholder: #a07fa5;
   --blur: 38, 24, 47;
 }
 
@@ -83,9 +90,10 @@
   --background: #0e141b;
   --foreground: #18232e;
   --border: #1c2936;
-  --text: #d1e4f1;
+  --text: #e4f2fc;
   --menu-icon: #8193a8;
   --hover: #1f3647;
   --loader: #3a4b5c;
+  --placeholder: #8b9cb3;
   --blur: 24, 35, 46;
 }

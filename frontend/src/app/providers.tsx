@@ -10,15 +10,15 @@ import ThemeProvider from "./theme-provider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <UserProvider>
-      <CookiesProvider>
-        <ThemeProvider>
+    <ThemeProvider>
+      <UserProvider>
+        <CookiesProvider>
           <Provider store={store}>
             <AuthReminderProvider>{children}</AuthReminderProvider>
             <Toaster richColors position="top-center" />
           </Provider>
-        </ThemeProvider>
-      </CookiesProvider>
-    </UserProvider>
+        </CookiesProvider>
+      </UserProvider>
+    </ThemeProvider>
   );
 }

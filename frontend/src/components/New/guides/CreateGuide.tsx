@@ -21,7 +21,7 @@ const CreateGuide = () => {
   return (
     <>
       <button onClick={() => setOpen(true)}>
-        <BookOpenText className="text-secondaryicon h-5" />
+        <BookOpenText className="text-placeholder h-5" />
       </button>
 
       <Modal open={open} setOpen={setOpen} title="Nueva Guía">

@@ -20,17 +20,17 @@ const Actions: React.FC<Props> = ({ data }) => {
       <section className="flex gap-x-2" onClick={stopPropagation}>
         <span className="flex items-center justify-center gap-1 rounded-full transition-all duration-200 active:scale-75">
           <Like likeData={{ id, isLiked, setLikedNum, user_id }} />
-          <p className="text-secondaryicon text-xs">{likedNum}</p>
+          <p className="text-placeholder text-xs">{likedNum}</p>
         </span>
         <span className="flex items-center justify-center gap-1 transition-all duration-200 active:scale-75">
           <Save saveData={{ id, isSaved, setSavedNum }} />
-          <p className="text-secondaryicon text-xs">{savedNum}</p>
+          <p className="text-placeholder text-xs">{savedNum}</p>
         </span>
       </section>
       <section>
         <span className="flex items-center justify-center gap-1">
           <Response data={data} />
-          <p className="text-secondaryicon text-xs mb-1">{responsed}</p>
+          <p className="text-placeholder text-xs mb-1">{responsed}</p>
         </span>
       </section>
     </div>

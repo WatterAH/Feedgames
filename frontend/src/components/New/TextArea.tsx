@@ -43,7 +43,7 @@ const TextArea: React.FC<Props> = ({
       onChange={handleTextChange}
       onPaste={pasteImages ? handlePaste : undefined}
       placeholder={placeholder}
-      className="placeholder-secondaryicon outline-none w-full resize-none sm:text-sm bg-transparent overflow-hidden"
+      className="placeholder-placeholder outline-none w-full resize-none sm:text-sm bg-transparent overflow-hidden"
       rows={1}
     />
   );

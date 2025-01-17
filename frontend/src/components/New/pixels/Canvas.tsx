@@ -40,7 +40,7 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
   return (
     <>
       <button onClick={() => setOpen(true)}>
-        <PaletteIcon className="text-secondaryicon h-5" />
+        <PaletteIcon className="text-placeholder h-5" />
       </button>
 
       <Modal

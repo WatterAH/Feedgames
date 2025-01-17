@@ -12,9 +12,9 @@ const ValStat: React.FC<Props> = ({ title, stat, Icon }) => {
     <div className="flex flex-col items-center">
       <div className="flex items-center font-raleway gap-x-0.5">
         <p className="text-text font-semibold text-xl">{stat}</p>
-        <Icon className="text-secondaryicon h-5" />
+        <Icon className="text-placeholder h-5" />
       </div>
-      <p className="text-secondaryicon font-raleway">{title}</p>
+      <p className="text-placeholder font-raleway">{title}</p>
     </div>
   );
 };
