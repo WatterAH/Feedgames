@@ -4,7 +4,6 @@ import Sizing from "./Sizing";
 import Modal from "@/components/Global/Modal";
 import Actions from "../layout/Actions";
 import { PaletteIcon } from "lucide-react";
-import { toast } from "sonner";
 import { saveGrid } from "@/functions/grid";
 import { ContentObject } from "../Create";
 
