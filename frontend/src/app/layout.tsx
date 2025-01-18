@@ -7,6 +7,10 @@ import { Pacifico, Raleway, Montserrat, Inter } from "next/font/google";
 export const metadata: Metadata = {
   title: "Feedgames",
   description: "Share your passion for gaming.",
+
+  keywords:
+    "gaming, community, feed, social, stats, valorant, esports, gamers, leaderboard, passion, share, follow, content creators, gameplay, interaction, statistics, gaming community, videojuegos, comunidad, feed, social, estadísticas, valorant, esports, gamers, clasificaciones, pasión, compartir, seguir, creadores de contenido, jugabilidad, interacción, estadísticas de juegos, comunidad gamer",
+
   openGraph: {
     title: "Feedgames, para gamers",
     description:
@@ -15,20 +19,20 @@ export const metadata: Metadata = {
     siteName: "Feedgames",
     images: [
       {
-        url: "https://feedgames.vercel.app/icon.png",
+        url: "https://feedgames.vercel.app/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "FeedGames - para gamers",
       },
     ],
-    locale: "en_US",
+    locale: "es_MX",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Feedgames, para gamers",
     description: "Comparte tu pasión por los juegos",
-    images: ["https://feedgames.vercel.app/icon.png"],
+    images: ["https://feedgames.vercel.app/opengraph-image.png"],
   },
 };
 
