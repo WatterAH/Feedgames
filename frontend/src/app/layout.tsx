@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Feedgames, para gamers",
+    title: "Feedgames, share your passion for gaming.",
     description: "Comparte tu pasión por los juegos",
     images: ["https://feedgames.vercel.app/opengraph-image.png"],
   },
