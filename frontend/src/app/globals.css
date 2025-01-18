@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: var(--foreground);
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: var(--text);
+}
+
 :root {
   --background: #fafafa;
   --foreground: #ffffff;

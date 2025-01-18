@@ -12,14 +12,16 @@ const Names: React.FC<Props> = ({ data, nameClass, usernameClass }) => {
   const { username, followers, name } = data;
 
   return (
-    <div className="flex flex-col gap-y-1">
+    <div className="flex flex-col gap-y-1 text-shadow-xl">
       <span className="flex flex-row items-center gap-x-1">
         <h1
           className={`text-2xl lg:text-3xl ${usernameClass} font-inter font-semibold`}
         >
           {username}
         </h1>
-        {followers > 2 && <BadgeCheck fill="#38bdf8" className="h-8" />}
+        {followers > 2 && (
+          <BadgeCheck fill="#38bdf8" className="h-8 text-shadow-lg" />
+        )}
       </span>
       <p className={`${nameClass}`}>{name}</p>
     </div>

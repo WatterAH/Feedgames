@@ -26,10 +26,7 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
     setGrid(newGrid);
   };
 
-  const handleClose = () => {
-    toast.warning("Tu progreso no se guardará si cierras la siguiente ventana");
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
     const art = saveGrid(gridSize, grid);

@@ -17,12 +17,12 @@ const SearchCurrent: React.FC<Props> = ({ searchTerm, setCurrent }) => {
       onClick={handleClick}
     >
       <span className="flex items-end gap-x-3">
-        <Search className="text-icon h-5" />
+        <Search className="text-placeholder h-5" />
         <p className="text-text">
           Buscar <span className="font-semibold">{searchTerm}</span>
         </p>
       </span>
-      <ChevronRight className="text-icon h-6" />
+      <ChevronRight className="text-placeholder h-6" />
     </div>
   );
 };

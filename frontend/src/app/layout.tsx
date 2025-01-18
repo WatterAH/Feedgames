@@ -6,18 +6,19 @@ import { Pacifico, Raleway, Montserrat, Inter } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Feedgames",
-  description: "Share your passion for gaming.",    
+  description: "Share your passion for gaming.",
   openGraph: {
-    title: "FeedGames: for gamers",
-    description: "FeedGames is the ultimate hub for passionate gamers. Share your best plays, analyze your match stats, and connect with a community that lives and breathes video games. Take your gaming experience to the next level!",
+    title: "Feedgames, para gamers",
+    description:
+      "FeedGames es el centro definitivo para jugadores apasionados. Comparte tus mejores jugadas, analiza las estadísticas de tus partidos y conéctate con una comunidad que vive y respira videojuegos. ¡Lleva tu experiencia de juego al siguiente nivel!",
     url: "https://feedgames.vercel.app",
-    siteName: "FeedGames",
+    siteName: "Feedgames",
     images: [
       {
-        url: "https://feedgames.vercel.app/icon.png", // Ruta a tu imagen representativa
+        url: "https://feedgames.vercel.app/icon.png",
         width: 1200,
         height: 630,
-        alt: "FeedGames - for gamers",
+        alt: "FeedGames - para gamers",
       },
     ],
     locale: "en_US",
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FeedGames: for gamers",
-    description: "Comparte estadísticas de Valorant y más.",
+    title: "Feedgames, para gamers",
+    description: "Comparte tu pasión por los juegos",
     images: ["https://feedgames.vercel.app/icon.png"],
   },
 };

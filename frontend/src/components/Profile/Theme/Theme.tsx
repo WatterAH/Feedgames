@@ -37,7 +37,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
         preload="auto"
         playsInline
         onLoadedData={handleOnLoad}
-        className={`h-72 w-full object-cover transition-opacity duration-500 blur-[1.2px] ${
+        className={`h-72 w-full object-cover transition-opacity duration-500 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       >

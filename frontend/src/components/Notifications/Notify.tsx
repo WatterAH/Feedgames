@@ -39,7 +39,7 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
                   {username}
                 </p>
               </button>
-              <p className="text-icon text-xs">{date}</p>
+              <p className="text-placeholder text-xs">{date}</p>
             </span>
             <p className="text-text text-sm">{text}</p>
           </section>

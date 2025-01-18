@@ -1,5 +1,7 @@
+import React from "react";
 import { Theme } from "@/constants/themes";
 import { Check } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 interface Props {
   src: string;
@@ -10,12 +12,15 @@ interface Props {
 }
 
 const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
-  const handleClick = () => {
-    setTheme(value);
-  };
+  const handleClick = () => setTheme(value);
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   return (
     <div
+      ref={ref}
       onClick={handleClick}
       className="relative shadow-md w-full rounded-b-md flex flex-col hover:cursor-pointer"
     >
@@ -24,8 +29,9 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
           <Check className="h-4 w-4 text-threads" />
         </div>
       )}
+
       <div className="relative border border-border rounded-t-md w-full h-32">
-        {src !== "white" ? (
+        {inView && src !== "white" && (
           <video
             autoPlay
             loop
@@ -36,7 +42,7 @@ const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
           >
             <source src={"/themes/" + src} />
           </video>
-        ) : null}
+        )}
       </div>
       <div className="border border-border rounded-b-md p-2">
         <p className="text-xs font-montserrat font-medium text-center">

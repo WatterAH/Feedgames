@@ -5,22 +5,26 @@ export const calculateDate = (date: string, reduce?: boolean): string => {
 
   if (reduce) return created.day + "/" + created.month + "/" + created.year;
 
-  if (today.month === created.month) {
-    if (today.day === created.day) {
-      const diffMs = minutesAgo(date, todayISO);
-      if (diffMs < 60) {
-        return diffMs <= 0 ? "ahora" : `${diffMs}min`;
-      } else {
-        const diffHs = hoursAgo(date, todayISO);
-        return `${diffHs}h`;
-      }
+  const diffDays = daysAgo(date, todayISO);
+
+  if (today.day === created.day) {
+    const diffMs = minutesAgo(date, todayISO);
+    if (diffMs < 60) {
+      return diffMs <= 0 ? "ahora" : `${diffMs}min`;
     } else {
-      const diffDays = daysAgo(date, todayISO);
-      return diffDays == 0 ? "1d" : `${diffDays}d`;
+      const diffHs = hoursAgo(date, todayISO);
+      return `${diffHs}h`;
     }
-  } else {
-    return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(2, 4)}`;
   }
+
+  if (diffDays > 0 && diffDays < 7) {
+    return `${diffDays}d`;
+  } else if (diffDays >= 7 && diffDays < 21) {
+    const weeks = Math.floor(diffDays / 7);
+    return `${weeks}w`;
+  }
+
+  return created.day + "/" + created.month + "/" + created.year;
 };
 
 const minutesAgo = (date: string, todayISO: string): number => {

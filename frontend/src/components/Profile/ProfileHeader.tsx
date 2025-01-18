@@ -42,7 +42,9 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
               {...classes}
             />
           </div>
-          <p className={`${classes.detailsClass} text-sm font-inter`}>
+          <p
+            className={`${classes.detailsClass} text-shadow-xl text-sm font-inter`}
+          >
             {details}
           </p>
           <div className="followContainer">

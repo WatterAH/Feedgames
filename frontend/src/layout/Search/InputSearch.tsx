@@ -18,10 +18,10 @@ const InputSearch: React.FC<Props> = ({ searchTerm, onChange, setCurrent }) => {
 
   return (
     <div className="relative">
-      <Search className="text-icon h-5 absolute top-[0.6rem] md:top-3 left-4" />
+      <Search className="text-placeholder h-5 absolute top-[0.6rem] md:top-3 left-4" />
       <input
         type="text"
-        className="py-2 md:py-3 font-montserrat text-base sm:text-sm pl-12 outline-none border border-border rounded-2xl w-full bg-background placeholder-icon text-text"
+        className="py-2 md:py-3 font-montserrat text-base sm:text-sm pl-12 outline-none border border-border rounded-2xl w-full bg-background placeholder-placeholder text-text"
         value={searchTerm}
         maxLength={30}
         onChange={handleChange}
@@ -29,7 +29,7 @@ const InputSearch: React.FC<Props> = ({ searchTerm, onChange, setCurrent }) => {
       />
       {searchTerm.trim().length > 0 && (
         <button onClick={handleClear}>
-          <X className="text-icon h-5 absolute top-[0.6rem] md:top-3 right-3" />
+          <X className="text-placeholder h-5 absolute top-[0.6rem] md:top-3 right-3" />
         </button>
       )}
     </div>

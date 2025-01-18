@@ -52,18 +52,18 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
       </div>
       <div className="flex justify-between px-3 py-1 font-medium text-xs text-text">
         <span className="flex items-center justify-center gap-x-0.5">
-          <Crosshair className="text-icon h-4" />
+          <Crosshair className="text-placeholder h-4" />
           {preview.kda}
         </span>
         <span className="flex items-center justify-center gap-x-0.5">
-          <Star className="text-icon h-4" />
+          <Star className="text-placeholder h-4" />
           {preview.score}
         </span>
         <span className="flex items-center justify-center gap-x-0.5">
-          <Swords className="text-icon h-4" />
+          <Swords className="text-placeholder h-4" />
           {preview.results}
         </span>
-        <span className="p-0.5 bg-gray-200 rounded-md">
+        <span className="p-0.5 bg-placeholder rounded-md">
           <ChevronRight className="h-5" />
         </span>
       </div>

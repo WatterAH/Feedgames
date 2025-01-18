@@ -57,15 +57,15 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
 
       <div className="flex justify-around py-3 border-b border-border text-text">
         <span className="flex font-medium text-xs">
-          <Crosshair className="text-icon h-4" />
+          <Crosshair className="text-placeholder h-4" />
           <p>{kda}</p>
         </span>
         <span className="flex font-medium text-xs">
-          <Swords className="text-icon h-4" />
+          <Swords className="text-placeholder h-4" />
           <p>{stats.results}</p>
         </span>
         <span className="flex font-medium text-xs">
-          <Star className="text-icon h-4" />
+          <Star className="text-placeholder h-4" />
           <p>{stats.playerStats.score}</p>
         </span>
       </div>

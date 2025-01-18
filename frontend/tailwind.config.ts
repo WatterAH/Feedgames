@@ -19,13 +19,8 @@ const config: Config = {
         placeholder: "var(--placeholder)",
         "menu-icon": "var(--menu-icon)",
         // GLOBAL COLORS
-        barcelona: "#fafafa",
         threads: "#202020",
-        coal: "#101010",
-        icon: "#b8b8b8",
         loading: "#eaeaea",
-        outline: "#333638",
-        darkgray: "#424242",
       },
       fontFamily: {
         pacifico: ["var(--font-pacifico)"],
@@ -38,6 +33,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-textshadow")],
 };
 export default config;

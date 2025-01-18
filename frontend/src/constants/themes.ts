@@ -32,13 +32,13 @@ export const themes: ThemesDictionary = {
   default: {
     backGround: "",
     usernameClass: "text-text",
-    iconClass: "",
-    nameClass: "text-placeholder",
-    detailsClass: "text-placeholder",
+    iconClass: "text-text",
+    nameClass: "text-text",
+    detailsClass: "text-text",
   },
   zelda: {
     backGround: "/zelda.mp4",
-    usernameClass: "text-white",
+    usernameClass: "text-white text-shadow-md",
     nameClass: "text-white font-bold",
     iconClass: "text-white",
     detailsClass: "text-white font-bold",
