@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { alerts } from "@/constants/alerts";
-import AuthReminder from "@/layout/Pages/AuthReminder";
+import AuthReminder from "@/layout/Auth/AuthReminder";
 
 type AuthReminderType = keyof typeof alerts;
 
