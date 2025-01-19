@@ -87,7 +87,7 @@ export const useToken = () => {
         const data = await checkAuth(cookies.token);
         const { user } = data;
         login(user);
-      } catch (error: any) {
+      } catch (_error) {
         login(defaultUser);
       } finally {
         setLoading(false);
