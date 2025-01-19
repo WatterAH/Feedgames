@@ -17,6 +17,14 @@ export const stopPropagation = (e: MouseEvent) => {
   e.stopPropagation();
 };
 
+export const allowedPath = (pathname: string) => {
+  const allowedPaths = ["/p", "/u", "/search", "/home", "/"];
+  return allowedPaths.some(
+    (allowedPath) =>
+      pathname === allowedPath || pathname.startsWith(`${allowedPath}/`)
+  );
+};
+
 export const share = (content: "u" | "p", id: string) => {
   if (navigator.share) {
     navigator.share({

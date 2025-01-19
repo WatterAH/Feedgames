@@ -7,7 +7,7 @@ interface Props {
 
 const Loader: React.FC<Props> = ({ size, color }) => {
   const sizes = { small: "h-5 w-5", large: "h-10 w-10" };
-  const colors = { dark: "border-threads", white: "border-loading" };
+  const colors = { dark: "border-text", white: "border-background" };
 
   return (
     <div className="flex items-center justify-center">

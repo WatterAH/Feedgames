@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../globals.css";
 import Menu from "@/layout/Menu/Menu";
 import New from "@/components/New/New";
@@ -19,26 +19,24 @@ export default function MainLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const { loading } = useToken();
   const { user } = useUser();
-  const [loader, setLoader] = useState(loading);
+  const [loader, setLoader] = useState(true);
   const [creating, setCreating] = useState(false);
   useSubscribeToNewPosts(user.id);
   useSubscribeToNotify(user.id);
 
+  const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
   const loaderSpring = useSpring({
     transform: loading ? "translateY(0)" : "translateY(-100%)",
     opacity: loading ? 1 : 0,
-    config: { tension: 280, friction: 60 },
+    config: { tension: 300, friction: 50 },
+    onRest: () => {
+      if (!loading) {
+        setTimeout(() => {
+          setLoader(false);
+        }, 200);
+      }
+    },
   });
-
-  useEffect(() => {
-    if (!loading) {
-      setTimeout(() => {
-        setLoader(false);
-      }, 500);
-    }
-  }, [loading]);
-
-  const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
 
   return loader ? (
     <AnimatedDiv

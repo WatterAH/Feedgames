@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { defaultUser } from "@/interfaces/User";
+import { allowedPath } from "@/functions/utils";
 
 export const useLogin = () => {
   const { login } = useUser();
@@ -24,7 +25,6 @@ export const useLogin = () => {
           path: "/",
           expires: getExpirationDate(),
         });
-        toast.success(`Sesión iniciada como ${user.username}`);
         router.push("/");
       } catch (error: any) {
         const { message } = error;
@@ -78,22 +78,10 @@ export const useToken = () => {
   const { login } = useUser();
   const [cookies] = useCookies();
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
   const pathname = usePathname();
-  const isPostOrUser =
-    pathname.slice(0, 2) === "/p" || pathname.slice(0, 2) === "/u";
+  const router = useRouter();
 
   useEffect(() => {
-    if (!cookies.token) {
-      setLoading(false);
-      login(defaultUser);
-
-      if (!isPostOrUser) {
-        router.push("/home");
-      }
-      return;
-    }
-
     const check = async () => {
       try {
         const data = await checkAuth(cookies.token);
@@ -101,12 +89,12 @@ export const useToken = () => {
         login(user);
       } catch (error: any) {
         login(defaultUser);
-        if (!isPostOrUser) {
-          router.push("/home");
-        }
-        throw new Error(error.message);
       } finally {
         setLoading(false);
+        if (!allowedPath(pathname)) {
+          return router.push("/home");
+        }
+        return router.push(pathname);
       }
     };
 

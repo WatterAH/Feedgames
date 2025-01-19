@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const theme = localStorage.getItem("theme") || "theme-default";
     document.body.classList.add(theme);
@@ -10,5 +10,3 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   return children;
 };
-
-export default ThemeProvider;
