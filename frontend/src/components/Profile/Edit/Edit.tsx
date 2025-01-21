@@ -4,36 +4,35 @@ import Header from "./Header";
 import FormField from "./FormField";
 import Actions from "@/components/New/layout/Actions";
 import { toast } from "sonner";
-import { useUser } from "@/context/AuthContext";
 import { isImage } from "@/functions/utils";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/store/userSlice";
+import { User } from "@/interfaces/User";
 
 interface Props {
+  data: User;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Edit: React.FC<Props> = ({ open, setOpen }) => {
-  const { user } = useUser();
-
-  const src = user.pfp
-    ? process.env.NEXT_PUBLIC_IMAGES + user.pfp
+const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
+  const src = data.pfp
+    ? process.env.NEXT_PUBLIC_IMAGES + data.pfp
     : "/default.png";
 
   const [picture, setPicture] = useState(src);
   const [image, setImage] = useState<File | null>(null);
-  const [username, setUsername] = useState(user.username);
-  const [name, setName] = useState(user.name);
-  const [details, setDetails] = useState(user.details);
+  const [username, setUsername] = useState(data.username);
+  const [name, setName] = useState(data.name);
+  const [details, setDetails] = useState(data.details);
 
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    dispatch(updateUser(user.id, name, username, details, image));
+    dispatch(updateUser(data.id, name, username, details, image));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
