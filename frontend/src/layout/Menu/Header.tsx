@@ -11,7 +11,7 @@ const Header = () => {
   const options = useMenuOptions(logout, setOpen);
 
   return (
-    <div className="w-full fixed top-0 left-0 z-50 sm:h-16 pb-4 pt-2 lg:hidden bg-[rgba(var(--blur),0.8)] backdrop-blur-[10px]">
+    <div className="w-full fixed top-0 left-0 z-50 sm:h-16 pb-4 pt-2 md:hidden bg-[rgba(var(--blur),0.8)] backdrop-blur-[10px]">
       <h1 className="font-pacifico text-text text-3xl text-center">Fg</h1>
       <div className="hover:cursor-pointer absolute right-2 top-1">
         <Dropdown

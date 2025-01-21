@@ -17,7 +17,7 @@ const MenuItems: React.FC<Props> = ({ create }) => {
   const handleClearNotify = () => dispatch(clearNewNotification());
 
   return (
-    <ul className="flex flex-row justify-between lg:flex-col items-center lg:py-16 gap-y-5">
+    <ul className="flex flex-row justify-between md:flex-col items-center md:py-16 gap-y-5">
       <Item href="/home" currentPath={pathname} Icon={House} />
       <Item href="/search" currentPath={pathname} Icon={Search} />
       <Item href="" currentPath={pathname} Icon={SquarePen} onClick={create} />

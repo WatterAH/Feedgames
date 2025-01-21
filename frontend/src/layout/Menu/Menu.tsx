@@ -21,7 +21,7 @@ const Menu: React.FC<Props> = ({ setCreating }) => {
   };
 
   return (
-    <nav className="w-full lg:w-20 bottom-0 fixed left-0 lg:top-0 px-3 z-50 h-14 lg:h-full flex flex-col justify-center lg:justify-between lg:py-4 lg:items-center duration-500 bg-[rgba(var(--blur),0.8)] lg:bg-background backdrop-blur-[10px]">
+    <nav className="w-full md:w-16 lg:w-20 bottom-0 fixed left-0 md:top-0 px-3 z-50 h-14 md:h-full flex flex-col justify-center md:justify-between md:py-4 md:items-center duration-500 bg-[rgba(var(--blur),0.8)] md:bg-background backdrop-blur-[10px]">
       <Logo />
       <MenuItems create={handleCreating} />
       <UserDropdown />

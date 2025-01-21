@@ -7,7 +7,7 @@ export const calculateDate = (date: string, reduce?: boolean): string => {
 
   const diffDays = daysAgo(date, todayISO);
 
-  if (today.day === created.day) {
+  if (diffDays == 0) {
     const diffMs = minutesAgo(date, todayISO);
     if (diffMs < 60) {
       return diffMs <= 0 ? "ahora" : `${diffMs}min`;

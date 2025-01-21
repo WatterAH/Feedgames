@@ -11,7 +11,7 @@ const UserDropdown = () => {
   const options = useMenuOptions(logout, setOpen);
 
   return (
-    <div className="hidden lg:block hover:cursor-pointer">
+    <div className="hidden md:block hover:cursor-pointer">
       <Dropdown
         Icon={AlignLeft}
         options={options}
