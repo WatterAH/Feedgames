@@ -7,6 +7,7 @@ import { UserProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { CookiesProvider } from "react-cookie";
 import { AuthReminderProvider } from "@/context/AuthReminderProvider";
+import { ScrollRestoration } from "@/context/ScrollRestoration";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <UserProvider>
         <CookiesProvider>
           <Provider store={store}>
+            <ScrollRestoration />
             <AuthReminderProvider>{children}</AuthReminderProvider>
             <Toaster richColors position="top-center" />
           </Provider>
