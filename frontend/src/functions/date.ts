@@ -1,6 +1,5 @@
 export const calculateDate = (date: string, reduce?: boolean): string => {
   const todayISO = getISODate();
-  const today = formatDate(todayISO);
   const created = formatDate(date);
 
   if (reduce) return created.day + "/" + created.month + "/" + created.year;

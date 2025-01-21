@@ -176,7 +176,7 @@ export const updateUser =
     details: string,
     image: File | null
   ) =>
-  async (dispatch: AppDispatch, getState: () => RootState) => {
+  async (dispatch: AppDispatch) => {
     toast.promise(editProfile(id, name, username, details, image), {
       loading: "Actualizando...",
       success: (data) => {
