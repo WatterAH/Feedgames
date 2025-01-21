@@ -52,7 +52,10 @@ export const editProfile = async (
   }
 };
 
-export const changeTheme = async (userId: string, theme: Theme) => {
+export const changeTheme = async (
+  userId: string,
+  theme: Theme
+): Promise<{ theme: Theme }> => {
   const res = await fetch(`${URL}/api/changeTheme`, {
     method: "PUT",
     credentials: "include",
@@ -63,10 +66,11 @@ export const changeTheme = async (userId: string, theme: Theme) => {
   });
 
   const resData = await res.json();
+
   if (!res.ok) {
     const { message } = resData;
     throw new Error(message);
   }
 
-  return;
+  return resData;
 };

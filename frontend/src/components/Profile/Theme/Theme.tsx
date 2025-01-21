@@ -14,6 +14,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const source = SERVICE_IMAGE_URL + src;
+  console.log(source);
 
   useEffect(() => {
     if (sameUser) {
@@ -31,6 +32,7 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
   return (
     <div className="relative overflow-hidden lg:rounded-t-3xl">
       <video
+        key={source}
         autoPlay
         loop
         muted

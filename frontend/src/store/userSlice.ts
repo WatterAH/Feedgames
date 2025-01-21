@@ -2,7 +2,7 @@ import { PostInterface } from "@/interfaces/Post";
 import { User } from "@/interfaces/User";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { getProfile } from "@/routes/profile";
+import { changeTheme, editProfile, getProfile } from "@/routes/profile";
 import {
   REMOVE_POST,
   RemovePostAction,
@@ -14,6 +14,8 @@ import {
 } from "./actions";
 import { getPostsByUser } from "@/routes/post";
 import { updatePostInteraction } from "./listeners";
+import { toast } from "sonner";
+import { Theme } from "@/constants/themes";
 
 interface userSlice {
   user: User | null;
@@ -69,6 +71,14 @@ const userSlice = createSlice({
       state.errorPosts = action.payload;
       state.loadingPosts = false;
     },
+    updateUserSuccess: (state, action) => {
+      state.user = action.payload;
+    },
+    updateUserTheme: (state, action) => {
+      if (state.user) {
+        state.user.theme = action.payload;
+      }
+    },
     addMyPost: (state, action) => {
       if (state.posts.length != 0) {
         state.posts.unshift(action.payload);
@@ -114,6 +124,8 @@ export const {
   fetchPostsStart,
   fetchPostsSuccess,
   fetchPostsFailure,
+  updateUserSuccess,
+  updateUserTheme,
   addMyPost,
   loadedTheme,
 } = userSlice.actions;
@@ -152,4 +164,40 @@ export const fetchPosts =
     } catch (error: any) {
       dispatch(fetchPostsFailure(error.message));
     }
+  };
+
+// UPDATE USER DATA THUNK
+
+export const updateUser =
+  (
+    id: string,
+    name: string,
+    username: string,
+    details: string,
+    image: File | null
+  ) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    toast.promise(editProfile(id, name, username, details, image), {
+      loading: "Actualizando...",
+      success: (data) => {
+        const { user } = data;
+        dispatch(updateUserSuccess(user));
+        return "Actualizado con éxito";
+      },
+      error: (error) => error.message,
+    });
+  };
+
+// UPDATE USER THEME THUNK
+
+export const updateTheme =
+  (userId: string, theme: Theme) => async (dispatch: AppDispatch) => {
+    toast.promise(changeTheme(userId, theme), {
+      loading: "Cambiando...",
+      success: (data) => {
+        dispatch(updateUserTheme(data.theme));
+        return "Cambiado con éxito";
+      },
+      error: (err) => err.message,
+    });
   };

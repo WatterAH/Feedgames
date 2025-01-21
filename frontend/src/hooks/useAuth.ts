@@ -87,14 +87,15 @@ export const useToken = () => {
         const data = await checkAuth(cookies.token);
         const { user } = data;
         login(user);
+        return router.push(pathname);
       } catch (_error) {
         login(defaultUser);
-      } finally {
-        setLoading(false);
         if (!allowedPath(pathname)) {
           return router.push("/home");
         }
         return router.push(pathname);
+      } finally {
+        setLoading(false);
       }
     };
 

@@ -77,12 +77,12 @@ export const changeTheme: RequestHandler = async (req, res) => {
     const { userId, theme } = req.body;
     const parsedId = translator.toUUID(userId);
 
-    const { error } = await editTheme(parsedId, theme);
-    if (error) {
+    const { data, error } = await editTheme(parsedId, theme);
+    if (error || !data) {
       res.status(400).json({ message: "Ocurrió un error" });
       return;
     }
-    res.status(200).json({ message: "Tema cambiado con éxito" });
+    res.status(200).json({ theme: data.theme });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "El servidor tuvo un problema" });

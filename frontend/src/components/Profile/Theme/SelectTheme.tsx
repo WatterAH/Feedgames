@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Modal from "../../Global/Modal";
 import Actions from "@/components/New/layout/Actions";
 import Preview from "./Preview";
-import { toast } from "sonner";
 import { useUser } from "@/context/AuthContext";
-import { changeTheme } from "@/routes/profile";
 import { previewThemes } from "@/constants/themes";
 import { User } from "@/interfaces/User";
+import { AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { updateTheme } from "@/store/userSlice";
 
 interface Props {
   open: boolean;
@@ -17,17 +18,11 @@ interface Props {
 const SelectTheme: React.FC<Props> = ({ open, setOpen, data }) => {
   const { user } = useUser();
   const [theme, setTheme] = useState(data.theme);
+  const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = () => {
-     toast.promise(changeTheme(user.id, theme), {
-      loading: "Cambiando...",
-      success: "Tema cambiado con éxito, la ventana se recargará",
-      error: (err) => err.message,
-    });
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+    dispatch(updateTheme(user.id, theme));
+    setOpen(false);
   };
 
   return (

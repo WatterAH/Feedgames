@@ -6,9 +6,9 @@ import Actions from "@/components/New/layout/Actions";
 import { toast } from "sonner";
 import { useUser } from "@/context/AuthContext";
 import { isImage } from "@/functions/utils";
-import { editProfile } from "@/routes/profile";
-import { useCookies } from "react-cookie";
-import { getExpirationDate } from "@/functions/date";
+import { AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/store/userSlice";
 
 interface Props {
   open: boolean;
@@ -16,37 +16,24 @@ interface Props {
 }
 
 const Edit: React.FC<Props> = ({ open, setOpen }) => {
-  const { user, login } = useUser();
+  const { user } = useUser();
+
   const src = user.pfp
     ? process.env.NEXT_PUBLIC_IMAGES + user.pfp
     : "/default.png";
+
   const [picture, setPicture] = useState(src);
   const [image, setImage] = useState<File | null>(null);
   const [username, setUsername] = useState(user.username);
   const [name, setName] = useState(user.name);
   const [details, setDetails] = useState(user.details);
-  const [, setCookie] = useCookies();
+
+  const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    toast.promise(editProfile(user.id, name, username, details, image), {
-      loading: "Cargando...",
-      success: (data) => {
-        const { user: userData, token } = data;
-        login(userData);
-        setCookie("token", token, {
-          path: "/",
-          expires: getExpirationDate(),
-          secure: true,
-          sameSite: "none",
-        });
-        return "Recarga para ver los cambios";
-      },
-      error: (error) => {
-        return error.message;
-      },
-    });
+    dispatch(updateUser(user.id, name, username, details, image));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

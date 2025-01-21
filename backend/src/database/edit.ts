@@ -11,18 +11,20 @@ export const editProfileById = async (
     .from("users")
     .update({ username, name, details, pfp })
     .eq("id", id)
-    .select("id, created_at, name, username, details, riotId, pfp")
+    .select("id, created_at, name, username, details, riotId, pfp, theme")
     .single();
   return { user, error };
 };
 
 export const editTheme = async (userId: string, theme: string) => {
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("users")
     .update({ theme })
-    .eq("id", userId);
+    .eq("id", userId)
+    .select("theme")
+    .single();
 
-  return { error };
+  return { data, error };
 };
 
 export const editPostById = async (postId: string, text: string) => {
