@@ -84,7 +84,6 @@ export const changeTheme: RequestHandler = async (req, res) => {
     }
     res.status(200).json({ theme: data.theme });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "El servidor tuvo un problema" });
   }
 };
