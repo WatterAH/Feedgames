@@ -69,7 +69,6 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
             <div className="flex gap-x-3">
               <ImageInput setContent={setContent} />
               <Canvas setContent={setContent} />
-              {/* <CreateGuide /> */}
               <MatchInput matches={matches} setContent={setContent} />
             </div>
           </div>

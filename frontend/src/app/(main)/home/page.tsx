@@ -35,7 +35,7 @@ export default function HomePage() {
     if (loading && posts.length == 0) return <PostsLoader count={8} />;
     if (error && posts.length == 0) return <Error />;
     return (
-      <PostContainer posts={posts} hasMore={hasMore} getPost={getMorePosts} />
+      <PostContainer getPost={getMorePosts} posts={posts} hasMore={hasMore} />
     );
   };
 
