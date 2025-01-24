@@ -41,7 +41,9 @@ export const registerApi = async (
   }
 };
 
-export const checkAuth = async (userToken: string): Promise<{ user: User }> => {
+export const checkAuth = async (
+  userToken: string
+): Promise<{ user: User; token: string }> => {
   const res = await fetch(
     `${URL}/api/checkAuth?userToken=${encodeURIComponent(userToken)}`
   );

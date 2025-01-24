@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentObject } from "./Create";
+import { ContentObject } from "@/interfaces/Post";
 
 interface Props {
   text: string;

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ValMatch from "./ValMatch";
 import Modal from "@/components/Global/Modal";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
-import { ContentObject } from "../Create";
-import MatchButton from "./MatchButton";
 import { useUser } from "@/context/AuthContext";
+import { ContentObject } from "@/interfaces/Post";
+import MatchButton from "./MatchButton";
 
 interface Props {
   setContent: (content: ContentObject) => void;

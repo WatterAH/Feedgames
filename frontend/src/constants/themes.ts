@@ -20,10 +20,10 @@ type ThemesDictionary = {
 
 export const previewThemes: { src: string; theme: string; value: Theme }[] = [
   { src: "white", theme: "Default", value: "default" },
-  { src: "/zelda.mp4", theme: "Zelda ToTK", value: "zelda" },
-  { src: "/link.mp4", theme: "Link ToTk", value: "link" },
-  { src: "/minecraft.mp4", theme: "Minecraft", value: "minecraft" },
   { src: "/cherry-leaves.mp4", theme: "Cherry Leaves", value: "cherry-leaves" },
+  { src: "/minecraft.mp4", theme: "Minecraft", value: "minecraft" },
+  { src: "/link.mp4", theme: "Link ToTk", value: "link" },
+  { src: "/zelda.mp4", theme: "Zelda ToTK", value: "zelda" },
   { src: "/killjoy.mp4", theme: "Killjoy", value: "killjoy" },
   { src: "/jett.mp4", theme: "Jett", value: "jett" },
 ];

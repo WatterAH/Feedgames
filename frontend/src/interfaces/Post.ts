@@ -25,3 +25,11 @@ export interface PostInterface {
     | { type: "pixelart"; data: { gridSize: number; cells: string } }
     | { type: "textonly"; data: null };
 }
+
+export type ContentInterface =
+  | { type: "image"; data: File }
+  | { type: "valorant"; data: MatchShowCase }
+  | { type: "pixelart"; data: PixelArtProps }
+  | { type: "textonly"; data: null };
+
+export type ContentObject = ContentInterface | null;

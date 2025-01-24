@@ -2,8 +2,8 @@ import React from "react";
 import ImagePreview from "../image/ImagePreview";
 import MatchPost from "@/components/Post/contents/Match";
 import { X } from "lucide-react";
-import { ContentObject } from "../Create";
 import Art from "@/components/Post/contents/Art";
+import { ContentObject } from "@/interfaces/Post";
 
 interface Props {
   content: ContentObject;

@@ -6,36 +6,42 @@ import Title from "@/layout/Pages/Title";
 import Card from "@/layout/Pages/Card";
 import { useUser } from "@/context/AuthContext";
 import { useEffect } from "react";
-import { fetchPosts, fetchUser } from "@/store/userSlice";
+import { fetchPosts } from "@/store/userSlice";
 import { ProfileLoader } from "@/layout/Pages/Loaders";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function MyProfile() {
   const { user: userSession } = useUser();
-  const { user, loadingUser, errorUser, posts, errorPosts, hasMore } =
-    useSelector((state: RootState) => state.user);
+  const {
+    user,
+    errorUser,
+    posts,
+    loadingUser,
+    loadingPosts,
+    errorPosts,
+    hasMore,
+  } = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (!user) {
-      dispatch(fetchUser(userSession?.id));
+    if (posts.length == 0) {
       dispatch(fetchPosts(userSession.id, 10));
     }
-  }, [dispatch, userSession?.id, posts.length, user]);
+  }, [dispatch, userSession?.id]);
 
   const getMorePosts = () => {
-    if (hasMore && !loadingUser && userSession?.id) {
+    if (hasMore && userSession?.id) {
       dispatch(fetchPosts(userSession.id, 10));
     }
   };
 
   return (
     <>
-      <Title title={userSession.username} />
+      <Title title={user?.username || "Perfil"} />
       <Card />
       <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
-        {loadingUser && <ProfileLoader />}
+        {(loadingUser || loadingPosts) && <ProfileLoader />}
         {(errorUser || errorPosts) && <Error />}
         {user && <ProfileHeader data={user} />}
         {user && (

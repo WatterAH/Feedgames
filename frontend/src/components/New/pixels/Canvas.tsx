@@ -5,7 +5,7 @@ import Modal from "@/components/Global/Modal";
 import Actions from "../layout/Actions";
 import { PaletteIcon } from "lucide-react";
 import { saveGrid } from "@/functions/grid";
-import { ContentObject } from "../Create";
+import { ContentObject } from "@/interfaces/Post";
 
 interface Props {
   setContent: (content: ContentObject) => void;

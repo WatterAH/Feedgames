@@ -1,5 +1,4 @@
-import { ContentObject } from "@/components/New/Create";
-import { PostInterface } from "@/interfaces/Post";
+import { ContentObject, PostInterface } from "@/interfaces/Post";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 export const feedPosts = async (

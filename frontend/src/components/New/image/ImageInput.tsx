@@ -2,7 +2,7 @@ import React from "react";
 import { toast } from "sonner";
 import { isImage } from "@/functions/utils";
 import { Image as ImageIcon } from "lucide-react";
-import { ContentObject } from "../Create";
+import { ContentObject } from "@/interfaces/Post";
 
 interface Props {
   setContent: (content: ContentObject) => void;
