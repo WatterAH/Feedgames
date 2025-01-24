@@ -7,10 +7,9 @@ import Preview from "../New/layout/Preview";
 import ImageInput from "../New/image/ImageInput";
 import Content from "./Content";
 import { useUser } from "@/context/AuthContext";
-import { PostInterface } from "@/interfaces/Post";
+import { ContentObject, PostInterface } from "@/interfaces/Post";
 import { toast } from "sonner";
 import { createPost } from "@/routes/post";
-import { ContentObject } from "../New/Create";
 
 interface Props {
   open: boolean;
