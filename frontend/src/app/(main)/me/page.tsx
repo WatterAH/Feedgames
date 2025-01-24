@@ -28,7 +28,7 @@ export default function MyProfile() {
     if (posts.length == 0) {
       dispatch(fetchPosts(userSession.id, 10));
     }
-  }, [dispatch, userSession?.id]);
+  }, [dispatch, userSession?.id, posts.length]);
 
   const getMorePosts = () => {
     if (hasMore && userSession?.id) {

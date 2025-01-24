@@ -76,7 +76,7 @@ export const useRegister = () => {
 
 export const useToken = () => {
   const { login } = useUser();
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
