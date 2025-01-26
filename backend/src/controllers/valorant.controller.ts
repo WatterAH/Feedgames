@@ -3,8 +3,7 @@ import shortUUID from "short-uuid";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { RequestHandler } from "express";
-import { supabase } from "../database/connection";
-import { editRiotId } from "../database/edit";
+import { supabase } from "../middlewares/connection";
 import { processMatch } from "../libs/server";
 
 dotenv.config();
@@ -159,23 +158,6 @@ export const setRiotId: RequestHandler = async (req, res) => {
     const userToken = await createAccessToken(data);
 
     res.status(200).json({ token: userToken, user: data });
-  } catch (error) {
-    res.status(500).json({ message: "El servidor tuvo un problema" });
-  }
-};
-
-export const resetRiotId: RequestHandler = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const userId = translator.toUUID(id);
-
-    const { error } = await editRiotId(userId);
-
-    if (error) {
-      res.status(403).json({ message: "Ocurrió un error" });
-      return;
-    }
-    res.status(200).end();
   } catch (error) {
     res.status(500).json({ message: "El servidor tuvo un problema" });
   }

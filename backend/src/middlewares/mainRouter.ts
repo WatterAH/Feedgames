@@ -1,22 +1,18 @@
 import express from "express";
-import { accountRouter } from "../routers/account.router";
-import { feedRouter } from "../routers/feed.router";
-import { postRouter } from "../routers/post.router";
-import { interactionsRouter } from "../routers/interactions.router";
-import { valorantRouter } from "../routers/valorant.router";
-import { notifyRouter } from "../routers/notification.router";
-import { profileRouter } from "../routers/profile.router";
-import { postcrudRouter } from "../routers/postCrud.router";
+import userRouter from "../routers/userRouter";
+import postRouter from "../routers/postRouter";
+import interactionRouter from "../routers/interactionRouter";
+import valorantRouter from "../routers/valorant.router";
+import searchRouter from "../routers/searchRouter";
+import alertRouter from "../routers/alertRouter";
 
 const app = express();
 
-app.use(accountRouter);
-app.use(feedRouter);
+app.use(userRouter);
 app.use(postRouter);
-app.use(postcrudRouter);
-app.use(profileRouter);
-app.use(interactionsRouter);
+app.use(searchRouter);
+app.use(alertRouter);
 app.use(valorantRouter);
-app.use(notifyRouter);
+app.use(interactionRouter);
 
 export { app as mainRouter };

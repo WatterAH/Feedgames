@@ -1,18 +1,5 @@
-export const defaultUser: User = {
-  created_at: "",
-  details: "",
-  id: "",
-  name: "",
-  pfp: "",
-  username: "",
-  password: "",
-  // followed: [],
-  // followers: [],
-  // follow: false,
-};
-
 export interface Followed {
-  id_followed: string;
+  count: number;
 }
 
 export interface Follower {
@@ -24,10 +11,11 @@ export interface User {
   name: string;
   username: string;
   details: string;
-  pfp: string | undefined;
+  pfp: string | null;
   password: string;
+  theme: string;
   created_at: string;
-  // followed: Followed[];
-  // followers: Follower[];
-  // follow: boolean;
+  followed: Followed[];
+  followers: Follower[];
+  [key: string]: any;
 }

@@ -1,15 +1,14 @@
 import shortUUID from "short-uuid";
 import { PostInterface } from "../interfaces/Post";
 import { Match, PlayerInGame } from "../interfaces/Valorant";
-import { Comment } from "../interfaces/Comment";
+import { User } from "../interfaces/User";
+import { Alert } from "../interfaces/Alert";
 
 const translator = shortUUID();
 
-export const processPost = (post: PostInterface | any, userId: string) => {
+export const processPost = (post: PostInterface, userId: string) => {
   const { id, liked, saved, content, user, responsed, user_id, ...rest } = post;
   const { followers, id: userIdInPost, ...userRest } = user;
-  const isLiked = liked.some((like: any) => like.id_user == userId);
-  const isSaved = saved.some((save: any) => save.id_user == userId);
 
   const userIdParsed = translator.fromUUID(user_id);
 
@@ -18,46 +17,21 @@ export const processPost = (post: PostInterface | any, userId: string) => {
     user_id: userIdParsed,
     user: {
       id: userIdParsed,
-      followers: followers[0].count,
+      followers: followers.length,
       ...userRest,
     },
     responsed: responsed[0].count,
-    content: { type: content[0].type, data: content[0].data },
+    content: Array.isArray(content)
+      ? {
+          type: content[0].type,
+          data: content[0].data,
+        }
+      : content,
     liked: liked.length,
-    isLiked,
+    isLiked: liked.some((like: any) => like.id_user == userId),
     saved: saved.length,
-    isSaved,
+    isSaved: saved.some((save: any) => save.id_user == userId),
     ...rest,
-  };
-};
-
-export const processComment = (
-  comment: Comment | any,
-  userId: string
-): Comment => {
-  const {
-    id,
-    id_user: authorId,
-    id_post: postId,
-    comments_liked: likes,
-    user: { id: userIdInPost, followers, ...userDetails },
-    ...otherDetails
-  } = comment;
-
-  const isLiked = likes.some((like: any) => like.id_user === userId);
-
-  return {
-    id: translator.fromUUID(id),
-    id_user: translator.fromUUID(authorId),
-    id_post: translator.fromUUID(postId),
-    liked: likes.length,
-    isLiked,
-    user: {
-      id: translator.fromUUID(userIdInPost),
-      followers: followers[0].count,
-      ...userDetails,
-    },
-    ...otherDetails,
   };
 };
 
@@ -81,20 +55,19 @@ export const processMatch = (match: Match) => {
   };
 };
 
-export const processUser = (user: any, userId: string) => {
-  const { id, followers, followed, ...rest } = user;
-  const follow = followers.some((u: any) => u.id_follower == userId);
+export const processUser = (user: User, requestId: string) => {
+  const { id, followers, followed, password, ...rest } = user;
 
   return {
     id: translator.fromUUID(id),
-    follow: follow,
+    follow: followers.some((u: any) => u.id_follower == requestId),
     followers: followers.length,
-    followed: followed[0].count,
+    followed: followed?.[0]?.count || 0,
     ...rest,
   };
 };
 
-export const processNotify = (notify: any) => {
+export const processAlert = (notify: Alert) => {
   const { user, ...rest } = notify;
   const { id, ...userRest } = user;
   return {

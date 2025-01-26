@@ -23,17 +23,16 @@ export interface PostInterface {
   id: string;
   created_at: DateObj;
   text: string;
-  content: any;
+  content: { type: string; data: any }[];
   tags: string[];
   order: string;
   user: User;
   user_id: string;
   publicUrl: string | null;
   liked: Likes[];
-  isLiked: boolean;
   saved: Saves[];
-  isSaved: boolean;
-  responsed: number;
+  responsed: { count: number }[];
   responses: PostInterface[];
   isCommented: boolean;
+  [key: string]: any;
 }
