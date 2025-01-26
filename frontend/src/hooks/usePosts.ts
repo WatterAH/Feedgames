@@ -1,14 +1,8 @@
 import { PostInterface } from "@/interfaces/Post";
-import { getPostsByUser, likedPosts, savedPosts } from "@/routes/post";
 import { useCallback, useEffect, useState } from "react";
+import { getPosts as fetchPosts } from "@/routes/post";
 
-type Type = "profile" | "liked" | "saved";
-
-const functions = {
-  profile: getPostsByUser,
-  liked: likedPosts,
-  saved: savedPosts,
-};
+type Type = "user" | "liked" | "saved";
 
 export const usePosts = (userId: string, type: Type, requestId?: string) => {
   const [page, setPage] = useState(0);
@@ -21,12 +15,7 @@ export const usePosts = (userId: string, type: Type, requestId?: string) => {
     if (!userId || !hasMore) return;
     try {
       if (page == 0) setLoading(true);
-      const data = await functions[type](
-        userId,
-        page,
-        10,
-        type === "profile" ? requestId : undefined
-      );
+      const data = await fetchPosts(type, userId, page, 10, requestId);
       if (data.length > 0) {
         setPosts((prevPosts) => [...prevPosts, ...data]);
         setPage((prev) => prev + 1);

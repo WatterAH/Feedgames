@@ -1,4 +1,3 @@
-import { Theme } from "@/constants/themes";
 import { User } from "../interfaces/User";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
@@ -6,71 +5,97 @@ export const getProfile = async (
   userId: string,
   requestId: string
 ): Promise<User | null> => {
-  const res = await fetch(
-    `${URL}/api/getProfile?userId=${encodeURIComponent(
-      userId
-    )}&requestId=${encodeURIComponent(requestId)}`
-  );
+  const endpoint = `${URL}/users/${userId}?requestId=${requestId}`;
+  const res = await fetch(endpoint);
   const resData = await res.json();
-  if (res.ok) {
-    return resData as User;
+
+  if (resData.success) {
+    return resData.data;
   } else if (res.status == 404) {
     return null;
   } else {
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error(resData.message);
   }
 };
 
 export const editProfile = async (
-  id: string,
-  name: string,
-  username: string,
-  details: string,
+  userId: string,
+  user: Partial<User>,
   image: File | null
-): Promise<{ user: User; token: string }> => {
+): Promise<User | null> => {
   const formData = new FormData();
-  formData.append("id", id);
-  formData.append("name", name);
-  formData.append("username", username);
-  formData.append("details", details);
-  if (image) {
-    formData.append("image", image);
-  }
+  formData.append("data", JSON.stringify(user));
+  if (image) formData.append("image", image);
 
-  const res = await fetch(`${URL}/api/editProfile`, {
+  const endpoint = `${URL}/users/${userId}`;
+  const res = await fetch(endpoint, {
     method: "PUT",
-    credentials: "include",
     body: formData,
   });
-  const resData = await res.json();
-  if (res.ok) {
-    return resData;
+
+  const data = await res.json();
+
+  if (data.success) {
+    return data.data;
   } else {
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error(data.message);
   }
 };
 
-export const changeTheme = async (
-  userId: string,
-  theme: Theme
-): Promise<{ theme: Theme }> => {
-  const res = await fetch(`${URL}/api/changeTheme`, {
-    method: "PUT",
-    credentials: "include",
+export const createProfile = async (user: Partial<User>) => {
+  const endpoint = `${URL}/users`;
+  const res = await fetch(endpoint, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ userId, theme }),
+    body: JSON.stringify(user),
   });
 
-  const resData = await res.json();
-
-  if (!res.ok) {
-    const { message } = resData;
-    throw new Error(message);
+  const data = await res.json();
+  if (data.success) {
+    return data.data;
+  } else {
+    throw new Error(data.message);
   }
+};
 
-  return resData;
+export const auth = async (
+  username: string,
+  password: string
+): Promise<{ user: User; token: string }> => {
+  const res = await fetch(`${URL}/auth`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+  const data = await res.json();
+
+  if (data.success) {
+    return data.data;
+  } else {
+    throw new Error(data.message);
+  }
+};
+
+export const checkAuth = async (
+  userToken: string
+): Promise<{ user: User; token: string }> => {
+  const endpoint = `${URL}/checkToken/${userToken}`;
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await res.json();
+
+  if (data.success) {
+    return data.data;
+  } else {
+    throw new Error(data.message);
+  }
 };

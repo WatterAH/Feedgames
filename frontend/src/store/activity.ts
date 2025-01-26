@@ -1,10 +1,7 @@
 import { Notification } from "@/interfaces/Notification";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import {
-  deleteNotificationById,
-  getMyNotifications,
-} from "@/routes/notifications";
+import { deleteNotificationById, getMyNotifications } from "@/routes/alerts";
 import { toast } from "sonner";
 import { RESET_ALL } from "./actions";
 
@@ -99,6 +96,7 @@ export const fetchNotifications =
         })
       );
     } catch (error: any) {
+      console.log(error);
       dispatch(fetchNotificationsFailure(error.message));
     }
   };

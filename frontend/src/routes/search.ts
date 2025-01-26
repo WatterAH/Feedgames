@@ -7,18 +7,17 @@ export const getUsers = async (
   userId: string
 ): Promise<User[]> => {
   const res = await fetch(
-    `${URL}/api/getUsersBySearchTerm?searchterm=${encodeURIComponent(
+    `${URL}/search/users?searchTerm=${encodeURIComponent(
       searchTerm
     )}&userId=${userId}`
   );
 
-  const resData = await res.json();
+  const data = await res.json();
 
-  if (res.ok) {
-    const { users } = resData;
-    return users;
+  if (data.success == true) {
+    return data.data;
   } else {
-    throw new Error(resData.message);
+    throw new Error(data.message);
   }
 };
 
@@ -27,17 +26,31 @@ export const getCurrentTerm = async (
   userId: string
 ): Promise<PostInterface[]> => {
   const res = await fetch(
-    `${URL}/api/getCurrentTerm?term=${encodeURIComponent(
+    `${URL}/search/posts?searchTerm=${encodeURIComponent(
       current
     )}&userId=${encodeURIComponent(userId)}`
   );
 
-  const resData = await res.json();
+  const data = await res.json();
 
-  if (res.ok) {
-    const { posts } = resData;
-    return posts;
+  if (data.success == true) {
+    return data.data;
   } else {
-    throw new Error(resData.message);
+    throw new Error(data.message);
+  }
+};
+
+export const loadTopLikedPosts = async (
+  userId: string
+): Promise<PostInterface[]> => {
+  const res = await fetch(
+    `${URL}/search/tendency?userId=${encodeURIComponent(userId)}`
+  );
+  const data = await res.json();
+
+  if (data.success == true) {
+    return data.data;
+  } else {
+    throw new Error(data.message);
   }
 };

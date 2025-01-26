@@ -1,20 +1,22 @@
 import { ContentObject, PostInterface } from "@/interfaces/Post";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
-export const feedPosts = async (
-  user: string,
+export const getPosts = async (
+  type: "feed" | "user" | "liked" | "saved",
+  userId: string,
   page: number,
-  limit: number
+  limit: number,
+  requestId?: string
 ): Promise<PostInterface[]> => {
-  const endpoint = `${URL}/api/loadPosts?id_user=${user}&page=${page}&limit=${limit}`;
-  const res = await fetch(endpoint);
-  const resData = await res.json();
+  const endpoint = `${URL}/posts/${type}?current_id=${userId}&page=${page}&limit=${limit}&request_id=${requestId}`;
 
-  if (res.ok) {
-    return resData;
+  const res = await fetch(endpoint);
+  const data = await res.json();
+
+  if (data.success == true) {
+    return data.data;
   } else {
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error(data.message);
   }
 };
 
@@ -22,17 +24,15 @@ export const getPostById = async (
   id: string,
   userId: string
 ): Promise<{ post: PostInterface; responses: PostInterface[] }> => {
-  const res = await fetch(
-    `${URL}/api/getPost?postId=${encodeURIComponent(
-      id
-    )}&userId=${encodeURIComponent(userId)}`
-  );
-  const resData: PostInterface | any = await res.json();
-  if (res.ok) {
-    return resData;
+  const endpoint = `${URL}/post/${id}?userId=${userId}`;
+
+  const res = await fetch(endpoint);
+  const data = await res.json();
+
+  if (data.success == true) {
+    return data.data;
   } else {
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error(data.message);
   }
 };
 
@@ -41,7 +41,7 @@ export const createPost = async (
   text: string,
   content: ContentObject,
   parentId?: string
-): Promise<void> => {
+): Promise<PostInterface> => {
   const formData = new FormData();
   formData.append("userId", userId);
   formData.append("text", text);
@@ -49,123 +49,56 @@ export const createPost = async (
   if (parentId) formData.append("parentId", parentId);
   if (content?.type == "image") formData.append("image", content.data);
 
-  const res = await fetch(`${URL}/api/createPost`, {
+  const res = await fetch(`${URL}/posts`, {
     method: "POST",
     credentials: "include",
     body: formData,
   });
 
-  if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+  const data = await res.json();
+
+  if (data.success == true) {
+    return data.data;
+  } else {
+    console.log(data);
+    throw new Error(data.message);
   }
-  return;
 };
 
-export const editPostById = async (id: string, text: string) => {
-  const res = await fetch(`${URL}/api/editPost`, {
+export const editPostById = async (
+  id: string,
+  post: Partial<PostInterface>
+) => {
+  const res = await fetch(`${URL}/posts/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ id, text }),
+    body: JSON.stringify(post),
   });
 
-  if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+  const data = await res.json();
+
+  if (data.success) {
+    return true;
+  } else {
+    throw new Error(data.message);
   }
-  return;
 };
 
 export const deletePostById = async (id: string): Promise<void> => {
-  const res = await fetch(`${URL}/api/deletePost`, {
+  const res = await fetch(`${URL}/posts/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ id }),
   });
-  if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
-  }
-  return;
-};
 
-export const likedPosts = async (
-  userId: string,
-  page: number,
-  limit: number
-): Promise<PostInterface[]> => {
-  const endpoint = `${URL}/api/loadLiked?id=${userId}&page=${page}&limit=${limit}`;
-  const res = await fetch(endpoint);
-  const resData = await res.json();
+  const data = await res.json();
 
-  if (res.ok) {
-    return resData;
-  } else {
-    const { message } = resData;
-    throw new Error(message);
-  }
-};
-
-export const savedPosts = async (
-  userId: string,
-  page: number,
-  limit: number
-): Promise<PostInterface[]> => {
-  const endpoint = `${URL}/api/loadSaved?id=${userId}&page=${page}&limit=${limit}`;
-  const res = await fetch(endpoint);
-  const resData = await res.json();
-
-  if (res.ok) {
-    return resData;
-  } else {
-    const { message } = resData;
-    throw new Error(message);
-  }
-};
-
-export const loadTopLikedPosts = async (
-  userId: string
-): Promise<PostInterface[]> => {
-  const res = await fetch(
-    `${URL}/api/loadTopLikedPosts?userId=${encodeURIComponent(userId)}`
-  );
-  const resData = await res.json();
-
-  if (res.ok) {
-    return resData as PostInterface[];
-  } else {
-    const { message } = resData;
-    throw new Error(message);
-  }
-};
-
-export const getPostsByUser = async (
-  userId: string,
-  page: number,
-  limit: number,
-  requestId?: string
-): Promise<PostInterface[]> => {
-  let endpoint = "";
-  if (requestId) {
-    endpoint = `${URL}/api/getPostsByUser?userId=${encodeURIComponent(
-      userId
-    )}&page=${page}&limit=${limit}&requestId=${encodeURIComponent(requestId)}`;
-  }
-  const res = await fetch(endpoint);
-  const resData = await res.json();
-  if (res.ok) {
-    return resData as PostInterface[];
-  } else {
-    const { message } = resData;
-    throw new Error(message);
+  if (!data.success) {
+    throw new Error(data.message);
   }
 };

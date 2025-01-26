@@ -37,7 +37,7 @@ const Dropdown: React.FC<Props> = ({
   };
 
   return (
-    <Menu as="div" className="relative text-left">
+    <Menu as="div" className="relative text-left" onClick={stopPropagation}>
       <div onClick={stopPropagation}>
         <MenuButton
           className={`inline-flex w-full justify-center gap-x-1.5 rounded-full p-2 text-threads ${

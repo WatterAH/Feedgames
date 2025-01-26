@@ -15,6 +15,7 @@ import { ContentObject } from "@/interfaces/Post";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "@/store/userSlice";
+import { addPost } from "@/store/feedSlice";
 
 interface Props {
   open: boolean;
@@ -48,8 +49,15 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
     setOpen(false);
     toast.promise(createPost(user.id, text, content), {
       loading: "Publicando...",
-      success: () => (setText(""), setContent(null), "Publicado con éxito"),
-      error: (err) => err.message,
+      success: (data) => {
+        setText("");
+        setContent(null);
+        dispatch(addPost(data));
+        return "Publicado con éxito";
+      },
+      error: (err) => {
+        return err.message;
+      },
     });
   };
 

@@ -32,7 +32,7 @@ const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    dispatch(updateUser(data.id, name, username, details, image));
+    dispatch(updateUser(data.id, { name, username, details }, image));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

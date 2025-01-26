@@ -7,7 +7,7 @@ import { previewThemes } from "@/constants/themes";
 import { User } from "@/interfaces/User";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
-import { updateTheme } from "@/store/userSlice";
+import { updateUser } from "@/store/userSlice";
 
 interface Props {
   open: boolean;
@@ -21,7 +21,7 @@ const SelectTheme: React.FC<Props> = ({ open, setOpen, data }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = () => {
-    dispatch(updateTheme(user.id, theme));
+    dispatch(updateUser(user.id, { theme }, null));
     setOpen(false);
   };
 

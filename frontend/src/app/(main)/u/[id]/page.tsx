@@ -15,7 +15,7 @@ export default function ProfilePage() {
   const { user } = useUser();
   const userId = id as string;
   const u = useExploreProfile(userId, user.id);
-  const p = usePosts(userId, "profile", user.id);
+  const p = usePosts(user.id, "user", userId);
 
   const RenderContent = () => {
     if (u.loading || p.loading) return <ProfileLoader />;

@@ -15,7 +15,7 @@ import { animated } from "react-spring";
 export default function Register() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
-  const [details, setDetails] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [viewPass, setViewPass] = useState(false);
   const { submit, loading } = useRegister();
@@ -25,7 +25,7 @@ export default function Register() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submit(name, username, details, password);
+    submit({ name, username, email, password });
   };
 
   const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
@@ -38,7 +38,7 @@ export default function Register() {
       >
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-lg px-2 sm:px-9 py-4 sm:py-12"
+          className="flex flex-col gap-y-3 sm:mx-auto w-full sm:max-w-lg px-2 sm:px-9 py-4 sm:py-12"
         >
           <Header />
           <section id="names" className="flex space-x-3">
@@ -61,13 +61,13 @@ export default function Register() {
               />
             </div>
           </section>
-          <div id="details" className="flex flex-col">
-            <Label htmlFor="details">Descripción</Label>
+          <div id="email" className="flex flex-col">
+            <Label htmlFor="email">Correo electronico</Label>
             <Input
-              id="details"
-              placeholder="Hola, soy Sam y me gusta Minecraft"
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
+              id="email"
+              placeholder="sam@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <section id="password" className="flex flex-col">

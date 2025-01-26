@@ -1,8 +1,8 @@
 import { PostInterface } from "@/interfaces/Post";
-import { User } from "@/interfaces/User";
+import { defaultUser, User } from "@/interfaces/User";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { changeTheme, editProfile, getProfile } from "@/routes/profile";
+import { editProfile, getProfile } from "@/routes/profile";
 import {
   REMOVE_POST,
   RemovePostAction,
@@ -12,10 +12,9 @@ import {
   UpdatePostAction,
   UpdatePostInteractionAction,
 } from "./actions";
-import { getPostsByUser } from "@/routes/post";
 import { updatePostInteraction } from "./listeners";
 import { toast } from "sonner";
-import { Theme } from "@/constants/themes";
+import { getPosts } from "@/routes/post";
 
 interface userSlice {
   user: User | null;
@@ -74,11 +73,6 @@ const userSlice = createSlice({
     updateUserSuccess: (state, action) => {
       state.user = action.payload;
     },
-    updateUserTheme: (state, action) => {
-      if (state.user) {
-        state.user.theme = action.payload;
-      }
-    },
     addMyPost: (state, action) => {
       if (state.posts.length != 0) {
         state.posts.unshift(action.payload);
@@ -125,7 +119,6 @@ export const {
   fetchPostsSuccess,
   fetchPostsFailure,
   updateUserSuccess,
-  updateUserTheme,
   addMyPost,
   loadedTheme,
 } = userSlice.actions;
@@ -136,6 +129,8 @@ export default userSlice.reducer;
 export const fetchUser = (userId: string) => async (dispatch: AppDispatch) => {
   try {
     dispatch(fetchUserStart());
+    if (userId === defaultUser.id) return;
+
     const data = await getProfile(userId, userId);
     dispatch(fetchUserSuccess({ user: data }));
   } catch (error: any) {
@@ -152,7 +147,7 @@ export const fetchPosts =
 
     try {
       dispatch(fetchPostsStart());
-      const data = await getPostsByUser(userId, page, limit, userId);
+      const data = await getPosts("user", userId, page, limit, userId);
       const hasMore = data.length > 0;
       dispatch(
         fetchPostsSuccess({
@@ -169,18 +164,12 @@ export const fetchPosts =
 // UPDATE USER DATA THUNK
 
 export const updateUser =
-  (
-    id: string,
-    name: string,
-    username: string,
-    details: string,
-    image: File | null
-  ) =>
+  (id: string, data: Partial<User>, image: File | null) =>
   async (dispatch: AppDispatch) => {
-    toast.promise(editProfile(id, name, username, details, image), {
+    toast.promise(editProfile(id, data, image), {
       loading: "Actualizando...",
       success: (data) => {
-        const { user } = data;
+        const user = data;
         dispatch(updateUserSuccess(user));
         return "Actualizado con éxito";
       },
@@ -189,15 +178,3 @@ export const updateUser =
   };
 
 // UPDATE USER THEME THUNK
-
-export const updateTheme =
-  (userId: string, theme: Theme) => async (dispatch: AppDispatch) => {
-    toast.promise(changeTheme(userId, theme), {
-      loading: "Cambiando...",
-      success: (data) => {
-        dispatch(updateUserTheme(data.theme));
-        return "Cambiado con éxito";
-      },
-      error: (err) => err.message,
-    });
-  };

@@ -26,7 +26,7 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    toast.promise(editPostById(post.id, text), {
+    toast.promise(editPostById(post.id, { text }), {
       loading: "Editando...",
       success: () => {
         setOpen(false);

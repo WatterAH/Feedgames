@@ -10,7 +10,7 @@ import {
   UpdatePostAction,
   UpdatePostInteractionAction,
 } from "./actions";
-import { loadTopLikedPosts } from "@/routes/post";
+import { loadTopLikedPosts } from "@/routes/search";
 import { updatePostInteraction } from "./listeners";
 
 interface tendencySlice {

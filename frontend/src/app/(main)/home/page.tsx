@@ -10,7 +10,6 @@ import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchPosts } from "@/store/feedSlice";
-import { defaultUser } from "@/interfaces/User";
 
 export default function HomePage() {
   useRiotToken();
@@ -21,7 +20,7 @@ export default function HomePage() {
   );
 
   useEffect(() => {
-    if (user?.id !== defaultUser.id && posts.length < 10) {
+    if (user?.id && posts.length < 10) {
       dispatch(fetchPosts(user.id, 10));
     }
   }, [dispatch, user?.id, posts.length]);

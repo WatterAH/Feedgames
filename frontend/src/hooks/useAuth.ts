@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { checkAuth, loginApi, registerApi } from "@/routes/auth";
 import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
-import { defaultUser } from "@/interfaces/User";
+import { defaultUser, User } from "@/interfaces/User";
 import { allowedPath } from "@/functions/utils";
+import { auth, checkAuth, createProfile } from "@/routes/profile";
 
 export const useLogin = () => {
   const { login } = useUser();
@@ -18,13 +18,14 @@ export const useLogin = () => {
     async (username: string, password: string) => {
       try {
         setLoading(true);
-        const data = await loginApi(username, password);
+        const data = await auth(username, password);
         const { user, token } = data;
         login(user);
         setCookie("token", token, {
           path: "/",
           expires: getExpirationDate(),
         });
+        toast.success(`Iniciaste sesión como ${user.username}`);
         router.push("/");
       } catch (error: any) {
         const { message } = error;
@@ -46,20 +47,16 @@ export const useRegister = () => {
   const router = useRouter();
 
   const submit = useCallback(
-    async (
-      name: string,
-      username: string,
-      details: string,
-      password: string
-    ) => {
+    async (userdata: Partial<User>) => {
       try {
         setLoading(true);
-        const data = await registerApi(name, username, details, password);
+        const data = await createProfile(userdata);
         const { user, token } = data;
         login(user);
         setCookie("token", token, {
           expires: getExpirationDate(),
         });
+        toast.success(`Bienvenido ${user.username}`);
         router.push("/");
       } catch (error: any) {
         const { message } = error;

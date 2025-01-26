@@ -1,7 +1,7 @@
 import { PostInterface } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { deletePostById, feedPosts } from "@/routes/post";
+import { deletePostById, getPosts } from "@/routes/post";
 import { toast } from "sonner";
 import {
   deletePost,
@@ -101,7 +101,7 @@ export const fetchPosts =
 
     try {
       dispatch(fetchPostsStart());
-      const data = await feedPosts(userId, page, limit);
+      const data = await getPosts("feed", userId, page, limit);
       const hasMore = data.length > 0;
       dispatch(
         fetchPostsSuccess({

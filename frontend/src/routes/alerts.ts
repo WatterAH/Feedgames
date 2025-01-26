@@ -6,36 +6,34 @@ export const getMyNotifications = async (
   page: number,
   limit: number
 ): Promise<Notification[]> => {
-  const endpoint = `${URL}/api/getNotifications?id=${encodeURIComponent(
+  const endpoint = `${URL}/alerts/?id=${encodeURIComponent(
     userId
   )}&page=${page}&limit=${limit}`;
-  const res = await fetch(endpoint);
-  const resData = await res.json();
 
-  if (res.ok) {
-    return resData as Notification[];
+  const res = await fetch(endpoint);
+  const data = await res.json();
+
+  if (data.success) {
+    return data.data;
   } else {
-    const { message } = resData;
-    throw new Error(message);
+    throw new Error(data.message);
   }
 };
 
 export const deleteNotificationById = async (id: string): Promise<void> => {
-  const res = await fetch(`${URL}/api/deleteNotification`, {
+  const res = await fetch(`${URL}/alerts/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ id }),
   });
 
-  if (!res.ok) {
-    const resData = await res.json();
-    const { message } = resData;
-    throw new Error(message);
+  const data = await res.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
   }
-  return;
 };
 
 // export const hasNotifications = async (userId: string): Promise<boolean> => {

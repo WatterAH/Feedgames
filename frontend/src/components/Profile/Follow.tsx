@@ -30,7 +30,7 @@ const Follow: React.FC<Props> = (props) => {
       if (!followState) {
         await followUser(user.id, id, user.username);
       } else {
-        await unFollowUser(user.id, id, user.username);
+        await unFollowUser(user.id, id);
       }
     } catch (error: any) {
       toast.error(error.message);

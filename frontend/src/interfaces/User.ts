@@ -6,6 +6,8 @@ export const defaultUser: User = {
   id: "aRwwhM2xr7U9nWiFC12Ymb",
   name: "",
   pfp: "",
+  email: "",
+  password: "",
   username: "",
   followed: 0,
   followers: 0,
@@ -35,6 +37,8 @@ export interface User {
   created_at: string;
   followed: number;
   followers: number;
+  password: string;
+  email: string;
   follow: boolean;
   riotId: {
     puuid: string | undefined;
