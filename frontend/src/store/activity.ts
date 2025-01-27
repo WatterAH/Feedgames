@@ -44,6 +44,9 @@ const activitySlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    setNewNotify: (state, action) => {
+      state.newNotify = action.payload;
+    },
     addNotify: (state, action) => {
       state.notifications.unshift(action.payload);
       state.newNotify = true;
@@ -71,6 +74,7 @@ export const {
   fetchNotificationsSuccess,
   fetchNotificationsFailure,
   addNotify,
+  setNewNotify,
   deleteNotify,
   clearNewNotification,
 } = activitySlice.actions;

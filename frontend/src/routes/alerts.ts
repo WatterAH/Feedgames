@@ -20,7 +20,7 @@ export const getMyNotifications = async (
   }
 };
 
-export const deleteNotificationById = async (id: string): Promise<void> => {
+export const deleteNotificationById = async (id: string) => {
   const res = await fetch(`${URL}/alerts/${id}`, {
     method: "DELETE",
     headers: {
@@ -36,17 +36,15 @@ export const deleteNotificationById = async (id: string): Promise<void> => {
   }
 };
 
-// export const hasNotifications = async (userId: string): Promise<boolean> => {
-//   const {
-//     data: notifications,
-//     error,
-//   }: { data: Notification[]; error: PostgrestError } = await supabase
-//     .from("notify")
-//     .select("read")
-//     .eq("id_user", userId);
-//   if (error) {
-//     throw new Error(error.message);
-//   } else {
-//     return notifications.some((notification) => notification.read == false);
-//   }
-// };
+export const hasAlerts = async (userId: string): Promise<boolean> => {
+  const endpoint = `${URL}/hasUnreadAlerts/${userId}`;
+  const res = await fetch(endpoint);
+
+  const data = await res.json();
+
+  if (data.success) {
+    return data.data;
+  } else {
+    throw new Error(data.message);
+  }
+};

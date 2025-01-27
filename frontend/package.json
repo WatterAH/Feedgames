@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",
-    "@material-tailwind/react": "^2.1.10",
     "@reduxjs/toolkit": "^2.5.0",
     "@supabase/supabase-js": "^2.45.4",
     "clipboard-copy": "^4.0.1",

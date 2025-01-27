@@ -143,6 +143,7 @@ export const fetchPosts =
   (userId: string, limit: number) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
     const { page, hasMore } = getState().user;
+
     if (!hasMore) return;
 
     try {

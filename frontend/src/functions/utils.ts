@@ -25,9 +25,6 @@ export const allowedPath = (pathname: string) => {
   );
 };
 
-export const capitalizeFirstLetter = (string: string) =>
-  string.charAt(0).toUpperCase() + string.slice(1);
-
 export const share = (content: "u" | "p", id: string) => {
   if (navigator.share) {
     navigator.share({

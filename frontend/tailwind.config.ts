@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss";
 
-import withMT from "@material-tailwind/react/utils/withMT";
-
 const config: Config = {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -38,4 +36,4 @@ const config: Config = {
   plugins: [require("tailwindcss-textshadow")],
 };
 
-export default withMT(config);
+export default config;

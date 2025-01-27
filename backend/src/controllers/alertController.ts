@@ -30,6 +30,25 @@ class AlertController {
     }
   }
 
+  async hasUnreadAlerts(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const userId = translator.toUUID(id as string);
+
+      const alerts = await alertService.getAlerts(userId, 10, 0);
+
+      if (!alerts) {
+        return sendError(res, "Error al obtener las notificaciones", 400);
+      }
+
+      const hasUnread = alerts.some((alert) => alert.read === false);
+      return sendSuccess(res, hasUnread);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
+
   async deleteAlert(req: Request, res: Response) {
     try {
       const { id } = req.params;

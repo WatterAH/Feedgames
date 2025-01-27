@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { removePost } from "@/store/feedSlice";
 import { removeNotify } from "@/store/activity";
-import { resetAll } from "@/store/actions";
 import {
   Bookmark,
   Gamepad2,
@@ -22,7 +21,6 @@ import {
 } from "lucide-react";
 
 const useExitHandler = (logout: () => void) => {
-  const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
   const [_c, _s, removeCookie] = useCookies();
 
@@ -30,7 +28,6 @@ const useExitHandler = (logout: () => void) => {
     router.push("/login");
     removeCookie("token");
     logout();
-    dispatch(resetAll());
   };
 };
 

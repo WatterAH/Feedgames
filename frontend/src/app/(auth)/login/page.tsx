@@ -6,18 +6,22 @@ import Loader from "@/components/Global/Loader";
 import Footer from "@/layout/Auth/Footer";
 import Header from "@/layout/Auth/Header";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLogin } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { animated } from "react-spring";
 import { useAnimations } from "@/hooks/useAnimations";
+import { AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { resetAll } from "@/store/actions";
 
 export default function Auth() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [viewPass, setViewPass] = useState(false);
-  const { fadeIn } = useAnimations();
   const { submit, loading } = useLogin();
+  const dispatch: AppDispatch = useDispatch();
+
   const PasswordIcon = viewPass ? Eye : EyeOff;
   const toggleViewPass = () => setViewPass(!viewPass);
 
@@ -26,6 +30,11 @@ export default function Auth() {
     submit(username, password);
   };
 
+  useEffect(() => {
+    dispatch(resetAll());
+  }, [dispatch]);
+
+  const { fadeIn } = useAnimations();
   const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
 
   return (
