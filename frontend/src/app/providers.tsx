@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import store from "@/store/store";
+import ProgressBar from "next-nprogress-bar";
 import { Toaster } from "sonner";
 import { Provider } from "react-redux";
 import { UserProvider } from "@/context/AuthContext";
@@ -16,7 +17,16 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         <CookiesProvider>
           <Provider store={store}>
             <ScrollRestoration />
-            <AuthReminderProvider>{children}</AuthReminderProvider>
+            <AuthReminderProvider>
+              {children}
+              <ProgressBar
+                height="4px"
+                options={{ showSpinner: false }}
+                delay={100}
+                shallowRouting
+                appDirectory
+              />
+            </AuthReminderProvider>
             <Toaster richColors position="top-center" />
           </Provider>
         </CookiesProvider>

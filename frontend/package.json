@@ -14,6 +14,7 @@
     "@supabase/supabase-js": "^2.45.4",
     "clipboard-copy": "^4.0.1",
     "lucide-react": "^0.474.0",
+    "next-nprogress-bar": "^1.2.5",
     "react": "^18.3.1",
     "react-cookie": "^7.2.0",
     "react-dom": "^18",
