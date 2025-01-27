@@ -14,6 +14,7 @@ export interface User {
   pfp: string | null;
   password: string;
   theme: string;
+  riotId: any;
   created_at: string;
   followed: Followed[];
   followers: Follower[];

@@ -3,8 +3,9 @@ import shortUUID from "short-uuid";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { RequestHandler } from "express";
-import { supabase } from "../middlewares/connection";
 import { processMatch } from "../libs/server";
+import userService from "../service/userService";
+import { sendError } from "../libs/responseHandler";
 
 dotenv.config();
 const translator = shortUUID();
@@ -133,24 +134,17 @@ export const setRiotId: RequestHandler = async (req, res) => {
     const user = await validateToken(token);
 
     if (!user) {
-      res.status(400).json({ message: "Token no valido" });
-      return;
+      return sendError(res, "El token no es valido", 401);
     }
 
     const riotId = user as any;
     delete riotId.exp;
     delete riotId.iat;
 
-    const { data, error } = await supabase
-      .from("users")
-      .update({ riotId })
-      .eq("id", id_user)
-      .select("id, created_at, name, username, details, pfp, riotId")
-      .single();
+    const data = await userService.updateProfile(id_user, { riotId });
 
-    if (error) {
-      res.status(403).json({ message: "Ocurrió un error" });
-      return;
+    if (!data) {
+      return sendError(res, "Error al guardar token", 500);
     }
 
     data.id = translator.fromUUID(data.id);

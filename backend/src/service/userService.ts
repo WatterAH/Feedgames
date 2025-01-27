@@ -46,7 +46,7 @@ class UserService {
     return error ? null : data;
   }
 
-  async updateProfile(id: string, user: User): Promise<User | null> {
+  async updateProfile(id: string, user: Partial<User>): Promise<User | null> {
     const { data, error } = await supabase
       .from("users")
       .update([user])

@@ -100,7 +100,6 @@ export const fetchNotifications =
         })
       );
     } catch (error: any) {
-      console.log(error);
       dispatch(fetchNotificationsFailure(error.message));
     }
   };

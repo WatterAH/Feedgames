@@ -14,25 +14,20 @@ export const useRiotToken = () => {
   const [, setCookie] = useCookies();
 
   useEffect(() => {
-    console.log("nice");
-    if (riotToken && user.id) {
-      const setData = async () => {
-        toast.promise(setRiotId(riotToken, user.id), {
-          loading: "Vinculando...",
-          success: (data) => {
-            login(data.user);
-            setCookie("token", data.token, {
-              expires: getExpirationDate(),
-            });
-            // window.history.replaceState(null, "", window.location.pathname);
-            return "Cuenta de Riot vinculada con éxito.";
-          },
-          error: (err) => err.message,
-        });
-      };
+    if (!riotToken || !user.id) return;
 
-      setData();
-    }
+    toast.promise(setRiotId(riotToken, user.id), {
+      loading: "Vinculando...",
+      success: (data) => {
+        login(data.user);
+        setCookie("token", data.token, {
+          expires: getExpirationDate(),
+        });
+        window.history.replaceState(null, "", window.location.pathname);
+        return "Cuenta de Riot vinculada con éxito.";
+      },
+      error: (err) => err.message,
+    });
   }, [riotToken, user.id, login, setCookie]);
 };
 

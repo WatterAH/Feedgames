@@ -60,7 +60,6 @@ export const createPost = async (
   if (data.success == true) {
     return data.data;
   } else {
-    console.log(data);
     throw new Error(data.message);
   }
 };
