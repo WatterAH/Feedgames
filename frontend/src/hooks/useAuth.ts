@@ -3,7 +3,7 @@ import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { defaultUser, User } from "@/interfaces/User";
 import { allowedPath } from "@/functions/utils";
 import { auth, checkAuth, createProfile } from "@/routes/profile";
@@ -76,7 +76,6 @@ export const useToken = () => {
   const [cookies] = useCookies();
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
@@ -85,7 +84,7 @@ export const useToken = () => {
         const data = await checkAuth(cookies.token);
         const { user } = data;
         login(user);
-        return router.push(`${pathname}?${searchParams.toString()}`);
+        return;
       } catch (_error) {
         login(defaultUser);
         if (!allowedPath(pathname)) {
