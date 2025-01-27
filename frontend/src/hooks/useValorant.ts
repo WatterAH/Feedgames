@@ -15,7 +15,9 @@ export const useRiotToken = () => {
 
   useEffect(() => {
     if (riotToken && user.id) {
+      console.log("hola");
       const setData = async () => {
+        console.log("adios");
         toast.promise(setRiotId(riotToken, user.id), {
           loading: "Vinculando...",
           success: (data) => {
