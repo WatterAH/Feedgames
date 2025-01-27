@@ -14,10 +14,9 @@ export const useRiotToken = () => {
   const [, setCookie] = useCookies();
 
   useEffect(() => {
+    console.log("nice");
     if (riotToken && user.id) {
-      console.log("hola");
       const setData = async () => {
-        console.log("adios");
         toast.promise(setRiotId(riotToken, user.id), {
           loading: "Vinculando...",
           success: (data) => {
@@ -25,16 +24,16 @@ export const useRiotToken = () => {
             setCookie("token", data.token, {
               expires: getExpirationDate(),
             });
-            window.history.replaceState(null, "", window.location.pathname);
+            // window.history.replaceState(null, "", window.location.pathname);
             return "Cuenta de Riot vinculada con éxito.";
           },
           error: (err) => err.message,
         });
       };
+
       setData();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [riotToken, user.id]);
+  }, [riotToken, user.id, login, setCookie]);
 };
 
 export const useGetMatches = (puuid: string | undefined) => {

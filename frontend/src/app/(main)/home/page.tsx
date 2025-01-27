@@ -12,12 +12,13 @@ import { useEffect } from "react";
 import { fetchPosts } from "@/store/feedSlice";
 
 export default function HomePage() {
-  useRiotToken();
   const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
   const { posts, loading, error, hasMore } = useSelector(
     (state: RootState) => state.feed
   );
+
+  useRiotToken();
 
   useEffect(() => {
     if (user?.id && posts.length < 10) {
