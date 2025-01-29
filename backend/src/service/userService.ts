@@ -1,4 +1,6 @@
 import { User } from "../interfaces/User";
+import { mailData } from "../libs/recover-mail";
+import { transporter } from "../middlewares/config";
 import { supabase } from "../middlewares/connection";
 
 const QUERY =
@@ -36,6 +38,16 @@ class UserService {
     return error ? null : data;
   }
 
+  async getProfileByEmail(Email: string): Promise<User | null> {
+    const { data, error } = await supabase
+      .from("users")
+      .select(QUERY)
+      .eq("email", Email)
+      .single();
+
+    return error ? null : data;
+  }
+
   async createProfile(user: User): Promise<User | null> {
     const { data, error } = await supabase
       .from("users")
@@ -55,6 +67,14 @@ class UserService {
       .single();
 
     return error ? null : data;
+  }
+
+  async sendMail(token: string | undefined, mail: string) {
+    const data = mailData(mail, token);
+
+    const result = await transporter.sendMail(data);
+
+    return result;
   }
 }
 

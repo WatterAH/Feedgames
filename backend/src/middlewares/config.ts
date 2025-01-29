@@ -1,5 +1,6 @@
 import express from "express";
 import cors, { CorsOptions } from "cors";
+import nodemailer from "nodemailer";
 
 const app = express();
 
@@ -14,6 +15,16 @@ const corsOptions: CorsOptions = {
   credentials: true,
   optionsSuccessStatus: 204,
 };
+
+export const transporter = nodemailer.createTransport({
+  port: 465,
+  host: "smtp.gmail.com",
+  auth: {
+    user: "samueltlahuel.m@gmail.com",
+    pass: "aezs rnco xerx uzee",
+  },
+  secure: true,
+});
 
 app.use("*", cors(corsOptions));
 app.use(express.json());

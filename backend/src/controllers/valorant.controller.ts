@@ -114,8 +114,7 @@ export const getMatchByUuid: RequestHandler = async (req, res) => {
       },
     });
     if (!response.ok) {
-      res.status(400).json({ message: "Algo salio mal" });
-      return;
+      return sendError(res, "Algo salio mal", 400);
     }
 
     let match = await response.json();
