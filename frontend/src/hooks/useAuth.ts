@@ -102,17 +102,3 @@ export const useToken = () => {
 
   return { loading };
 };
-
-export const useRecoverToken = () => {
-  const searchParams = useSearchParams();
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const tokenFromParams = searchParams.get("token");
-    if (tokenFromParams) {
-      setToken(tokenFromParams);
-    }
-  }, [searchParams]);
-
-  return token;
-};

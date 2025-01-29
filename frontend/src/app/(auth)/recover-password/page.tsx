@@ -6,14 +6,14 @@ import SubmitButton from "@/layout/Auth/SubmitButton";
 import { toast } from "sonner";
 import { useState } from "react";
 import { animated } from "react-spring";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAnimations } from "@/hooks/useAnimations";
-import { useRecoverToken } from "@/hooks/useAuth";
 import { getToken, resetPassword } from "@/routes/profile";
 
 export default function RecoverPassword() {
   const router = useRouter();
-  const token = useRecoverToken();
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
