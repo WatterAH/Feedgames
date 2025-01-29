@@ -2,7 +2,7 @@ import { Theme } from "@/constants/themes";
 
 export const defaultUser: User = {
   created_at: "",
-  details: "",
+  bio: "",
   id: "aRwwhM2xr7U9nWiFC12Ymb",
   name: "",
   pfp: "",
@@ -32,7 +32,7 @@ export interface User {
   id: string;
   name: string;
   username: string;
-  details: string;
+  bio: string;
   pfp: string | undefined;
   created_at: string;
   followed: number;

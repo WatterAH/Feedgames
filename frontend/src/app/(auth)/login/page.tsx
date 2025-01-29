@@ -1,8 +1,4 @@
 "use client";
-import Input from "@/components/Global/Input";
-import Button from "@/components/Global/Button";
-import Label from "@/components/Global/Label";
-import Loader from "@/components/Global/Loader";
 import Footer from "@/layout/Auth/Footer";
 import Header from "@/layout/Auth/Header";
 import Link from "next/link";
@@ -14,6 +10,8 @@ import { useAnimations } from "@/hooks/useAnimations";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { resetAll } from "@/store/actions";
+import FormField from "@/layout/Auth/FormField";
+import SubmitButton from "@/layout/Auth/SubmitButton";
 
 export default function Auth() {
   const [username, setUsername] = useState("");
@@ -48,49 +46,48 @@ export default function Auth() {
           className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12"
         >
           <Header />
-          <div id="usernameContainer" className="flex flex-col">
-            <Label htmlFor="username">Nombre de usuario</Label>
-            <Input
-              id="username"
-              placeholder="Nombre de usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              autoFocus
+          <FormField
+            id="username"
+            value={username}
+            label="Nombre de usuario"
+            onChange={setUsername}
+          />
+
+          <div className="relative text-end">
+            <FormField
+              id="password"
+              value={password}
+              label="Contraseña"
+              onChange={setPassword}
+              type={viewPass ? "text" : "password"}
             />
+            <button
+              className="absolute top-[1.70rem] right-2 text-gray-400 active:scale-125 transition-transform"
+              type="button"
+              onClick={toggleViewPass}
+            >
+              <PasswordIcon className="h-6 sm:h-5 text-gray-400" />
+            </button>
+            <Link
+              href="/recover-password"
+              className="font-raleway mt-2 text-xs text-gray-400"
+            >
+              Olvidé mi contraseña
+            </Link>
           </div>
-          <div id="passwordContainer" className="flex flex-col">
-            <span className="relative">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type={`${viewPass ? "text" : "password"}`}
-              />
-              <button
-                className="absolute bottom-2 right-2 text-gray-400 active:scale-125 transition-transform"
-                type="button"
-                onClick={toggleViewPass}
-              >
-                <PasswordIcon className="h-6 sm:h-5 text-gray-400" />
-              </button>
-            </span>
-          </div>
+
           <Link
-            href={"/register"}
+            href="/register"
             className="font-raleway mt-2 text-xs text-center text-gray-400"
           >
             ¿No tienes cuenta?
           </Link>
-          <div
-            id="submitContainer"
-            className="flex justify-center items-center relative"
-          >
-            <Button type="submit" disabled={!password || !username}>
-              {loading ? <Loader size="small" color="white" /> : "Continuar"}
-            </Button>
-          </div>
+
+          <SubmitButton
+            loading={loading}
+            text="Continuar"
+            disabled={!username || !password}
+          />
         </form>
         <Footer />
       </AnimatedDiv>

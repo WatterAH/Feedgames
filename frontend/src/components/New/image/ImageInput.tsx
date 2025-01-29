@@ -1,6 +1,5 @@
 import React from "react";
-import { toast } from "sonner";
-import { isImage } from "@/functions/utils";
+import { handleImageChange } from "@/functions/utils";
 import { Image as ImageIcon } from "lucide-react";
 import { ContentObject } from "@/interfaces/Post";
 
@@ -9,12 +8,7 @@ interface Props {
 }
 
 const ImageInput: React.FC<Props> = ({ setContent }) => {
-  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-
-    const file = e.target.files[0];
-    if (!isImage(file)) return toast.warning("Solo se permiten imágenes");
-
+  const handleImage = (file: File) => {
     setContent({ type: "image", data: file });
   };
 
@@ -26,7 +20,7 @@ const ImageInput: React.FC<Props> = ({ setContent }) => {
       <input
         id="img"
         type="file"
-        onChange={handleImage}
+        onChange={(e) => handleImageChange(e, handleImage)}
         className="hidden"
         accept=".png, .jpeg, .jpg, .gif, .webp"
       />

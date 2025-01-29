@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { loadedTheme } from "@/store/userSlice";
-import { AppDispatch, RootState } from "@/store/store";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import { SERVICE_IMAGE_URL } from "@/constants/server";
 
 interface Props {
   src: string;
-  sameUser: boolean;
+  height: string;
 }
 
-const Theme: React.FC<Props> = ({ src, sameUser }) => {
-  const { themeLoaded } = useSelector((state: RootState) => state.user);
+const Theme: React.FC<Props> = ({ src, height }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const dispatch: AppDispatch = useDispatch();
   const source = SERVICE_IMAGE_URL + src;
 
-  useEffect(() => {
-    if (sameUser) {
-      setIsLoaded(themeLoaded);
-    }
-  }, [sameUser, themeLoaded]);
-
   const handleOnLoad = () => {
-    if (sameUser) {
-      dispatch(loadedTheme());
-    }
     setIsLoaded(true);
+  };
+
+  const handleOnPlay = () => {
+    if (!isLoaded) {
+      setIsLoaded(true);
+    }
   };
 
   return (
@@ -38,7 +30,8 @@ const Theme: React.FC<Props> = ({ src, sameUser }) => {
         preload="auto"
         playsInline
         onLoadedData={handleOnLoad}
-        className={`h-72 w-full object-cover transition-opacity duration-500 ${
+        onPlay={handleOnPlay}
+        className={`${height} w-full blur-[1px] object-cover transition-opacity duration-500 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       >

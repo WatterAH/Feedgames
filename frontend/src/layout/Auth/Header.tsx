@@ -6,7 +6,7 @@ const Header = () => {
       <section className="flex items-center">
         <h1 className="text-4xl font-pacifico text-text">Feedgames</h1>
       </section>
-      <section className="flex justify-around w-full text-gray-400">
+      <section className="flex justify-around w-full text-text">
         <span className="flex items-center gap-x-2 md:gap-x-0">
           <Gamepad2 className="md:h-4" />
           <p className="font-raleway md:text-xs">Juega</p>

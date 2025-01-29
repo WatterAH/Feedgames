@@ -7,12 +7,23 @@ interface Props {
   src: string;
   theme: string;
   value: Theme;
+  setOpen: (open: boolean) => void;
   setTheme: (theme: Theme) => void;
   current: Theme;
 }
 
-const Preview: React.FC<Props> = ({ src, theme, value, setTheme, current }) => {
-  const handleClick = () => setTheme(value);
+const Preview: React.FC<Props> = ({
+  src,
+  theme,
+  value,
+  setOpen,
+  setTheme,
+  current,
+}) => {
+  const handleClick = () => {
+    setTheme(value);
+    setOpen(false);
+  };
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,

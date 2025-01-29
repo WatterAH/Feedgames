@@ -55,9 +55,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
         dispatch(addPost(data));
         return "Publicado con éxito";
       },
-      error: (err) => {
-        return err.message;
-      },
+      error: (err) => err.message,
     });
   };
 

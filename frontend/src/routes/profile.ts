@@ -99,3 +99,35 @@ export const checkAuth = async (
     throw new Error(data.message);
   }
 };
+
+export const getToken = async (email: string) => {
+  const endpoint = `${URL}/getToken/`;
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+
+  await res.json();
+  return true;
+};
+
+export const resetPassword = async (password: string, token: string) => {
+  const endpoint = `${URL}/resetPassword`;
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password, token }),
+  });
+
+  const data = await res.json();
+  if (data.success) {
+    return data.data;
+  } else {
+    throw new Error(data.message);
+  }
+};

@@ -1,6 +1,6 @@
 import shortUUID from "short-uuid";
 import copy from "clipboard-copy";
-import { MouseEvent } from "react";
+import React, { MouseEvent } from "react";
 import { toast } from "sonner";
 import { PostInterface } from "@/interfaces/Post";
 import { Notification } from "@/interfaces/Notification";
@@ -11,6 +11,22 @@ export const isImage = (file: File): boolean => {
   const extensionList: string[] = ["jpg", "jpeg", "gif", "png", "webp", "heic"];
   const extension = file.name?.split(".").pop()?.toLocaleLowerCase() as string;
   return extensionList.indexOf(extension) == -1 ? false : true;
+};
+
+export const handleImageChange = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  callback: (file: File, readerResult?: string) => void
+) => {
+  if (!e.target.files) return;
+
+  const file = e.target.files[0];
+  if (!isImage(file)) return toast.warning("Solo se permiten imágenes");
+
+  if (callback.length === 1) return callback(file);
+
+  const reader = new FileReader();
+  reader.onload = () => callback(file, reader.result as string);
+  reader.readAsDataURL(file);
 };
 
 export const stopPropagation = (e: MouseEvent) => {

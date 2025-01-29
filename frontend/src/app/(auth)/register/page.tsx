@@ -2,10 +2,9 @@
 import Footer from "@/layout/Auth/Footer";
 import Header from "@/layout/Auth/Header";
 import Button from "@/components/Global/Button";
-import Input from "@/components/Global/Input";
-import Label from "@/components/Global/Label";
 import Link from "next/link";
 import Loader from "@/components/Global/Loader";
+import FormField from "@/layout/Auth/FormField";
 import { useRegister } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
@@ -42,59 +41,55 @@ export default function Register() {
         >
           <Header />
           <section id="names" className="flex space-x-3">
-            <div className="flex flex-col w-1/2">
-              <Label htmlFor="name">Nombre</Label>
-              <Input
+            <div className="w-1/2">
+              <FormField
                 id="name"
-                placeholder="Nombre"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                label="Nombre"
+                onChange={setName}
               />
             </div>
-            <div className="flex flex-col w-1/2">
-              <Label htmlFor="username">Usuario</Label>
-              <Input
+            <div className="w-1/2">
+              <FormField
                 id="username"
-                placeholder="Usuario"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                label="Nombre de usuario"
+                onChange={setUsername}
               />
             </div>
           </section>
-          <div id="email" className="flex flex-col">
-            <Label htmlFor="email">Correo electronico</Label>
-            <Input
-              id="email"
-              placeholder="sam@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+
+          <FormField
+            id="email"
+            value={email}
+            label="Correo electrónico"
+            onChange={setEmail}
+          />
+
+          <div className="relative">
+            <FormField
+              id="password"
+              value={password}
+              label="Contraseña"
+              onChange={setPassword}
+              type={viewPass ? "text" : "password"}
             />
+            <button
+              className="absolute top-[1.70rem] right-2 text-gray-400 active:scale-125 transition-transform"
+              type="button"
+              onClick={toggleViewPass}
+            >
+              <PasswordIcon className="h-6 sm:h-5 text-gray-400" />
+            </button>
           </div>
-          <section id="password" className="flex flex-col">
-            <div className="relative">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type={`${viewPass ? "text" : "password"}`}
-              />
-              <button
-                className="absolute bottom-2 right-2 text-gray-400 active:scale-125 transition-transform"
-                type="button"
-                onClick={toggleViewPass}
-              >
-                <PasswordIcon className="h-6 sm:h-5 text-gray-400" />
-              </button>
-            </div>
-          </section>
+
           <Link
-            href={"/login"}
+            href="/login"
             className="font-raleway mt-2 text-xs text-center text-gray-400"
           >
             ¿Ya tienes cuenta?
           </Link>
+
           <div className="flex justify-center items-center relative">
             <Button type="submit" disabled={!password || !username}>
               {loading ? <Loader size="small" color="white" /> : "Continuar"}

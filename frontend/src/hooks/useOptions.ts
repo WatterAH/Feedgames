@@ -48,7 +48,6 @@ const useOptions = (
 export const useProfileOptions = (
   user: User,
   id: string,
-  setOpen: (value: boolean) => void,
   logout: () => void
 ) => {
   const exit = useExitHandler(logout);
@@ -61,12 +60,6 @@ export const useProfileOptions = (
       label: "Compartir perfil",
       icon: Share,
       onClick: () => share("u", id),
-    },
-    {
-      show: user.id === id,
-      label: "Elegir un tema",
-      icon: Palette,
-      onClick: () => setOpen(true),
     },
     {
       show: user.id === id,

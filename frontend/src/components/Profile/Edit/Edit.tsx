@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Modal from "@/components/Global/Modal";
-import Header from "./Header";
 import FormField from "./FormField";
 import Actions from "@/components/New/layout/Actions";
-import { toast } from "sonner";
-import { isImage } from "@/functions/utils";
+import ImageInput from "./ImageInput";
+import { handleImageChange } from "@/functions/utils";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/store/userSlice";
 import { User } from "@/interfaces/User";
+import ThemeInput from "./ThemeInput";
 
 interface Props {
   data: User;
@@ -22,54 +22,43 @@ const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
     : "/default.png";
 
   const [picture, setPicture] = useState(src);
-  const [image, setImage] = useState<File | null>(null);
-  const [username, setUsername] = useState(data.username);
   const [name, setName] = useState(data.name);
-  const [details, setDetails] = useState(data.details);
+  const [image, setImage] = useState<File | null>(null);
+  const [email, setEmail] = useState(data.email);
+  const [bio, setBio] = useState(data.bio);
+  const [theme, setTheme] = useState(data.theme);
+  const [username, setUsername] = useState(data.username);
 
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    dispatch(updateUser(data.id, { name, username, details }, image));
+    dispatch(updateUser(data.id, { name, username, bio, theme }, image));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-
-    const file = e.target.files[0];
-    if (!isImage(file)) return toast.warning("Solo se permiten imágenes");
-
+  const handleImage = (file: File, readerResult?: string) => {
     setImage(file);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPicture(reader.result as string);
-    };
-    reader.readAsDataURL(file);
+    if (readerResult) setPicture(readerResult);
   };
 
   return (
     <Modal size="md" open={open} setOpen={setOpen} title="Modo de edición">
       <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="w-full px-3 pb-3 flex flex-col items-center gap-y-2">
-        <label
-          htmlFor="img"
-          className="text-text font-medium flex flex-col items-center gap-y-2 hover:cursor-pointer"
-        >
-          <Header picture={picture} />
-          Cambiar foto
-        </label>
-        <input
-          id="img"
-          onChange={handleImageChange}
-          type="file"
-          accept=".png, .jpeg, .jpg, .gif, .webp"
-          className="hidden"
-        />
-        <FormField label="Usuario" value={username} onChange={setUsername} />
-        <FormField label="Nombre" value={name} onChange={setName} />
-        <FormField label="Descripción" value={details} onChange={setDetails} />
+      <div className="w-full px-3 pb-3 flex flex-col items-center gap-y-3">
+        <div className="flex items-center justify-around w-full">
+          <ImageInput
+            handleImage={(e) => handleImageChange(e, handleImage)}
+            picture={picture}
+          />
+          <ThemeInput theme={theme} setTheme={setTheme} />
+        </div>
+        <div className="grid grid-cols-2 gap-2 w-full">
+          <FormField label="Nombre" value={name} onChange={setName} />
+          <FormField label="Usuario" value={username} onChange={setUsername} />
+        </div>
+        <FormField label="Bio" value={bio} onChange={setBio} />
+        <FormField label="Correo" value={email} onChange={setEmail} />
       </div>
     </Modal>
   );
