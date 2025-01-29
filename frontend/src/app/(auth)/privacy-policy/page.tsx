@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
           <h1 className="font-bold text-2xl font-inter text-text">
             Política de Privacidad
           </h1>
-          <p className="text-gray-500">
+          <p className="text-text">
             Este Aviso de Privacidad describe cómo Feedgames recopila, utiliza y
             protege la información que proporcionas al utilizar nuestra
             aplicación. Nuestro compromiso es garantizar la privacidad y
@@ -21,7 +21,7 @@ export default function PrivacyPolicy() {
             información y protegemos tu privacidad mientras disfrutas de
             nuestros servicios.
           </p>
-          <p className="text-gray-500">
+          <p className="text-text">
             Fecha de entrada en vigor:{" "}
             <span className="font-bold">22 de abril del 2024</span>
           </p>
