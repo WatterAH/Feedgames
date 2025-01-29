@@ -3,7 +3,7 @@ import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/functions/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { defaultUser, User } from "@/interfaces/User";
 import { allowedPath } from "@/functions/utils";
 import { auth, checkAuth, createProfile } from "@/routes/profile";
@@ -101,4 +101,11 @@ export const useToken = () => {
   }, []);
 
   return { loading };
+};
+
+export const useRecoverToken = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
+  return token;
 };
