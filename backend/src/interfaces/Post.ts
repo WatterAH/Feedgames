@@ -1,10 +1,6 @@
 import { User } from "./User";
 
-export interface DateObj {
-  day: number;
-  month: string;
-  year: number;
-}
+export type ContentTypes = "image" | "valorant" | "pixelart" | "textonly";
 
 export interface Likes {
   id_user: string;
@@ -21,9 +17,9 @@ export interface Comments {
 
 export interface PostInterface {
   id: string;
-  created_at: DateObj;
+  created_at: string;
   text: string;
-  content: { type: string; data: any }[];
+  content: { type: ContentTypes; data: any }[];
   tags: string[];
   order: string;
   user: User;
