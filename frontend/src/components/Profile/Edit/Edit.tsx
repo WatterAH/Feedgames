@@ -53,7 +53,7 @@ const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
           />
           <ThemeInput theme={theme} setTheme={setTheme} />
         </div>
-        <div className="grid grid-cols-2 gap-2 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
           <FormField label="Nombre" value={name} onChange={setName} />
           <FormField label="Usuario" value={username} onChange={setUsername} />
         </div>

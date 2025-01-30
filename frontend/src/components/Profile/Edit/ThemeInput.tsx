@@ -18,7 +18,7 @@ const ThemeInput: React.FC<Props> = ({ theme, setTheme }) => {
         className="flex flex-col items-center gap-y-2 hover:cursor-pointer"
         onClick={handleClick}
       >
-        <div className="rounded-full relative h-20 w-20 bg-background">
+        <div className="rounded-full relative h-24 w-24 bg-background">
           {theme !== "default" && (
             <Image
               fill
