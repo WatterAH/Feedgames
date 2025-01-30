@@ -1,6 +1,9 @@
 import express from "express";
 import cors, { CorsOptions } from "cors";
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -20,8 +23,8 @@ export const transporter = nodemailer.createTransport({
   port: 465,
   host: "smtp.gmail.com",
   auth: {
-    user: "samueltlahuel.m@gmail.com",
-    pass: "aezs rnco xerx uzee",
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
   },
   secure: true,
 });
