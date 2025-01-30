@@ -36,6 +36,7 @@ export const useGetMatches = (puuid: string | undefined) => {
 
   const fetchMatches = useCallback(async () => {
     if (!puuid) return;
+
     try {
       const matchsIds = await getMatchesList(puuid);
       const promises = matchsIds.history.map((match) =>

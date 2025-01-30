@@ -40,11 +40,13 @@ export const createPost = async (
   userId: string,
   text: string,
   content: ContentObject,
+  username: string,
   parentId?: string
 ): Promise<PostInterface> => {
   const formData = new FormData();
   formData.append("userId", userId);
   formData.append("text", text);
+  formData.append("username", username);
   formData.append("content", JSON.stringify(content));
   if (parentId) formData.append("parentId", parentId);
   if (content?.type == "image") formData.append("image", content.data);

@@ -81,7 +81,7 @@ class PostService {
   async updatePost(id: string, post: PostInterface) {
     const { error } = await supabase
       .from("posts")
-      .update([post])
+      .update([{ edited: true, ...post }])
       .eq("id", id)
       .select(QUERY)
       .single();

@@ -5,6 +5,7 @@ import { sendError, sendSuccess } from "../libs/responseHandler";
 import { processPost } from "../libs/server";
 import { PostInterface } from "../interfaces/Post";
 import files from "../libs/files";
+import alertService from "../service/alertService";
 
 const translator = shortUUID();
 
@@ -66,7 +67,7 @@ class PostController {
 
   async createPost(req: Request, res: Response) {
     try {
-      let { userId, text, parentId, content } = req.body;
+      let { userId, text, parentId, content, username } = req.body;
       const image = req.file;
 
       const user_id = translator.toUUID(userId);
@@ -83,6 +84,20 @@ class PostController {
 
       if (!post) {
         return sendError(res, "No se pudo subir el post", 400);
+      }
+
+      if (parentId) {
+        const parent = await postService.getPostById(parentId);
+        const parentUserId = parent?.user_id;
+        if (parentUserId && parentUserId !== user_id) {
+          alertService.createNotify(
+            parentUserId,
+            "p",
+            translator.fromUUID(parentId),
+            "Comentó tu hilo",
+            username
+          );
+        }
       }
 
       if (await postService.uploadContent(post.id, content)) {

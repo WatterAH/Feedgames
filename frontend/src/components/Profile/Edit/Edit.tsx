@@ -58,7 +58,7 @@ const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
           <FormField label="Usuario" value={username} onChange={setUsername} />
         </div>
         <FormField label="Bio" value={bio} onChange={setBio} />
-        <FormField label="Correo" value={email} onChange={setEmail} />
+        <FormField label="Correo" value={email ?? ""} onChange={setEmail} />
       </div>
     </Modal>
   );

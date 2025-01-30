@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { sendError } from "../libs/responseHandler";
-import { ContentTypes } from "../interfaces/Post";
 
 class PostValidator {
   async post(req: Request, res: Response, next: NextFunction) {
-    const { text, content } = req.body;
+    let { text, content } = req.body;
+    content = JSON.parse(content);
     const image = req.file;
 
     const types = [
@@ -17,18 +17,7 @@ class PostValidator {
       "image/gif",
     ];
 
-    const contentTypes: ContentTypes[] = [
-      "image",
-      "pixelart",
-      "textonly",
-      "valorant",
-    ];
-
-    if (!contentTypes.includes(content.type)) {
-      return sendError(res, "Tipo de contenido no valido!", 400);
-    }
-
-    if (!text.trim() || !content) {
+    if (!text.trim() && !content) {
       return sendError(res, "Tu post está vacío!", 400);
     }
 
@@ -48,9 +37,9 @@ class PostValidator {
   }
 
   async put(req: Request, res: Response, next: NextFunction) {
-    const { text, content } = req.body;
+    let { text } = req.body;
 
-    if (content.type == "textonly" && !text.trim()) {
+    if (!text.trim()) {
       return sendError(res, "El post no puede estar vacío", 400);
     }
 

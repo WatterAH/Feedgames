@@ -27,7 +27,7 @@ const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    toast.promise(createPost(user.id, text, content, parentId), {
+    toast.promise(createPost(user.id, text, content, user.username, parentId), {
       loading: "Publicando...",
       success: () => {
         return "Publicado";

@@ -13,7 +13,7 @@ const ProfileHeader: React.FC<Props> = ({ data }) => {
   const classes = getThemeClasses(theme);
 
   return (
-    <div className="relative w-full border-b border-border -mt-1.5">
+    <div className="relative h-72 w-full border-b border-border -mt-1.5">
       <ProfileDetails classes={classes} data={data} />
       {theme !== "default" && <Theme src={classes.backGround} height="h-72" />}
     </div>

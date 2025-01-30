@@ -62,6 +62,7 @@ class UserController {
       let { data } = req.body;
       data = JSON.parse(data);
       const image = req.file;
+      if (!data.bio.trim()) data.bio = "Sin descripción";
 
       const parsedId = translator.toUUID(id);
       const pfpname = await files.updateProfilePicture(image, parsedId);
@@ -71,7 +72,11 @@ class UserController {
       const user = await userService.updateProfile(parsedId, data);
 
       if (!user) {
-        return sendError(res, "No se pudo actualizar perfil", 500);
+        return sendError(
+          res,
+          "Este nombre de usuario ya existe, prueba otro!",
+          500
+        );
       }
 
       const result = processUser(user, parsedId);

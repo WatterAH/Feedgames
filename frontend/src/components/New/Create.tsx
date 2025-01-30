@@ -47,7 +47,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
     }
 
     setOpen(false);
-    toast.promise(createPost(user.id, text, content), {
+    toast.promise(createPost(user.id, text, content, user.username), {
       loading: "Publicando...",
       success: (data) => {
         setText("");
