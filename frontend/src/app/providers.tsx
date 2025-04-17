@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/context/ThemeProvider";
 import { CookiesProvider } from "react-cookie";
 import { AuthReminderProvider } from "@/context/AuthReminderProvider";
 import { ScrollRestoration } from "@/context/ScrollRestoration";
+import { SocketProvider } from "@/context/SocketContext";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -16,18 +17,20 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <UserProvider>
         <CookiesProvider>
           <Provider store={store}>
-            <ScrollRestoration />
-            <AuthReminderProvider>
-              {children}
-              <ProgressBar
-                height="4px"
-                options={{ showSpinner: false }}
-                delay={100}
-                shallowRouting
-                appDirectory
-              />
-            </AuthReminderProvider>
-            <Toaster richColors position="top-center" />
+            <SocketProvider>
+              <ScrollRestoration />
+              <AuthReminderProvider>
+                {children}
+                <ProgressBar
+                  height="4px"
+                  options={{ showSpinner: false }}
+                  delay={100}
+                  shallowRouting
+                  appDirectory
+                />
+              </AuthReminderProvider>
+              <Toaster richColors position="top-center" />
+            </SocketProvider>
           </Provider>
         </CookiesProvider>
       </UserProvider>

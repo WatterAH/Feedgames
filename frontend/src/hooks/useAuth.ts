@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { defaultUser, User } from "@/interfaces/User";
 import { allowedPath } from "@/functions/utils";
 import { auth, checkAuth, createProfile } from "@/routes/profile";
+import { useSocket } from "@/context/SocketContext";
 
 export const useLogin = () => {
   const { login } = useUser();
@@ -73,16 +74,19 @@ export const useRegister = () => {
 
 export const useToken = () => {
   const { login } = useUser();
+  const { connectSocket } = useSocket();
   const [cookies] = useCookies();
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
+  const URL = process.env.NEXT_PUBLIC_SERVER_HOST || "";
 
   useEffect(() => {
     const check = async () => {
       try {
         const data = await checkAuth(cookies.token);
         const { user } = data;
+        connectSocket(URL, user.id);
         login(user);
         return;
       } catch (_error) {

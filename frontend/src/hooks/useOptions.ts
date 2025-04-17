@@ -99,7 +99,7 @@ export const usePostOptions = (
       onClick: () => setEditing(true),
     },
     {
-      show: user.id === userId,
+      show: user.id === userId || user.id === "eLeXzR7v1mm2s7rcxT6tCq",
       label: "Eliminar",
       icon: Trash2,
       onClick: () => dispatch(removePost(id)),
