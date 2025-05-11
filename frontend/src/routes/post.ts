@@ -23,8 +23,26 @@ export const getPosts = async (
 export const getPostById = async (
   id: string,
   userId: string
-): Promise<{ post: PostInterface; responses: PostInterface[] }> => {
+): Promise<PostInterface> => {
   const endpoint = `${URL}/post/${id}?userId=${userId}`;
+
+  const res = await fetch(endpoint);
+  const data = await res.json();
+
+  if (data.success == true) {
+    return data.data;
+  } else {
+    throw new Error(data.message);
+  }
+};
+
+export const getResponsesByParentId = async (
+  parentId: string,
+  userId: string,
+  page: number,
+  limit: number
+): Promise<PostInterface[]> => {
+  const endpoint = `${URL}/posts/responses/${parentId}?userId=${userId}&page=${page}&limit=${limit}`;
 
   const res = await fetch(endpoint);
   const data = await res.json();

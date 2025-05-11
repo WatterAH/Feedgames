@@ -32,15 +32,27 @@ class PostService {
     return error ? null : data;
   }
 
-  async getPostById(
-    id: string
-  ): Promise<(PostInterface & { responses: PostInterface[] }) | null> {
+  async getPostById(id: string): Promise<PostInterface | null> {
     const { data, error } = await supabase
       .from("posts")
-      .select(`${QUERY}, responses:posts(${QUERY})`)
+      .select(`${QUERY}`)
       .eq("id", id)
-      .order("order", { referencedTable: "responses", ascending: false })
       .single();
+
+    return error ? null : data;
+  }
+
+  async getPostsByParentId(
+    parentId: string,
+    limit: number = 10,
+    page: number = 0
+  ): Promise<PostInterface[] | null> {
+    const { data, error } = await supabase
+      .from("posts")
+      .select(QUERY)
+      .eq("parentId", parentId)
+      .range(page * limit, page * limit + limit - 1)
+      .order("order", { ascending: false });
 
     return error ? null : data;
   }

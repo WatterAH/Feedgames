@@ -3,36 +3,46 @@ import Title from "@/layout/Pages/Title";
 import Card from "@/layout/Pages/Card";
 import Error from "@/layout/Pages/Error";
 import Post from "@/components/Post/Post";
+import PostContainer from "@/layout/Pages/PostContainer";
 import { useUser } from "@/context/AuthContext";
-import { useExplorePost } from "@/hooks/useExplorer";
+import { useFetchPost, useExploreResponses } from "@/hooks/useExplorer";
 import { useParams } from "next/navigation";
 import { PostsLoader } from "@/layout/Pages/Loaders";
+import { usePostVisualizer } from "@/context/PostVisualizerContext";
 
 export default function PostPage() {
   const { id } = useParams();
   const { user } = useUser();
-  const { post, loading, responses, error } = useExplorePost(
+  const { post } = usePostVisualizer();
+  const { fetchedPost } = useFetchPost(
     id as string,
-    user.id
+    user.id,
+    post ? false : true
+  );
+
+  const { getResponses, responses, error, loading } = useExploreResponses(
+    user.id,
+    id as string
   );
 
   const RenderContent = () => {
-    if (loading) return <PostsLoader count={1} />;
-    if (error || !post) return <Error />;
+    if (error || (!post && !fetchedPost)) return <Error />;
     return (
       <>
-        <Post data={post} />
+        <Post data={(post ?? fetchedPost)!} />
         <h4 className="text-placeholder px-3 border-b border-border py-2">
           Comentarios
           <span className="font-semibold ml-1">{responses.length}</span>
         </h4>
-        {responses.map((response, i) => (
-          <Post
-            key={response.id}
-            data={response}
-            isLast={i == responses.length - 1}
+        {loading && responses.length == 0 ? (
+          <PostsLoader count={1} />
+        ) : (
+          <PostContainer
+            getPost={getResponses}
+            posts={responses}
+            hasMore={false}
           />
-        ))}
+        )}
       </>
     );
   };

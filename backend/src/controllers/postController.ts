@@ -3,7 +3,6 @@ import shortUUID from "short-uuid";
 import postService from "../service/postService";
 import { sendError, sendSuccess } from "../libs/responseHandler";
 import { processPost } from "../libs/server";
-import { PostInterface } from "../interfaces/Post";
 import files from "../libs/files";
 import alertService from "../service/alertService";
 
@@ -23,12 +22,9 @@ class PostController {
       if (!data) {
         return sendError(res, "Ocurrió un error", 400);
       }
+      const post = processPost(data, parsedUserId);
 
-      const { responses, ...rest } = data;
-      const post = processPost(rest as PostInterface, parsedUserId);
-      const comments = responses.map((post) => processPost(post, parsedUserId));
-
-      return sendSuccess(res, { post, responses: comments });
+      return sendSuccess(res, post);
     } catch (error: any) {
       return sendError(res, error.message, 400);
     }
@@ -59,6 +55,33 @@ class PostController {
       }
 
       const result = posts.map((post) => processPost(post, userId));
+      return sendSuccess(res, result);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
+
+  async getResponses(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { userId, limit, page } = req.query;
+
+      const parsedUserId = translator.toUUID(userId as string);
+      const parentId = translator.toUUID(id as string);
+      const parsedLimit = parseInt(limit as string, 10);
+      const parsedPage = parseInt(page as string, 10);
+
+      const data = await postService.getPostsByParentId(
+        parentId,
+        parsedLimit,
+        parsedPage
+      );
+
+      if (!data) {
+        return sendError(res, "Ocurrió un error", 400);
+      }
+
+      const result = data.map((post) => processPost(post, parsedUserId));
       return sendSuccess(res, result);
     } catch (error: any) {
       return sendError(res, error.message, 500);

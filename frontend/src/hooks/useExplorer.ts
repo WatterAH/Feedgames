@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/interfaces/Post";
 import { User } from "@/interfaces/User";
 import { getProfile } from "@/routes/profile";
-import { getPostById } from "@/routes/post";
+import { getPostById, getResponsesByParentId } from "@/routes/post";
 import { getCurrentTerm, getUsers } from "@/routes/search";
 
 export const useExploreProfile = (userId: string, requestId: string) => {
@@ -31,23 +31,56 @@ export const useExploreProfile = (userId: string, requestId: string) => {
   return { profile, loading, error };
 };
 
-export const useExplorePost = (
-  postId: string | undefined,
-  userId: string | undefined
-) => {
-  const [post, setPost] = useState<PostInterface | null>();
+export const useExploreResponses = (userId: string, parentId: string) => {
+  const [page, setPage] = useState(0);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [responses, setResponses] = useState<PostInterface[]>([]);
+
+  const getResponses = async () => {
+    if (!userId || !parentId || !hasMore || loading) return;
+
+    try {
+      setLoading(true);
+      const data = await getResponsesByParentId(parentId, userId, page, 10);
+
+      setResponses((prev) => [...prev, ...data]);
+      setPage((prev) => prev + 1);
+
+      if (data.length < 10) {
+        setHasMore(false);
+      }
+    } catch (error: any) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getResponses();
+  }, [userId, parentId]);
+
+  return { responses, loading, error, getResponses };
+};
+
+export const useFetchPost = (
+  postId: string | undefined,
+  userId: string | undefined,
+  fetchPost: boolean
+) => {
+  const [post, setPost] = useState<PostInterface | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const getPost = useCallback(async () => {
-    if (!postId || !userId) return;
+    if (!postId || !userId || !fetchPost) return;
+
     try {
       setLoading(true);
       const data = await getPostById(postId, userId);
-      const { post, responses } = data;
-      setPost(post);
-      setResponses(responses);
+      setPost(data);
     } catch {
       setError(true);
     } finally {
@@ -59,7 +92,7 @@ export const useExplorePost = (
     if (userId) getPost();
   }, [getPost, userId]);
 
-  return { post, responses, loading, error };
+  return { fetchedPost: post, loading, error };
 };
 
 export const useSearchUsers = (

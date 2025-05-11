@@ -7,6 +7,7 @@ import Actions from "./Actions";
 import { PostInterface } from "@/interfaces/Post";
 import { useRouter } from "next/navigation";
 import { stopPropagation } from "@/functions/utils";
+import { usePostVisualizer } from "@/context/PostVisualizerContext";
 
 interface Props {
   data: PostInterface;
@@ -15,10 +16,12 @@ interface Props {
 
 const Post: React.FC<Props> = ({ data, isLast }) => {
   const { id, user, user_id } = data;
+  const { setPost } = usePostVisualizer();
   const router = useRouter();
 
   const handleClick = () => {
     router.push(`/p/${id}`);
+    setPost(data);
   };
 
   return (

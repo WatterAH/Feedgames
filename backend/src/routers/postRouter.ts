@@ -10,6 +10,7 @@ const upload = multer({ storage: storage });
 
 postRouter.get("/posts/:type", postController.getPosts);
 postRouter.get("/post/:id", postController.getPostById);
+postRouter.get("/posts/responses/:id", postController.getResponses);
 postRouter.put("/posts/:id", postValidator.put, postController.updatePost);
 postRouter.post(
   "/posts",

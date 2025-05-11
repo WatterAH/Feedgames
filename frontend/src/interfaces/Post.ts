@@ -1,10 +1,26 @@
-import { User } from "./User";
+import { defaultUser, User } from "./User";
 import { MatchShowCase } from "./Valorant";
 
 export interface PixelArtProps {
   gridSize: number;
   cells: string;
 }
+
+export const defaultPost: PostInterface = {
+  id: "",
+  text: "",
+  order: "",
+  user: defaultUser,
+  user_id: "",
+  liked: 0,
+  isLiked: false,
+  saved: 0,
+  isSaved: false,
+  responsed: 0,
+  parentId: null,
+  edited: false,
+  content: { type: "textonly", data: null },
+};
 
 export interface PostInterface {
   id: string;
