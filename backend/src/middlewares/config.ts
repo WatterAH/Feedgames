@@ -10,7 +10,7 @@ const app = express();
 const corsOptions: CorsOptions = {
   origin: [
     "http://localhost:3000",
-    "http://192.168.0.3:3000",
+    "http://192.168.0.6:3000",
     "https://feedgames.vercel.app",
     "http://192.168.1.70:19006",
   ],
