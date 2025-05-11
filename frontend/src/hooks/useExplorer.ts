@@ -38,7 +38,7 @@ export const useExploreResponses = (userId: string, parentId: string) => {
   const [hasMore, setHasMore] = useState(true);
   const [responses, setResponses] = useState<PostInterface[]>([]);
 
-  const getResponses = async () => {
+  const getResponses = useCallback(async () => {
     if (!userId || !parentId || !hasMore || loading) return;
 
     try {
@@ -51,16 +51,16 @@ export const useExploreResponses = (userId: string, parentId: string) => {
       if (data.length < 10) {
         setHasMore(false);
       }
-    } catch (error: any) {
+    } catch (_error) {
       setError(true);
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId, parentId, hasMore, loading, page]);
 
   useEffect(() => {
     getResponses();
-  }, [userId, parentId]);
+  }, [userId, parentId, getResponses]);
 
   return { responses, loading, error, getResponses };
 };
@@ -86,7 +86,7 @@ export const useFetchPost = (
     } finally {
       setLoading(false);
     }
-  }, [postId, userId]);
+  }, [postId, userId, fetchPost]);
 
   useEffect(() => {
     if (userId) getPost();

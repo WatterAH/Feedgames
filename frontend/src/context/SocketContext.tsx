@@ -52,7 +52,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({
         setOnlineUsers(users);
       });
     }
-  }, []);
+  }, [socket]);
 
   return (
     <SocketContext.Provider
