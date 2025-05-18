@@ -133,6 +133,16 @@ const agentsDictionary: AgentsDictionary = {
     agentImg:
       "https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/displayicon.png",
   },
+  "b444168c-4e35-8076-db47-ef9bf368f384": {
+    agentName: "Tejo",
+    agentImg:
+      "https://media.valorant-api.com/agents/b444168c-4e35-8076-db47-ef9bf368f384/displayicon.png",
+  },
+  "df1cb487-4902-002e-5c17-d28e83e78588": {
+    agentName: "Waylay",
+    agentImg:
+      "https://media.valorant-api.com/agents/df1cb487-4902-002e-5c17-d28e83e78588/displayicon.png",
+  },
 };
 
 type AgentUrl = keyof typeof agentsDictionary;
