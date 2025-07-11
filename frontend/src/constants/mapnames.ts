@@ -58,6 +58,11 @@ const mapDictionary: MapDictionary = {
     mapIcon:
       "https://media.valorant-api.com/maps/2bee0dc9-4ffe-519b-1cbd-7fbe763a6047/listviewicon.png",
   },
+  "/Game/Maps/Rook/Rook": {
+    mapName: "Corrode",
+    mapIcon:
+      "https://media.valorant-api.com/maps/1c18ab1f-420d-0d8b-71d0-77ad3c439115/listviewicon.png",
+  },
 };
 
 type MapUrl = keyof typeof mapDictionary;

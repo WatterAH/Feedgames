@@ -147,6 +147,11 @@ const agentsDictionary: AgentsDictionary = {
 
 type AgentUrl = keyof typeof agentsDictionary;
 
-export function getAgent(uuid: AgentUrl) {
+export function getAgent(uuid: AgentUrl):
+  | {
+      agentName: string;
+      agentImg: string;
+    }
+  | undefined {
   return agentsDictionary[uuid];
 }

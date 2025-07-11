@@ -12,8 +12,8 @@ interface Props {
 
 const ValMatch: React.FC<Props> = ({ match, setVal }) => {
   const { preview } = match;
-  const { mapName, mapIcon } = getMap(preview.mapId);
-  const { agentName, agentImg } = getAgent(preview.characterId);
+  const map = getMap(preview.mapId);
+  const agent = getAgent(preview.characterId);
 
   const handleClick = () => {
     const stats = valMatchStats(match);
@@ -27,27 +27,33 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
     >
       <div className="relative overflow-hidden">
         <span className="absolute z-20 flex items-center gap-x-3">
-          <Image
-            src={agentImg}
-            width={64}
-            height={64}
-            alt={agentName}
-            className="rounded-t-lg"
-          />
+          {agent?.agentImg && (
+            <Image
+              src={agent.agentImg}
+              width={64}
+              height={64}
+              alt={agent.agentName}
+              className="rounded-t-lg"
+            />
+          )}
           <div>
-            <h3 className="font-bold font-raleway text-white">{agentName}</h3>
+            <h3 className="font-bold font-raleway text-white">
+              {agent?.agentName}
+            </h3>
             <span className="text-white text-sm font-raleway font-medium flex items-center justify-center">
-              {mapName} | {getQueueId(preview.queueId)}
+              {map?.mapName} | {getQueueId(preview.queueId)}
             </span>
           </div>
         </span>
         <div className="relative w-full h-16 rounded-t-lg overflow-hidden">
-          <Image
-            src={mapIcon}
-            alt={mapName}
-            fill
-            className="w-full rounded-t-lg blur-[1px]"
-          />
+          {map?.mapIcon && (
+            <Image
+              src={map.mapIcon}
+              alt={map.mapName}
+              fill
+              className="w-full rounded-t-lg blur-[1px]"
+            />
+          )}
         </div>
       </div>
       <div className="flex justify-between px-3 py-1 font-medium text-xs text-text">
