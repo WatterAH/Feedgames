@@ -20,38 +20,42 @@ interface Props {
   stats: MatchShowCase;
 }
 const MatchPost: React.FC<Props> = ({ stats }) => {
-  const { agentName, agentImg } = getAgent(stats.characterId);
-  const { mapName, mapIcon } = getMap(stats.mapId);
+  const agent = getAgent(stats.characterId);
+  const map = getMap(stats.mapId);
   const kda = getKDAStats(stats.playerStats);
 
   return (
     <div className="flex flex-col border border-border rounded-xl shadow-sm w-full">
       <div className="relative">
         <span className="absolute z-20 flex items-center gap-x-4">
-          <Image
-            src={agentImg}
-            width={112}
-            height={112}
-            alt={agentName}
-            className="rounded-t-xl"
-          />
+          {agent?.agentImg && (
+            <Image
+              src={agent.agentImg}
+              width={112}
+              height={112}
+              alt={agent.agentName}
+              className="rounded-t-xl"
+            />
+          )}
           <div>
             <h3 className="font-extrabold font-raleway text-lg text-white">
-              {agentName}
+              {agent?.agentName}
             </h3>
             <span className="text-white text-sm font-raleway font-medium flex items-center justify-center">
-              {mapName} | {stats.queueId}
+              {map?.mapName} | {stats.queueId}
             </span>
           </div>
         </span>
         <div className="relative w-full h-28 overflow-hidden">
-          <Image
-            alt={mapName}
-            src={mapIcon}
-            fill
-            className="rounded-t-xl blur-[1.5px]"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {map?.mapIcon && (
+            <Image
+              alt={map.mapName}
+              src={map.mapIcon}
+              fill
+              className="rounded-t-xl blur-[1.5px]"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          )}
         </div>
       </div>
 
