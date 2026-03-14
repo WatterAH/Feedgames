@@ -16,10 +16,6 @@ class UserController {
       const id = req.params.id as string;
       const requestId = req.query.requestId as string;
 
-      if (!id || !requestId) {
-        return sendError(res, "Faltan parametros obligatorios", 400);
-      }
-
       const parsedUserId = translator.toUUID(id as string);
       const parsedRequestId = translator.toUUID(requestId as string);
 

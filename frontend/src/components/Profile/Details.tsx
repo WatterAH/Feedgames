@@ -15,7 +15,7 @@ const Details: React.FC<Props> = ({ data, detailsClass }) => {
     <div className={`flex flex-col gap-y-2 ${detailsClass} font-inter text-sm`}>
       <p>Se unió el {date}</p>
       <span>
-        {followers} {followers == 1 ? "Seguidor" : "Seguidores"} · {followed}{" "}
+        {followers} {followers == 1 ? "Seguidor" : "Seguidores"} • {followed}{" "}
         {followed == 1 ? "Seguido" : "Seguidos"}
       </span>
     </div>

@@ -1,13 +1,12 @@
 import React from "react";
-import ProfilePicture from "../Profile/ProfilePicture";
 import Header from "./Header";
 import Content from "./Content";
 import Link from "next/link";
 import Actions from "./Actions";
+import ProfilePicture from "../Profile/ProfilePicture";
 import { PostInterface } from "@/interfaces/Post";
 import { useRouter } from "next/navigation";
 import { stopPropagation } from "@/functions/utils";
-import { usePostVisualizer } from "@/context/PostVisualizerContext";
 
 interface Props {
   data: PostInterface;
@@ -16,16 +15,12 @@ interface Props {
 
 const Post: React.FC<Props> = ({ data, isLast }) => {
   const { id, user, user_id } = data;
-  const { setPost } = usePostVisualizer();
   const router = useRouter();
 
-  const handleClick = () => {
-    router.push(`/p/${id}`);
-    setPost(data);
-  };
+  const handleClick = () => router.push(`/p/${id}`);
 
   return (
-    <div
+    <article
       onClick={handleClick}
       className="flex flex-row text-text gap-x-2 w-full border-b border-border p-2 sm:px-5 hover:cursor-pointer"
     >
@@ -37,7 +32,7 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
         <Content post={data} />
         <Actions data={data} />
       </div>
-    </div>
+    </article>
   );
 };
 

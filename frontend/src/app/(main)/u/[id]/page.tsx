@@ -1,45 +1,76 @@
-"use client";
-import Title from "@/layout/Pages/Title";
-import Card from "@/layout/Pages/Card";
-import Error from "@/layout/Pages/Error";
-import ProfileHeader from "@/components/Profile/ProfileHeader";
-import { useParams } from "next/navigation";
-import { useUser } from "@/context/AuthContext";
-import { ProfileLoader } from "@/layout/Pages/Loaders";
-import { useExploreProfile } from "@/hooks/useExplorer";
-import { usePosts } from "@/hooks/usePosts";
-import PostContainer from "@/layout/Pages/PostContainer";
+import { getUserCookie } from "@/functions/client";
+import { defaultUser } from "@/interfaces/User";
+import ProfilePage from "@/layout/Pages/ProfilePage";
+import { getProfile } from "@/routes/profile";
+import { Metadata } from "next";
 
-export default function ProfilePage() {
-  const { id } = useParams();
-  const { user } = useUser();
-  const userId = id as string;
-  const u = useExploreProfile(userId, user.id);
-  const p = usePosts(user.id, "user", userId);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
 
-  const RenderContent = () => {
-    if (u.loading || p.loading) return <ProfileLoader />;
-    if (u.error || p.error) return <Error />;
-    if (!u.loading && !p.loading && u.profile)
-      return (
-        <>
-          <ProfileHeader data={u.profile} />
-          <PostContainer
-            posts={p.posts}
-            getPost={p.getPosts}
-            hasMore={p.hasMore}
-          />
-        </>
-      );
-  };
+  try {
+    const user = await getProfile(id, "");
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_SERVER_HOST;
 
-  return (
-    <>
-      <Title title="Perfil" />
-      <Card />
-      <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
-        <RenderContent />
-      </div>
-    </>
-  );
+    const imgId = user?.pfp;
+    const src = imgId
+      ? `${process.env.NEXT_PUBLIC_IMAGES}/${imgId}`
+      : `${siteUrl}/default.png`;
+
+    let text = "";
+    let description = "";
+
+    if (!user) {
+      text = "Perfil no encontrado";
+      description = "Este perfil no existe o fue eliminado.";
+    } else {
+      text = `${user.name} (@${user.username}) • Feedgames`;
+      description =
+        user.bio ||
+        `Mira el perfil de ${user.username} y sus mejores partidas en Feedgames.`;
+    }
+
+    return {
+      title: text,
+      description: description,
+      openGraph: {
+        title: text,
+        description: description,
+        type: "profile",
+        images: [src],
+      },
+      twitter: {
+        title: text,
+        description: description,
+        card: "summary",
+        images: [src],
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Jugador no encontrado",
+      description: "Este perfil no existe o fue eliminado.",
+    };
+  }
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const userId = await getUserCookie();
+
+  try {
+    const user = await getProfile(id, userId);
+    if (!user) throw new Error("User not found");
+    return <ProfilePage {...user} />;
+  } catch (error) {
+    return <ProfilePage error={true} {...defaultUser} />;
+  }
 }

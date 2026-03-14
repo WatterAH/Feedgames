@@ -1,16 +1,18 @@
 import React from "react";
 import Item from "./Item";
-import { BellRing, House, Search, SquarePen, User } from "lucide-react";
+import { useUser } from "@/context/AuthContext";
 import { usePathname } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
 import { clearNewNotification } from "@/store/activity";
+import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { BellRing, House, Search, SquarePen, User } from "lucide-react";
 
 interface Props {
   create: () => void;
 }
 
 const MenuItems: React.FC<Props> = ({ create }) => {
+  const { user } = useUser();
   const pathname = usePathname();
   const newNotify = useSelector((state: RootState) => state.activity.newNotify);
   const dispatch: AppDispatch = useDispatch();
@@ -32,7 +34,7 @@ const MenuItems: React.FC<Props> = ({ create }) => {
           onClick={handleClearNotify}
         />
       </div>
-      <Item href="/me" currentPath={pathname} Icon={User} />
+      <Item href={`/u/${user.id}`} currentPath={pathname} Icon={User} />
     </ul>
   );
 };

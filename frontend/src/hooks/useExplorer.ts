@@ -1,42 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/interfaces/Post";
 import { User } from "@/interfaces/User";
-import { getProfile } from "@/routes/profile";
-import { getPostById, getResponsesByParentId } from "@/routes/post";
+import { getResponsesByParentId } from "@/routes/post";
 import { getCurrentTerm, getUsers } from "@/routes/search";
-
-export const useExploreProfile = (userId: string, requestId: string) => {
-  const [profile, setProfile] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const profileData = useCallback(async () => {
-    if (!userId || !requestId) return;
-    try {
-      setLoading(true);
-      const data = await getProfile(userId, requestId);
-      setProfile(data);
-    } catch (error: any) {
-      setError(true);
-      throw new Error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [userId, requestId]);
-
-  useEffect(() => {
-    profileData();
-  }, [requestId, userId, profileData]);
-
-  return { profile, loading, error };
-};
 
 export const useExploreResponses = (userId: string, parentId: string) => {
   const [page, setPage] = useState(0);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [responses, setResponses] = useState<PostInterface[]>([]);
+  const [data, setData] = useState<PostInterface[]>([]);
 
   const getResponses = useCallback(async () => {
     if (!userId || !parentId || !hasMore || loading) return;
@@ -45,7 +18,7 @@ export const useExploreResponses = (userId: string, parentId: string) => {
       setLoading(true);
       const data = await getResponsesByParentId(parentId, userId, page, 10);
 
-      setResponses((prev) => [...prev, ...data]);
+      setData((prev) => [...prev, ...data]);
       setPage((prev) => prev + 1);
 
       if (data.length < 10) {
@@ -62,43 +35,13 @@ export const useExploreResponses = (userId: string, parentId: string) => {
     getResponses();
   }, [userId, parentId, getResponses]);
 
-  return { responses, loading, error, getResponses };
-};
-
-export const useFetchPost = (
-  postId: string | undefined,
-  userId: string | undefined,
-  fetchPost: boolean
-) => {
-  const [post, setPost] = useState<PostInterface | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const getPost = useCallback(async () => {
-    if (!postId || !userId || !fetchPost) return;
-
-    try {
-      setLoading(true);
-      const data = await getPostById(postId, userId);
-      setPost(data);
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, [postId, userId, fetchPost]);
-
-  useEffect(() => {
-    if (userId) getPost();
-  }, [getPost, userId]);
-
-  return { fetchedPost: post, loading, error };
+  return { data, loading, error, getResponses };
 };
 
 export const useSearchUsers = (
   searchTerm: string,
   setCurrent: React.Dispatch<React.SetStateAction<string>>,
-  userId: string | undefined
+  userId: string | undefined,
 ) => {
   const [resultsUsers, setResultsUsers] = useState<User[]>([]);
   const [loadUsers, setLoadUsers] = useState(false);

@@ -1,59 +1,60 @@
-"use client";
-import Title from "@/layout/Pages/Title";
-import Card from "@/layout/Pages/Card";
-import Error from "@/layout/Pages/Error";
-import Post from "@/components/Post/Post";
-import PostContainer from "@/layout/Pages/PostContainer";
-import { useUser } from "@/context/AuthContext";
-import { useFetchPost, useExploreResponses } from "@/hooks/useExplorer";
-import { useParams } from "next/navigation";
-import { PostsLoader } from "@/layout/Pages/Loaders";
-import { usePostVisualizer } from "@/context/PostVisualizerContext";
+import { getUserCookie } from "@/functions/client";
+import { defaultPost } from "@/interfaces/Post";
+import PostPage from "@/layout/Pages/PostPage";
+import { getPostById } from "@/routes/post";
+import { Metadata } from "next";
 
-export default function PostPage() {
-  const { id } = useParams();
-  const { user } = useUser();
-  const { post } = usePostVisualizer();
-  const { fetchedPost } = useFetchPost(
-    id as string,
-    user.id,
-    post ? false : true
-  );
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
 
-  const { getResponses, responses, error, loading } = useExploreResponses(
-    user.id,
-    id as string
-  );
+  try {
+    const post = await getPostById(id, "");
 
-  const RenderContent = () => {
-    if (error || (!post && !fetchedPost)) return <Error />;
-    return (
-      <>
-        <Post data={(post ?? fetchedPost)!} />
-        <h4 className="text-placeholder px-3 border-b border-border py-2">
-          Comentarios
-          <span className="font-semibold ml-1">{responses.length}</span>
-        </h4>
-        {loading && responses.length == 0 ? (
-          <PostsLoader count={1} />
-        ) : (
-          <PostContainer
-            getPost={getResponses}
-            posts={responses}
-            hasMore={false}
-          />
-        )}
-      </>
-    );
-  };
+    let text = "";
+    if (post.text.length > 0) {
+      text = post.text.split("\n")[0];
+    } else {
+      text = `${post.user.name} en Feedgames`;
+    }
 
-  return (
-    <>
-      <Title title="Post" />
-      <Card />
-      <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
-        <RenderContent />
-      </div>
-    </>
-  );
+    return {
+      title: text,
+      description: text,
+      openGraph: {
+        title: text,
+        description: text,
+        type: "article",
+      },
+      twitter: {
+        title: text,
+        description: text,
+        card: "summary_large_image",
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Post no encontrado",
+      description: "Esta publicación no existe.",
+    };
+  }
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const userId = await getUserCookie();
+
+  try {
+    const post = await getPostById(id, userId);
+    return <PostPage {...post} />;
+  } catch (error) {
+    return <PostPage error={true} {...defaultPost} />;
+  }
 }
