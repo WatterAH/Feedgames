@@ -5,7 +5,14 @@ import { usePathname } from "next/navigation";
 import { clearNewNotification } from "@/store/activity";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { BellRing, House, Search, SquarePen, User } from "lucide-react";
+import {
+  BellRing,
+  House,
+  MessageCircle,
+  Search,
+  SquarePen,
+  User,
+} from "lucide-react";
 
 interface Props {
   create: () => void;
@@ -23,6 +30,7 @@ const MenuItems: React.FC<Props> = ({ create }) => {
       <Item href="/home" currentPath={pathname} Icon={House} />
       <Item href="/search" currentPath={pathname} Icon={Search} />
       <Item href="" currentPath={pathname} Icon={SquarePen} onClick={create} />
+      {/* <Item href="/inbox" currentPath={pathname} Icon={MessageCircle} /> */}
       <div className="relative">
         {newNotify && (
           <div className="absolute z-20 right-2 top-1 bg-red-500 h-4 w-4 rounded-full"></div>

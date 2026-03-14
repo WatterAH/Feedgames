@@ -17,22 +17,25 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
   const { id, user, user_id } = data;
   const router = useRouter();
 
-  const handleClick = () => router.push(`/p/${id}`);
+  const handleClick: React.MouseEventHandler<Element> = (e) => {
+    stopPropagation(e);
+    router.push(`/u/${user_id}`);
+  };
 
   return (
-    <article
-      onClick={handleClick}
+    <Link
+      href={`/p/${id}`}
       className="flex flex-row text-text gap-x-2 w-full border-b border-border p-2 sm:px-5 hover:cursor-pointer"
     >
-      <Link href={`/u/${user_id}`} className="h-10" onClick={stopPropagation}>
+      <div className="h-10" onClick={handleClick}>
         <ProfilePicture h={40} w={40} src={user.pfp} />
-      </Link>
+      </div>
       <div className="flex flex-col w-full gap-y-2">
         <Header data={data} isLast={isLast} />
         <Content post={data} />
         <Actions data={data} />
       </div>
-    </article>
+    </Link>
   );
 };
 

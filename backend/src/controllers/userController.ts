@@ -80,15 +80,15 @@ class UserController {
       if (query.error) return sendError(res, query.error.message, 400);
       if (!query.data) return sendError(res, "Not found", 404);
 
-      const { user } = query.data;
+      const { data } = query;
 
-      const validPassword = await bcryptjs.compare(password, user.password);
+      const validPassword = await bcryptjs.compare(password, data.password);
 
       if (!validPassword) {
         return sendError(res, "Verifica tus credenciales", 401);
       }
 
-      const result = processUser(user, "");
+      const result = processUser(data, "");
       const token = await createAccessToken(result);
       return sendSuccess(res, { user: result, token });
     } catch (error: any) {

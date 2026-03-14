@@ -26,7 +26,7 @@ export const useLogin = () => {
           path: "/",
           expires: getExpirationDate(),
         });
-        toast.success(`Iniciaste sesión como ${user.username}`);
+        toast(`Iniciaste sesión como ${user.username}`);
         router.push("/");
       } catch (error: any) {
         const { message } = error;
@@ -35,7 +35,7 @@ export const useLogin = () => {
         setLoading(false);
       }
     },
-    [login, router, setCookie]
+    [login, router, setCookie],
   );
 
   return { submit, loading };
@@ -66,7 +66,7 @@ export const useRegister = () => {
         setLoading(false);
       }
     },
-    [login, router, setCookie]
+    [login, router, setCookie],
   );
 
   return { submit, loading };

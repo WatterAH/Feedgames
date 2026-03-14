@@ -50,7 +50,7 @@ class PostController {
           break;
         case "user":
           if (!target) return sendError(res, "Target Required", 400);
-          query = await postService.from(target, limit, page);
+          query = await postService.from(requester, limit, page);
           break;
         case "liked":
         case "saved":

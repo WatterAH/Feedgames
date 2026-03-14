@@ -15,18 +15,6 @@
 }
 
 :root {
-  --background: #fafafa;
-  --foreground: #ffffff;
-  --border: #e5e7eb;
-  --text: #202020;
-  --menu-icon: #b8b8b8;
-  --hover: #0000000a;
-  --loader: #eaeaea;
-  --placeholder: #999999;
-  --blur: 255, 255, 255;
-}
-
-.theme-dark {
   --background: #101010;
   --foreground: #202020;
   --border: #333638;
@@ -36,6 +24,18 @@
   --loader: #424242;
   --placeholder: #999999;
   --blur: 32, 32, 32;
+}
+
+.theme-white {
+  --background: #fafafa;
+  --foreground: #ffffff;
+  --border: #e5e7eb;
+  --text: #202020;
+  --menu-icon: #b8b8b8;
+  --hover: #0000000a;
+  --loader: #eaeaea;
+  --placeholder: #999999;
+  --blur: 255, 255, 255;
 }
 
 .theme-cherry {

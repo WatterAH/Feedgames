@@ -103,7 +103,7 @@ interface AppTheme {
 export const appareances = [
   {
     name: "White",
-    classname: "theme-default",
+    classname: "theme-white",
     colors: {
       background: "#fafafa",
       foreground: "#ffffff",
@@ -139,7 +139,7 @@ export const appareances = [
   },
   {
     name: "Dark",
-    classname: "theme-dark",
+    classname: "theme-default",
     colors: {
       background: "#101010",
       foreground: "#202020",
@@ -177,7 +177,7 @@ export const appareances = [
 
 export const getThemeColors = (classname: string): ThemeColors => {
   const theme: AppTheme | undefined = appareances.find(
-    (theme) => theme.classname === classname
+    (theme) => theme.classname === classname,
   );
 
   return (

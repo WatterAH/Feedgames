@@ -9,6 +9,7 @@ import { usePosts } from "@/hooks/usePosts";
 import { useUser } from "@/context/AuthContext";
 import PostContainer from "./PostContainer";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
+import { PostsLoader } from "./Loaders";
 
 interface Props extends User {
   error?: boolean;
@@ -28,11 +29,15 @@ const ProfilePage: React.FC<Props> = ({ error, ...data }) => {
         ) : (
           <>
             <ProfileHeader data={data} />
-            <PostContainer
-              posts={posts.posts}
-              getPost={posts.getPosts}
-              hasMore={posts.hasMore}
-            />
+            {posts.loading ? (
+              <PostsLoader count={8} />
+            ) : (
+              <PostContainer
+                posts={posts.posts}
+                getPost={posts.getPosts}
+                hasMore={posts.hasMore}
+              />
+            )}
           </>
         )}
       </div>
