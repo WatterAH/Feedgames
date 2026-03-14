@@ -11,18 +11,17 @@ const translator = shortUUID();
 class PostController {
   async getPostById(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      const { userId } = req.query;
+      const id = req.params.id as string;
+      const userId = req.query.userId as string;
 
-      const parsedUserId = translator.toUUID(userId as string);
-      const parsedPostId = translator.toUUID(id as string);
+      const postId = translator.toUUID(id);
+      const parsedUserId = translator.toUUID(userId);
 
-      const data = await postService.getPostById(parsedPostId);
+      const query = await postService.find(postId);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!data) {
-        return sendError(res, "Ocurrió un error", 400);
-      }
-      const post = processPost(data, parsedUserId);
+      const post = processPost(query.data, parsedUserId);
 
       return sendSuccess(res, post);
     } catch (error: any) {
@@ -32,30 +31,40 @@ class PostController {
 
   async getPosts(req: Request, res: Response) {
     try {
-      const { type } = req.params;
-      const { current_id, page, limit, request_id } = req.query;
+      const type = req.params.type as "feed" | "saved" | "liked" | "user";
+      const rawlimit = req.query.limit as string;
+      const rawpage = req.query.page as string;
+      const request_id = req.query.request_id as string;
+      const target_id = req.query.target_id as string;
 
-      const userId = translator.toUUID(current_id as string);
-      const requestId = request_id
-        ? translator.toUUID(request_id as string)
-        : undefined;
-      const parsedPage = parseInt(page as string, 10);
-      const parsedLimit = parseInt(limit as string, 10);
+      const page = parseInt(rawpage, 10);
+      const limit = parseInt(rawlimit, 10);
+      const requester = translator.toUUID(request_id);
+      const target = target_id ? translator.toUUID(target_id) : null;
 
-      const posts = await postService.getPosts(
-        parsedLimit,
-        parsedPage,
-        type,
-        userId,
-        requestId
-      );
+      let query;
 
-      if (!posts) {
-        return sendError(res, "Ocurrio un error", 400);
+      switch (type) {
+        case "feed":
+          query = await postService.list(limit, page);
+          break;
+        case "user":
+          if (!target) return sendError(res, "Target Required", 400);
+          query = await postService.from(target, limit, page);
+          break;
+        case "liked":
+        case "saved":
+          query = await postService.interacted(type, requester, limit, page);
+          break;
+        default:
+          return sendError(res, "Invalid type", 400);
       }
 
-      const result = posts.map((post) => processPost(post, userId));
-      return sendSuccess(res, result);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
+
+      const posts = query.data.map((post) => processPost(post, requester));
+      return sendSuccess(res, posts);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }
@@ -63,26 +72,22 @@ class PostController {
 
   async getResponses(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      const { userId, limit, page } = req.query;
+      const id = req.params.id as string;
+      const rawlimit = req.query.limit as string;
+      const rawpage = req.query.page as string;
+      const userId = req.query.userId as string;
 
-      const parsedUserId = translator.toUUID(userId as string);
-      const parentId = translator.toUUID(id as string);
-      const parsedLimit = parseInt(limit as string, 10);
-      const parsedPage = parseInt(page as string, 10);
+      const parentId = translator.toUUID(id);
+      const parsedUserId = translator.toUUID(userId);
+      const limit = parseInt(rawlimit, 10);
+      const page = parseInt(rawpage, 10);
 
-      const data = await postService.getPostsByParentId(
-        parentId,
-        parsedLimit,
-        parsedPage
-      );
+      const query = await postService.replies(parentId, limit, page);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!data) {
-        return sendError(res, "Ocurrió un error", 400);
-      }
-
-      const result = data.map((post) => processPost(post, parsedUserId));
-      return sendSuccess(res, result);
+      const replies = query.data.map((post) => processPost(post, parsedUserId));
+      return sendSuccess(res, replies);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }
@@ -103,29 +108,29 @@ class PostController {
       if (!content) content = { type: "textonly", data: null };
 
       const data = { user_id, text, parentId };
-      const post = await postService.createPost(data);
-
-      if (!post) {
-        return sendError(res, "No se pudo subir el post", 400);
-      }
+      const post = await postService.create(data);
+      if (post.error) return sendError(res, post.error.message, 400);
+      if (!post.data) return sendError(res, "Not found", 404);
 
       if (parentId) {
-        const parent = await postService.getPostById(parentId);
-        const parentUserId = parent?.user_id;
-        if (parentUserId && parentUserId !== user_id) {
+        const parent = await postService.find(parentId);
+        if (parent.error) return sendError(res, parent.error.message, 400);
+        if (!parent.data) return sendError(res, "Not found", 404);
+
+        if (parent.data.user_id !== user_id) {
           alertService.createNotify(
-            parentUserId,
+            parent.data.user_id,
             "p",
             translator.fromUUID(parentId),
             "Comentó tu hilo",
-            username
+            username,
           );
         }
       }
 
-      if (await postService.uploadContent(post.id, content)) {
-        post.content = content;
-        const result = processPost(post, "");
+      if (await postService.content(post.data.id, content)) {
+        post.data.content = content;
+        const result = processPost(post.data, "");
         return sendSuccess(res, result);
       }
       return sendError(res, "No se pudo subir el contenido", 400);
@@ -141,7 +146,7 @@ class PostController {
 
       const postId = translator.toUUID(id);
 
-      if (await postService.updatePost(postId, data)) {
+      if (await postService.update(postId, data)) {
         return sendSuccess(res, true);
       }
       return sendError(res, "No se pudo actualizar el post", 400);
@@ -152,17 +157,19 @@ class PostController {
 
   async deletePost(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
 
       const postId = translator.toUUID(id);
 
-      const post = await postService.getPostById(postId);
+      const query = await postService.find(postId);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (post && post.content[0].type == "image") {
-        await files.deleteFile(post.content[0].data.url, "images");
+      if (query.data.content[0].type == "image") {
+        await files.deleteFile(query.data.content[0].data.url, "images");
       }
 
-      if (await postService.deletePost(postId)) {
+      if (await postService.delete(postId)) {
         return sendSuccess(res, true);
       }
 

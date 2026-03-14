@@ -6,9 +6,9 @@ export const getPosts = async (
   userId: string,
   page: number,
   limit: number,
-  requestId?: string
+  targetId?: string,
 ): Promise<PostInterface[]> => {
-  const endpoint = `${URL}/posts/${type}?current_id=${userId}&page=${page}&limit=${limit}&request_id=${requestId}`;
+  const endpoint = `${URL}/posts/${type}?request_id=${userId}&page=${page}&limit=${limit}&target_id=${targetId}`;
 
   const res = await fetch(endpoint);
   const data = await res.json();
@@ -22,7 +22,7 @@ export const getPosts = async (
 
 export const getPostById = async (
   id: string,
-  userId: string
+  userId: string,
 ): Promise<PostInterface> => {
   const endpoint = `${URL}/post/${id}?userId=${userId}`;
 
@@ -40,7 +40,7 @@ export const getResponsesByParentId = async (
   parentId: string,
   userId: string,
   page: number,
-  limit: number
+  limit: number,
 ): Promise<PostInterface[]> => {
   const endpoint = `${URL}/posts/responses/${parentId}?userId=${userId}&page=${page}&limit=${limit}`;
 
@@ -59,7 +59,7 @@ export const createPost = async (
   text: string,
   content: ContentObject,
   username: string,
-  parentId?: string
+  parentId?: string,
 ): Promise<PostInterface> => {
   const formData = new FormData();
   formData.append("userId", userId);
@@ -86,7 +86,7 @@ export const createPost = async (
 
 export const editPostById = async (
   id: string,
-  post: Partial<PostInterface>
+  post: Partial<PostInterface>,
 ) => {
   const res = await fetch(`${URL}/posts/${id}`, {
     method: "PUT",

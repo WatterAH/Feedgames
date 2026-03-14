@@ -10,10 +10,9 @@ class UserValidator {
       return sendError(res, "El nombre y el usuario son necesarios!", 400);
     }
 
-    const maybeuser = await userService.getProfilByUsername(username);
-
-    if (maybeuser) {
-      return sendError(res, "Este nombre de usuario ya existe :(", 400);
+    const maybeuser = await userService.find(username, "username");
+    if (maybeuser.data) {
+      return sendError(res, "El usuario ya existe!", 400);
     }
 
     next();

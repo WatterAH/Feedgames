@@ -13,8 +13,8 @@ const translator = shortUUID();
 class UserController {
   async getProfileById(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      const { requestId } = req.query;
+      const id = req.params.id as string;
+      const requestId = req.query.requestId as string;
 
       if (!id || !requestId) {
         return sendError(res, "Faltan parametros obligatorios", 400);
@@ -23,13 +23,11 @@ class UserController {
       const parsedUserId = translator.toUUID(id as string);
       const parsedRequestId = translator.toUUID(requestId as string);
 
-      const user = await userService.getProfileById(parsedUserId);
+      const query = await userService.find(parsedUserId, "id");
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!user) {
-        return sendError(res, "Error al obtener perfil", 500);
-      }
-
-      const result = processUser(user, parsedRequestId);
+      const result = processUser(query.data, parsedRequestId);
       return sendSuccess(res, result);
     } catch (error: any) {
       return sendError(res, error.message, 500);
@@ -41,13 +39,11 @@ class UserController {
       const data: User = req.body;
       data.password = await bcryptjs.hash(data.password, 10);
 
-      const user = await userService.createProfile(data);
+      const user = await userService.create(data);
+      if (user.error) return sendError(res, user.error.message, 500);
+      if (!user.data) return sendError(res, "Error al crear perfil", 500);
 
-      if (!user) {
-        return sendError(res, "Error al crear perfil", 500);
-      }
-
-      const result = processUser(user, "");
+      const result = processUser(user.data, "");
 
       const token = await createAccessToken(result);
       return sendSuccess(res, { user: result, token });
@@ -69,17 +65,11 @@ class UserController {
 
       if (pfpname) data.pfp = pfpname;
 
-      const user = await userService.updateProfile(parsedId, data);
+      const user = await userService.update(parsedId, data);
+      if (user.error) return sendError(res, user.error.message, 500);
+      if (!user.data) return sendError(res, "Error al actualizar perfil", 500);
 
-      if (!user) {
-        return sendError(
-          res,
-          "Este nombre de usuario ya existe, prueba otro!",
-          500
-        );
-      }
-
-      const result = processUser(user, parsedId);
+      const result = processUser(user.data, parsedId);
       return sendSuccess(res, result);
     } catch (error: any) {
       return sendError(res, error.message, 500);
@@ -90,15 +80,15 @@ class UserController {
     try {
       const { username, password } = req.body;
 
-      const user = await userService.getProfilByUsername(username);
+      const query = await userService.find(username, "username");
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!user) {
-        return sendError(res, "Verifica tus credenciales", 401);
-      }
+      const { user } = query.data;
 
-      const isValidPassword = await bcryptjs.compare(password, user.password);
+      const validPassword = await bcryptjs.compare(password, user.password);
 
-      if (!isValidPassword) {
+      if (!validPassword) {
         return sendError(res, "Verifica tus credenciales", 401);
       }
 

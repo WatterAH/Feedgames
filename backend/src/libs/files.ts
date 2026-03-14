@@ -31,7 +31,7 @@ class Files {
   }
 
   async uploadPostImage(
-    image: Express.Multer.File | undefined
+    image: Express.Multer.File | undefined,
   ): Promise<string | null> {
     if (!image) return null;
 
@@ -44,14 +44,15 @@ class Files {
 
   async updateProfilePicture(
     image: Express.Multer.File | undefined,
-    userId: string
+    userId: string,
   ): Promise<string | null> {
     if (!image) return null;
 
-    const user = await userService.getProfileById(userId);
-    if (!user) throw new Error("Error al actualizar la imagen");
+    const query = await userService.find(userId, "id");
+    if (query.error) throw new Error(query.error.message);
+    if (!query.data) throw new Error("User not found");
 
-    if (user.pfp) this.deleteFile(user.pfp, "pfp");
+    if (query.data.pfp) this.deleteFile(query.data.pfp, "pfp");
 
     const { filename, error: fileError } = await this.createFile(image, "pfp");
 

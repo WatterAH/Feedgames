@@ -10,18 +10,17 @@ const translator = shortUUID();
 class SearchController {
   async getPostBySearch(req: Request, res: Response) {
     try {
-      const { userId, searchTerm } = req.query;
+      const userId = req.query.userId as string;
+      const searchTerm = req.query.searchTerm as string;
 
-      const parsedUserId = translator.toUUID(userId as string);
+      const parsedUserId = translator.toUUID(userId);
 
-      const posts = await postService.getPostBySearch(searchTerm as string);
+      const query = await postService.search(searchTerm);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!posts) {
-        return sendError(res, "Ocurrio un error", 400);
-      }
-
-      const result = posts.map((post) => processPost(post, parsedUserId));
-      return sendSuccess(res, result);
+      const posts = query.data.map((post) => processPost(post, parsedUserId));
+      return sendSuccess(res, posts);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }
@@ -29,22 +28,17 @@ class SearchController {
 
   async getTendencyPosts(req: Request, res: Response) {
     try {
-      const { userId } = req.query;
+      const userId = req.query.userId as string;
 
-      const parsedId = translator.toUUID(userId as string);
+      const parsedId = translator.toUUID(userId);
 
-      const posts = await postService.getPosts(100, 0, "feed", parsedId);
+      const query = await postService.top(10);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!posts) {
-        return sendError(res, "Ocurrio un error", 400);
-      }
+      const posts = query.data.map((post) => processPost(post, parsedId));
 
-      const topLikedPosts = posts
-        .sort((a, b) => b.liked.length - a.liked.length)
-        .slice(0, 5)
-        .map((post) => processPost(post, parsedId));
-
-      return sendSuccess(res, topLikedPosts);
+      return sendSuccess(res, posts);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }
@@ -52,17 +46,16 @@ class SearchController {
 
   async getProfileBySearch(req: Request, res: Response) {
     try {
-      const { userId, searchTerm } = req.query;
+      const userId = req.query.userId;
+      const searchTerm = req.query.searchTerm as string;
 
       const parsedId = translator.toUUID(userId as string);
 
-      const users = await userService.getProfileBySearch(searchTerm as string);
+      const query = await userService.find(searchTerm, "search");
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!users) {
-        return sendError(res, "No se pudo completar la busqueda", 500);
-      }
-
-      const result = users.map((user) => processUser(user, parsedId));
+      const result = query.data.map((user) => processUser(user, parsedId));
       return sendSuccess(res, result);
     } catch (error: any) {
       return sendError(res, error.message, 500);

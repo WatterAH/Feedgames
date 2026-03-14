@@ -1,72 +1,65 @@
-import { User } from "../interfaces/User";
+import { PostgrestError } from "@supabase/supabase-js";
+import { User, UserIdentifier } from "../interfaces/User";
 import { mailData } from "../libs/recover-mail";
 import { transporter } from "../middlewares/config";
 import { supabase } from "../middlewares/connection";
 
-const QUERY =
-  "*, followed:follows!follows_id_follower_fkey(count), followers:follows!follows_id_followed_fkey(id_follower)";
-
 class UserService {
-  async getProfileById(id: string): Promise<User | null> {
-    const { data, error } = await supabase
-      .from("users")
-      .select(QUERY)
-      .eq("id", id)
-      .single();
+  private readonly table = "users" as const;
+  private readonly query =
+    "*, followed:follows!follows_id_follower_fkey(count), followers:follows!follows_id_followed_fkey(id_follower)";
 
-    return error ? null : data;
+  async find(
+    value: string,
+    type: UserIdentifier,
+  ): Promise<{ data: User | null; error: PostgrestError | null }>;
+
+  async find(
+    value: string,
+    type: "search",
+  ): Promise<{ data: User[] | null; error: PostgrestError | null }>;
+
+  async find(
+    value: string,
+    type: UserIdentifier | "search",
+  ): Promise<{ data: User | null | User[]; error: PostgrestError | null }> {
+    const query = supabase.from(this.table).select(this.query);
+
+    if (type === "search") {
+      const { data, error } = await query
+        .or(`username.ilike.%${value}%,name.ilike.%${value}%`)
+        .limit(10);
+      return { data, error };
+    }
+
+    const { data, error } = await query.eq(type, value).single();
+    return { data, error };
   }
 
-  async getProfileBySearch(searchTerm: string): Promise<User[] | null> {
+  async create(
+    user: User,
+  ): Promise<{ data: User | null; error: PostgrestError | null }> {
     const { data, error } = await supabase
-      .from("users")
-      .select(QUERY)
-      .or(`username.ilike.%${searchTerm}%,name.ilike.%${searchTerm}%`)
-      .order("username")
-      .limit(10);
-
-    return error ? null : data;
-  }
-
-  async getProfilByUsername(username: string): Promise<User | null> {
-    const { data, error } = await supabase
-      .from("users")
-      .select(QUERY)
-      .eq("username", username)
-      .single();
-
-    return error ? null : data;
-  }
-
-  async getProfileByEmail(Email: string): Promise<User | null> {
-    const { data, error } = await supabase
-      .from("users")
-      .select(QUERY)
-      .eq("email", Email)
-      .single();
-
-    return error ? null : data;
-  }
-
-  async createProfile(user: User): Promise<User | null> {
-    const { data, error } = await supabase
-      .from("users")
+      .from(this.table)
       .insert([user])
-      .select(QUERY)
+      .select(this.query)
       .single();
 
-    return error ? null : data;
+    return { data, error };
   }
 
-  async updateProfile(id: string, user: Partial<User>): Promise<User | null> {
+  async update(
+    id: string,
+    user: Partial<User>,
+  ): Promise<{ data: User | null; error: PostgrestError | null }> {
     const { data, error } = await supabase
-      .from("users")
+      .from(this.table)
       .update([user])
       .eq("id", id)
-      .select(QUERY)
+      .select(this.query)
       .single();
 
-    return error ? null : data;
+    return { data, error };
   }
 
   async sendMail(token: string | undefined, mail: string) {

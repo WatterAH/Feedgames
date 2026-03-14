@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import shortUUID from "short-uuid";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
@@ -7,14 +6,13 @@ import { processMatch } from "../libs/server";
 import userService from "../service/userService";
 import { sendError } from "../libs/responseHandler";
 
-dotenv.config();
 const translator = shortUUID();
 
 export const oauth2_callback: RequestHandler = async (req, res) => {
   const clientID = "904e7558-66be-4c49-b89d-1020aad6da43";
   const clientSecret = process.env.RSO_CLIENT_SECRET;
   const auth = `Basic ${Buffer.from(`${clientID}:${clientSecret}`).toString(
-    "base64"
+    "base64",
   )}`;
 
   const formData = new URLSearchParams();
@@ -63,7 +61,7 @@ export const getPlayerUuid: RequestHandler = async (req, res) => {
       const riotToken = await createAccessToken(userData);
       return res.redirect(
         "https://feedgames.vercel.app/home?riotToken=" +
-          encodeURIComponent(riotToken as string)
+          encodeURIComponent(riotToken as string),
       );
     }
   } catch (error) {
@@ -94,7 +92,7 @@ export const getMatchesList: RequestHandler = async (req, res) => {
         (match: any) =>
           match.queueId == "competitive" ||
           match.queueId == "unrated" ||
-          match.queueId == "swiftplay"
+          match.queueId == "swiftplay",
       );
       res.status(200).json({ history: history.slice(0, 15), puuid });
     }
@@ -140,17 +138,15 @@ export const setRiotId: RequestHandler = async (req, res) => {
     delete riotId.exp;
     delete riotId.iat;
 
-    const data = await userService.updateProfile(id_user, { riotId });
+    const updated = await userService.update(id_user, { riotId });
+    if (updated.error) return sendError(res, updated.error.message, 400);
+    if (!updated.data) return sendError(res, "No se pudo completar", 500);
 
-    if (!data) {
-      return sendError(res, "Error al guardar token", 500);
-    }
+    updated.data.id = translator.fromUUID(updated.data.id);
 
-    data.id = translator.fromUUID(data.id);
+    const userToken = await createAccessToken(updated.data);
 
-    const userToken = await createAccessToken(data);
-
-    res.status(200).json({ token: userToken, user: data });
+    res.status(200).json({ token: userToken, user: updated.data });
   } catch (error) {
     res.status(500).json({ message: "El servidor tuvo un problema" });
   }

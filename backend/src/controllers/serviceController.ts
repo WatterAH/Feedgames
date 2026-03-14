@@ -8,13 +8,11 @@ class ServiceController {
   async getToken(req: Request, res: Response) {
     try {
       const { email } = req.body;
-      const user = await userService.getProfileByEmail(email);
+      const query = await userService.find(email, "email");
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
 
-      if (!user) {
-        return sendSuccess(res, true);
-      }
-
-      const token = await createAccessToken({ userId: user.id }, "15m");
+      const token = await createAccessToken({ userId: query.data.id }, "15m");
       await userService.sendMail(token, email);
 
       return sendSuccess(res, true);
@@ -27,23 +25,18 @@ class ServiceController {
     try {
       const { password, token } = req.body;
 
-      const data: any = await validateToken(token);
-
-      if (!data) {
-        return sendError(res, "El token no es valido", 401);
-      }
+      const data = await validateToken(token);
+      if (!data) return sendError(res, "El token no es valido", 401);
 
       const hash = await bcryptjs.hash(password, 10);
 
-      const result = await userService.updateProfile(data.userId, {
+      const user = await userService.update(data.userId, {
         password: hash,
       });
+      if (user.error) return sendError(res, user.error.message, 400);
+      if (!user.data) return sendError(res, "No se pudo completar", 500);
 
-      if (!result) {
-        return sendError(res, "Error al actualizar la contraseña", 500);
-      }
-
-      return sendSuccess(res, result);
+      return sendSuccess(res, user.data);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }

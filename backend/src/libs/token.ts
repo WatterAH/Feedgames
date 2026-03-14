@@ -1,12 +1,11 @@
 import jwt, { Secret } from "jsonwebtoken";
-import dotenv from "dotenv";
 import { User } from "../interfaces/User";
-dotenv.config();
+
 var JWT_KEY: Secret = process.env.JWT_KEY as string;
 
 export const createAccessToken = (
   payload: any,
-  expiresIn: string = "30d"
+  expiresIn: string = "30d",
 ): Promise<string | undefined> => {
   return new Promise(function (resolve, reject) {
     jwt.sign(payload, JWT_KEY, { expiresIn: expiresIn }, (err, token) => {

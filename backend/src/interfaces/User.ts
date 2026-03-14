@@ -20,3 +20,5 @@ export interface User {
   followers: Follower[];
   [key: string]: any;
 }
+
+export type UserIdentifier = "id" | "username" | "email";
