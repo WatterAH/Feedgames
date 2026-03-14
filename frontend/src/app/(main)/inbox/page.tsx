@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import NotifyPage from "./NotifyPage";
+import InboxPage from "./InboxPage";
 
 export const metadata: Metadata = {
-  title: "Notificaciones • Feedgames",
+  title: "Chats • Feedgames",
 };
 
 export default function Page() {
-  return <NotifyPage />;
+  return <InboxPage />;
 }
