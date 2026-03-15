@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import NotifyPage from "./NotifyPage";
+import AlertPage from "./AlertPage";
 
 export const metadata: Metadata = {
   title: "Notificaciones • Feedgames",
 };
 
 export default function Page() {
-  return <NotifyPage />;
+  return <AlertPage />;
 }

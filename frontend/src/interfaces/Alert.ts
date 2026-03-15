@@ -1,15 +1,13 @@
 import { PostInterface } from "./Post";
 import { User } from "./User";
 
-export interface Alert {
+export interface AlertInterface {
   id: string;
   type: AlertType;
   created_at: string;
-  post_id: string | null;
-  receiver_id: string;
-  actor_id: string;
-  actor: User;
-  post: Partial<PostInterface> | null;
+  post_id: string;
+  user: User;
+  post: PostInterface | null;
   read: boolean;
 }
 

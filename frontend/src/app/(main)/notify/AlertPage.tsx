@@ -1,5 +1,5 @@
 "use client";
-import Notify from "@/components/Notifications/Notify";
+import Notify from "@/components/Notifications/Alert";
 import Card from "@/layout/Pages/Card";
 import Title from "@/layout/Pages/Title";
 import Error from "@/layout/Pages/Error";
@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { fetchNotifications } from "@/store/activity";
 import Empty from "@/layout/Pages/Empty";
 
-const NotifyPage = () => {
+const AlertPage = () => {
   const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
   const { notifications, hasMore, loading, error } = useSelector(
@@ -21,13 +21,13 @@ const NotifyPage = () => {
 
   useEffect(() => {
     if (user?.id && notifications.length == 0) {
-      dispatch(fetchNotifications(user.id, 10));
+      dispatch(fetchNotifications(user.id, 15));
     }
   }, [dispatch, user?.id, notifications.length]);
 
   const getMoreNotify = () => {
     if (hasMore && !loading && user?.id) {
-      dispatch(fetchNotifications(user.id, 10));
+      dispatch(fetchNotifications(user.id, 15));
     }
   };
 
@@ -66,4 +66,4 @@ const NotifyPage = () => {
   );
 };
 
-export default NotifyPage;
+export default AlertPage;

@@ -9,21 +9,19 @@ const translator = shortUUID();
 class AlertController {
   async getAlerts(req: Request, res: Response) {
     try {
-      const { id, page, limit } = req.query;
+      const id = req.query.id as string;
+      const rawpage = req.query.page as string;
+      const rawlimit = req.query.limit as string;
 
-      const userId = translator.toUUID(id as string);
-      const pageInt = parseInt(page as string, 10);
-      const limitInt = parseInt(limit as string, 10);
+      const userId = translator.toUUID(id);
+      const page = parseInt(rawpage, 10);
+      const limit = parseInt(rawlimit, 10);
 
-      const alerts = await alertService.getAlerts(userId, limitInt, pageInt);
+      const alerts = await alertService.list(userId, limit, page);
+      if (alerts.error) return sendError(res, alerts.error.message, 400);
+      if (!alerts.data) return sendError(res, "Not found", 404);
 
-      if (!alerts) {
-        return sendError(res, "No se pudieron obtener las notificaciones", 400);
-      }
-
-      alertService.readAlerts(userId);
-
-      const result = alerts.map((alert) => processAlert(alert));
+      const result = alerts.data.map((alert) => processAlert(alert));
       return sendSuccess(res, result);
     } catch (error: any) {
       return sendError(res, error.message, 500);
@@ -53,7 +51,7 @@ class AlertController {
     try {
       const { id } = req.params;
 
-      if (await alertService.deleteAlert(id)) {
+      if (await alertService.delete(id)) {
         return sendSuccess(res, "Eliminada");
       }
       return sendError(res, "No se pudo eliminar la notificación", 400);

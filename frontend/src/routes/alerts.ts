@@ -1,13 +1,13 @@
-import { Notification } from "../interfaces/Notification";
+import { AlertInterface } from "../interfaces/Alert";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 export const getMyNotifications = async (
   userId: string,
   page: number,
-  limit: number
-): Promise<Notification[]> => {
+  limit: number,
+): Promise<AlertInterface[]> => {
   const endpoint = `${URL}/alerts/?id=${encodeURIComponent(
-    userId
+    userId,
   )}&page=${page}&limit=${limit}`;
 
   const res = await fetch(endpoint);

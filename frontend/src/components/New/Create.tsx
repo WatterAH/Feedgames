@@ -42,12 +42,12 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
 
     if (!text.trim() && !content) {
       return toast.error(
-        "Tu post necesita un poco de vida. ¿Texto o imagen, tal vez?"
+        "Tu post necesita un poco de vida. ¿Texto o imagen, tal vez?",
       );
     }
 
     setOpen(false);
-    toast.promise(createPost(user.id, text, content, user.username), {
+    toast.promise(createPost(user.id, text, content), {
       loading: "Publicando...",
       success: (data) => {
         setText("");

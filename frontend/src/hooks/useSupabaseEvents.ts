@@ -15,7 +15,7 @@ const translator = shortUUID();
 const handleNewPost = async (
   payload: any,
   userId: string,
-  dispatch: AppDispatch
+  dispatch: AppDispatch,
 ) => {
   const { new: newPost } = payload;
   const userPostId = translator.fromUUID(newPost.user_id);
@@ -40,7 +40,7 @@ const handleNewNotification = async (
   payload: any,
   userId: string,
   dispatch: AppDispatch,
-  shouldDispatch: boolean
+  shouldDispatch: boolean,
 ) => {
   const { new: notify } = payload;
   const { data, error } = await getNotifyById(notify.id);
@@ -49,11 +49,11 @@ const handleNewNotification = async (
 
   const result = processNotify(data);
 
-  if (data.id_user === translator.toUUID(userId)) {
-    if (shouldDispatch) dispatch(addNotify(result));
-    dispatch(setNewNotify(true));
-    toast(`${data.user.username}: ${data.text}`);
-  }
+  // if (data.id_user === translator.toUUID(userId)) {
+  //   if (shouldDispatch) dispatch(addNotify(result));
+  //   dispatch(setNewNotify(true));
+  //   toast(`${data.user.username}: ${data.text}`);
+  // }
 };
 
 export const useSubscribeToUpdates = (userId: string) => {
@@ -68,7 +68,7 @@ export const useSubscribeToUpdates = (userId: string) => {
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "posts" },
-        async (payload) => handleNewPost(payload, userId, dispatch)
+        async (payload) => handleNewPost(payload, userId, dispatch),
       )
       .subscribe();
 
@@ -78,7 +78,7 @@ export const useSubscribeToUpdates = (userId: string) => {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "notify" },
         async (payload) =>
-          handleNewNotification(payload, userId, dispatch, shouldUpdate)
+          handleNewNotification(payload, userId, dispatch, shouldUpdate),
       )
       .subscribe();
 

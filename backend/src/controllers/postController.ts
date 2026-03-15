@@ -95,7 +95,7 @@ class PostController {
 
   async createPost(req: Request, res: Response) {
     try {
-      let { userId, text, parentId, content, username } = req.body;
+      let { userId, text, parentId, content } = req.body;
       const image = req.file;
 
       const user_id = translator.toUUID(userId);
@@ -118,13 +118,12 @@ class PostController {
         if (!parent.data) return sendError(res, "Not found", 404);
 
         if (parent.data.user_id !== user_id) {
-          alertService.createNotify(
-            parent.data.user_id,
-            "p",
-            translator.fromUUID(parentId),
-            "Comentó tu hilo",
-            username,
-          );
+          await alertService.create({
+            post_id: post.data.id,
+            actor_id: user_id,
+            type: "reply",
+            receiver_id: parent.data.user_id,
+          });
         }
       }
 
@@ -135,6 +134,7 @@ class PostController {
       }
       return sendError(res, "No se pudo subir el contenido", 400);
     } catch (error: any) {
+      console.log(error);
       return sendError(res, error.message, 500);
     }
   }

@@ -1,4 +1,4 @@
-import { Notification } from "@/interfaces/Notification";
+import { AlertInterface } from "@/interfaces/Alert";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
 import { deleteNotificationById, getMyNotifications } from "@/routes/alerts";
@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { RESET_ALL } from "./actions";
 
 interface ActivityState {
-  notifications: Notification[];
+  notifications: AlertInterface[];
   loading: boolean;
   error: string | null;
   hasMore: boolean;
@@ -53,7 +53,7 @@ const activitySlice = createSlice({
     },
     deleteNotify: (state, action) => {
       state.notifications = state.notifications.filter(
-        (notify) => notify.id !== action.payload
+        (notify) => notify.id !== action.payload,
       );
     },
     clearNewNotification: (state) => {
@@ -97,7 +97,7 @@ export const fetchNotifications =
           notifications: data,
           hasMore,
           page: hasMore ? page + 1 : page,
-        })
+        }),
       );
     } catch (error: any) {
       dispatch(fetchNotificationsFailure(error.message));

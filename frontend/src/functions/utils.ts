@@ -3,7 +3,7 @@ import copy from "clipboard-copy";
 import React, { MouseEvent } from "react";
 import { toast } from "sonner";
 import { PostInterface } from "@/interfaces/Post";
-import { Notification } from "@/interfaces/Notification";
+import { AlertInterface } from "@/interfaces/Alert";
 
 const translator = shortUUID();
 
@@ -15,7 +15,7 @@ export const isImage = (file: File): boolean => {
 
 export const handleImageChange = (
   e: React.ChangeEvent<HTMLInputElement>,
-  callback: (file: File, readerResult?: string) => void
+  callback: (file: File, readerResult?: string) => void,
 ) => {
   if (!e.target.files) return;
 
@@ -37,7 +37,7 @@ export const allowedPath = (pathname: string) => {
   const allowedPaths = ["/p", "/u", "/search", "/home", "/"];
   return allowedPaths.some(
     (allowedPath) =>
-      pathname === allowedPath || pathname.startsWith(`${allowedPath}/`)
+      pathname === allowedPath || pathname.startsWith(`${allowedPath}/`),
   );
 };
 
@@ -74,7 +74,7 @@ export const processPost = (post: PostInterface | any) => {
   };
 };
 
-export const processNotify = (notify: Notification) => {
+export const processNotify = (notify: AlertInterface) => {
   const { user, ...rest } = notify;
   const { id, ...userRest } = user;
   return {

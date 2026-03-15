@@ -28,7 +28,7 @@ const Follow: React.FC<Props> = (props) => {
     try {
       setFollowState(!followState);
       if (!followState) {
-        await followUser(user.id, id, user.username);
+        await followUser(user.id, id);
       } else {
         await unFollowUser(user.id, id);
       }

@@ -13,7 +13,7 @@ export const interact = async (
         type: "saved";
         userId: string;
         postId: string;
-      }
+      },
 ) => {
   const endpoint = `${URL}/interact/${action.type}`;
   const res = await fetch(endpoint, {
@@ -34,7 +34,7 @@ export const interact = async (
 export const uninteract = async (
   type: "liked" | "saved",
   userId: string,
-  postId: string
+  postId: string,
 ) => {
   const endpoint = `${URL}/unInteract/${type}`;
   const res = await fetch(endpoint, {
@@ -52,18 +52,14 @@ export const uninteract = async (
   }
 };
 
-export const followUser = async (
-  followerId: string,
-  followedId: string,
-  username: string
-) => {
+export const followUser = async (followerId: string, followedId: string) => {
   const endpoint = `${URL}/follow`;
   const res = await fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ followerId, followedId, username }),
+    body: JSON.stringify({ followerId, followedId }),
   });
 
   const data = await res.json();

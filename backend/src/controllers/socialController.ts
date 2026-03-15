@@ -9,28 +9,30 @@ const translator = shortUUID();
 class InteractionController {
   async interact(req: Request, res: Response) {
     try {
-      const { type } = req.params;
-      const { userId, postId } = req.body;
+      const type = req.params.type as "liked" | "saved";
+      const userId = req.body.userId;
+      const postId = req.body.postId;
+      const postUser = req.body.postUser;
 
       const id_user = translator.toUUID(userId);
       const id_post = translator.toUUID(postId);
 
-      await socialService.uninteract(id_user, id_post, type as any);
+      await socialService.uninteract(id_user, id_post, type);
+      await socialService.interact(id_user, id_post, type);
 
-      if (await socialService.interact(id_user, id_post, type as any)) {
-        if (type == "liked") {
-          const { postUser, username } = req.body;
-          const post_user = translator.toUUID(postUser);
-          if (post_user !== id_user) {
-            const text = "Le gustó tu hilo";
-            alertService.createNotify(post_user, "p", postId, text, username);
-          }
+      if (type == "liked") {
+        const post_user = translator.toUUID(postUser);
+        if (post_user !== id_user) {
+          await alertService.create({
+            post_id: id_post,
+            actor_id: id_user,
+            type: "like",
+            receiver_id: post_user,
+          });
         }
-
-        return sendSuccess(res, true);
       }
 
-      return sendError(res, "Failed to interact", 400);
+      return sendSuccess(res, "OK");
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }
@@ -38,17 +40,16 @@ class InteractionController {
 
   async uninteract(req: Request, res: Response) {
     try {
-      const { type } = req.params;
-      const { userId, postId } = req.body;
+      const type = req.params.type as "liked" | "saved";
+      const userId = req.body.userId;
+      const postId = req.body.postId;
 
       const id_user = translator.toUUID(userId);
       const id_post = translator.toUUID(postId);
 
-      if (await socialService.uninteract(id_user, id_post, type as any)) {
-        return sendSuccess(res, true);
-      }
+      await socialService.uninteract(id_user, id_post, type);
 
-      return sendError(res, "Failed to undo interaction", 400);
+      return sendSuccess(res, "OK");
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }
@@ -56,7 +57,7 @@ class InteractionController {
 
   async follow(req: Request, res: Response) {
     try {
-      const { followerId, followedId, username } = req.body;
+      const { followerId, followedId } = req.body;
 
       const follower = translator.toUUID(followerId);
       const followed = translator.toUUID(followedId);
@@ -64,8 +65,12 @@ class InteractionController {
       await socialService.unfollow(follower, followed);
 
       if (await socialService.follow(follower, followed)) {
-        const text = `${username} comenzó a seguirte`;
-        alertService.createNotify(followed, "u", followerId, text, username);
+        alertService.create({
+          post_id: null,
+          actor_id: follower,
+          type: "follow",
+          receiver_id: followed,
+        });
 
         return sendSuccess(res, true);
       }

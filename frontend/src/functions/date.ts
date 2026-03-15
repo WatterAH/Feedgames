@@ -1,3 +1,5 @@
+import { endOfSecond, intervalToDuration } from "date-fns";
+
 export const calculateDate = (date: string, reduce?: boolean): string => {
   const todayISO = getISODate();
   const created = formatDate(date);
@@ -57,7 +59,56 @@ export const getISODate = () => {
 export const getExpirationDate = () => {
   const currentDate = new Date();
   const expirationDate = new Date(
-    currentDate.getTime() + 30 * 24 * 60 * 60 * 1000
+    currentDate.getTime() + 30 * 24 * 60 * 60 * 1000,
   );
   return expirationDate;
+};
+
+export const interval = (
+  startDate: string,
+  mode: "short" | "large" = "large",
+) => {
+  const start = new Date(startDate);
+  const end = new Date();
+
+  const interval = intervalToDuration({ start, end });
+
+  if (interval.years && interval.years > 0) {
+    return mode === "short"
+      ? `${interval.years}a`
+      : `hace ${interval.years} ${interval.years === 1 ? "año" : "años"}`;
+  }
+
+  if (interval.months && interval.months > 0) {
+    return mode === "short"
+      ? `${interval.months}mes`
+      : `hace ${interval.months} ${interval.months === 1 ? "mes" : "meses"}`;
+  }
+
+  if (interval.days && interval.days >= 7) {
+    const weeks = Math.floor(interval.days / 7);
+    return mode === "short"
+      ? `${weeks}sem`
+      : `hace ${weeks} ${weeks === 1 ? "semana" : "semanas"}`;
+  }
+
+  if (interval.days && interval.days > 0) {
+    return mode === "short"
+      ? `${interval.days}d`
+      : `hace ${interval.days} ${interval.days === 1 ? "día" : "días"}`;
+  }
+
+  if (interval.hours && interval.hours > 0) {
+    return mode === "short"
+      ? `${interval.hours}h`
+      : `hace ${interval.hours} ${interval.hours === 1 ? "hora" : "horas"}`;
+  }
+
+  if (interval.minutes && interval.minutes > 0) {
+    return mode === "short"
+      ? `${interval.minutes}m`
+      : `hace ${interval.minutes} ${interval.minutes === 1 ? "minuto" : "minutos"}`;
+  }
+
+  return mode === "short" ? "ahora" : "hace unos segundos";
 };
