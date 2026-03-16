@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useUser } from "../../../context/AuthContext";
-import { interact, uninteract } from "@/routes/interactions";
+import { useUser } from "@/context/AuthContext";
+import interactionRouter from "@/routes/interactions";
 import { Bookmark } from "lucide-react";
 import { useAnimations } from "@/hooks/useAnimations";
 import { animated } from "react-spring";
@@ -36,11 +36,15 @@ const Save = ({ saveData }: { saveData: Props }) => {
         if (!saved) {
           setSavedNum((prev) => prev + 1);
           dispatch(updatePostInteraction(id, "save"));
-          await interact({ type: "saved", postId: id, userId: user.id });
+          await interactionRouter.interact({
+            type: "saved",
+            postId: id,
+            userId: user.id,
+          });
         } else {
           setSavedNum((prev) => prev - 1);
           dispatch(updatePostInteraction(id, "unsave"));
-          await uninteract("saved", user.id, id);
+          await interactionRouter.uninteract("saved", user.id, id);
         }
       } catch (error: any) {
         throw new Error(error.message);

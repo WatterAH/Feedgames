@@ -1,5 +1,5 @@
-import ListItem from "@/layout/Auth/LegalItem";
-import LegalPoint from "@/layout/Auth/LegalPoint";
+import ListItem from "@/components/Auth/LegalItem";
+import LegalPoint from "@/components/Auth/LegalPoint";
 
 export default function TermsOfService() {
   return (

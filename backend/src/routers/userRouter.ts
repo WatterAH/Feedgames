@@ -8,15 +8,15 @@ const userRouter = Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-userRouter.get("/users/:id", userController.getProfileById);
-userRouter.post("/users", userValidator.post, userController.createProfile);
+userRouter.get("/:id", userController.getProfileById);
+userRouter.post("/", userValidator.post, userController.createProfile);
 userRouter.put(
-  "/users/:id",
+  "/:id",
   upload.single("image"),
   userValidator.put,
-  userController.updateProfile
+  userController.updateProfile,
 );
 userRouter.post("/auth", userController.auth);
-userRouter.post("/checkToken/:token", userController.checkToken);
+userRouter.post("/refresh/:token", userController.checkToken);
 
 export default userRouter;

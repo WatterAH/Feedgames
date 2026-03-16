@@ -1,121 +1,65 @@
+import request from "@/functions/request";
 import { ContentObject, PostInterface } from "@/interfaces/Post";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
-export const getPosts = async (
-  type: "feed" | "user" | "liked" | "saved",
-  userId: string,
-  page: number,
-  limit: number,
-  targetId?: string,
-): Promise<PostInterface[]> => {
-  const endpoint = `${URL}/posts/${type}?request_id=${userId}&page=${page}&limit=${limit}&target_id=${targetId}`;
+class PostRouter {
+  private url = `${URL}/posts`;
 
-  const res = await fetch(endpoint);
-  const data = await res.json();
-
-  if (data.success == true) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+  async list(
+    type: string,
+    userId: string,
+    page: number,
+    limit: number,
+    targetId?: string,
+  ): Promise<PostInterface[]> {
+    return request.get(
+      `${this.url}/list/${type}?request_id=${userId}&page=${page}&limit=${limit}&target_id=${targetId}`,
+    );
   }
-};
 
-export const getPostById = async (
-  id: string,
-  userId: string,
-): Promise<PostInterface> => {
-  const endpoint = `${URL}/post/${id}?userId=${userId}`;
-
-  const res = await fetch(endpoint);
-  const data = await res.json();
-
-  if (data.success == true) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+  async find(id: string, userId: string): Promise<PostInterface> {
+    return request.get(`${this.url}/${id}?userId=${userId}`);
   }
-};
 
-export const getResponsesByParentId = async (
-  parentId: string,
-  userId: string,
-  page: number,
-  limit: number,
-): Promise<PostInterface[]> => {
-  const endpoint = `${URL}/posts/responses/${parentId}?userId=${userId}&page=${page}&limit=${limit}`;
+  async create(
+    userId: string,
+    text: string,
+    content: ContentObject,
+    parentId?: string,
+  ): Promise<PostInterface> {
+    const formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("text", text);
+    formData.append("content", JSON.stringify(content));
+    if (parentId) formData.append("parentId", parentId);
+    if (content?.type == "image") formData.append("image", content.data);
 
-  const res = await fetch(endpoint);
-  const data = await res.json();
-
-  if (data.success == true) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+    return request.post(this.url, formData, true);
   }
-};
 
-export const createPost = async (
-  userId: string,
-  text: string,
-  content: ContentObject,
-  parentId?: string,
-): Promise<PostInterface> => {
-  const formData = new FormData();
-  formData.append("userId", userId);
-  formData.append("text", text);
-  formData.append("content", JSON.stringify(content));
-  if (parentId) formData.append("parentId", parentId);
-  if (content?.type == "image") formData.append("image", content.data);
-
-  const res = await fetch(`${URL}/posts`, {
-    method: "POST",
-    credentials: "include",
-    body: formData,
-  });
-
-  const data = await res.json();
-
-  if (data.success == true) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+  async delete(id: string): Promise<void> {
+    return request.delete(`${this.url}/${id}`);
   }
-};
 
-export const editPostById = async (
-  id: string,
-  post: Partial<PostInterface>,
-) => {
-  const res = await fetch(`${URL}/posts/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    body: JSON.stringify(post),
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    return true;
-  } else {
-    throw new Error(data.message);
+  async update(
+    id: string,
+    post: Partial<PostInterface>,
+  ): Promise<PostInterface> {
+    return request.put(`${this.url}/${id}`, JSON.stringify(post));
   }
-};
 
-export const deletePostById = async (id: string): Promise<void> => {
-  const res = await fetch(`${URL}/posts/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-  });
-
-  const data = await res.json();
-
-  if (!data.success) {
-    throw new Error(data.message);
+  async replies(
+    parentId: string,
+    userId: string,
+    page: number,
+    limit: number,
+  ): Promise<PostInterface[]> {
+    return request.get(
+      `${this.url}/replies/${parentId}?userId=${userId}&page=${page}&limit=${limit}`,
+    );
   }
-};
+}
+
+const postRouter = new PostRouter();
+
+export default postRouter;

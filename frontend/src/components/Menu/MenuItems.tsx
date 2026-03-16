@@ -21,7 +21,7 @@ interface Props {
 const MenuItems: React.FC<Props> = ({ create }) => {
   const { user } = useUser();
   const pathname = usePathname();
-  const newNotify = useSelector((state: RootState) => state.activity.newNotify);
+  const newAlert = useSelector((state: RootState) => state.activity.newAlert);
   const dispatch: AppDispatch = useDispatch();
   const handleClearNotify = () => dispatch(clearNewNotification());
 
@@ -32,11 +32,11 @@ const MenuItems: React.FC<Props> = ({ create }) => {
       <Item href="" currentPath={pathname} Icon={SquarePen} onClick={create} />
       {/* <Item href="/inbox" currentPath={pathname} Icon={MessageCircle} /> */}
       <div className="relative">
-        {newNotify && (
+        {newAlert && (
           <div className="absolute z-20 right-2 top-1 bg-red-500 h-4 w-4 rounded-full"></div>
         )}
         <Item
-          href="/notify"
+          href="/alerts"
           currentPath={pathname}
           Icon={BellRing}
           onClick={handleClearNotify}

@@ -1,10 +1,10 @@
 "use client";
-import Footer from "@/layout/Auth/Footer";
-import Header from "@/layout/Auth/Header";
+import Footer from "@/components/Auth/Footer";
+import Header from "@/components/Auth/Header";
 import Button from "@/components/Global/Button";
 import Link from "next/link";
 import Loader from "@/components/Global/Loader";
-import FormField from "@/layout/Auth/FormField";
+import FormField from "@/components/Auth/FormField";
 import { useRegister } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";

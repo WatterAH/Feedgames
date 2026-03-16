@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import "../globals.css";
 import New from "@/components/New/New";
-import Menu from "@/layout/Menu/Menu";
+import Menu from "@/components/Menu/Menu";
 import Create from "@/components/New/Create";
-import Header from "@/layout/Menu/Header";
+import Header from "@/components/Menu/Header";
 import { useUser } from "@/context/AuthContext";
 import { useToken } from "@/hooks/useAuth";
 import { defaultUser } from "@/interfaces/User";
 import { useSpring, animated } from "react-spring";
-import { useSubscribeToUpdates } from "@/hooks/useSupabaseEvents";
+import { subscribeToAlerts } from "@/hooks/useSupabaseEvents";
 
 export default function MainLayout({
   children,
@@ -19,7 +19,7 @@ export default function MainLayout({
   const [loader, setLoader] = useState(true);
   const [creating, setCreating] = useState(false);
 
-  useSubscribeToUpdates(user.id);
+  subscribeToAlerts(user.id);
 
   const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
   const loaderSpring = useSpring({

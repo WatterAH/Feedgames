@@ -1,7 +1,7 @@
 import { getUserCookie } from "@/functions/client";
 import { defaultPost } from "@/interfaces/Post";
-import PostPage from "@/layout/Pages/PostPage";
-import { getPostById } from "@/routes/post";
+import PostPage from "@/components/Layout/PostPage";
+import postRouter from "@/routes/post";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -12,7 +12,7 @@ export async function generateMetadata({
   const { id } = await params;
 
   try {
-    const post = await getPostById(id, "");
+    const post = await postRouter.find(id, "");
 
     let text = "";
     if (post.text.length > 0) {
@@ -52,7 +52,7 @@ export default async function Page({
   const userId = await getUserCookie();
 
   try {
-    const post = await getPostById(id, userId);
+    const post = await postRouter.find(id, userId);
     return <PostPage {...post} />;
   } catch (error) {
     return <PostPage error={true} {...defaultPost} />;

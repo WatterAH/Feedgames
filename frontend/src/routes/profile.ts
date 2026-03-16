@@ -1,133 +1,45 @@
+import request from "@/functions/request";
 import { User } from "../interfaces/User";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
-export const getProfile = async (
-  userId: string,
-  requestId: string
-): Promise<User | null> => {
-  const endpoint = `${URL}/users/${userId}?requestId=${requestId}`;
-  const res = await fetch(endpoint);
-  const resData = await res.json();
+class UserRouter {
+  private url = `${URL}/users`;
 
-  if (resData.success) {
-    return resData.data;
-  } else if (res.status == 404) {
-    return null;
-  } else {
-    throw new Error(resData.message);
+  async find(id: string, userId: string): Promise<User> {
+    return request.get(`${this.url}/${id}?requestId=${userId}`);
   }
-};
 
-export const editProfile = async (
-  userId: string,
-  user: Partial<User>,
-  image: File | null
-): Promise<User | null> => {
-  const formData = new FormData();
-  formData.append("data", JSON.stringify(user));
-  if (image) formData.append("image", image);
-
-  const endpoint = `${URL}/users/${userId}`;
-  const res = await fetch(endpoint, {
-    method: "PUT",
-    body: formData,
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+  async create(user: Partial<User>): Promise<{ user: User; token: string }> {
+    return request.post(this.url, JSON.stringify(user));
   }
-};
 
-export const createProfile = async (user: Partial<User>) => {
-  const endpoint = `${URL}/users`;
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  });
-
-  const data = await res.json();
-  if (data.success) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+  async auth(
+    username: string,
+    password: string,
+  ): Promise<{ user: User; token: string }> {
+    return request.post(
+      `${this.url}/auth`,
+      JSON.stringify({ username, password }),
+    );
   }
-};
 
-export const auth = async (
-  username: string,
-  password: string
-): Promise<{ user: User; token: string }> => {
-  const res = await fetch(`${URL}/auth`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
-  const data = await res.json();
-
-  if (data.success) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+  async refresh(token: string): Promise<{ user: User; token: string }> {
+    return request.post(`${this.url}/refresh/${token}`, JSON.stringify({}));
   }
-};
 
-export const checkAuth = async (
-  userToken: string
-): Promise<{ user: User; token: string }> => {
-  const endpoint = `${URL}/checkToken/${userToken}`;
+  async update(
+    userId: string,
+    user: Partial<User>,
+    image: File | null,
+  ): Promise<{ user: User; token: string }> {
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(user));
+    if (image) formData.append("image", image);
 
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await res.json();
-
-  if (data.success) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+    return request.put(`${this.url}/${userId}`, formData, true);
   }
-};
+}
 
-export const getToken = async (email: string) => {
-  const endpoint = `${URL}/getToken/`;
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email }),
-  });
+const userRouter = new UserRouter();
 
-  await res.json();
-  return true;
-};
-
-export const resetPassword = async (password: string, token: string) => {
-  const endpoint = `${URL}/resetPassword`;
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ password, token }),
-  });
-
-  const data = await res.json();
-  if (data.success) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
-  }
-};
+export default userRouter;

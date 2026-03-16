@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   title: "Notificaciones • Feedgames",
 };
 
-export default function Page() {
+export default async function Page() {
   return <AlertPage />;
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Title from "@/layout/Pages/Title";
-import Card from "@/layout/Pages/Card";
-import Error from "@/layout/Pages/Error";
+import Title from "@/components/Layout/Title";
+import Card from "@/components/Layout/Card";
+import Error from "@/components/Layout/Error";
 import { User } from "@/interfaces/User";
 import { usePosts } from "@/hooks/usePosts";
 import { useUser } from "@/context/AuthContext";

@@ -1,7 +1,7 @@
 import { getUserCookie } from "@/functions/client";
 import { defaultUser } from "@/interfaces/User";
-import ProfilePage from "@/layout/Pages/ProfilePage";
-import { getProfile } from "@/routes/profile";
+import ProfilePage from "@/components/Layout/ProfilePage";
+import userRouter from "@/routes/profile";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -12,7 +12,7 @@ export async function generateMetadata({
   const { id } = await params;
 
   try {
-    const user = await getProfile(id, "");
+    const user = await userRouter.find(id, "");
     const siteUrl =
       process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_SERVER_HOST;
 
@@ -67,7 +67,7 @@ export default async function Page({
   const userId = await getUserCookie();
 
   try {
-    const user = await getProfile(id, userId);
+    const user = await userRouter.find(id, userId);
     if (!user) throw new Error("User not found");
     return <ProfilePage {...user} />;
   } catch (error) {

@@ -1,7 +1,7 @@
 import { PostInterface } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { deletePostById, getPosts } from "@/routes/post";
+import postRouter from "@/routes/post";
 import { toast } from "sonner";
 import {
   deletePost,
@@ -62,7 +62,7 @@ const feedSlice = createSlice({
         const { postId, type } = action.payload;
         const post = state.posts.find((post) => post.id === postId);
         if (post) updatePostInteraction(post, type);
-      }
+      },
     );
     builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
@@ -101,14 +101,14 @@ export const fetchPosts =
 
     try {
       dispatch(fetchPostsStart());
-      const data = await getPosts("feed", userId, page, limit);
+      const data = await postRouter.list("feed", userId, page, limit);
       const hasMore = data.length > 0;
       dispatch(
         fetchPostsSuccess({
           posts: data,
           hasMore,
           page: hasMore ? page + 1 : page,
-        })
+        }),
       );
     } catch (error: any) {
       dispatch(fetchPostsFailure(error.message));
@@ -117,7 +117,7 @@ export const fetchPosts =
 
 //  DELETE POST THUNK
 export const removePost = (id: string) => async (dispatch: AppDispatch) => {
-  toast.promise(deletePostById(id), {
+  toast.promise(postRouter.delete(id), {
     loading: "Eliminando...",
     success: () => {
       dispatch(deletePost(id));

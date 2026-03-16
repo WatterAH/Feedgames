@@ -1,12 +1,12 @@
 "use client";
 
-import Card from "@/layout/Pages/Card";
-import Title from "@/layout/Pages/Title";
-import Error from "@/layout/Pages/Error";
-import PostContainer from "@/layout/Pages/PostContainer";
+import Card from "@/components/Layout/Card";
+import Title from "@/components/Layout/Title";
+import Error from "@/components/Layout/Error";
+import PostContainer from "@/components/Layout/PostContainer";
 import { useUser } from "@/context/AuthContext";
 import { useRiotToken } from "@/hooks/useValorant";
-import { PostsLoader } from "@/layout/Pages/Loaders";
+import { PostsLoader } from "@/components/Layout/Loaders";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

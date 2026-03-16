@@ -5,20 +5,7 @@ import { supabase } from "../middlewares/connection";
 class AlertService {
   private readonly table = "alerts" as const;
   private readonly query =
-    `id, type, read, created_at, post_id, actor:actor_id(id, name, username, pfp), post:post_id(id, text, content:content(type, data))` as const;
-
-  async createNotify(
-    id_user: string,
-    content: "p" | "u",
-    id_linked: string,
-    text: string,
-    notifier: string,
-  ) {
-    const data = { id_user, content, id_linked, text, notifier };
-    const { error } = await supabase.from("notify").insert([data]);
-
-    return error ? false : true;
-  }
+    `id, type, read, created_at, post_id, receiver_id, actor:actor_id(id, name, username, pfp), post:post_id(id, text, content:content(type, data))` as const;
 
   async list(
     userId: string,
@@ -33,6 +20,16 @@ class AlertService {
       .range(page * limit, page * limit + limit - 1);
 
     return { data: data as unknown as Alert[], error };
+  }
+
+  async find(id: string) {
+    const { data, error } = await supabase
+      .from(this.table)
+      .select(this.query)
+      .eq("id", id)
+      .single();
+
+    return { data: data as unknown as Alert, error };
   }
 
   async create(
@@ -53,29 +50,23 @@ class AlertService {
     return !error;
   }
 
-  async getAlerts(
-    userId: string,
-    limit: number,
-    page: number,
-  ): Promise<Alert[] | null> {
-    const { data, error } = await supabase
-      .from("notify")
-      .select("*, user:notifier(id, username, pfp)")
-      .eq("id_user", userId)
-      .order("created_at", { ascending: false })
-      .range(page * limit, page * limit + limit - 1);
-
-    return error ? null : data;
-  }
-
-  async readAlerts(userId: string) {
+  async read(userId: string): Promise<boolean> {
     const { error } = await supabase
-      .from("notify")
+      .from("alerts")
       .update({ read: true })
-      .eq("id_user", userId)
-      .eq("read", false);
+      .eq("receiver_id", userId);
 
     return error ? false : true;
+  }
+
+  async hasAlerts(userId: string): Promise<boolean> {
+    const { data, error } = await supabase
+      .from("alerts")
+      .select("id")
+      .eq("receiver_id", userId)
+      .eq("read", false);
+
+    return error ? false : data.length > 0;
   }
 }
 

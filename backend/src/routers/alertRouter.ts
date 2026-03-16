@@ -3,8 +3,10 @@ import alertController from "../controllers/alertController";
 
 const alertRouter = Router();
 
-alertRouter.get("/alerts", alertController.getAlerts);
+alertRouter.get("/list", alertController.getAlerts);
+alertRouter.get("/:id", alertController.getAlertById);
+alertRouter.put("/:id", alertController.readAlerts);
+alertRouter.delete("/:id", alertController.deleteAlert);
 alertRouter.get("/hasUnreadAlerts/:id", alertController.hasUnreadAlerts);
-alertRouter.delete("/alerts/:id", alertController.deleteAlert);
 
 export default alertRouter;

@@ -9,6 +9,7 @@ export interface AlertInterface {
   user: User;
   post: PostInterface | null;
   read: boolean;
+  receiver_id: string;
 }
 
 export type AlertType = "like" | "reply" | "follow";

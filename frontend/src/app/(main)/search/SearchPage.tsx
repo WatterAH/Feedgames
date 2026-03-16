@@ -1,18 +1,18 @@
 "use client";
 import Post from "@/components/Post/Post";
-import Title from "@/layout/Pages/Title";
-import Error from "@/layout/Pages/Error";
-import Card from "@/layout/Pages/Card";
-import InputSearch from "@/layout/Search/InputSearch";
+import Title from "@/components/Layout/Title";
+import Error from "@/components/Layout/Error";
+import Card from "@/components/Layout/Card";
+import InputSearch from "@/components/Search/InputSearch";
 import { useUser } from "@/context/AuthContext";
-import { PostsLoader } from "@/layout/Pages/Loaders";
+import { PostsLoader } from "@/components/Layout/Loaders";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchTendency } from "@/store/tendencySlice";
 import { useSearchPosts, useSearchUsers } from "@/hooks/useExplorer";
-import { RenderPosts, RenderUsers } from "@/layout/Search/Render";
-import SearchCurrent from "@/layout/Search/SearchCurrent";
+import { RenderPosts, RenderUsers } from "@/components/Search/Render";
+import SearchCurrent from "@/components/Search/SearchCurrent";
 
 const SearchPage = () => {
   const { user } = useUser();

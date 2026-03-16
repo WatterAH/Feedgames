@@ -1,13 +1,13 @@
 "use client";
-import Error from "@/layout/Pages/Error";
+import Error from "@/components/Layout/Error";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
-import PostContainer from "@/layout/Pages/PostContainer";
-import Title from "@/layout/Pages/Title";
-import Card from "@/layout/Pages/Card";
+import PostContainer from "@/components/Layout/PostContainer";
+import Title from "@/components/Layout/Title";
+import Card from "@/components/Layout/Card";
 import { useUser } from "@/context/AuthContext";
 import { useEffect } from "react";
 import { fetchPosts } from "@/store/userSlice";
-import { ProfileLoader } from "@/layout/Pages/Loaders";
+import { ProfileLoader } from "@/components/Layout/Loaders";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 

@@ -9,12 +9,12 @@ import serviceRouter from "../routers/serviceRouter";
 
 const app = express();
 
-app.use(userRouter);
-app.use(postRouter);
+app.use("/users", userRouter);
+app.use("/posts", postRouter);
 app.use(searchRouter);
-app.use(alertRouter);
-app.use(serviceRouter);
+app.use("/alerts", alertRouter);
+app.use("/service", serviceRouter);
 app.use(valorantRouter);
-app.use(interactionRouter);
+app.use("/social", interactionRouter);
 
 export { app as mainRouter };

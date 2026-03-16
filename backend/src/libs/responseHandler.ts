@@ -11,7 +11,7 @@ export function sendSuccess(res: Response, data: any) {
 export function sendError(
   res: Response,
   message: string = "Internal Server Error",
-  statusCode: number = 500
+  statusCode: number = 500,
 ) {
   res.status(statusCode).json({
     success: false,

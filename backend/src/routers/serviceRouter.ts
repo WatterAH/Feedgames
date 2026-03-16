@@ -3,7 +3,7 @@ import serviceController from "../controllers/serviceController";
 
 const serviceRouter = Router();
 
-serviceRouter.post("/getToken/", serviceController.getToken);
+serviceRouter.post("/token", serviceController.getToken);
 serviceRouter.post("/resetPassword", serviceController.resetPassword);
 
 export default serviceRouter;

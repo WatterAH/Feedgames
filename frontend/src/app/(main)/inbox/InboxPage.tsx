@@ -1,6 +1,6 @@
 import React from "react";
-import Title from "@/layout/Pages/Title";
-import Card from "@/layout/Pages/Card";
+import Title from "@/components/Layout/Title";
+import Card from "@/components/Layout/Card";
 
 const InboxPage = () => {
   return (

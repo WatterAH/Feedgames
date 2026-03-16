@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import Title from "@/layout/Pages/Title";
-import Card from "@/layout/Pages/Card";
+import Title from "@/components/Layout/Title";
+import Card from "@/components/Layout/Card";
 import Post from "@/components/Post/Post";
 import Error from "./Error";
-import PostContainer from "@/layout/Pages/PostContainer";
+import PostContainer from "@/components/Layout/PostContainer";
 import { PostInterface } from "@/interfaces/Post";
 import { PostsLoader } from "./Loaders";
 import { useExploreResponses } from "@/hooks/useExplorer";

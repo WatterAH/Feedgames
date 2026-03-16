@@ -51,37 +51,3 @@ export const share = (content: "u" | "p", id: string) => {
     toast.success("Se copió al portapapeles");
   }
 };
-
-export const processPost = (post: PostInterface | any) => {
-  const { id, user, user_id, content, ...rest } = post;
-  const { followers, ...userRest } = user;
-
-  const userIdParsed = translator.fromUUID(user_id);
-
-  return {
-    id: translator.fromUUID(id),
-    user_id: userIdParsed,
-    user: {
-      id: userIdParsed,
-      followers: followers[0].count,
-      ...userRest,
-    },
-    content: { type: content[0].type, data: content[0].data },
-    liked: 0,
-    saved: 0,
-    responsed: 0,
-    ...rest,
-  };
-};
-
-export const processNotify = (notify: AlertInterface) => {
-  const { user, ...rest } = notify;
-  const { id, ...userRest } = user;
-  return {
-    user: {
-      id: translator.fromUUID(id),
-      ...userRest,
-    },
-    ...rest,
-  };
-};

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/interfaces/Post";
 import { User } from "@/interfaces/User";
-import { getResponsesByParentId } from "@/routes/post";
+import postRouter from "@/routes/post";
 import { getCurrentTerm, getUsers } from "@/routes/search";
 
 export const useExploreResponses = (userId: string, parentId: string) => {
@@ -16,7 +16,7 @@ export const useExploreResponses = (userId: string, parentId: string) => {
 
     try {
       setLoading(true);
-      const data = await getResponsesByParentId(parentId, userId, page, 10);
+      const data = await postRouter.replies(parentId, userId, page, 10);
 
       setData((prev) => [...prev, ...data]);
       setPage((prev) => prev + 1);

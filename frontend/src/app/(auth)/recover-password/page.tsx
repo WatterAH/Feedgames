@@ -1,14 +1,14 @@
 "use client";
-import Footer from "@/layout/Auth/Footer";
-import FormField from "@/layout/Auth/FormField";
-import Header from "@/layout/Auth/Header";
-import SubmitButton from "@/layout/Auth/SubmitButton";
+import Footer from "@/components/Auth/Footer";
+import FormField from "@/components/Auth/FormField";
+import Header from "@/components/Auth/Header";
+import SubmitButton from "@/components/Auth/SubmitButton";
 import { toast } from "sonner";
 import { useState } from "react";
 import { animated } from "react-spring";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAnimations } from "@/hooks/useAnimations";
-import { getToken, resetPassword } from "@/routes/profile";
+import serviceRouter from "@/routes/service";
 
 export default function RecoverPassword() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function RecoverPassword() {
     setLoading(true);
 
     if (token) {
-      toast.promise(resetPassword(password, token), {
+      toast.promise(serviceRouter.resetPassword(password, token), {
         loading: "Actualizando...",
         success: () => {
           router.push("/login");
@@ -35,7 +35,7 @@ export default function RecoverPassword() {
         finally: () => setLoading(false),
       });
     } else {
-      toast.promise(getToken(email), {
+      toast.promise(serviceRouter.token(email), {
         loading: "Enviando...",
         success: "Se te enviará un correo electronico",
         finally: () => setLoading(false),

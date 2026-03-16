@@ -1,6 +1,6 @@
 "use client";
-import Footer from "@/layout/Auth/Footer";
-import Header from "@/layout/Auth/Header";
+import Footer from "@/components/Auth/Footer";
+import Header from "@/components/Auth/Header";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLogin } from "@/hooks/useAuth";
@@ -10,8 +10,8 @@ import { useAnimations } from "@/hooks/useAnimations";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { resetAll } from "@/store/actions";
-import FormField from "@/layout/Auth/FormField";
-import SubmitButton from "@/layout/Auth/SubmitButton";
+import FormField from "@/components/Auth/FormField";
+import SubmitButton from "@/components/Auth/SubmitButton";
 
 export default function Auth() {
   const [username, setUsername] = useState("");

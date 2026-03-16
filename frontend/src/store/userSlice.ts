@@ -2,7 +2,7 @@ import { PostInterface } from "@/interfaces/Post";
 import { defaultUser, User } from "@/interfaces/User";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { editProfile, getProfile } from "@/routes/profile";
+import userRouter from "@/routes/profile";
 import {
   REMOVE_POST,
   RemovePostAction,
@@ -14,7 +14,7 @@ import {
 } from "./actions";
 import { updatePostInteraction } from "./listeners";
 import { toast } from "sonner";
-import { getPosts } from "@/routes/post";
+import postRouter from "@/routes/post";
 
 interface userSlice {
   user: User | null;
@@ -89,7 +89,7 @@ const userSlice = createSlice({
         const { postId, type } = action.payload;
         const post = state.posts.find((post) => post.id === postId);
         if (post) updatePostInteraction(post, type);
-      }
+      },
     );
     builder.addCase(REMOVE_POST, (state, action: RemovePostAction) => {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
@@ -131,7 +131,7 @@ export const fetchUser = (userId: string) => async (dispatch: AppDispatch) => {
     dispatch(fetchUserStart());
     if (userId === defaultUser.id) return;
 
-    const data = await getProfile(userId, userId);
+    const data = await userRouter.find(userId, userId);
     dispatch(fetchUserSuccess({ user: data }));
   } catch (error: any) {
     dispatch(fetchUserFailure(error.message));
@@ -148,14 +148,14 @@ export const fetchPosts =
 
     try {
       dispatch(fetchPostsStart());
-      const data = await getPosts("user", userId, page, limit, userId);
+      const data = await postRouter.list("user", userId, page, limit, userId);
       const hasMore = data.length > 0;
       dispatch(
         fetchPostsSuccess({
           posts: data,
           hasMore,
           page: hasMore ? page + 1 : page,
-        })
+        }),
       );
     } catch (error: any) {
       dispatch(fetchPostsFailure(error.message));
@@ -167,7 +167,7 @@ export const fetchPosts =
 export const updateUser =
   (id: string, data: Partial<User>, image: File | null) =>
   async (dispatch: AppDispatch) => {
-    toast.promise(editProfile(id, data, image), {
+    toast.promise(userRouter.update(id, data, image), {
       loading: "Actualizando...",
       success: (data) => {
         const user = data;

@@ -1,11 +1,11 @@
 "use client";
 
-import Card from "@/layout/Pages/Card";
-import Error from "@/layout/Pages/Error";
-import PostContainer from "@/layout/Pages/PostContainer";
-import Title from "@/layout/Pages/Title";
+import Card from "@/components/Layout/Card";
+import Error from "@/components/Layout/Error";
+import PostContainer from "@/components/Layout/PostContainer";
+import Title from "@/components/Layout/Title";
 import { usePosts } from "@/hooks/usePosts";
-import { PostsLoader } from "@/layout/Pages/Loaders";
+import { PostsLoader } from "@/components/Layout/Loaders";
 import { useUser } from "@/context/AuthContext";
 
 const LikedPage = () => {

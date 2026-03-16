@@ -9,7 +9,7 @@ import Content from "./Content";
 import { useUser } from "@/context/AuthContext";
 import { ContentObject, PostInterface } from "@/interfaces/Post";
 import { toast } from "sonner";
-import { createPost } from "@/routes/post";
+import postRouter from "@/routes/post";
 
 interface Props {
   open: boolean;
@@ -27,7 +27,7 @@ const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(false);
-    toast.promise(createPost(user.id, text, content, parentId), {
+    toast.promise(postRouter.create(user.id, text, content, parentId), {
       loading: "Publicando...",
       success: () => {
         return "Publicado";

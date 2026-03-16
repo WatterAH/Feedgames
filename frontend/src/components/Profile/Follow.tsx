@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Edit from "./Edit/Edit";
 import { useUser } from "@/context/AuthContext";
 import { defaultUser, User } from "@/interfaces/User";
-import { unFollowUser, followUser } from "@/routes/interactions";
+import interactionRouter from "@/routes/interactions";
 import { toast } from "sonner";
 import { useAuthReminder } from "@/context/AuthReminderProvider";
 
@@ -28,9 +28,9 @@ const Follow: React.FC<Props> = (props) => {
     try {
       setFollowState(!followState);
       if (!followState) {
-        await followUser(user.id, id);
+        await interactionRouter.follow(user.id, id);
       } else {
-        await unFollowUser(user.id, id);
+        await interactionRouter.unfollow(user.id, id);
       }
     } catch (error: any) {
       toast.error(error.message);

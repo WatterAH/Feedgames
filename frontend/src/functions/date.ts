@@ -1,4 +1,4 @@
-import { endOfSecond, intervalToDuration } from "date-fns";
+import { intervalToDuration } from "date-fns";
 
 export const calculateDate = (date: string, reduce?: boolean): string => {
   const todayISO = getISODate();

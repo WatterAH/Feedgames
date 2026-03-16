@@ -7,9 +7,9 @@ import TextArea from "../New/TextArea";
 import { PostInterface } from "@/interfaces/Post";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "sonner";
-import { editPostById } from "@/routes/post";
 import { updatePost } from "@/store/actions";
+import { toast } from "sonner";
+import postRouter from "@/routes/post";
 
 interface Props {
   open: boolean;
@@ -26,7 +26,7 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    toast.promise(editPostById(post.id, { text }), {
+    toast.promise(postRouter.update(post.id, { text }), {
       loading: "Editando...",
       success: () => {
         setOpen(false);

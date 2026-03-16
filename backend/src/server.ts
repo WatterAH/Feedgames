@@ -14,8 +14,6 @@ const io = new SocketServer(server, {
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("connected" + socket.id);
-});
+io.on("connection", () => {});
 
-export { server };
+export { server, io };

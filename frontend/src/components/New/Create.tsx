@@ -9,7 +9,7 @@ import Canvas from "./pixels/Canvas";
 import Preview from "./layout/Preview";
 import { toast } from "sonner";
 import { useUser } from "@/context/AuthContext";
-import { createPost } from "@/routes/post";
+import postRouter from "@/routes/post";
 import { useGetMatches } from "@/hooks/useValorant";
 import { ContentObject } from "@/interfaces/Post";
 import { AppDispatch, RootState } from "@/store/store";
@@ -47,7 +47,7 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
     }
 
     setOpen(false);
-    toast.promise(createPost(user.id, text, content), {
+    toast.promise(postRouter.create(user.id, text, content), {
       loading: "Publicando...",
       success: (data) => {
         setText("");

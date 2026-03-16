@@ -28,20 +28,44 @@ class AlertController {
     }
   }
 
+  async getAlertById(req: Request, res: Response) {
+    try {
+      const id = req.params.id as string;
+
+      const alert = await alertService.find(id);
+      if (alert.error) return sendError(res, alert.error.message, 400);
+      if (!alert.data) return sendError(res, "Not found", 404);
+
+      const result = processAlert(alert.data);
+      return sendSuccess(res, result);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
+
   async hasUnreadAlerts(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
 
-      const userId = translator.toUUID(id as string);
+      const userId = translator.toUUID(id);
 
-      const alerts = await alertService.getAlerts(userId, 10, 0);
+      const unread = await alertService.hasAlerts(userId);
 
-      if (!alerts) {
-        return sendError(res, "Error al obtener las notificaciones", 400);
-      }
+      return sendSuccess(res, unread);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
 
-      const hasUnread = alerts.some((alert) => alert.read === false);
-      return sendSuccess(res, hasUnread);
+  async readAlerts(req: Request, res: Response) {
+    try {
+      const id = req.params.id as string;
+
+      const userId = translator.toUUID(id);
+
+      await alertService.read(userId);
+
+      return sendSuccess(res, true);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }

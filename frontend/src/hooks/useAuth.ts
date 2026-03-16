@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { defaultUser, User } from "@/interfaces/User";
 import { allowedPath } from "@/functions/utils";
-import { auth, checkAuth, createProfile } from "@/routes/profile";
+import userRouter from "@/routes/profile";
 import { useSocket } from "@/context/SocketContext";
 
 export const useLogin = () => {
@@ -19,7 +19,7 @@ export const useLogin = () => {
     async (username: string, password: string) => {
       try {
         setLoading(true);
-        const data = await auth(username, password);
+        const data = await userRouter.auth(username, password);
         const { user, token } = data;
         login(user);
         setCookie("token", token, {
@@ -51,7 +51,7 @@ export const useRegister = () => {
     async (userdata: Partial<User>) => {
       try {
         setLoading(true);
-        const data = await createProfile(userdata);
+        const data = await userRouter.create(userdata);
         const { user, token } = data;
         login(user);
         setCookie("token", token, {
@@ -84,7 +84,7 @@ export const useToken = () => {
   useEffect(() => {
     const check = async () => {
       try {
-        const data = await checkAuth(cookies.token);
+        const data = await userRouter.refresh(cookies.token);
         const { user } = data;
         connectSocket(URL, user.id);
         login(user);

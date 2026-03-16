@@ -1,55 +1,56 @@
 "use client";
-import Notify from "@/components/Notifications/Alert";
-import Card from "@/layout/Pages/Card";
-import Title from "@/layout/Pages/Title";
-import Error from "@/layout/Pages/Error";
+import Alert from "@/components/Alert/Alert";
+import Card from "@/components/Layout/Card";
+import Title from "@/components/Layout/Title";
+import Error from "@/components/Layout/Error";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useUser } from "@/context/AuthContext";
-import { NotifysLoader } from "@/layout/Pages/Loaders";
+import { NotifysLoader } from "@/components/Layout/Loaders";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchNotifications } from "@/store/activity";
-import Empty from "@/layout/Pages/Empty";
+import { fetchAlerts } from "@/store/activity";
+import Empty from "@/components/Layout/Empty";
+import alertRouter from "@/routes/alerts";
 
 const AlertPage = () => {
   const { user } = useUser();
   const dispatch: AppDispatch = useDispatch();
-  const { notifications, hasMore, loading, error } = useSelector(
+  const { alerts, hasMore, loading, error } = useSelector(
     (state: RootState) => state.activity,
   );
 
   useEffect(() => {
-    if (user?.id && notifications.length == 0) {
-      dispatch(fetchNotifications(user.id, 15));
+    if (user?.id && alerts.length == 0) {
+      dispatch(fetchAlerts(user.id, 15));
     }
-  }, [dispatch, user?.id, notifications.length]);
+  }, [dispatch, user?.id, alerts.length]);
+
+  useEffect(() => {
+    const read = async () => await alertRouter.readAlerts(user.id);
+    read();
+  }, []);
 
   const getMoreNotify = () => {
     if (hasMore && !loading && user?.id) {
-      dispatch(fetchNotifications(user.id, 15));
+      dispatch(fetchAlerts(user.id, 15));
     }
   };
 
   const RenderContent = () => {
-    if (loading && notifications.length == 0)
-      return <NotifysLoader count={12} />;
-    if (error && notifications.length == 0) return <Error />;
-    if (notifications.length == 0)
+    if (loading && alerts.length == 0) return <NotifysLoader count={12} />;
+    if (error && alerts.length == 0) return <Error />;
+    if (alerts.length == 0)
       return <Empty text="Aún no tienes notificaciones" full />;
     return (
       <InfiniteScroll
-        dataLength={notifications.length}
+        dataLength={alerts.length}
         hasMore={hasMore}
         next={getMoreNotify}
         loader={<NotifysLoader count={2} />}
       >
-        {notifications.map((notify, i) => (
-          <Notify
-            key={notify.id}
-            data={notify}
-            isLast={i == notifications.length - 1}
-          />
+        {alerts.map((alert, i) => (
+          <Alert key={alert.id} data={alert} isLast={i == alerts.length - 1} />
         ))}
       </InfiniteScroll>
     );

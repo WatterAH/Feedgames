@@ -1,6 +1,6 @@
 import { PostInterface } from "@/interfaces/Post";
 import { useCallback, useEffect, useState } from "react";
-import { getPosts as fetchPosts } from "@/routes/post";
+import postRouter from "@/routes/post";
 
 type Type = "user" | "liked" | "saved";
 
@@ -15,7 +15,7 @@ export const usePosts = (userId: string, type: Type, requestId?: string) => {
     if (!userId || !hasMore) return;
     try {
       if (page == 0) setLoading(true);
-      const data = await fetchPosts(type, userId, page, 10, requestId);
+      const data = await postRouter.list(type, userId, page, 10, requestId);
       if (data.length > 0) {
         setPosts((prevPosts) => [...prevPosts, ...data]);
         setPage((prev) => prev + 1);

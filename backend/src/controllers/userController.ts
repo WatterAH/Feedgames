@@ -98,7 +98,7 @@ class UserController {
 
   async checkToken(req: Request, res: Response) {
     try {
-      const { token } = req.params;
+      const token = req.params.token;
       const user = await validateToken(token);
       if (!user) {
         return sendError(res, "Unauthorized", 401);

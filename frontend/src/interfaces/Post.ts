@@ -22,6 +22,19 @@ export const defaultPost: PostInterface = {
   content: { type: "textonly", data: null },
 };
 
+export type Interaction =
+  | {
+      type: "liked";
+      userId: string;
+      postId: string;
+      postUser: string;
+    }
+  | {
+      type: "saved";
+      userId: string;
+      postId: string;
+    };
+
 export interface PostInterface {
   id: string;
   text: string;

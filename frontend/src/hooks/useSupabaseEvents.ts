@@ -1,14 +1,14 @@
 import shortUUID from "short-uuid";
+import alertRouter from "@/routes/alerts";
 import { toast } from "sonner";
 import { addPost } from "@/store/feedSlice";
 import { useEffect } from "react";
-import { addNotify, setNewNotify } from "@/store/activity";
+import { addAlert, setNewAlert } from "@/store/activity";
 import { addMyPost } from "@/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
-import { getNotifyById, getPostById, supabase } from "@/functions/db";
-import { processNotify, processPost } from "@/functions/utils";
-import { hasAlerts } from "@/routes/alerts";
+import { supabase } from "@/functions/db";
+import postRouter from "@/routes/post";
 
 const translator = shortUUID();
 
@@ -22,72 +22,55 @@ const handleNewPost = async (
 
   if (userPostId === userId) return;
 
-  const { post, error } = await getPostById(newPost.id);
+  const post = await postRouter.find(newPost.id, "");
 
-  if (error || !post || post?.parentId) return;
-
-  const result = processPost(post);
-  dispatch(addPost(result));
+  dispatch(addPost(post));
 
   if (post.user_id === translator.toUUID(userId)) {
-    dispatch(addMyPost(result));
+    dispatch(addMyPost(post));
   } else {
     toast("Nuevas publicaciones");
   }
 };
 
-const handleNewNotification = async (
+const handleAlert = async (
   payload: any,
   userId: string,
   dispatch: AppDispatch,
-  shouldDispatch: boolean,
 ) => {
-  const { new: notify } = payload;
-  const { data, error } = await getNotifyById(notify.id);
+  const { new: alert } = payload;
+  const newAlert = await alertRouter.find(alert.id);
 
-  if (error || !data) return;
-
-  const result = processNotify(data);
-
-  // if (data.id_user === translator.toUUID(userId)) {
-  //   if (shouldDispatch) dispatch(addNotify(result));
-  //   dispatch(setNewNotify(true));
-  //   toast(`${data.user.username}: ${data.text}`);
-  // }
+  if (newAlert.receiver_id === translator.toUUID(userId)) {
+    dispatch(addAlert(newAlert));
+    dispatch(setNewAlert(true));
+    toast("Tienes nuevas notificaciones");
+  }
 };
 
-export const useSubscribeToUpdates = (userId: string) => {
+export const subscribeToAlerts = (userId: string) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { notifications } = useSelector((state: RootState) => state.activity);
-  const shouldUpdate = notifications.length > 0;
+  const { alerts } = useSelector((state: RootState) => state.activity);
+  const shouldUpdate = alerts.length > 0;
 
   useEffect(() => {
-    const chanel_post = supabase
-      .channel("chanel_posts")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "posts" },
-        async (payload) => handleNewPost(payload, userId, dispatch),
-      )
-      .subscribe();
+    if (userId == "aRwwhM2xr7U9nWiFC12Ymb") return;
 
     const chanel_notify = supabase
       .channel("chanel_notify")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "notify" },
-        async (payload) =>
-          handleNewNotification(payload, userId, dispatch, shouldUpdate),
+        { event: "INSERT", schema: "public", table: "alerts" },
+        async (payload) => handleAlert(payload, userId, dispatch),
       )
       .subscribe();
 
-    const hasUnread = async () => await hasAlerts(userId);
-    hasUnread().then((value) => dispatch(setNewNotify(value)));
+    const hasUnread = async () => alertRouter.hasAlerts(userId);
+    hasUnread().then((value) => dispatch(setNewAlert(value)));
 
     return () => {
-      supabase.removeChannel(chanel_post);
       supabase.removeChannel(chanel_notify);
     };
-  }, [dispatch, userId, notifications.length, shouldUpdate]);
+  }, [dispatch, userId, alerts.length, shouldUpdate]);
 };
