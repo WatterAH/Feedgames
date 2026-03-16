@@ -4,7 +4,7 @@ import Loader from "@/components/Global/Loader";
 import Result from "./Result";
 import { User } from "@/interfaces/User";
 import { PostInterface } from "@/interfaces/Post";
-import Empty from "../Pages/Empty";
+import Empty from "../Layout/Empty";
 
 interface PostsProps {
   loading: boolean;
