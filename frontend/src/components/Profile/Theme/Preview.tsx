@@ -41,7 +41,7 @@ const Preview: React.FC<Props> = ({
         </div>
       )}
 
-      <div className="relative border border-border rounded-t-md w-full h-32">
+      <div className="relative border border-(--border) rounded-t-md w-full h-32">
         {inView && src !== "white" && (
           <video
             autoPlay
@@ -55,7 +55,7 @@ const Preview: React.FC<Props> = ({
           </video>
         )}
       </div>
-      <div className="border border-border rounded-b-md p-2">
+      <div className="border border-(--border) rounded-b-md p-2">
         <p className="text-xs font-montserrat font-medium text-center">
           {theme}
         </p>

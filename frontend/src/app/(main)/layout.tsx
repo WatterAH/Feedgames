@@ -40,7 +40,7 @@ export default function MainLayout({
       style={loaderSpring}
       className="h-screen flex items-center justify-center duration-500"
     >
-      <h1 className="font-pacifico text-5xl text-text">Fg</h1>
+      <h1 className="font-pacifico text-5xl text-(--text)">Fg</h1>
     </AnimatedDiv>
   ) : (
     <>

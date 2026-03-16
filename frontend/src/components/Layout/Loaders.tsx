@@ -1,12 +1,12 @@
 import { Ellipsis } from "lucide-react";
 
 const Loader = ({ h, w }: { h: string; w: string }) => {
-  return <div className={`bg-loader ${h} ${w} rounded-full`}></div>;
+  return <div className={`bg-(--loader) ${h} ${w} rounded-full`}></div>;
 };
 
 export const NotifyLoader = () => {
   return (
-    <div className="flex w-full border-b border-border p-4 items-center justify-between">
+    <div className="flex w-full border-b border-(--border) p-4 items-center justify-between">
       <div className="flex items-center gap-x-3 w-full">
         <Loader h="h-10" w="w-11" />
         <section className="flex flex-col gap-y-2 w-full">
@@ -15,7 +15,7 @@ export const NotifyLoader = () => {
         </section>
       </div>
       <div>
-        <Ellipsis className="text-placeholder" />
+        <Ellipsis className="text-(--placeholder)" />
       </div>
     </div>
   );
@@ -23,7 +23,7 @@ export const NotifyLoader = () => {
 
 export const PostLoader = () => {
   return (
-    <div className="flex flex-row gap-x-2 w-full border-b border-border p-2 sm:px-5 py-4">
+    <div className="flex flex-row gap-x-2 w-full border-b border-(--border) p-2 sm:px-5 py-4">
       <Loader h="h-10" w="w-11" />
       <div className="flex flex-col gap-y-1 w-full">
         <Loader h="h-2" w="w-20" />
@@ -60,7 +60,7 @@ export const NotifysLoader = ({ count }: { count: number }) => {
 export const ProfileLoader = () => {
   return (
     <div className="flex flex-col">
-      <header className="flex flex-col gap-y-5 w-full p-3 lg:px-4 border-b border-border h-72">
+      <header className="flex flex-col gap-y-5 w-full p-3 lg:px-4 border-b border-(--border) h-72">
         <div className="namesContainer flex flex-row gap-x-3">
           <Loader h="h-24" w="w-24" />
           <div className="flex flex-col gap-y-3 mt-4">

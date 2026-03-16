@@ -40,7 +40,7 @@ const Modal: React.FC<Props> = ({
     <Dialog open={open} onClose={onClose ?? setOpen} className="relative z-50">
       <DialogBackdrop
         transition
-        className="fixed inset-0 backdrop-blur-sm bg-black/65 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+        className="fixed inset-0 backdrop-blur-sm bg-black/65 bg-opacity-75 transition-opacity data-closed:opacity-0 data-enter:duration-100 data-leave:duration-200 data-enter:ease-out data-leave:ease-in"
       />
 
       <div
@@ -50,23 +50,23 @@ const Modal: React.FC<Props> = ({
         <div className="flex h-screen items-center justify-center">
           <DialogPanel
             transition
-            className={`relative transform overflow-hidden rounded-xl duration-100 bg-foreground shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-100 data-[enter]:ease-out data-[leave]:ease-in ${
+            className={`relative transform overflow-hidden rounded-xl duration-100 bg-(--foreground) shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-100 data-leave:duration-100 data-enter:ease-out data-leave:ease-in ${
               full ? "w-full" : "w-[24rem]"
-            } ${maxWidthClass} data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95`}
+            } ${maxWidthClass} data-closed:sm:translate-y-0 data-closed:sm:scale-95`}
           >
             <div
-              className={`bg-foreground duration-500 transition-all ${
+              className={`bg-(--foreground) duration-500 transition-all ${
                 full ? "h-screen" : "h-fit"
               } sm:h-full`}
             >
               <div className="mt-7 sm:mt-2 w-full relative">
                 <DialogTitle
                   as="h3"
-                  className="text-base text-center border-b border-border font-bold leading-6 text-text pb-4"
+                  className="text-base text-center border-b border-(--border) font-bold leading-6 text-(--text) pb-4"
                 >
                   {title}
                 </DialogTitle>
-                <div className="mt-2 pb-4 text-text">{children}</div>
+                <div className="mt-2 pb-4 text-(--text)">{children}</div>
               </div>
             </div>
           </DialogPanel>

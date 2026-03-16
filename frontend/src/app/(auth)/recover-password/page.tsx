@@ -44,10 +44,10 @@ export default function RecoverPassword() {
   };
 
   return (
-    <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-[var(--foreground)] sm:bg-[var(--background)]">
+    <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-(--foreground) sm:bg-(--background)">
       <AnimatedDiv
         style={fadeIn}
-        className="flex flex-col items-center shadow-transparent justify-center bg-foreground sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border border-border"
+        className="flex flex-col items-center shadow-transparent justify-center bg-(--foreground) sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border border-(--border)"
       >
         <form
           className="flex flex-col gap-y-5 sm:mx-auto w-full sm:max-w-sm px-2 sm:px-9 py-4 sm:py-12"
@@ -62,7 +62,7 @@ export default function RecoverPassword() {
                 value={password}
                 onChange={setPassword}
               />
-              <p className="text-text text-xs text-center font-raleway">
+              <p className="text-(--text) text-xs text-center font-raleway">
                 Por razones de seguridad (y para evitar que tu gato entre a tu
                 cuenta), asegurate de elegir una contraseña segura. ¿Listo para
                 volver al juego?
@@ -76,7 +76,7 @@ export default function RecoverPassword() {
                 onChange={setEmail}
                 label="Correo electronico"
               />
-              <p className="text-text text-xs text-center font-raleway">
+              <p className="text-(--text) text-xs text-center font-raleway">
                 Si creaste tu cuenta antes del 25 de enero de 2025, debes
                 contactar con soporte técnico para la inserción manual de su
                 correo electrónico.

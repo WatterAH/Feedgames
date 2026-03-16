@@ -23,7 +23,7 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
   return (
     <li
       onClick={handleClick}
-      className="flex flex-col hover:cursor-pointer border border-border rounded-lg shadow-sm max-w-xs w-full mx-auto"
+      className="flex flex-col hover:cursor-pointer border border-(--border) rounded-lg shadow-sm max-w-xs w-full mx-auto"
     >
       <div className="relative overflow-hidden">
         <span className="absolute z-20 flex items-center gap-x-3">
@@ -56,20 +56,20 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
           )}
         </div>
       </div>
-      <div className="flex justify-between px-3 py-1 font-medium text-xs text-text">
+      <div className="flex justify-between px-3 py-1 font-medium text-xs text-(--text)">
         <span className="flex items-center justify-center gap-x-0.5">
-          <Crosshair className="text-placeholder h-4" />
+          <Crosshair className="text-(--placeholder) h-4" />
           {preview.kda}
         </span>
         <span className="flex items-center justify-center gap-x-0.5">
-          <Star className="text-placeholder h-4" />
+          <Star className="text-(--placeholder) h-4" />
           {preview.score}
         </span>
         <span className="flex items-center justify-center gap-x-0.5">
-          <Swords className="text-placeholder h-4" />
+          <Swords className="text-(--placeholder) h-4" />
           {preview.results}
         </span>
-        <span className="p-0.5 bg-placeholder rounded-md">
+        <span className="p-0.5 bg-(--placeholder) rounded-md">
           <ChevronRight className="h-5" />
         </span>
       </div>

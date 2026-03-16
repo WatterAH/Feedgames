@@ -17,7 +17,7 @@ const Appareance: React.FC<Props> = ({ open, setOpen }) => {
       full={false}
       size="md"
     >
-      <div className="absolute top-0.5 left-3 text-text">
+      <div className="absolute top-0.5 left-3 text-(--text)">
         <button onClick={() => setOpen(false)}>Cancelar</button>
       </div>
       <div
