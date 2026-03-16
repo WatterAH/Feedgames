@@ -38,10 +38,10 @@ const baseVideoClasses = {
 export const themes: ThemesDictionary = {
   default: {
     backGround: "",
-    usernameClass: "text-text",
-    iconClass: "text-text",
-    nameClass: "text-text",
-    detailsClass: "text-text",
+    usernameClass: "text-(--text)",
+    iconClass: "text-(--text)",
+    nameClass: "text-(--text)",
+    detailsClass: "text-(--text)",
   },
   zelda: {
     backGround: "/zelda.mp4",

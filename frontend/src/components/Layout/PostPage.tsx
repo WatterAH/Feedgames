@@ -29,7 +29,7 @@ const PostPage: React.FC<Props> = ({ error = false, ...data }) => {
         ) : (
           <>
             <Post data={data} />
-            <h4 className="text-placeholder px-3 border-b border-border py-2">
+            <h4 className="text-(--placeholder) px-3 border-b border-(--border) py-2">
               Comentarios
               <span className="font-semibold ml-1">
                 {responses.data.length}

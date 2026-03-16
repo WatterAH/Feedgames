@@ -21,19 +21,19 @@ const Result: React.FC<Props> = ({ data }) => {
 
   return (
     <div
-      className="flex items-center justify-between w-full border-b border-border py-3 px-5 hover:cursor-pointer"
+      className="flex items-center justify-between w-full border-b border-(--border) py-3 px-5 hover:cursor-pointer"
       onClick={handleClick}
     >
       <div className="flex items-center gap-x-3">
         <ProfilePicture h={40} w={40} src={pfp} />
         <div className="">
           <span className="flex items-center">
-            <p className="font-semibold text-text">{username}</p>
+            <p className="font-semibold text-(--text)">{username}</p>
             {followers > 2 && (
               <BadgeCheck fill="#38bdf8" className="h-4 mt-1 text-white" />
             )}
           </span>
-          <p className="text-placeholder text-sm">{name}</p>
+          <p className="text-(--placeholder) text-sm">{name}</p>
         </div>
       </div>
       <div className="w-28">{user.id !== id && <Follow data={data} />}</div>

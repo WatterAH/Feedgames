@@ -67,7 +67,7 @@ const SearchPage = () => {
             setCurrent={setCurrent}
           />
           {searchTerm.trim().length == 0 && (
-            <h4 className="text-text px-2">En tendencia</h4>
+            <h4 className="text-(--text) px-2">En tendencia</h4>
           )}
         </header>
         <RenderContent />

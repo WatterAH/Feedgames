@@ -37,10 +37,10 @@ const Item: React.FC<Props> = ({ href, Icon, currentPath, onClick }) => {
 
   return (
     <Link href={href} onClick={handleClick}>
-      <li className="px-4 py-2 rounded-2xl transition-all duration-500 ease-out lg:hover:bg-hover active:scale-75">
+      <li className="px-4 py-2 rounded-2xl transition-all duration-500 ease-out lg:hover:bg-(--hover) active:scale-75">
         <Icon
           className={`duration-500 h-6 w-6 lg:h-8 lg:w-8 ${
-            isCurrentPage ? "text-text" : "text-menu-icon"
+            isCurrentPage ? "text-(--text)" : "text-(--menu-icon)"
           }`}
         />
       </li>

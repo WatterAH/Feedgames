@@ -16,7 +16,7 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
   const [gridSize, setGridSize] = useState(10);
   const [selectedColor, setSelectedColor] = useState("#000000");
   const [grid, setGrid] = useState<string[]>(
-    Array(gridSize * gridSize).fill("#FFFFFF")
+    Array(gridSize * gridSize).fill("#FFFFFF"),
   );
 
   const handleClick = (index: number) => {
@@ -36,7 +36,7 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
   return (
     <>
       <button onClick={() => setOpen(true)}>
-        <PaletteIcon className="text-placeholder h-5" />
+        <PaletteIcon className="text-(--placeholder) h-5" />
       </button>
 
       <Modal

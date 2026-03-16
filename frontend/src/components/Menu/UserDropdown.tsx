@@ -15,7 +15,7 @@ const UserDropdown = () => {
       <Dropdown
         Icon={AlignLeft}
         options={options}
-        iconClass="h-8 w-8 text-menu-icon transition-all duration-500"
+        iconClass="h-8 w-8 text-(--menu-icon) transition-all duration-500"
         position="top"
       />
       <Appareance open={open} setOpen={setOpen} />

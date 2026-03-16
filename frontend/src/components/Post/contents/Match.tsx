@@ -25,7 +25,7 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
   const kda = getKDAStats(stats.playerStats);
 
   return (
-    <div className="flex flex-col border border-border rounded-xl shadow-sm w-full">
+    <div className="flex flex-col border border-(--border) rounded-xl shadow-sm w-full">
       <div className="relative">
         <span className="absolute z-20 flex items-center gap-x-4">
           {agent?.agentImg && (
@@ -59,17 +59,17 @@ const MatchPost: React.FC<Props> = ({ stats }) => {
         </div>
       </div>
 
-      <div className="flex justify-around py-3 border-b border-border text-text">
+      <div className="flex justify-around py-3 border-b border-(--border) text-(--text)">
         <span className="flex font-medium text-xs">
-          <Crosshair className="text-placeholder h-4" />
+          <Crosshair className="text-(--placeholder) h-4" />
           <p>{kda}</p>
         </span>
         <span className="flex font-medium text-xs">
-          <Swords className="text-placeholder h-4" />
+          <Swords className="text-(--placeholder) h-4" />
           <p>{stats.results}</p>
         </span>
         <span className="flex font-medium text-xs">
-          <Star className="text-placeholder h-4" />
+          <Star className="text-(--placeholder) h-4" />
           <p>{stats.playerStats.score}</p>
         </span>
       </div>

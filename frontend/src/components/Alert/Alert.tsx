@@ -64,23 +64,23 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
   };
 
   return (
-    <article className="flex flex-row p-4 gap-x-4 text-text hover:cursor-pointer">
+    <article className="flex flex-row p-4 gap-x-4 text-(--text) hover:cursor-pointer">
       <Link href={`/u/${userId}`} className="relative">
         <ProfilePicture src={pfp} h={36} w={36} />
         <span className="absolute -right-2 top-5">{displayIcon()}</span>
       </Link>
-      <div className="flex justify-between border-b border-border w-full pb-1">
+      <div className="flex justify-between border-b border-(--border) w-full pb-1">
         <section className="flex flex-col gap-0.5">
           <span className="flex items-center gap-x-1">
             <Link href={`/u/${userId}`}>
               <p className="font-semibold hover:underline text-sm">{name}</p>
             </Link>
-            <p className="text-placeholder text-xs">{date}</p>
+            <p className="text-(--placeholder) text-xs">{date}</p>
           </span>
-          <p className="text-placeholder text-sm leading-relaxed">
+          <p className="text-(--placeholder) text-sm leading-relaxed">
             {displayBadge()}
           </p>
-          <p className="text-placeholder text-sm leading-relaxed">
+          <p className="text-(--placeholder) text-sm leading-relaxed">
             {displaytext()}
           </p>
         </section>
@@ -90,7 +90,7 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
             Icon={Ellipsis}
             options={options}
             position={isLast ? "top_left" : "left"}
-            iconClass="text-placeholder"
+            iconClass="text-(--placeholder)"
           />
         </section>
       </div>

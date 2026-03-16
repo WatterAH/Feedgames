@@ -36,10 +36,10 @@ export default function Auth() {
   const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
 
   return (
-    <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-[var(--foreground)] sm:bg-[var(--background)]">
+    <main className="flex flex-1 min-h-full flex-col justify-center h-screen px-6 py-12 bg-(--foreground) sm:bg-(--background)">
       <AnimatedDiv
         style={fadeIn}
-        className="flex flex-col items-center shadow-transparent justify-center bg-foreground sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border border-border"
+        className="flex flex-col items-center shadow-transparent justify-center bg-(--foreground) sm:shadow-md rounded-xl sm:mx-auto sm:max-w-sm sm:w-full sm:border border-(--border)"
       >
         <form
           onSubmit={handleSubmit}
