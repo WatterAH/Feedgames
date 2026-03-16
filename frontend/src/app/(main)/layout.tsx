@@ -44,10 +44,7 @@ export default function MainLayout({
     </AnimatedDiv>
   ) : (
     <>
-      <main
-        id="main"
-        className="flex flex-col h-screen justify-start items-center relative overflow-y-scroll"
-      >
+      <main className="flex flex-col justify-start items-center relative">
         <Header />
         {children}
         <Menu setCreating={setCreating} />

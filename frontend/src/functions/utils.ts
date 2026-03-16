@@ -1,11 +1,6 @@
-import shortUUID from "short-uuid";
-import copy from "clipboard-copy";
 import React, { MouseEvent } from "react";
+import copy from "clipboard-copy";
 import { toast } from "sonner";
-import { PostInterface } from "@/interfaces/Post";
-import { AlertInterface } from "@/interfaces/Alert";
-
-const translator = shortUUID();
 
 export const isImage = (file: File): boolean => {
   const extensionList: string[] = ["jpg", "jpeg", "gif", "png", "webp", "heic"];

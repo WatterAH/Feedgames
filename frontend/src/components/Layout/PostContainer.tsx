@@ -15,7 +15,6 @@ const PostContainer: React.FC<Props> = ({ posts, hasMore, getPost }) => {
   return posts.length != 0 ? (
     <InfiniteScroll
       className="mt-1"
-      scrollableTarget="main"
       dataLength={posts.length}
       hasMore={hasMore}
       loader={<PostsLoader count={2} />}

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Edit from "./Edit";
 import Dropdown from "../Global/Dropdown";
 import { PostInterface } from "@/interfaces/Post";
-import { calculateDate } from "@/functions/date";
+import { interval } from "@/functions/date";
 import { BadgeCheck, Ellipsis } from "lucide-react";
 import { stopPropagation } from "@/functions/utils";
 import { usePostOptions } from "@/hooks/useOptions";
@@ -16,7 +16,7 @@ interface Props {
 const Header: React.FC<Props> = ({ data, isLast }) => {
   const { id, user_id, user, order, edited } = data;
   const { username, followers } = user;
-  const date = calculateDate(order);
+  const date = interval(order, "short");
   const [editing, setEditing] = useState(false);
   const options = usePostOptions(id, user_id, setEditing);
 

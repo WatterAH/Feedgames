@@ -1,14 +1,14 @@
 import shortUUID from "short-uuid";
+import postRouter from "@/routes/post";
 import alertRouter from "@/routes/alerts";
 import { toast } from "sonner";
 import { addPost } from "@/store/feedSlice";
 import { useEffect } from "react";
 import { addAlert, setNewAlert } from "@/store/activity";
 import { addMyPost } from "@/store/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
 import { supabase } from "@/functions/db";
-import postRouter from "@/routes/post";
 
 const translator = shortUUID();
 
@@ -17,19 +17,14 @@ const handleNewPost = async (
   userId: string,
   dispatch: AppDispatch,
 ) => {
-  const { new: newPost } = payload;
-  const userPostId = translator.fromUUID(newPost.user_id);
+  const { new: post } = payload;
+  const newPost = await postRouter.find(post.id, "");
 
-  if (userPostId === userId) return;
-
-  const post = await postRouter.find(newPost.id, "");
-
-  dispatch(addPost(post));
-
-  if (post.user_id === translator.toUUID(userId)) {
-    dispatch(addMyPost(post));
-  } else {
+  if (newPost.user_id !== translator.toUUID(userId)) {
+    dispatch(addPost(newPost));
     toast("Nuevas publicaciones");
+  } else {
+    dispatch(addMyPost(newPost));
   }
 };
 
@@ -51,14 +46,11 @@ const handleAlert = async (
 export const subscribeToAlerts = (userId: string) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { alerts } = useSelector((state: RootState) => state.activity);
-  const shouldUpdate = alerts.length > 0;
-
   useEffect(() => {
     if (userId == "aRwwhM2xr7U9nWiFC12Ymb") return;
 
-    const chanel_notify = supabase
-      .channel("chanel_notify")
+    const channel_alerts = supabase
+      .channel("channel_alerts")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "alerts" },
@@ -66,11 +58,21 @@ export const subscribeToAlerts = (userId: string) => {
       )
       .subscribe();
 
+    const channel_posts = supabase
+      .channel("channel_posts")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "posts" },
+        async (payload) => handleNewPost(payload, userId, dispatch),
+      )
+      .subscribe();
+
     const hasUnread = async () => alertRouter.hasAlerts(userId);
     hasUnread().then((value) => dispatch(setNewAlert(value)));
 
     return () => {
-      supabase.removeChannel(chanel_notify);
+      supabase.removeChannel(channel_alerts);
+      supabase.removeChannel(channel_posts);
     };
-  }, [dispatch, userId, alerts.length, shouldUpdate]);
+  }, [dispatch, userId]);
 };
