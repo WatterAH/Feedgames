@@ -28,6 +28,13 @@ export const previewThemes: { src: string; theme: string; value: Theme }[] = [
   { src: "/jett.mp4", theme: "Jett", value: "jett" },
 ];
 
+const baseVideoClasses = {
+  usernameClass: "text-white text-shadow-xl",
+  nameClass: "text-white font-bold text-shadow-xl",
+  iconClass: "text-white text-shadow-xl",
+  detailsClass: "text-white font-bold text-shadow-xl",
+};
+
 export const themes: ThemesDictionary = {
   default: {
     backGround: "",
@@ -38,45 +45,27 @@ export const themes: ThemesDictionary = {
   },
   zelda: {
     backGround: "/zelda.mp4",
-    usernameClass: "text-white text-shadow-xl",
-    nameClass: "text-white font-bold text-shadow-xl",
-    iconClass: "text-white text-shadow-xl",
-    detailsClass: "text-white font-bold text-shadow-xl",
+    ...baseVideoClasses,
   },
   link: {
     backGround: "/link.mp4",
-    usernameClass: "text-white text-shadow-xl",
-    nameClass: "text-white font-bold text-shadow-xl",
-    iconClass: "text-white text-shadow-xl",
-    detailsClass: "text-white font-bold text-shadow-xl",
+    ...baseVideoClasses,
   },
   minecraft: {
     backGround: "/minecraft.mp4",
-    usernameClass: "text-white text-shadow-xl",
-    nameClass: "text-white font-bold text-shadow-xl",
-    iconClass: "text-white text-shadow-xl",
-    detailsClass: "text-white font-bold text-shadow-xl",
+    ...baseVideoClasses,
   },
   "cherry-leaves": {
     backGround: "/cherry-leaves.mp4",
-    usernameClass: "text-white text-shadow-xl",
-    nameClass: "text-white font-bold text-shadow-xl",
-    iconClass: "text-white text-shadow-xl",
-    detailsClass: "text-white font-bold text-shadow-xl",
+    ...baseVideoClasses,
   },
   jett: {
     backGround: "/jett.mp4",
-    usernameClass: "text-white text-shadow-xl",
-    nameClass: "text-white font-bold text-shadow-xl",
-    iconClass: "text-white text-shadow-xl",
-    detailsClass: "text-white font-bold text-shadow-xl",
+    ...baseVideoClasses,
   },
   killjoy: {
     backGround: "/killjoy.mp4",
-    usernameClass: "text-white text-shadow-xl",
-    nameClass: "text-white font-bold text-shadow-xl",
-    iconClass: "text-white text-shadow-xl",
-    detailsClass: "text-white font-bold text-shadow-xl",
+    ...baseVideoClasses,
   },
 };
 
