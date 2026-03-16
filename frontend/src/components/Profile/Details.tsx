@@ -1,6 +1,6 @@
 import React from "react";
 import { User } from "@/interfaces/User";
-import { interval } from "@/functions/date";
+import { interval } from "@/lib/date";
 
 interface Props {
   data: User;

@@ -1,11 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import Dropdown from "../Global/Dropdown";
 import ProfilePicture from "../Profile/ProfilePicture";
-import { Ellipsis, Heart, MessageCircle, UserRoundPlus } from "lucide-react";
+import { Heart, MessageCircle, UserRoundPlus } from "lucide-react";
 import { AlertInterface } from "@/interfaces/Alert";
-import { interval } from "@/functions/date";
-import { useNotifyOptions } from "@/hooks/useOptions";
+import { interval } from "@/lib/date";
+import Options from "./Options";
 
 interface Props {
   data: AlertInterface;
@@ -16,7 +15,6 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
   const { created_at, type, id, user, post } = data;
   const { id: userId, name, pfp } = user;
   const date = interval(created_at);
-  const options = useNotifyOptions(id);
 
   const displaytext = () => {
     if (!post || !post.text) return "";
@@ -86,12 +84,7 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
         </section>
 
         <section>
-          <Dropdown
-            Icon={Ellipsis}
-            options={options}
-            position={isLast ? "top_left" : "left"}
-            iconClass="text-(--placeholder)"
-          />
+          <Options alertId={id} />
         </section>
       </div>
     </article>

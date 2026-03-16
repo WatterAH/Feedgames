@@ -1,7 +1,7 @@
 "use client";
 import Footer from "@/components/Auth/Footer";
 import Header from "@/components/Auth/Header";
-import Button from "@/components/Global/Button";
+import Button from "@/components/ui/Button";
 import Link from "next/link";
 import Loader from "@/components/Global/Loader";
 import FormField from "@/components/Auth/FormField";

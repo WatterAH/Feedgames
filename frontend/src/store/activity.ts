@@ -103,7 +103,7 @@ export const fetchAlerts =
 
 // REMOVE NOTIFY THUNK
 
-export const removeNotify = (id: string) => async (dispatch: AppDispatch) => {
+export const removeAlert = (id: string) => async (dispatch: AppDispatch) => {
   toast.promise(alertRouter.delete(id), {
     loading: "Eliminando...",
     success: () => {

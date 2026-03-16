@@ -3,7 +3,7 @@ import Like from "./actions/Like";
 import Response from "./actions/ResponseButton";
 import Save from "./actions/Save";
 import { PostInterface } from "@/interfaces/Post";
-import { stopPropagation } from "@/functions/utils";
+import { stopPropagation } from "@/lib/utils";
 
 interface Props {
   data: PostInterface;

@@ -1,4 +1,4 @@
-import Button from "@/components/Global/Button";
+import Button from "@/components/ui/Button";
 import Loader from "@/components/Global/Loader";
 import React from "react";
 

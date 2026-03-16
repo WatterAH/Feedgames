@@ -5,7 +5,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { stopPropagation } from "@/functions/utils";
+import { stopPropagation } from "@/lib/utils";
 
 interface Props extends PropsWithChildren {
   open: boolean;

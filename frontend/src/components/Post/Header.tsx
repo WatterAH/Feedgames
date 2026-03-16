@@ -1,28 +1,26 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Edit from "./Edit";
-import Dropdown from "../Global/Dropdown";
 import { PostInterface } from "@/interfaces/Post";
-import { interval } from "@/functions/date";
-import { BadgeCheck, Ellipsis } from "lucide-react";
-import { stopPropagation } from "@/functions/utils";
-import { usePostOptions } from "@/hooks/useOptions";
+import { interval } from "@/lib/date";
+import { BadgeCheck } from "lucide-react";
+import { stopPropagation } from "@/lib/utils";
+import Options from "./Options";
 
 interface Props {
   data: PostInterface;
   isLast?: boolean;
 }
 
-const Header: React.FC<Props> = ({ data, isLast }) => {
+const Header: React.FC<Props> = ({ data }) => {
   const { id, user_id, user, order, edited } = data;
   const { username, followers } = user;
-  const date = interval(order, "short");
   const [editing, setEditing] = useState(false);
-  const options = usePostOptions(id, user_id, setEditing);
+  const date = interval(order, "short");
 
   return (
     <>
-      <header className="flex flex-row justify-between relative">
+      <div className="flex flex-row justify-between relative">
         <section className="flex flex-row items-center gap-x-1">
           <Link href={`/u/${user_id}`} onClick={stopPropagation}>
             <span className="flex items-center gap-x-1">
@@ -39,18 +37,15 @@ const Header: React.FC<Props> = ({ data, isLast }) => {
           </Link>
           <p className="text-(--placeholder) text-xs mt-1">{date}</p>
         </section>
-        <section>
-          <div className="absolute right-1 -top-1 flex items-center">
-            {edited && <p className="text-(--placeholder) text-xs">Editado</p>}
-            <Dropdown
-              Icon={Ellipsis}
-              options={options}
-              iconClass="h-5 text-(--placeholder)"
-              position={isLast ? "top_left" : "left"}
-            />
-          </div>
-        </section>
-      </header>
+        <div className="absolute right-1 -top-1 flex items-center">
+          {edited && <p className="text-(--placeholder) text-xs">Editado</p>}
+          <Options
+            userId={user_id}
+            postId={id}
+            editCallback={() => setEditing(true)}
+          />
+        </div>
+      </div>
       <Edit open={editing} setOpen={setEditing} post={data} />
     </>
   );

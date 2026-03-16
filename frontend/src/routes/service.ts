@@ -1,4 +1,4 @@
-import request from "@/functions/request";
+import request from "@/lib/request";
 
 const SERVER = process.env.NEXT_PUBLIC_SERVER_HOST;
 

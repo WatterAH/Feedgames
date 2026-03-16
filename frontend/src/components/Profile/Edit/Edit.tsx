@@ -3,7 +3,7 @@ import Modal from "@/components/Global/Modal";
 import FormField from "./FormField";
 import Actions from "@/components/New/layout/Actions";
 import ImageInput from "./ImageInput";
-import { handleImageChange } from "@/functions/utils";
+import { handleImageChange } from "@/lib/utils";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/store/userSlice";

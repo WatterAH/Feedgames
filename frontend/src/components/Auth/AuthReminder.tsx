@@ -1,4 +1,4 @@
-import Button from "@/components/Global/Button";
+import Button from "@/components/ui/Button";
 import {
   Dialog,
   DialogBackdrop,
@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { LucideIcon } from "lucide-react";
-import { stopPropagation } from "@/functions/utils";
+import { stopPropagation } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 interface Props {

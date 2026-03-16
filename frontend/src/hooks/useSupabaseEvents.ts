@@ -8,7 +8,7 @@ import { addAlert, setNewAlert } from "@/store/activity";
 import { addMyPost } from "@/store/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { supabase } from "@/functions/db";
+import { supabase } from "@/lib/db";
 
 const translator = shortUUID();
 

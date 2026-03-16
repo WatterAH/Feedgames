@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Match, MatchShowCase } from "@/interfaces/Valorant";
-import { getQueueId, valMatchStats } from "@/functions/valorant";
+import { getQueueId, valMatchStats } from "@/lib/valorant";
 import { getMap } from "@/constants/mapnames";
 import { getAgent } from "@/constants/agentnames";
 import { ChevronRight, Crosshair, Star, Swords } from "lucide-react";

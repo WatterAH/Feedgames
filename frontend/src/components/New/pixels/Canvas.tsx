@@ -4,7 +4,7 @@ import Sizing from "./Sizing";
 import Modal from "@/components/Global/Modal";
 import Actions from "../layout/Actions";
 import { PaletteIcon } from "lucide-react";
-import { saveGrid } from "@/functions/grid";
+import { saveGrid } from "@/lib/grid";
 import { ContentObject } from "@/interfaces/Post";
 
 interface Props {

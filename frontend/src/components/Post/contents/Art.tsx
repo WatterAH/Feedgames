@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getColorFromCode } from "@/functions/grid";
+import { getColorFromCode } from "@/lib/grid";
 import { PixelArtProps } from "@/interfaces/Post";
 
 const Art: React.FC<PixelArtProps> = ({ gridSize, cells }) => {

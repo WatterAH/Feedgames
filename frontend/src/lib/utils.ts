@@ -1,6 +1,12 @@
 import React, { MouseEvent } from "react";
 import copy from "clipboard-copy";
 import { toast } from "sonner";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export const isImage = (file: File): boolean => {
   const extensionList: string[] = ["jpg", "jpeg", "gif", "png", "webp", "heic"];

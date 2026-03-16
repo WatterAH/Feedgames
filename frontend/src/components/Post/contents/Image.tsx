@@ -2,7 +2,7 @@ import React from "react";
 import NextImage from "next/image";
 import Loader from "@/components/Global/Loader";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-import { stopPropagation } from "@/functions/utils";
+import { stopPropagation } from "@/lib/utils";
 
 interface Props {
   publicUrl: string;

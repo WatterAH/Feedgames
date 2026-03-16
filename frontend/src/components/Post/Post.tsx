@@ -6,7 +6,7 @@ import Actions from "./Actions";
 import ProfilePicture from "../Profile/ProfilePicture";
 import { PostInterface } from "@/interfaces/Post";
 import { useRouter } from "next/navigation";
-import { stopPropagation } from "@/functions/utils";
+import { stopPropagation } from "@/lib/utils";
 
 interface Props {
   data: PostInterface;
