@@ -21,6 +21,7 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
     const target = e.target as HTMLElement;
 
     if (target.role == "menuitem") return;
+    if (target.id == "dialog-overlay") return;
 
     router.push(`/p/${id}`);
   };
