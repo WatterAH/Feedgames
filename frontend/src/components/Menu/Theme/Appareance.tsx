@@ -1,7 +1,13 @@
 import React from "react";
 import Theme from "./Theme";
-import Modal from "@/components/Global/Modal";
 import { appareances } from "@/constants/themes";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -10,25 +16,27 @@ interface Props {
 
 const Appareance: React.FC<Props> = ({ open, setOpen }) => {
   return (
-    <Modal
-      open={open}
-      setOpen={setOpen}
-      title="Apariencia"
-      full={false}
-      size="md"
-    >
-      <div className="absolute top-0.5 left-3 text-(--text)">
-        <button onClick={() => setOpen(false)}>Cancelar</button>
-      </div>
-      <div
-        className="grid grid-cols-4 gap-4 px-4 py-2"
-        style={{ placeItems: "center" }}
-      >
-        {appareances.map((theme) => (
-          <Theme key={theme.name} {...theme} />
-        ))}
-      </div>
-    </Modal>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent showCloseButton={false}>
+        <DialogHeader className="border-b py-4 flex items-center">
+          <DialogTitle>Tema</DialogTitle>
+          <button
+            onClick={() => setOpen(false)}
+            className="absolute right-2 top-1 hover:bg-(--hover) rounded-full p-2"
+          >
+            <X />
+          </button>
+        </DialogHeader>
+        <div
+          className="grid grid-cols-4 gap-4 px-4 pt-2 pb-6"
+          style={{ placeItems: "center" }}
+        >
+          {appareances.map((theme) => (
+            <Theme key={theme.name} {...theme} />
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

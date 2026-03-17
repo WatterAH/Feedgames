@@ -1,5 +1,5 @@
 import React from "react";
-import { handleImageChange } from "@/functions/utils";
+import { handleImageChange } from "@/lib/utils";
 import { Image as ImageIcon } from "lucide-react";
 import { ContentObject } from "@/interfaces/Post";
 

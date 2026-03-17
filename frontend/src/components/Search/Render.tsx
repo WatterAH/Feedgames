@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "@/components/Post/Post";
-import Loader from "@/components/Global/Loader";
+import Loader from "@/components/ui/Loader";
 import Result from "./Result";
 import { User } from "@/interfaces/User";
 import { PostInterface } from "@/interfaces/Post";

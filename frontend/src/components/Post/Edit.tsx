@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Modal from "../Global/Modal";
-import Actions from "../New/layout/Actions";
 import Header from "../New/layout/Header";
 import Content from "./Content";
 import TextArea from "../New/TextArea";
@@ -10,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "@/store/actions";
 import { toast } from "sonner";
 import postRouter from "@/routes/post";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Check, X } from "lucide-react";
+import { stopPropagation } from "@/lib/utils";
 
 interface Props {
   open: boolean;
@@ -38,19 +39,42 @@ const Edit: React.FC<Props> = ({ open, setOpen, post }) => {
   };
 
   return (
-    <Modal open={open} setOpen={setOpen} title="Modo de edición">
-      <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="max-h-[80vh] px-2 md:px-5 overflow-y-auto">
-        {user?.id && (
-          <Header username={user.username} pfp={user.pfp}>
-            <div>
-              <TextArea text={text} setText={setText} pasteImages={false} />
-              <Content showText={false} post={post} />
-            </div>
-          </Header>
-        )}
-      </div>
-    </Modal>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent
+        onClick={stopPropagation}
+        showCloseButton={false}
+        className="sm:max-w-xl"
+      >
+        <DialogHeader className="border-b p-3">
+          <div className="flex w-full text-(--text) items-center justify-between">
+            <button
+              onClick={() => setOpen(false)}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <X />
+            </button>
+            <DialogTitle>Editar publicación</DialogTitle>
+            <button
+              onClick={handleSubmit}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <Check />
+            </button>
+          </div>
+        </DialogHeader>
+
+        <div className="max-h-[80vh] px-2 md:px-5 pb-6 overflow-y-auto">
+          {user?.id && (
+            <Header username={user.username} pfp={user.pfp}>
+              <div>
+                <TextArea text={text} setText={setText} pasteImages={false} />
+                <Content showText={false} post={post} />
+              </div>
+            </Header>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

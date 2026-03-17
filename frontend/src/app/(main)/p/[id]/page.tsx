@@ -1,4 +1,4 @@
-import { getUserCookie } from "@/functions/client";
+import { getUserCookie } from "@/lib/client";
 import { defaultPost } from "@/interfaces/Post";
 import PostPage from "@/components/Layout/PostPage";
 import postRouter from "@/routes/post";

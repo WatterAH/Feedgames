@@ -1,7 +1,7 @@
 import React from "react";
 import Item from "./Item";
 import { useUser } from "@/context/AuthContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { clearNewNotification } from "@/store/activity";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,8 @@ import {
   SquarePen,
   User,
 } from "lucide-react";
+import { defaultUser } from "@/interfaces/User";
+import { useAuthReminder } from "@/context/AuthReminderProvider";
 
 interface Props {
   create: () => void;
@@ -20,10 +22,20 @@ interface Props {
 
 const MenuItems: React.FC<Props> = ({ create }) => {
   const { user } = useUser();
+  const { triggerAlert } = useAuthReminder();
   const pathname = usePathname();
   const newAlert = useSelector((state: RootState) => state.activity.newAlert);
   const dispatch: AppDispatch = useDispatch();
   const handleClearNotify = () => dispatch(clearNewNotification());
+  const router = useRouter();
+
+  function profile() {
+    if (user.id === defaultUser.id) {
+      return triggerAlert("cantMe");
+    } else {
+      return router.push("/me");
+    }
+  }
 
   return (
     <ul className="flex flex-row justify-between md:flex-col items-center md:py-16 gap-y-5">
@@ -42,7 +54,7 @@ const MenuItems: React.FC<Props> = ({ create }) => {
           onClick={handleClearNotify}
         />
       </div>
-      <Item href={`/u/${user.id}`} currentPath={pathname} Icon={User} />
+      <Item href="" currentPath={pathname} Icon={User} onClick={profile} />
     </ul>
   );
 };

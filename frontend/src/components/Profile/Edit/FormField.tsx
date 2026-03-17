@@ -1,5 +1,5 @@
-import Input from "@/components/Global/Input";
-import Label from "@/components/Global/Label";
+import Input from "@/components/ui/Input";
+import Label from "@/components/ui/Label";
 import React from "react";
 
 interface Props {

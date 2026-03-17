@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import Modal from "@/components/Global/Modal";
 import FormField from "./FormField";
-import Actions from "@/components/New/layout/Actions";
 import ImageInput from "./ImageInput";
-import { handleImageChange } from "@/functions/utils";
+import { handleImageChange } from "@/lib/utils";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/store/userSlice";
 import { User } from "@/interfaces/User";
 import ThemeInput from "./ThemeInput";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
 interface Props {
   data: User;
@@ -43,24 +48,38 @@ const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
   };
 
   return (
-    <Modal size="md" open={open} setOpen={setOpen} title="Modo de edición">
-      <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="w-full px-3 pb-3 flex flex-col items-center gap-y-3">
-        <div className="flex items-center justify-around w-full">
-          <ImageInput
-            handleImage={(e) => handleImageChange(e, handleImage)}
-            picture={picture}
-          />
-          <ThemeInput theme={theme} setTheme={setTheme} />
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent showCloseButton={false}>
+        <DialogHeader className="border-b flex items-center py-4 w-full">
+          <DialogTitle>Editar perfil</DialogTitle>
+          <button
+            onClick={() => setOpen(false)}
+            className="absolute right-2 top-1 hover:bg-(--hover) rounded-full p-2 cursor-pointer"
+          >
+            <X />
+          </button>
+        </DialogHeader>
+        <div className="w-full px-3 pb-6 flex flex-col items-center gap-y-3">
+          <div className="flex items-center justify-around w-full">
+            <ImageInput
+              handleImage={(e) => handleImageChange(e, handleImage)}
+              picture={picture}
+            />
+            <ThemeInput theme={theme} setTheme={setTheme} />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+            <FormField label="Nombre" value={name} onChange={setName} />
+            <FormField
+              label="Usuario"
+              value={username}
+              onChange={setUsername}
+            />
+          </div>
+          <FormField label="Bio" value={bio} onChange={setBio} />
+          <FormField label="Correo" value={email ?? ""} onChange={setEmail} />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
-          <FormField label="Nombre" value={name} onChange={setName} />
-          <FormField label="Usuario" value={username} onChange={setUsername} />
-        </div>
-        <FormField label="Bio" value={bio} onChange={setBio} />
-        <FormField label="Correo" value={email ?? ""} onChange={setEmail} />
-      </div>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 

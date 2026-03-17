@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getColorFromCode } from "@/functions/grid";
+import { getColorFromCode } from "@/lib/grid";
 import { PixelArtProps } from "@/interfaces/Post";
 
 const Art: React.FC<PixelArtProps> = ({ gridSize, cells }) => {
@@ -23,7 +23,7 @@ const Art: React.FC<PixelArtProps> = ({ gridSize, cells }) => {
       {grid.map((color, i) => (
         <div
           key={i}
-          className="border"
+          className="border border-gray-200"
           style={{ backgroundColor: color }}
         ></div>
       ))}

@@ -1,4 +1,4 @@
-import { getUserCookie } from "@/functions/client";
+import { getUserCookie } from "@/lib/client";
 import { defaultUser } from "@/interfaces/User";
 import ProfilePage from "@/components/Layout/ProfilePage";
 import userRouter from "@/routes/profile";

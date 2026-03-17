@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useUser } from "@/context/AuthContext";
-import { getExpirationDate } from "@/functions/date";
+import { getExpirationDate } from "@/lib/date";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { defaultUser, User } from "@/interfaces/User";
-import { allowedPath } from "@/functions/utils";
+import { allowedPath } from "@/lib/utils";
 import userRouter from "@/routes/profile";
 import { useSocket } from "@/context/SocketContext";
 

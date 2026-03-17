@@ -3,7 +3,7 @@ import Like from "./actions/Like";
 import Response from "./actions/ResponseButton";
 import Save from "./actions/Save";
 import { PostInterface } from "@/interfaces/Post";
-import { stopPropagation } from "@/functions/utils";
+import { stopPropagation } from "@/lib/utils";
 
 interface Props {
   data: PostInterface;
@@ -27,7 +27,7 @@ const Actions: React.FC<Props> = ({ data }) => {
           <p className="text-(--placeholder) text-xs">{savedNum}</p>
         </span>
       </section>
-      <section>
+      <section onClick={stopPropagation}>
         <span className="flex items-center justify-center gap-1">
           <Response data={data} />
           <p className="text-(--placeholder) text-xs mb-1">{responsed}</p>

@@ -1,5 +1,5 @@
 import { useUser } from "@/context/AuthContext";
-import { getExpirationDate } from "@/functions/date";
+import { getExpirationDate } from "@/lib/date";
 import { Match } from "@/interfaces/Valorant";
 import { getMatchByUuid, getMatchesList, setRiotId } from "@/routes/valorant";
 import { useSearchParams } from "next/navigation";
@@ -40,7 +40,7 @@ export const useGetMatches = (puuid: string | undefined) => {
     try {
       const matchsIds = await getMatchesList(puuid);
       const promises = matchsIds.history.map((match) =>
-        getMatchByUuid(match.matchId, puuid)
+        getMatchByUuid(match.matchId, puuid),
       );
       const matchesList = await Promise.all(promises);
       setMatches(matchesList);

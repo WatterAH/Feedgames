@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { getAgent } from "@/constants/agentnames";
 import { getMap } from "@/constants/mapnames";
-import { getKDAStats } from "@/functions/valorant";
+import { getKDAStats } from "@/lib/valorant";
 
 interface Props {
   stats: MatchShowCase;

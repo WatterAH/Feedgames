@@ -1,9 +1,9 @@
 "use client";
 import Footer from "@/components/Auth/Footer";
 import Header from "@/components/Auth/Header";
-import Button from "@/components/Global/Button";
+import Button from "@/components/ui/MyButton";
 import Link from "next/link";
-import Loader from "@/components/Global/Loader";
+import Loader from "@/components/ui/Loader";
 import FormField from "@/components/Auth/FormField";
 import { useRegister } from "@/hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";

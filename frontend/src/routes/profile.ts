@@ -1,4 +1,4 @@
-import request from "@/functions/request";
+import request from "@/lib/request";
 import { User } from "../interfaces/User";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
 

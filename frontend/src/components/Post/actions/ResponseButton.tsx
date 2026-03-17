@@ -16,6 +16,7 @@ const ResponseButton: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     e.stopPropagation();
 
     if (user.id === defaultUser.id) {
@@ -29,7 +30,7 @@ const ResponseButton: React.FC<Props> = ({ data }) => {
     <>
       <button
         onClick={handleOpen}
-        className="active:scale-75 transition-transform"
+        className="active:scale-75 transition-transform cursor-pointer"
       >
         <MessageSquareQuote
           aria-hidden="true"
