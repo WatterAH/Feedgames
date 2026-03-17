@@ -54,7 +54,7 @@ const MenuItems: React.FC<Props> = ({ create }) => {
           onClick={handleClearNotify}
         />
       </div>
-      <Item href="" currentPath={pathname} Icon={User} onClick={profile} />
+      <Item href="/me" currentPath={pathname} Icon={User} onClick={profile} />
     </ul>
   );
 };
