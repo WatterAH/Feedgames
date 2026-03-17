@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./layout/Header";
 import TextArea from "./TextArea";
 import MatchInput from "./valorant/MatchInput";
@@ -21,6 +21,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Check, SquarePen, X } from "lucide-react";
+import { fetchUser } from "@/store/userSlice";
 
 interface Props {
   open: boolean;
@@ -34,6 +35,10 @@ const Create: React.FC<Props> = ({ open, setOpen }) => {
   const [text, setText] = useState("");
   const [content, setContent] = useState<ContentObject>(null);
   const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    if (!user) dispatch(fetchUser(userSession.id));
+  }, [dispatch]);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

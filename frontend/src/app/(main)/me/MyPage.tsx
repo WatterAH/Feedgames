@@ -25,9 +25,7 @@ const MyPage: React.FC<Props> = ({ error, ...data }) => {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (data) {
-      dispatch(fetchUserSuccess({ user: data }));
-    }
+    if (data) dispatch(fetchUserSuccess({ user: data }));
   }, []);
 
   useEffect(() => {
