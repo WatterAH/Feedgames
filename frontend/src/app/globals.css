@@ -47,22 +47,18 @@
 /* 2. ESTILOS BASE Y SCROLLBAR */
 @layer base {
   html {
-    /* Mantenemos el espacio del scroll siempre ocupado */
-    scrollbar-gutter: stable !important;
     overflow-y: scroll !important;
   }
 
   body {
     background-color: var(--background);
     color: var(--text);
-    /* Especificamos SOLO qué queremos animar para que el padding no "baile" */
     transition:
       background-color 0.2s ease,
       color 0.2s ease;
     padding-right: 0px !important;
   }
 
-  /* BLOQUE QUIRÚRGICO: Anula lo que ShadCN/Radix inyecta al abrir menús */
   body[data-scroll-locked],
   body[style*="padding-right"] {
     padding-right: 0px !important;
@@ -70,6 +66,23 @@
   }
   * {
     @apply border-border outline-ring/50;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--foreground);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--text), transparent 70%);
+    border-radius: 20px;
+  }
+
+  button {
+    cursor: pointer !important;
   }
 }
 

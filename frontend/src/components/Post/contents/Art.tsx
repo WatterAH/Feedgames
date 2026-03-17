@@ -23,7 +23,7 @@ const Art: React.FC<PixelArtProps> = ({ gridSize, cells }) => {
       {grid.map((color, i) => (
         <div
           key={i}
-          className="border"
+          className="border border-gray-200"
           style={{ backgroundColor: color }}
         ></div>
       ))}

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Loader from "../Global/Loader";
+import Loader from "../ui/Loader";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 
 interface Props {

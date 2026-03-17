@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Tooltip from "@/components/Global/Tooltip";
+import Tooltip from "@/components/ui/Tooltip";
 import { getThemeColors } from "@/constants/themes";
 
 interface Props {

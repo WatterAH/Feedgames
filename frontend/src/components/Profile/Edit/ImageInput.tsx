@@ -11,7 +11,7 @@ const ImageInput: React.FC<Props> = ({ picture, handleImage }) => {
     <>
       <label
         htmlFor="img"
-        className="text-(--text) w-fit font-medium flex flex-col items-center gap-y-2 hover:cursor-pointer"
+        className="text-(--text) w-fit font-medium flex flex-col items-center gap-y-2 cursor-pointer"
       >
         <div className="rounded-full relative h-24 w-24 bg-loading">
           <Image

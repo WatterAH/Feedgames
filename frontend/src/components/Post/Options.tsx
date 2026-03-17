@@ -34,7 +34,7 @@ const Options: React.FC<Props> = ({ userId, postId, editCallback }) => {
       >
         <Ellipsis size={20} className="text-(--placeholder)" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent onClick={stopPropagation} align="end">
+      <DropdownMenuContent align="end">
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={() => share("p", postId)}>
             Compartir

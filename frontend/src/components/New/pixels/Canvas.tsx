@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import Palette from "./Palette";
 import Sizing from "./Sizing";
-import Modal from "@/components/Global/Modal";
-import Actions from "../layout/Actions";
-import { PaletteIcon } from "lucide-react";
+import { Check, PaletteIcon, X } from "lucide-react";
 import { saveGrid } from "@/lib/grid";
 import { ContentObject } from "@/interfaces/Post";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface Props {
   setContent: (content: ContentObject) => void;
@@ -25,8 +30,6 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
     setGrid(newGrid);
   };
 
-  const handleClose = () => setOpen(false);
-
   const handleSubmit = () => {
     const art = saveGrid(gridSize, grid);
     setContent({ type: "pixelart", data: art });
@@ -34,19 +37,29 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
   };
 
   return (
-    <>
-      <button onClick={() => setOpen(true)}>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger className="cursor-pointer">
         <PaletteIcon className="text-(--placeholder) h-5" />
-      </button>
-
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        onClose={handleClose}
-        title="Pixel Arts"
-      >
-        <Actions onClose={handleClose} onSubmit={handleSubmit} />
-        <div className="flex flex-col items-center justify-center p-3 gap-2">
+      </DialogTrigger>
+      <DialogContent showCloseButton={false} className="sm:max-w-lg">
+        <DialogHeader className="border-b p-2">
+          <div className="flex w-full text-(--text) items-center justify-between">
+            <button
+              onClick={() => setOpen(false)}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <X />
+            </button>
+            <DialogTitle>Pixel Arts</DialogTitle>
+            <button
+              onClick={handleSubmit}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <Check />
+            </button>
+          </div>
+        </DialogHeader>
+        <div className="flex flex-col items-center justify-center pb-6 gap-2">
           <Palette
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
@@ -67,7 +80,7 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
               {grid.map((color, i) => (
                 <div
                   key={i}
-                  className="border"
+                  className="border border-gray-200"
                   onClick={() => handleClick(i)}
                   style={{ backgroundColor: color }}
                 ></div>
@@ -75,8 +88,8 @@ const Canvas: React.FC<Props> = ({ setContent }) => {
             </div>
           </div>
         </div>
-      </Modal>
-    </>
+      </DialogContent>
+    </Dialog>
   );
 };
 

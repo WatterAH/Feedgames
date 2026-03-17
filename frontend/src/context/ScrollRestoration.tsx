@@ -10,27 +10,26 @@ export const ScrollRestoration = () => {
     const validpaths = ["/me", "/home", "/notify", "/search"];
     if (!validpaths.includes(pathname)) return;
 
-    const main = document.getElementById("main");
-
-    if (!main) return;
-
     const saveScrollPosition = () => {
-      sessionStorage.setItem(pathname, main.scrollTop.toString());
+      sessionStorage.setItem(`scroll-${pathname}`, window.scrollY.toString());
     };
 
     const restoreScrollPosition = () => {
-      const savedScrollPosition = sessionStorage.getItem(pathname);
-      if (savedScrollPosition) {
-        main.scrollTop = parseInt(savedScrollPosition, 10);
+      const savedPosition = sessionStorage.getItem(`scroll-${pathname}`);
+      if (savedPosition) {
+        window.scrollTo({
+          top: parseInt(savedPosition, 10),
+          behavior: "instant",
+        });
       }
     };
 
     restoreScrollPosition();
 
-    main.addEventListener("scroll", saveScrollPosition);
+    window.addEventListener("scroll", saveScrollPosition);
 
     return () => {
-      main.removeEventListener("scroll", saveScrollPosition);
+      window.removeEventListener("scroll", saveScrollPosition);
     };
   }, [pathname]);
 

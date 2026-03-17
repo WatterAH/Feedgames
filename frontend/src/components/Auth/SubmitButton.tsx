@@ -1,5 +1,5 @@
-import Button from "@/components/ui/Button";
-import Loader from "@/components/Global/Loader";
+import Button from "@/components/ui/MyButton";
+import Loader from "@/components/ui/Loader";
 import React from "react";
 
 interface Props {

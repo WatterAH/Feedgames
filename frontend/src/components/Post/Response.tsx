@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Modal from "../Global/Modal";
-import Actions from "../New/layout/Actions";
 import Header from "../New/layout/Header";
 import TextArea from "../New/TextArea";
 import Preview from "../New/layout/Preview";
@@ -10,6 +8,8 @@ import { useUser } from "@/context/AuthContext";
 import { ContentObject, PostInterface } from "@/interfaces/Post";
 import { toast } from "sonner";
 import postRouter from "@/routes/post";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Check, X } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -37,30 +37,48 @@ const Response: React.FC<Props> = ({ open, setOpen, data, parentId }) => {
   };
 
   return (
-    <Modal open={open} setOpen={setOpen} title="Respondiendo">
-      <Actions onClose={() => setOpen(false)} onSubmit={handleSubmit} />
-      <div className="max-h-[80vh] px-2 md:px-5 overflow-y-auto">
-        <div className="mb-3 space-y-2">
-          <Header username={user.username} pfp={user.pfp}>
-            <div>
-              <TextArea
-                text={text}
-                setText={setText}
-                setContent={setContent}
-                placeholder={`Responde a ${userData.username}`}
-              />
-              <Preview content={content} setContent={setContent} />
-              <ImageInput setContent={setContent} />
-            </div>
-          </Header>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent showCloseButton={false} className="sm:max-w-xl">
+        <DialogHeader className="border-b p-3">
+          <div className="flex w-full text-(--text) items-center justify-between">
+            <button
+              onClick={() => setOpen(false)}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <X />
+            </button>
+            <DialogTitle>Respondiendo a {userData.username}</DialogTitle>
+            <button
+              onClick={handleSubmit}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <Check />
+            </button>
+          </div>
+        </DialogHeader>
+        <div className="max-h-[80vh] px-2 md:px-5 pb-6 overflow-y-auto">
+          <div className="mb-3 space-y-2">
+            <Header username={user.username} pfp={user.pfp}>
+              <div>
+                <TextArea
+                  text={text}
+                  setText={setText}
+                  setContent={setContent}
+                  placeholder={`Responde a ${userData.username}`}
+                />
+                <Preview content={content} setContent={setContent} />
+                <ImageInput setContent={setContent} />
+              </div>
+            </Header>
+          </div>
+          <div className="pr-5">
+            <Header username={userData.username} pfp={userData.pfp}>
+              <Content post={data} />
+            </Header>
+          </div>
         </div>
-        <div className="pr-5">
-          <Header username={userData.username} pfp={userData.pfp}>
-            <Content post={data} />
-          </Header>
-        </div>
-      </div>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 
