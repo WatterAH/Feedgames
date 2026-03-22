@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import FormField from "./FormField";
 import ImageInput from "./ImageInput";
 import { handleImageChange } from "@/lib/utils";
-import { AppDispatch } from "@/store/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "@/store/userSlice";
-import { User } from "@/interfaces/User";
+import { defaultUser, User } from "@/interfaces/User";
 import ThemeInput from "./ThemeInput";
 import {
   Dialog,
@@ -13,15 +13,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { X } from "lucide-react";
+import { Check, X } from "lucide-react";
 
 interface Props {
-  data: User;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
+const Edit: React.FC<Props> = ({ open, setOpen }) => {
+  const data =
+    useSelector((state: RootState) => state.user.user) || defaultUser;
   const src = data.pfp
     ? process.env.NEXT_PUBLIC_IMAGES + data.pfp
     : "/default.png";
@@ -50,14 +51,22 @@ const Edit: React.FC<Props> = ({ open, setOpen, data }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent showCloseButton={false}>
-        <DialogHeader className="border-b flex items-center py-4 w-full">
-          <DialogTitle>Editar perfil</DialogTitle>
-          <button
-            onClick={() => setOpen(false)}
-            className="absolute right-2 top-1 hover:bg-(--hover) rounded-full p-2 cursor-pointer"
-          >
-            <X />
-          </button>
+        <DialogHeader className="border-b flex items-center py-1 px-3 w-full">
+          <div className="flex w-full text-(--text) items-center justify-between">
+            <button
+              onClick={() => setOpen(false)}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <X />
+            </button>
+            <DialogTitle>Editar perfil</DialogTitle>
+            <button
+              onClick={handleSubmit}
+              className="rounded-full hover:bg-(--hover) p-2 transition-all duration-500"
+            >
+              <Check />
+            </button>
+          </div>
         </DialogHeader>
         <div className="w-full px-3 pb-6 flex flex-col items-center gap-y-3">
           <div className="flex items-center justify-around w-full">

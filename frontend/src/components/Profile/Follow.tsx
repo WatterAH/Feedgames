@@ -50,7 +50,7 @@ const Follow: React.FC<Props> = (props) => {
         {isSameUser ? "Editar perfil" : followState ? "Siguiendo" : "Seguir"}
       </button>
 
-      <Edit data={props.data} open={editing} setOpen={setEditing} />
+      <Edit open={editing} setOpen={setEditing} />
     </>
   );
 };

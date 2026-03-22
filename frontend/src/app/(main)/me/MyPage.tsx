@@ -47,7 +47,7 @@ const MyPage: React.FC<Props> = ({ error, ...data }) => {
       <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
         {loadingPosts && <ProfileLoader />}
         {errorPosts && <Error />}
-        {user && <ProfileHeader data={data} />}
+        {user && <ProfileHeader data={user} />}
 
         <PostContainer posts={posts} getPost={getMorePosts} hasMore={hasMore} />
       </div>
