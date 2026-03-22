@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  auth,
   getMatchByUuid,
   getMatchesList,
   getPlayerUuid,
@@ -9,6 +10,7 @@ import {
 
 const valorantRouter = Router();
 
+valorantRouter.get("/val/auth/:userId", auth);
 valorantRouter.get("/oauth2-callback", oauth2_callback);
 valorantRouter.get("/val/getPlayerUuid", getPlayerUuid);
 valorantRouter.get("/val/getMatchesList", getMatchesList);

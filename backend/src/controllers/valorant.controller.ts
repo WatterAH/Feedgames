@@ -1,12 +1,27 @@
 import shortUUID from "short-uuid";
+import userService from "../service/userService";
+import ValService from "../service/valService";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { RequestHandler } from "express";
 import { processMatch } from "../libs/server";
-import userService from "../service/userService";
 import { sendError } from "../libs/responseHandler";
 
 const translator = shortUUID();
+
+export const auth: RequestHandler = async (req, res) => {
+  try {
+    const id = req.params.userId as string;
+    const userId = translator.toUUID(id);
+
+    const valClient = new ValService();
+    const url = valClient.auth(userId);
+
+    return res.redirect(url);
+  } catch (error: any) {
+    return sendError(res, error.message, 500);
+  }
+};
 
 export const oauth2_callback: RequestHandler = async (req, res) => {
   const clientID = "904e7558-66be-4c49-b89d-1020aad6da43";
@@ -14,10 +29,13 @@ export const oauth2_callback: RequestHandler = async (req, res) => {
   const auth = `Basic ${Buffer.from(`${clientID}:${clientSecret}`).toString(
     "base64",
   )}`;
+  const code = req.query.code as string;
+  const state = req.query.state;
+  state;
 
   const formData = new URLSearchParams();
   formData.append("grant_type", "authorization_code");
-  formData.append("code", req.query.code as string);
+  formData.append("code", code);
   formData.append("redirect_uri", "https://craftfeed.fly.dev/oauth2-callback");
 
   try {

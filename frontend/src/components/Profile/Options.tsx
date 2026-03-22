@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+import valRouter from "@/routes/valorant";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { LogOut, Share, UserRoundCog } from "lucide-react";
+import { share } from "@/lib/utils";
+import { toast } from "sonner";
+import { BProgress } from "@bprogress/core";
+import { useUser } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
-import { useUser } from "@/context/AuthContext";
-import { share } from "@/lib/utils";
-import Image from "next/image";
+import { LogOut, Share, UserRoundCog } from "lucide-react";
 
 interface Props {
   userId: string;
@@ -47,7 +50,16 @@ const Options: React.FC<Props> = ({ userId }) => {
         {sameUser && (
           <DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  BProgress.start();
+                  await valRouter.auth(user.id);
+                } catch (error) {
+                  toast.error("Service unavailable");
+                }
+              }}
+            >
               Riot Games
               <Image src="/riot.webp" alt="riot-games" width={20} height={20} />
             </DropdownMenuItem>

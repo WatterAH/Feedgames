@@ -1,10 +1,23 @@
 import { User } from "@/interfaces/User";
 import { Match, MatchList } from "@/interfaces/Valorant";
+import request from "@/lib/request";
 const URL = process.env.NEXT_PUBLIC_SERVER_HOST;
+
+class ValRouter {
+  private url = `${URL}/val`;
+
+  async auth(userId: string): Promise<string> {
+    return request.get(`${this.url}/auth/${userId}`);
+  }
+}
+
+const valRouter = new ValRouter();
+
+export default valRouter;
 
 export const getMatchesList = async (puuid: string): Promise<MatchList> => {
   const res = await fetch(
-    `${URL}/val/getMatchesList?puuid=${encodeURIComponent(puuid)}`
+    `${URL}/val/getMatchesList?puuid=${encodeURIComponent(puuid)}`,
   );
   const resData = await res.json();
 
@@ -19,12 +32,12 @@ export const getMatchesList = async (puuid: string): Promise<MatchList> => {
 
 export const getMatchByUuid = async (
   uuid: string,
-  puuid: string
+  puuid: string,
 ): Promise<Match> => {
   const response = await fetch(
     `${URL}/val/getMatchByUuid?uuid=${encodeURIComponent(
-      uuid
-    )}&puuid=${encodeURIComponent(puuid)}`
+      uuid,
+    )}&puuid=${encodeURIComponent(puuid)}`,
   );
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -34,7 +47,7 @@ export const getMatchByUuid = async (
 
 export const setRiotId = async (
   token: string,
-  userId: string
+  userId: string,
 ): Promise<{ user: User; token: string }> => {
   const res = await fetch(`${URL}/val/setRiotId`, {
     method: "PUT",
