@@ -3,61 +3,54 @@ import userService from "../service/userService";
 import ValService from "../service/valService";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
-import { RequestHandler } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { processMatch } from "../libs/server";
 import { sendError } from "../libs/responseHandler";
 
 const translator = shortUUID();
 
-export const auth: RequestHandler = async (req, res) => {
-  try {
-    const id = req.params.userId as string;
-    const userId = translator.toUUID(id);
+class ValController {
+  async auth(req: Request, res: Response) {
+    try {
+      const id = req.params.userId as string;
+      const userId = translator.toUUID(id);
+      const valClient = new ValService();
 
-    const valClient = new ValService();
-    const url = valClient.auth(userId);
-
-    return res.redirect(url);
-  } catch (error: any) {
-    return sendError(res, error.message, 500);
-  }
-};
-
-export const oauth2_callback: RequestHandler = async (req, res) => {
-  const clientID = "904e7558-66be-4c49-b89d-1020aad6da43";
-  const clientSecret = process.env.RSO_CLIENT_SECRET;
-  const auth = `Basic ${Buffer.from(`${clientID}:${clientSecret}`).toString(
-    "base64",
-  )}`;
-  const code = req.query.code as string;
-  const state = req.query.state;
-  state;
-
-  const formData = new URLSearchParams();
-  formData.append("grant_type", "authorization_code");
-  formData.append("code", code);
-  formData.append("redirect_uri", "https://craftfeed.fly.dev/oauth2-callback");
-
-  try {
-    const response = await fetch("https://auth.riotgames.com/token", {
-      method: "POST",
-      headers: {
-        Authorization: auth,
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error("500");
-    } else {
-      const tokens = await response.json();
-      const access_token = tokens.access_token;
-      return res.redirect(`/val/getPlayerUuid?access_token=${access_token}`);
+      const url = valClient.auth(userId);
+      console.log(url);
+      return res.redirect(url);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
     }
-  } catch (error) {
-    return res.redirect("https://feedgames.vercel.app/home");
   }
-};
+
+  async callback(req: Request, res: Response) {
+    try {
+      const clientURL = process.env.CLIENT_URL!;
+      const code = req.query.code as string;
+      const state = req.query.state as string;
+
+      const valClient = new ValService();
+
+      const accessToken = await valClient.exchange(code);
+      if (!accessToken) return res.redirect(clientURL + "?error=true");
+
+      const riotId = await valClient.identify(accessToken);
+      if (!riotId) return res.redirect(clientURL + "?error=true");
+
+      const updated = await userService.update(state, { riotId });
+      if (updated.error) return res.redirect(clientURL);
+      if (!updated.data) return res.redirect(clientURL + "?error=true");
+
+      return res.redirect(clientURL + "?linked=true");
+    } catch (error) {
+      const clientURL = process.env.SERVER_URL!;
+      return res.redirect(clientURL + "?error=true");
+    }
+  }
+}
+
+export default new ValController();
 
 export const getPlayerUuid: RequestHandler = async (req, res) => {
   try {

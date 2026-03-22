@@ -16,6 +16,7 @@ import { useUser } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { LogOut, Share, UserRoundCog } from "lucide-react";
+import Link from "next/link";
 
 interface Props {
   userId: string;
@@ -50,19 +51,17 @@ const Options: React.FC<Props> = ({ userId }) => {
         {sameUser && (
           <DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={async () => {
-                try {
-                  BProgress.start();
-                  await valRouter.auth(user.id);
-                } catch (error) {
-                  toast.error("Service unavailable");
-                }
-              }}
-            >
-              Riot Games
-              <Image src="/riot.webp" alt="riot-games" width={20} height={20} />
-            </DropdownMenuItem>
+            <Link href={`https://craftfeed.fly.dev/val/auth/${user.id}`}>
+              <DropdownMenuItem>
+                Riot Games
+                <Image
+                  src="/riot.webp"
+                  alt="riot-games"
+                  width={20}
+                  height={20}
+                />
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
         )}
         {sameUser && (
