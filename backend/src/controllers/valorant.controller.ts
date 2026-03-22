@@ -45,7 +45,9 @@ class ValController {
       const user = processUser(updated.data, "");
 
       const token = (await createAccessToken(user)) as string;
-      return res.redirect(clientURL + "?token=" + encodeURIComponent(token));
+      return res.redirect(
+        clientURL + "/home" + "?token=" + encodeURIComponent(token),
+      );
     } catch (error) {
       const clientURL = process.env.SERVER_URL!;
       return res.redirect(clientURL + "?error=true");

@@ -15,18 +15,27 @@ export const useRiotToken = () => {
   const token = searchParams.get("token");
   const [, setCookie] = useCookies();
 
+  function handleToken(token: string) {
+    try {
+      const userData: User = jwtDecode(token);
+      login(userData);
+
+      setCookie("token", token, {
+        expires: getExpirationDate(),
+      });
+
+      toast.success(`Hola ${user.riotId.gameName}!`);
+    } catch (error) {
+      toast.error("No pudimos vincular tu cuenta de Riot");
+    } finally {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }
+
   useEffect(() => {
     if (!token || !user.id) return;
 
-    const userData: User = jwtDecode(token);
-    login(userData);
-    console.log(userData);
-    setCookie("token", token, {
-      expires: getExpirationDate(),
-    });
-    window.history.replaceState(null, "", window.location.pathname);
-
-    toast.success(`Hola ${user.riotId.gameName}!`);
+    handleToken(token);
   }, [token, user.id, login, setCookie]);
 };
 
