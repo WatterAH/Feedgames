@@ -4,6 +4,7 @@ import Content from "./Content";
 import Link from "next/link";
 import Actions from "./Actions";
 import ProfilePicture from "../Profile/ProfilePicture";
+import { BProgress } from "@bprogress/core";
 import { PostInterface } from "@/interfaces/Post";
 import { useRouter } from "next/navigation";
 import { stopPropagation } from "@/lib/utils";
@@ -18,6 +19,7 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent) => {
+    BProgress.start();
     const target = e.target as HTMLElement;
 
     if (target.role == "menuitem") return;

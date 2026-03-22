@@ -1,3 +1,5 @@
+import { useTheme } from "@/context/ThemeProvider";
+
 interface AppareanceProps {
   name: string;
   classname: string;
@@ -8,15 +10,8 @@ interface AppareanceProps {
 }
 
 const Theme: React.FC<AppareanceProps> = ({ name, colors, classname }) => {
-  const onSelectTheme = (themeClass: string) => {
-    const currentTheme = localStorage.getItem("theme") || "theme-default";
-    if (currentTheme === themeClass) return;
-
-    document.body.classList.remove(currentTheme);
-    document.body.classList.add(themeClass);
-
-    localStorage.setItem("theme", themeClass);
-  };
+  const { setTheme } = useTheme();
+  const onSelectTheme = (themeClass: string) => setTheme(themeClass);
 
   return (
     <div

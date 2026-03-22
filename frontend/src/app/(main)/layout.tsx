@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import "../globals.css";
-import New from "@/components/New/New";
 import Menu from "@/components/Menu/Menu";
 import Create from "@/components/New/Create";
 import Header from "@/components/Menu/Header";
@@ -50,8 +49,9 @@ export default function MainLayout({
         <Menu setCreating={setCreating} />
       </main>
 
-      {user.id !== defaultUser.id && <New setCreating={setCreating} />}
-      <Create open={creating} setOpen={setCreating} />
+      {user.id !== defaultUser.id && (
+        <Create open={creating} setOpen={setCreating} />
+      )}
     </>
   );
 }

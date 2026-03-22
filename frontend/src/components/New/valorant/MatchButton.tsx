@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Tooltip from "@/components/ui/Tooltip";
 import { getThemeColors } from "@/constants/themes";
+import { useTheme } from "@/context/ThemeProvider";
 
 interface Props {
   setIsOpen: (open: boolean) => void;
@@ -9,17 +10,14 @@ interface Props {
 }
 
 const MatchButton: React.FC<Props> = ({ setIsOpen, matchesLenght }) => {
-  const [iconColor, setIconColor] = useState("b3b3b3");
+  const { theme } = useTheme();
+  const rawColor = getThemeColors(theme).placeholder || "#ffffff";
+  const iconColor = rawColor.replace("#", "");
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsOpen(true);
   };
-
-  useEffect(() => {
-    const currentTheme = localStorage.getItem("theme") || "theme-default";
-    const placeholdercolor = getThemeColors(currentTheme).placeholder;
-    setIconColor(placeholdercolor);
-  }, []);
 
   return matchesLenght > 0 ? (
     <button onClick={handleClick}>
