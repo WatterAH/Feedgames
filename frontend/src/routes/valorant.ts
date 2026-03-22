@@ -13,59 +13,12 @@ class ValRouter {
   async unlink(userId: string): Promise<{ user: User; token: string }> {
     return request.delete(`${this.url}/unlink/${userId}`);
   }
+
+  async list(puuid: string): Promise<Match[]> {
+    return request.get(`${this.url}/list/${puuid}`);
+  }
 }
 
 const valRouter = new ValRouter();
 
 export default valRouter;
-
-export const getMatchesList = async (puuid: string): Promise<MatchList> => {
-  const res = await fetch(
-    `${URL}/val/getMatchesList?puuid=${encodeURIComponent(puuid)}`,
-  );
-  const resData = await res.json();
-
-  if (res.status == 401) {
-    throw new Error("401");
-  } else if (res.status == 404) {
-    throw new Error("404");
-  } else {
-    return resData;
-  }
-};
-
-export const getMatchByUuid = async (
-  uuid: string,
-  puuid: string,
-): Promise<Match> => {
-  const response = await fetch(
-    `${URL}/val/getMatchByUuid?uuid=${encodeURIComponent(
-      uuid,
-    )}&puuid=${encodeURIComponent(puuid)}`,
-  );
-  if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
-  }
-  return response.json();
-};
-
-export const setRiotId = async (
-  token: string,
-  userId: string,
-): Promise<{ user: User; token: string }> => {
-  const res = await fetch(`${URL}/val/setRiotId`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token, userId }),
-  });
-
-  const resData = await res.json();
-
-  if (res.ok) {
-    return resData;
-  } else {
-    throw new Error(resData.message);
-  }
-};

@@ -134,7 +134,6 @@ class PostController {
       }
       return sendError(res, "No se pudo subir el contenido", 400);
     } catch (error: any) {
-      console.log(error);
       return sendError(res, error.message, 500);
     }
   }

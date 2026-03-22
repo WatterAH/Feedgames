@@ -1,7 +1,7 @@
 import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/lib/date";
 import { Match } from "@/interfaces/Valorant";
-import { getMatchByUuid, getMatchesList } from "@/routes/valorant";
+import valRouter from "@/routes/valorant";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -19,7 +19,6 @@ export const useRiotToken = () => {
     try {
       const userData: User = jwtDecode(token);
       login(userData);
-      console.log(token);
 
       setCookie("token", token, {
         expires: getExpirationDate(),
@@ -47,15 +46,9 @@ export const useGetMatches = (puuid: string | undefined) => {
     if (!puuid) return;
 
     try {
-      const matchsIds = await getMatchesList(puuid);
-      const promises = matchsIds.history.map((match) =>
-        getMatchByUuid(match.matchId, puuid),
-      );
-      const matchesList = await Promise.all(promises);
-      setMatches(matchesList);
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
+      const data = await valRouter.list(puuid);
+      setMatches(data);
+    } catch (_error: any) {}
   }, [puuid]);
 
   useEffect(() => {

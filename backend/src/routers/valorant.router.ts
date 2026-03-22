@@ -1,19 +1,11 @@
 import { Router } from "express";
-import valorantController, {
-  getMatchByUuid,
-  getMatchesList,
-  getPlayerUuid,
-  setRiotId,
-} from "../controllers/valorant.controller";
+import valorantController from "../controllers/valorant.controller";
 
 const valorantRouter = Router();
 
 valorantRouter.get("/val/auth/:userId", valorantController.auth);
 valorantRouter.delete("/val/unlink/:userId", valorantController.unlink);
 valorantRouter.get("/oauth2-callback", valorantController.callback);
-valorantRouter.get("/val/getPlayerUuid", getPlayerUuid);
-valorantRouter.get("/val/getMatchesList", getMatchesList);
-valorantRouter.get("/val/getMatchByUuid", getMatchByUuid);
-valorantRouter.put("/val/setRiotId", setRiotId);
+valorantRouter.get("/val/list/:puuid", valorantController.list);
 
 export default valorantRouter;
