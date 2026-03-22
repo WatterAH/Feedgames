@@ -1,34 +1,33 @@
 import { useUser } from "@/context/AuthContext";
 import { getExpirationDate } from "@/lib/date";
 import { Match } from "@/interfaces/Valorant";
-import { getMatchByUuid, getMatchesList, setRiotId } from "@/routes/valorant";
+import { getMatchByUuid, getMatchesList } from "@/routes/valorant";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { toast } from "sonner";
+import { jwtDecode } from "jwt-decode";
+import { User } from "@/interfaces/User";
 
 export const useRiotToken = () => {
   const { login, user } = useUser();
   const searchParams = useSearchParams();
-  const riotToken = searchParams.get("riotToken");
+  const token = searchParams.get("token");
   const [, setCookie] = useCookies();
 
   useEffect(() => {
-    if (!riotToken || !user.id) return;
+    if (!token || !user.id) return;
 
-    toast.promise(setRiotId(riotToken, user.id), {
-      loading: "Vinculando...",
-      success: (data) => {
-        login(data.user);
-        setCookie("token", data.token, {
-          expires: getExpirationDate(),
-        });
-        window.history.replaceState(null, "", window.location.pathname);
-        return "Cuenta de Riot vinculada con éxito.";
-      },
-      error: (err) => err.message,
+    const userData: User = jwtDecode(token);
+    login(userData);
+    console.log(userData);
+    setCookie("token", token, {
+      expires: getExpirationDate(),
     });
-  }, [riotToken, user.id, login, setCookie]);
+    window.history.replaceState(null, "", window.location.pathname);
+
+    toast.success(`Hola ${user.riotId.gameName}!`);
+  }, [token, user.id, login, setCookie]);
 };
 
 export const useGetMatches = (puuid: string | undefined) => {

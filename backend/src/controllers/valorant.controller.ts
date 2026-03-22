@@ -4,7 +4,7 @@ import ValService from "../service/valService";
 import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { Request, RequestHandler, Response } from "express";
-import { processMatch } from "../libs/server";
+import { processMatch, processUser } from "../libs/server";
 import { sendError } from "../libs/responseHandler";
 
 const translator = shortUUID();
@@ -42,7 +42,10 @@ class ValController {
       if (updated.error) return res.redirect(clientURL);
       if (!updated.data) return res.redirect(clientURL + "?error=true");
 
-      return res.redirect(clientURL + "?linked=true");
+      const user = processUser(updated.data, "");
+
+      const token = (await createAccessToken(user)) as string;
+      return res.redirect(clientURL + "?token=" + encodeURIComponent(token));
     } catch (error) {
       const clientURL = process.env.SERVER_URL!;
       return res.redirect(clientURL + "?error=true");
