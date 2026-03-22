@@ -9,6 +9,7 @@ import valorantController, {
 const valorantRouter = Router();
 
 valorantRouter.get("/val/auth/:userId", valorantController.auth);
+valorantRouter.delete("/val/unlink/:userId", valorantController.unlink);
 valorantRouter.get("/oauth2-callback", valorantController.callback);
 valorantRouter.get("/val/getPlayerUuid", getPlayerUuid);
 valorantRouter.get("/val/getMatchesList", getMatchesList);

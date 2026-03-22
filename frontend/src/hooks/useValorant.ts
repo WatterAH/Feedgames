@@ -19,12 +19,13 @@ export const useRiotToken = () => {
     try {
       const userData: User = jwtDecode(token);
       login(userData);
+      console.log(token);
 
       setCookie("token", token, {
         expires: getExpirationDate(),
       });
 
-      toast.success(`Hola ${user.riotId.gameName}!`);
+      if (user.riotId) toast.success(`Hola ${user.riotId.gameName}!`);
     } catch (error) {
       toast.error("No pudimos vincular tu cuenta de Riot");
     } finally {

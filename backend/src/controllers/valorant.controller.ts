@@ -5,7 +5,7 @@ import { createAccessToken, validateToken } from "../libs/token";
 import { filterMatch } from "../libs/arrays";
 import { Request, RequestHandler, Response } from "express";
 import { processMatch, processUser } from "../libs/server";
-import { sendError } from "../libs/responseHandler";
+import { sendError, sendSuccess } from "../libs/responseHandler";
 
 const translator = shortUUID();
 
@@ -19,6 +19,23 @@ class ValController {
       const url = valClient.auth(userId);
       console.log(url);
       return res.redirect(url);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
+
+  async unlink(req: Request, res: Response) {
+    try {
+      const id = req.params.userId as string;
+      const userId = translator.toUUID(id);
+
+      const updated = await userService.update(userId, { riotId: null });
+      if (updated.error) return sendError(res, updated.error.message, 400);
+      if (!updated.data) return sendError(res, "No se pudo completar", 500);
+
+      const user = processUser(updated.data, "");
+      const token = await createAccessToken(user);
+      return sendSuccess(res, { user, token });
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }

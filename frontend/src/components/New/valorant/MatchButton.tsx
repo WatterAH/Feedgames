@@ -1,8 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import Tooltip from "@/components/ui/Tooltip";
 import { getThemeColors } from "@/constants/themes";
 import { useTheme } from "@/context/ThemeProvider";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/Tooltip";
 
 interface Props {
   setIsOpen: (open: boolean) => void;
@@ -29,13 +33,16 @@ const MatchButton: React.FC<Props> = ({ setIsOpen, matchesLenght }) => {
       />
     </button>
   ) : (
-    <Tooltip text="Vincula con Riot Games">
-      <Image
-        src={`https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=${iconColor}`}
-        alt="val"
-        height={20}
-        width={20}
-      />
+    <Tooltip>
+      <TooltipTrigger>
+        <Image
+          src={`https://img.icons8.com/?size=100&id=GSHWFnD9x56D&format=png&color=${iconColor}`}
+          alt="val"
+          height={20}
+          width={20}
+        />
+        <TooltipContent>Vincula tu cuenta de Riot</TooltipContent>
+      </TooltipTrigger>
     </Tooltip>
   );
 };

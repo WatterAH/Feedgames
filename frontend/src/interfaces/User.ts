@@ -44,6 +44,6 @@ export interface User {
     puuid: string | undefined;
     gameName: string;
     tagLine: string;
-  };
+  } | null;
   theme: Theme;
 }

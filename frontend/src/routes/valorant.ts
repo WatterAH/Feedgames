@@ -9,6 +9,10 @@ class ValRouter {
   async auth(userId: string): Promise<string> {
     return request.get(`${this.url}/auth/${userId}`);
   }
+
+  async unlink(userId: string): Promise<{ user: User; token: string }> {
+    return request.delete(`${this.url}/unlink/${userId}`);
+  }
 }
 
 const valRouter = new ValRouter();

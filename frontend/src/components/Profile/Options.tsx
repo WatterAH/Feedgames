@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import valRouter from "@/routes/valorant";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,23 +14,42 @@ import { BProgress } from "@bprogress/core";
 import { useUser } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
+import { getExpirationDate } from "@/lib/date";
 import { LogOut, Share, UserRoundCog } from "lucide-react";
 import Link from "next/link";
+import valRouter from "@/routes/valorant";
 
 interface Props {
   userId: string;
 }
 
 const Options: React.FC<Props> = ({ userId }) => {
-  const { user, logout } = useUser();
+  const { user, login, logout } = useUser();
   const router = useRouter();
   const sameUser = user.id === userId;
-  const [_c, _s, removeCookie] = useCookies();
+  const [_c, setCookie, removeCookie] = useCookies();
 
   function exitHadler() {
     removeCookie("token");
     logout();
     router.push("/login");
+  }
+
+  async function unlink() {
+    try {
+      BProgress.start();
+      const data = await valRouter.unlink(user.id);
+
+      login(data.user);
+      setCookie("token", data.token, {
+        expires: getExpirationDate(),
+      });
+
+      toast.success("Cuenta desvinculada");
+      BProgress.done();
+    } catch (error) {
+      toast.error("Error al desvincular la cuenta");
+    }
   }
 
   return (
@@ -51,9 +69,9 @@ const Options: React.FC<Props> = ({ userId }) => {
         {sameUser && (
           <DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <Link href={`https://craftfeed.fly.dev/val/auth/${user.id}`}>
-              <DropdownMenuItem>
-                Riot Games
+            {user.riotId ? (
+              <DropdownMenuItem onClick={unlink}>
+                Desvincular cuenta
                 <Image
                   src="/riot.webp"
                   alt="riot-games"
@@ -61,7 +79,19 @@ const Options: React.FC<Props> = ({ userId }) => {
                   height={20}
                 />
               </DropdownMenuItem>
-            </Link>
+            ) : (
+              <Link href={`https://craftfeed.fly.dev/val/auth/${user.id}`}>
+                <DropdownMenuItem>
+                  Riot Games
+                  <Image
+                    src="/riot.webp"
+                    alt="riot-games"
+                    width={20}
+                    height={20}
+                  />
+                </DropdownMenuItem>
+              </Link>
+            )}
           </DropdownMenuGroup>
         )}
         {sameUser && (

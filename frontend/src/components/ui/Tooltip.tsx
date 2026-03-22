@@ -1,18 +1,57 @@
-import React, { PropsWithChildren } from "react";
+"use client";
 
-interface Props extends PropsWithChildren {
-  text: string;
+import * as React from "react";
+import { Tooltip as TooltipPrimitive } from "radix-ui";
+
+import { cn } from "@/lib/utils";
+
+function TooltipProvider({
+  delayDuration = 0,
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
+  return (
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      delayDuration={delayDuration}
+      {...props}
+    />
+  );
 }
 
-const Tooltip: React.FC<Props> = ({ children, text }) => {
-  return (
-    <div className="relative group">
-      {children}
-      <div className="invisible opacity-0 bg-(--background) text-(--text) text-xs text-center whitespace-nowrap py-2 px-4 rounded absolute z-10 bottom-full left-1/2 transform -translate-x-1/2 translate-y-2 group-(--hover):visible group-(--hover):opacity-100 transition duration-300">
-        {text}
-      </div>
-    </div>
-  );
-};
+function Tooltip({
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />;
+}
 
-export default Tooltip;
+function TooltipTrigger({
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+}
+
+function TooltipContent({
+  className,
+  sideOffset = 0,
+  children,
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Content>) {
+  return (
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Content
+        data-slot="tooltip-content"
+        sideOffset={sideOffset}
+        className={cn(
+          "z-50 inline-flex w-fit bg-(--text) text-(--background) max-w-xs origin-(--radix-tooltip-content-transform-origin) items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <TooltipPrimitive.Arrow className="fill-(--text)" />
+      </TooltipPrimitive.Content>
+    </TooltipPrimitive.Portal>
+  );
+}
+
+export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger };

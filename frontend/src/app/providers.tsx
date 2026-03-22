@@ -10,6 +10,7 @@ import { SocketProvider } from "@/context/SocketContext";
 import { CookiesProvider } from "react-cookie";
 import { ScrollRestoration } from "@/context/ScrollRestoration";
 import { AuthReminderProvider } from "@/context/AuthReminderProvider";
+import { TooltipProvider } from "@/components/ui/Tooltip";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -26,7 +27,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
                   shallowRouting
                   color="var(--placeholder)"
                 >
-                  {children}
+                  <TooltipProvider>{children}</TooltipProvider>
                 </AppProgressProvider>
               </AuthReminderProvider>
               <Toaster richColors position="top-center" />

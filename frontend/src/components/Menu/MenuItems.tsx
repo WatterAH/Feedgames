@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { clearNewNotification } from "@/store/activity";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
+import { BProgress } from "@bprogress/core";
 import {
   BellRing,
   House,
@@ -17,23 +18,41 @@ import { defaultUser } from "@/interfaces/User";
 import { useAuthReminder } from "@/context/AuthReminderProvider";
 
 interface Props {
-  create: () => void;
+  handleOpen: () => void;
 }
 
-const MenuItems: React.FC<Props> = ({ create }) => {
+const MenuItems: React.FC<Props> = ({ handleOpen }) => {
   const { user } = useUser();
   const { triggerAlert } = useAuthReminder();
   const pathname = usePathname();
   const newAlert = useSelector((state: RootState) => state.activity.newAlert);
   const dispatch: AppDispatch = useDispatch();
-  const handleClearNotify = () => dispatch(clearNewNotification());
   const router = useRouter();
 
   function profile() {
     if (user.id === defaultUser.id) {
       return triggerAlert("cantMe");
     } else {
+      BProgress.start();
       return router.push("/me");
+    }
+  }
+
+  function notify() {
+    if (user.id === defaultUser.id) {
+      return triggerAlert("cantNotify");
+    } else {
+      BProgress.start();
+      dispatch(clearNewNotification());
+      return router.push("/alerts");
+    }
+  }
+
+  function create() {
+    if (user.id === defaultUser.id) {
+      return triggerAlert("cantCreate");
+    } else {
+      handleOpen();
     }
   }
 
@@ -51,7 +70,7 @@ const MenuItems: React.FC<Props> = ({ create }) => {
           href="/alerts"
           currentPath={pathname}
           Icon={BellRing}
-          onClick={handleClearNotify}
+          onClick={notify}
         />
       </div>
       <Item href="/me" currentPath={pathname} Icon={User} onClick={profile} />
