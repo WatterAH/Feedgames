@@ -20,8 +20,8 @@ const PostContainer: React.FC<Props> = ({ posts, hasMore, getPost }) => {
       loader={<PostsLoader count={2} />}
       next={getPost}
     >
-      {posts.map((post, i) => (
-        <Post data={post} key={post.id} isLast={i == posts.length - 1} />
+      {posts.map((post) => (
+        <Post data={post} key={post.id} />
       ))}
     </InfiniteScroll>
   ) : (

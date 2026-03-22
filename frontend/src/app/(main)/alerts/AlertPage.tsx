@@ -49,8 +49,8 @@ const AlertPage = () => {
         next={getMoreNotify}
         loader={<NotifysLoader count={2} />}
       >
-        {alerts.map((alert, i) => (
-          <Alert key={alert.id} data={alert} isLast={i == alerts.length - 1} />
+        {alerts.map((alert) => (
+          <Alert key={alert.id} data={alert} />
         ))}
       </InfiniteScroll>
     );

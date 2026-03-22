@@ -9,7 +9,6 @@ import Options from "./Options";
 
 interface Props {
   data: PostInterface;
-  isLast?: boolean;
 }
 
 const Header: React.FC<Props> = ({ data }) => {

@@ -1,20 +1,22 @@
 import React from "react";
 import Link from "next/link";
 import ProfilePicture from "../Profile/ProfilePicture";
+import Options from "./Options";
+import { BProgress } from "@bprogress/core";
 import { Heart, MessageCircle, UserRoundPlus } from "lucide-react";
 import { AlertInterface } from "@/interfaces/Alert";
 import { interval } from "@/lib/date";
-import Options from "./Options";
+import { useRouter } from "next/navigation";
 
 interface Props {
   data: AlertInterface;
-  isLast: boolean;
 }
 
-const Notify: React.FC<Props> = ({ data, isLast }) => {
+const Notify: React.FC<Props> = ({ data }) => {
   const { created_at, type, id, user, post } = data;
   const { id: userId, name, pfp } = user;
   const date = interval(created_at);
+  const router = useRouter();
 
   const displaytext = () => {
     if (!post || !post.text) return "";
@@ -34,6 +36,22 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
       return "Comenzó a seguirte";
     }
   };
+
+  function link() {
+    BProgress.start();
+
+    switch (type) {
+      case "follow":
+        router.push(`/u/${userId}`);
+        break;
+      case "like":
+      case "reply":
+        router.push(`/p/${post?.id}`);
+        break;
+      default:
+        break;
+    }
+  }
 
   const displayIcon = () => {
     const classBase = "rounded-full w-5 h-5 flex items-center justify-center";
@@ -67,7 +85,10 @@ const Notify: React.FC<Props> = ({ data, isLast }) => {
         <ProfilePicture src={pfp} h={36} w={36} />
         <span className="absolute -right-2 top-5">{displayIcon()}</span>
       </Link>
-      <div className="flex justify-between border-b border-(--border) w-full pb-1">
+      <div
+        onClick={link}
+        className="flex justify-between border-b border-(--border) w-full pb-1"
+      >
         <section className="flex flex-col gap-0.5">
           <span className="flex items-center gap-x-1">
             <Link href={`/u/${userId}`}>

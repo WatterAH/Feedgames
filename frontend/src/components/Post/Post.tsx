@@ -11,10 +11,9 @@ import { stopPropagation } from "@/lib/utils";
 
 interface Props {
   data: PostInterface;
-  isLast?: boolean;
 }
 
-const Post: React.FC<Props> = ({ data, isLast }) => {
+const Post: React.FC<Props> = ({ data }) => {
   const { id, user, user_id } = data;
   const router = useRouter();
 
@@ -37,7 +36,7 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
         <ProfilePicture h={40} w={40} src={user.pfp} />
       </Link>
       <div className="flex flex-col w-full gap-y-2">
-        <Header data={data} isLast={isLast} />
+        <Header data={data} />
         <Content post={data} />
         <Actions data={data} />
       </div>
