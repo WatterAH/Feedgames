@@ -37,7 +37,10 @@ const Notify: React.FC<Props> = ({ data }) => {
     }
   };
 
-  function link() {
+  function link(e: React.MouseEvent) {
+    const target = e.target as HTMLElement;
+    if (target.id == "user") return;
+
     BProgress.start();
 
     switch (type) {
@@ -92,7 +95,9 @@ const Notify: React.FC<Props> = ({ data }) => {
         <section className="flex flex-col gap-0.5">
           <span className="flex items-center gap-x-1">
             <Link href={`/u/${userId}`}>
-              <p className="font-semibold hover:underline text-sm">{name}</p>
+              <p id="user" className="font-semibold hover:underline text-sm">
+                {name}
+              </p>
             </Link>
             <p className="text-(--placeholder) text-xs">{date}</p>
           </span>
