@@ -7,7 +7,7 @@ export const ScrollRestoration = () => {
   useEffect(() => {
     if (!pathname) return;
 
-    const validpaths = ["/me", "/home", "/notify", "/search"];
+    const validpaths = ["/me", "/home", "/alerts", "/search"];
     if (!validpaths.includes(pathname)) return;
 
     const saveScrollPosition = () => {

@@ -5,7 +5,7 @@ import { handleImageChange } from "@/lib/utils";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "@/store/userSlice";
-import { defaultUser, User } from "@/interfaces/User";
+import { defaultUser } from "@/interfaces/User";
 import ThemeInput from "./ThemeInput";
 import {
   Dialog,
