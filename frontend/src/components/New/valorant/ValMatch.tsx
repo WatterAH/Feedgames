@@ -52,6 +52,8 @@ const ValMatch: React.FC<Props> = ({ match, setVal }) => {
               alt={map.mapName}
               fill
               className="w-full rounded-t-lg blur-[1px]"
+              loading="eager"
+              sizes="(max-width: 768px) 100vw, 672px"
             />
           )}
         </div>

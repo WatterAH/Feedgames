@@ -11,7 +11,7 @@ import { fetchPosts, fetchUserSuccess } from "@/store/userSlice";
 import { ProfileLoader } from "@/components/Layout/Loaders";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { User } from "@/interfaces/User";
+import { defaultUser, User } from "@/interfaces/User";
 
 interface Props extends User {
   error?: boolean;
@@ -45,9 +45,9 @@ const MyPage: React.FC<Props> = ({ error, ...data }) => {
       <Title title={user?.username || "Perfil"} />
       <Card />
       <div className="w-full max-w-2xl py-14 md:pt-0 md:mt-[11vh] lg:pb-0 z-10">
-        {loadingPosts && <ProfileLoader />}
         {errorPosts && <Error />}
-        {user && <ProfileHeader data={user} />}
+        {<ProfileHeader data={user || defaultUser} />}
+        {loadingPosts && <ProfileLoader />}
 
         <PostContainer posts={posts} getPost={getMorePosts} hasMore={hasMore} />
       </div>

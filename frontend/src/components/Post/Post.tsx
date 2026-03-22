@@ -19,11 +19,11 @@ const Post: React.FC<Props> = ({ data, isLast }) => {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent) => {
-    BProgress.start();
     const target = e.target as HTMLElement;
 
     if (target.role == "menuitem") return;
     if (target.id == "dialog-overlay") return;
+    BProgress.start();
 
     router.push(`/p/${id}`);
   };

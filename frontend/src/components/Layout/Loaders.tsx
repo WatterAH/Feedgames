@@ -60,20 +60,7 @@ export const NotifysLoader = ({ count }: { count: number }) => {
 export const ProfileLoader = () => {
   return (
     <div className="flex flex-col">
-      <header className="flex flex-col gap-y-5 w-full p-3 lg:px-4 border-b border-(--border) h-72">
-        <div className="namesContainer flex flex-row gap-x-3">
-          <Loader h="h-24" w="w-24" />
-          <div className="flex flex-col gap-y-3 mt-4">
-            <Loader h="h-6" w="w-24" />
-            <Loader h="h-3" w="w-20" />
-          </div>
-        </div>
-        <Loader h="h-3" w="w-1/2" />
-        <Loader h="h-7" w="w-full" />
-        <Loader h="h-3" w="w-1/4" />
-        <Loader h="h-3" w="w-1/4" />
-      </header>
-      <PostsLoader count={4} />
+      <PostsLoader count={6} />
     </div>
   );
 };
