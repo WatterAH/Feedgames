@@ -40,8 +40,9 @@ export const useExploreResponses = (userId: string, parentId: string) => {
 
 export const useSearchUsers = (
   searchTerm: string,
-  setCurrent: React.Dispatch<React.SetStateAction<string>>,
   userId: string | undefined,
+  setCurrent?: React.Dispatch<React.SetStateAction<string>>,
+  displayAt: number = 0,
 ) => {
   const [resultsUsers, setResultsUsers] = useState<User[]>([]);
   const [loadUsers, setLoadUsers] = useState(false);
@@ -50,22 +51,23 @@ export const useSearchUsers = (
   useEffect(() => {
     if (searchTerm.trim().length === 0 || !userId) {
       setResultsUsers([]);
-      setCurrent("");
+      setCurrent && setCurrent("");
       return;
     }
 
     const delayDebounce = setTimeout(async () => {
-      if (searchTerm.trim().length > 0) {
-        setLoadUsers(true);
-        try {
-          const users = await getUsers(searchTerm, userId);
-          setResultsUsers(users);
-        } catch (error: any) {
-          setErrorUsers(true);
-          throw new Error(error.message);
-        } finally {
-          setLoadUsers(false);
-        }
+      if (searchTerm.trim().length < displayAt) return;
+      if (searchTerm.trim().includes("%")) return;
+
+      setLoadUsers(true);
+      try {
+        const users = await getUsers(searchTerm, userId);
+        setResultsUsers(users);
+      } catch (error: any) {
+        setErrorUsers(true);
+        throw new Error(error.message);
+      } finally {
+        setLoadUsers(false);
       }
     }, 300);
 

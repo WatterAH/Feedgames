@@ -85,7 +85,7 @@ const Notify: React.FC<Props> = ({ data }) => {
   return (
     <article className="flex flex-row p-4 gap-x-4 text-(--text) hover:cursor-pointer">
       <Link href={`/u/${userId}`} className="relative">
-        <ProfilePicture src={pfp} h={36} w={36} />
+        <ProfilePicture userId={userId} src={pfp} h={36} w={36} />
         <span className="absolute -right-2 top-5">{displayIcon()}</span>
       </Link>
       <div

@@ -12,13 +12,13 @@ interface Props {
 }
 
 const ProfileDetails: React.FC<Props> = ({ classes, data }) => {
-  const { pfp, bio } = data;
+  const { pfp, bio, id } = data;
 
   return (
     <div className="absolute z-20 flex flex-col gap-y-4 w-full p-4">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-x-3">
-          <ProfilePicture src={pfp} w={96} h={96} viewer />
+          <ProfilePicture userId={id} src={pfp} w={96} h={96} viewer />
           <Names data={data} {...classes} />
         </div>
         <div>

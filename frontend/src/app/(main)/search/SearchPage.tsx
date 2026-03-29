@@ -20,8 +20,8 @@ const SearchPage = () => {
   const [current, setCurrent] = useState("");
   const { resultsUsers, errorUsers, loadUsers } = useSearchUsers(
     searchTerm,
-    setCurrent,
     user.id,
+    setCurrent,
   );
   const { resultsPosts, errorPosts, loadPosts } = useSearchPosts(
     current,

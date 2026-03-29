@@ -61,7 +61,7 @@ const MenuItems: React.FC<Props> = ({ handleOpen }) => {
       <Item href="/home" currentPath={pathname} Icon={House} />
       <Item href="/search" currentPath={pathname} Icon={Search} />
       <Item href="" currentPath={pathname} Icon={SquarePen} onClick={create} />
-      {/* <Item href="/inbox" currentPath={pathname} Icon={MessageCircle} /> */}
+      <Item href="/inbox" currentPath={pathname} Icon={MessageCircle} />
       <div className="relative">
         {newAlert && (
           <div className="absolute z-20 right-2 top-1 bg-red-500 h-4 w-4 rounded-full"></div>

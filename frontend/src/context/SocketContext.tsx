@@ -48,7 +48,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     if (socket) {
-      socket.on("getOnlineUsers", (users: string[]) => {
+      socket.on("onlineUsers", (users: string[]) => {
         setOnlineUsers(users);
       });
     }

@@ -2,6 +2,7 @@ import feedSlice from "./feedSlice";
 import tendencySlice from "./tendencySlice";
 import activitySlice from "./activity";
 import userSlice from "./userSlice";
+import inboxSlice from "./inboxSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
@@ -10,6 +11,7 @@ const store = configureStore({
     user: userSlice,
     tendency: tendencySlice,
     activity: activitySlice,
+    inbox: inboxSlice,
   },
 });
 

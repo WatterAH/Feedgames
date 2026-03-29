@@ -149,7 +149,7 @@ export const fetchPosts =
     try {
       dispatch(fetchPostsStart());
       const data = await postRouter.list("user", userId, page, limit, userId);
-      const hasMore = data.length > 0;
+      const hasMore = data.length === limit;
       dispatch(
         fetchPostsSuccess({
           posts: data,

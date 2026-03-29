@@ -25,7 +25,7 @@ const Result: React.FC<Props> = ({ data }) => {
       onClick={handleClick}
     >
       <div className="flex items-center gap-x-3">
-        <ProfilePicture h={40} w={40} src={pfp} />
+        <ProfilePicture userId={id} h={40} w={40} src={pfp} />
         <div className="">
           <span className="flex items-center">
             <p className="font-semibold text-(--text)">{username}</p>

@@ -33,7 +33,7 @@ const Post: React.FC<Props> = ({ data }) => {
       className="flex flex-row text-(--text) gap-x-2 w-full border-b border-(--border) p-2 sm:px-5 cursor-pointer"
     >
       <Link href={`/u/${user_id}`} className="h-10" onClick={stopPropagation}>
-        <ProfilePicture h={40} w={40} src={user.pfp} />
+        <ProfilePicture userId={user_id} h={40} w={40} src={user.pfp} />
       </Link>
       <div className="flex flex-col w-full gap-y-2">
         <Header data={data} />

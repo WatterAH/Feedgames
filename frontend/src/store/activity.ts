@@ -88,7 +88,7 @@ export const fetchAlerts =
     try {
       dispatch(fetchAlertsStart());
       const data = await alertRouter.list(userId, page, limit);
-      const hasMore = data.length > 0;
+      const hasMore = data.length === limit;
       dispatch(
         fetchAlertsSuccess({
           notifications: data,

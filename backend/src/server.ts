@@ -14,6 +14,27 @@ const io = new SocketServer(server, {
   },
 });
 
-io.on("connection", () => {});
+export const getRecipientSocketId = (recipientId: string) => {
+  return userSocketMap[recipientId];
+};
+
+const userSocketMap: { [key: string]: string } = {};
+
+io.on("connection", (socket) => {
+  const userId = socket.handshake.query.userId;
+  if (userId !== undefined && typeof userId === "string") {
+    socket.join(userId);
+    userSocketMap[userId] = socket.id;
+  }
+
+  io.emit("onlineUsers", Object.keys(userSocketMap));
+
+  socket.on("disconnect", () => {
+    if (userId !== undefined && typeof userId === "string") {
+      delete userSocketMap[userId];
+    }
+    io.emit("onlineUsers", Object.keys(userSocketMap));
+  });
+});
 
 export { server, io };

@@ -1,7 +1,10 @@
+import { cn } from "@/lib/utils";
 import { Ellipsis } from "lucide-react";
 
 const Loader = ({ h, w }: { h: string; w: string }) => {
-  return <div className={`bg-(--loader) ${h} ${w} rounded-full`}></div>;
+  return (
+    <div className={cn("bg-(--loader) rounded-full animate-pulse", h, w)}></div>
+  );
 };
 
 export const NotifyLoader = () => {
@@ -52,6 +55,34 @@ export const NotifysLoader = ({ count }: { count: number }) => {
     <div className="flex flex-col transition-opacity duration-500 opacity-100">
       {Array.from({ length: count }).map((_, index) => (
         <NotifyLoader key={index} />
+      ))}
+    </div>
+  );
+};
+
+const PartyLoader = () => {
+  return (
+    <div className="flex items-center justify-between w-full py-3 px-5">
+      <div className="flex items-center gap-3">
+        <Loader h="h-10" w="w-10" />
+        <div className="flex flex-col gap-3">
+          <Loader h="h-2" w="w-48" />
+          <Loader h="h-2" w="w-1/2" />
+        </div>
+      </div>
+      <div className="flex flex-col w-full justify-between items-end">
+        <Ellipsis className="text-(--placeholder)" />
+        <Loader h="h-1" w="w-1/4" />
+      </div>
+    </div>
+  );
+};
+
+export const PartiesLoader = () => {
+  return (
+    <div className="flex flex-col transition-opacity duration-500 opacity-100">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <PartyLoader key={index} />
       ))}
     </div>
   );
