@@ -57,6 +57,7 @@ const MenuItems: React.FC<Props> = ({ handleOpen }) => {
   }
 
   function inbox() {
+    console.log("click");
     if (user.id === defaultUser.id) {
       return triggerAlert("cantInbox");
     } else {
@@ -71,7 +72,7 @@ const MenuItems: React.FC<Props> = ({ handleOpen }) => {
       <Item href="/search" currentPath={pathname} Icon={Search} />
       <Item href="" currentPath={pathname} Icon={SquarePen} onClick={create} />
       <Item
-        href=""
+        href="/inbox"
         currentPath={pathname}
         Icon={MessageCircle}
         onClick={inbox}
