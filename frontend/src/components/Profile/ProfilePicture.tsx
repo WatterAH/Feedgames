@@ -3,6 +3,7 @@ import Image from "next/image";
 import Loader from "../ui/Loader";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import { useSocket } from "@/context/SocketContext";
+import { cn } from "@/lib/utils";
 
 interface Props {
   src?: string;
@@ -14,7 +15,9 @@ interface Props {
 
 const ProfilePicture: React.FC<Props> = ({ userId, src, h, w, viewer }) => {
   const { onlineUsers } = useSocket();
-  const href = src ? `${process.env.NEXT_PUBLIC_IMAGES}${src}` : "/default.png";
+
+  const imageUrl = src ? `${process.env.NEXT_PUBLIC_IMAGES}${src}` : null;
+
   const containerStyle = { width: `${w}px`, height: `${h}px` };
   const imageClasses = "object-cover rounded-full";
   const indicatorSize = Math.min(Math.round(w * 0.23), 24);
@@ -22,9 +25,27 @@ const ProfilePicture: React.FC<Props> = ({ userId, src, h, w, viewer }) => {
 
   const active = onlineUsers.includes(userId || "");
 
+  const renderDefault = () => (
+    <div className="w-full h-full bg-(--loader) flex items-center justify-center rounded-full overflow-hidden">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="text-(--text) w-3/5 h-3/5"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+        />
+      </svg>
+    </div>
+  );
+
   const renderImage = () => (
     <Image
-      src={href}
+      src={imageUrl!}
       alt="Profile picture"
       fill
       priority
@@ -41,9 +62,21 @@ const ProfilePicture: React.FC<Props> = ({ userId, src, h, w, viewer }) => {
       loadingElement={<Loader size="large" color="white" />}
     >
       <div className="relative" style={containerStyle}>
-        <div className="w-full h-full rounded-full overflow-hidden bg-loading">
-          {viewer && <PhotoView src={href}>{renderImage()}</PhotoView>}
-          {!viewer && renderImage()}
+        <div
+          className={cn(
+            "w-full h-full rounded-full overflow-hidden",
+            imageUrl && "bg-(--loader)",
+          )}
+        >
+          {imageUrl ? (
+            viewer ? (
+              <PhotoView src={imageUrl}>{renderImage()}</PhotoView>
+            ) : (
+              renderImage()
+            )
+          ) : (
+            renderDefault()
+          )}
         </div>
 
         {active && (
