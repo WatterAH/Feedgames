@@ -66,7 +66,6 @@ class InboxService {
   async exists(
     list: string[],
   ): Promise<{ data: string | null; error: PostgrestError | null }> {
-    console.log(list);
     const { data, error } = await supabase.rpc("get_existing_party", {
       user_ids: list,
     });

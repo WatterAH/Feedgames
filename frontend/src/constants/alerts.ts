@@ -2,6 +2,7 @@ import {
   Bell,
   Bookmark,
   Heart,
+  MessageCircle,
   PenSquareIcon,
   User,
   UserPlus,
@@ -43,5 +44,11 @@ export const alerts = {
     details:
       "¿Quieres seguir a los mejores jugadores? ¡Sin cuenta no puedes hacerlo! Regístrate y mantén a tus ídolos al alcance de tu dedo en FeedGames.",
     Icon: UserPlus,
+  },
+  cantInbox: {
+    to: "revisar tu bandeja de entrada",
+    details:
+      "Tu bandeja de entrada está llena de mensajes importantes, pero sin cuenta no puedes acceder a ella. ¡Regístrate en FeedGames y mantente al día con todas las conversaciones!",
+    Icon: MessageCircle,
   },
 };

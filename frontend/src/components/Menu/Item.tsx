@@ -1,9 +1,11 @@
 import Link from "next/link";
 import React from "react";
+import { BProgress } from "@bprogress/core";
 import { cn } from "@/lib/utils";
 import { House } from "lucide-react";
 import { useUser } from "@/context/AuthContext";
 import { defaultUser } from "@/interfaces/User";
+import { useRouter } from "next/navigation";
 
 interface Props {
   href: string;
@@ -15,16 +17,21 @@ interface Props {
 const Item: React.FC<Props> = ({ href, Icon, currentPath, onClick }) => {
   const { user } = useUser();
   const logged = user.id !== defaultUser.id;
-  const blocked = ["/me", "/alerts", ""].includes(href);
+  const blocked = ["/me", "/alerts", "/inbox"].includes(href);
   const isCurrentPage = currentPath === href;
+  const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isCurrentPage) e.preventDefault();
 
     if (blocked || !logged) {
       e.preventDefault();
-      onClick && onClick(e);
-      return;
+      if (onClick) {
+        return onClick(e);
+      } else {
+        BProgress.start();
+        router.push(href);
+      }
     }
   };
 
