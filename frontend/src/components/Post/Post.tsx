@@ -30,11 +30,15 @@ const Post: React.FC<Props> = ({ data }) => {
   return (
     <article
       onClick={handleClick}
-      className="flex flex-row text-(--text) gap-x-2 w-full border-b border-(--border) p-2 sm:px-5 cursor-pointer"
+      className="flex text-(--text) gap-3 px-4 py-3 border-b border-(--border) p-2 sm:px-5 cursor-pointer"
     >
-      <Link href={`/u/${user_id}`} className="h-10" onClick={stopPropagation}>
-        <ProfilePicture userId={user_id} h={40} w={40} src={user.pfp} />
-      </Link>
+      <div className="flex flex-col items-center shrink-0 mt-1">
+        <Link href={`/u/${user_id}`} className="h-10" onClick={stopPropagation}>
+          <ProfilePicture userId={user_id} h={40} w={40} src={user.pfp} />
+        </Link>
+        <div className="w-0.5 h-full bg-(--border) mt-2 rounded-full" />
+      </div>
+
       <div className="flex flex-col w-full gap-y-2">
         <Header data={data} />
         <Content post={data} />

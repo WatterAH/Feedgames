@@ -9,20 +9,18 @@ import { useDispatch } from "react-redux";
 import { updatePostInteraction } from "@/store/actions";
 import { defaultUser } from "@/interfaces/User";
 import { useAuthReminder } from "@/context/AuthReminderProvider";
+import { PostInterface } from "@/interfaces/Post";
+import { cn } from "@/lib/utils";
 
-interface Props {
-  id: string;
-  isLiked: boolean;
-  setLikedNum: React.Dispatch<React.SetStateAction<number>>;
-  user_id: string;
-}
+interface Props extends PostInterface {}
 
-const Like = ({ likeData }: { likeData: Props }) => {
+const Like: React.FC<Props> = (post) => {
+  const { id, user_id, liked, isLiked } = post;
   const { user } = useUser();
   const { triggerAlert } = useAuthReminder();
-  const { id, isLiked, user_id, setLikedNum } = likeData;
   const { triggerAnimation, triggerStyle } = useAnimations();
-  const [liked, setLiked] = useState(isLiked);
+  const [like, setLike] = useState(isLiked);
+  const [likedNum, setLikedNum] = useState(liked);
   const dispatch: AppDispatch = useDispatch();
 
   const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,7 +32,7 @@ const Like = ({ likeData }: { likeData: Props }) => {
 
     const handleLikeAction = async () => {
       try {
-        if (!liked) {
+        if (!like) {
           setLikedNum((prev) => prev + 1);
           dispatch(updatePostInteraction(id, "like"));
           await interactionRouter.interact({
@@ -54,28 +52,31 @@ const Like = ({ likeData }: { likeData: Props }) => {
     };
 
     triggerAnimation();
-    setLiked(!liked);
+    setLike(!like);
 
-    setTimeout(() => {
-      handleLikeAction();
-    }, 250);
+    handleLikeAction();
   };
 
   const AnimatedButton: React.FC<React.PropsWithChildren<any>> =
     animated.button;
 
   return (
-    <AnimatedButton
-      style={triggerStyle}
+    <button
+      className="flex items-center gap-1.5 hover:text-rose-500 transition-colors group"
       onClick={handleLike}
-      className="transition-transform"
     >
-      <Heart
-        aria-hidden="true"
-        className={`h-5 w-5 text-red-500`}
-        fill={liked ? "#f43f5e" : "transparent"}
-      />
-    </AnimatedButton>
+      <AnimatedButton style={triggerStyle}>
+        <Heart
+          size={18}
+          className={cn(
+            "group-hover:scale-110 transition-transform",
+            like && "text-transparent",
+          )}
+          fill={like ? "#f43f5e" : "transparent"}
+        />
+      </AnimatedButton>
+      <span className="text-xs">{likedNum}</span>
+    </button>
   );
 };
 

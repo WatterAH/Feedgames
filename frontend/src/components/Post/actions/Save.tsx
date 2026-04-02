@@ -9,19 +9,18 @@ import { useDispatch } from "react-redux";
 import { updatePostInteraction } from "@/store/actions";
 import { defaultUser } from "@/interfaces/User";
 import { useAuthReminder } from "@/context/AuthReminderProvider";
+import { cn } from "@/lib/utils";
+import { PostInterface } from "@/interfaces/Post";
 
-interface Props {
-  id: string;
-  isSaved: boolean;
-  setSavedNum: React.Dispatch<React.SetStateAction<number>>;
-}
+interface Props extends PostInterface {}
 
-const Save = ({ saveData }: { saveData: Props }) => {
+const Save: React.FC<Props> = (post) => {
+  const { id, user_id, saved, isSaved } = post;
   const { user } = useUser();
   const { triggerAlert } = useAuthReminder();
-  const { id, isSaved, setSavedNum } = saveData;
   const { triggerAnimation, triggerStyle } = useAnimations();
-  const [saved, setSaved] = useState(isSaved);
+  const [save, setSave] = useState(isSaved);
+  const [savedNum, setSavedNum] = useState<number>(saved);
   const dispatch: AppDispatch = useDispatch();
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,7 +32,7 @@ const Save = ({ saveData }: { saveData: Props }) => {
 
     const handleSaveAction = async () => {
       try {
-        if (!saved) {
+        if (!save) {
           setSavedNum((prev) => prev + 1);
           dispatch(updatePostInteraction(id, "save"));
           await interactionRouter.interact({
@@ -52,28 +51,31 @@ const Save = ({ saveData }: { saveData: Props }) => {
     };
 
     triggerAnimation();
-    setSaved(!saved);
+    setSave(!save);
 
-    setTimeout(() => {
-      handleSaveAction();
-    }, 250);
+    handleSaveAction();
   };
 
   const AnimatedButton: React.FC<React.PropsWithChildren<any>> =
     animated.button;
 
   return (
-    <AnimatedButton
-      style={triggerStyle}
+    <button
+      className="flex items-center gap-1.5 hover:text-amber-300 transition-colors group"
       onClick={handleSave}
-      className="transition-transform"
     >
-      <Bookmark
-        aria-hidden="true"
-        className={`h-5 w-5 text-amber-300`}
-        fill={saved ? "#fcd34d" : "transparent"}
-      />
-    </AnimatedButton>
+      <AnimatedButton style={triggerStyle}>
+        <Bookmark
+          size={18}
+          className={cn(
+            "group-hover:scale-110 transition-transform",
+            save && "text-transparent",
+          )}
+          fill={save ? "#fcd34d" : "transparent"}
+        />
+      </AnimatedButton>
+      <span className="text-xs">{savedNum}</span>
+    </button>
   );
 };
 
