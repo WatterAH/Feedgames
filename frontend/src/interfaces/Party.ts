@@ -17,6 +17,23 @@ export interface Party {
   };
 }
 
+export interface Message {
+  id: string;
+  party_id: string;
+  user_id: string;
+  reply_to: string | null;
+  content: string;
+  type: "system" | "text" | "image" | "post";
+  metadata: any;
+  created_at: string;
+  edited: boolean;
+  user: {
+    id: string;
+    name: string;
+    pfp: string | undefined;
+  };
+}
+
 export const defaultParty: Party = {
   id: "",
   name: "",

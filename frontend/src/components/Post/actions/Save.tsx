@@ -23,7 +23,7 @@ const Save: React.FC<Props> = (post) => {
   const [savedNum, setSavedNum] = useState<number>(saved);
   const dispatch: AppDispatch = useDispatch();
 
-  const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSave = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
 
     if (user.id === defaultUser.id) {
@@ -60,7 +60,8 @@ const Save: React.FC<Props> = (post) => {
     animated.button;
 
   return (
-    <button
+    <div
+      role="button"
       className="flex items-center gap-1.5 hover:text-amber-300 transition-colors group"
       onClick={handleSave}
     >
@@ -75,7 +76,7 @@ const Save: React.FC<Props> = (post) => {
         />
       </AnimatedButton>
       <span className="text-xs">{savedNum}</span>
-    </button>
+    </div>
   );
 };
 

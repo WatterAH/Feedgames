@@ -1,6 +1,7 @@
-import { app } from "./app";
-import { Server as SocketServer } from "socket.io";
 import http from "http";
+import { app } from "./app";
+import { SocketController } from "./socketController";
+import { Server as SocketServer } from "socket.io";
 
 const server = http.createServer(app);
 
@@ -14,27 +15,7 @@ const io = new SocketServer(server, {
   },
 });
 
-export const getRecipientSocketId = (recipientId: string) => {
-  return userSocketMap[recipientId];
-};
-
-const userSocketMap: { [key: string]: string } = {};
-
-io.on("connection", (socket) => {
-  const userId = socket.handshake.query.userId;
-  if (userId !== undefined && typeof userId === "string") {
-    socket.join(userId);
-    userSocketMap[userId] = socket.id;
-  }
-
-  io.emit("onlineUsers", Object.keys(userSocketMap));
-
-  socket.on("disconnect", () => {
-    if (userId !== undefined && typeof userId === "string") {
-      delete userSocketMap[userId];
-    }
-    io.emit("onlineUsers", Object.keys(userSocketMap));
-  });
-});
+const socketController = new SocketController(io);
+socketController.init();
 
 export { server, io };

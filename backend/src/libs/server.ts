@@ -105,3 +105,18 @@ export const processParty = (party: any, userId: string) => {
     ...rest,
   };
 };
+
+export const processMessage = (message: any) => {
+  const { id, user, user_id, ...rest } = message;
+
+  return {
+    id: translator.fromUUID(id),
+    user_id: translator.fromUUID(user_id),
+    user: {
+      id: translator.fromUUID(user.id),
+      name: user.name,
+      pfp: user.pfp,
+    },
+    ...rest,
+  };
+};

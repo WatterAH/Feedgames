@@ -1,5 +1,5 @@
 import { PostgrestError } from "@supabase/supabase-js";
-import { Party } from "../interfaces/Party";
+import { Message, Party } from "../interfaces/Party";
 import { supabase } from "../middlewares/connection";
 
 class InboxService {
@@ -40,15 +40,27 @@ class InboxService {
     partyId: string,
     limit: number,
     page: number,
-  ): Promise<{ data: any[] | null; error: PostgrestError | null }> {
+  ): Promise<{ data: Message[] | null; error: PostgrestError | null }> {
     const { data, error } = await supabase
       .from("messages")
-      .select("*")
+      .select("*, user:users(id, name, pfp)")
       .eq("party_id", partyId)
       .range(page * limit, (page + 1) * limit - 1)
       .order("created_at", { ascending: false });
 
     return { data, error };
+  }
+
+  async send(
+    data: Partial<Message>,
+  ): Promise<{ data: Message | null; error: PostgrestError | null }> {
+    const { data: message, error } = await supabase
+      .from("messages")
+      .insert([data])
+      .select("*, user:users(id, name, pfp)")
+      .single();
+
+    return { data: message, error };
   }
 
   async create(

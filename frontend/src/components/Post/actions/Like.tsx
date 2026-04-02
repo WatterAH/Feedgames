@@ -23,7 +23,7 @@ const Like: React.FC<Props> = (post) => {
   const [likedNum, setLikedNum] = useState(liked);
   const dispatch: AppDispatch = useDispatch();
 
-  const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLike = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
 
     if (user.id === defaultUser.id) {
@@ -61,7 +61,8 @@ const Like: React.FC<Props> = (post) => {
     animated.button;
 
   return (
-    <button
+    <div
+      role="button"
       className="flex items-center gap-1.5 hover:text-rose-500 transition-colors group"
       onClick={handleLike}
     >
@@ -76,7 +77,7 @@ const Like: React.FC<Props> = (post) => {
         />
       </AnimatedButton>
       <span className="text-xs">{likedNum}</span>
-    </button>
+    </div>
   );
 };
 

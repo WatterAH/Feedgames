@@ -1,4 +1,4 @@
-import Chat from "@/components/Party/Chat";
+import ChatPage from "@/components/Party/Chat/ChatPage";
 import { defaultParty } from "@/interfaces/Party";
 import { getUserCookie } from "@/lib/client";
 import partyRouter from "@/routes/party";
@@ -13,8 +13,8 @@ export default async function Page({
 
   try {
     const party = await partyRouter.find(id, userId);
-    return <Chat {...party} />;
+    return <ChatPage {...party} />;
   } catch (error) {
-    return <Chat {...defaultParty} error />;
+    return <ChatPage {...defaultParty} error />;
   }
 }

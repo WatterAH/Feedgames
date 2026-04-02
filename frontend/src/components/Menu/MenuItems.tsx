@@ -57,7 +57,6 @@ const MenuItems: React.FC<Props> = ({ handleOpen }) => {
   }
 
   function inbox() {
-    console.log("click");
     if (user.id === defaultUser.id) {
       return triggerAlert("cantInbox");
     } else {

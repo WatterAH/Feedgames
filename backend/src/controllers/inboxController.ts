@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import shortUUID from "short-uuid";
 import inboxService from "../service/inboxService";
 import { sendError, sendSuccess } from "../libs/responseHandler";
-import { processParty } from "../libs/server";
+import { processMessage, processParty } from "../libs/server";
+import { Message } from "../interfaces/Party";
+import { io } from "../server";
 
 const translator = shortUUID();
 
@@ -86,7 +88,10 @@ class InboxController {
           inboxService.join(member.party_id, member.user_id),
         ),
       );
-      return sendSuccess(res, party.data.id);
+
+      const partyId = translator.fromUUID(party.data.id);
+
+      return sendSuccess(res, partyId);
     } catch (error: any) {
       return sendError(res, error.message, 400);
     }
@@ -106,7 +111,34 @@ class InboxController {
       if (query.error) return sendError(res, query.error.message, 400);
       if (!query.data) return sendError(res, "Not found", 404);
 
-      return sendSuccess(res, query.data);
+      const result = query.data.map((message) => processMessage(message));
+
+      return sendSuccess(res, result);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
+
+  async send(req: Request, res: Response) {
+    try {
+      const message: Message = req.body;
+      const partyId = translator.toUUID(message.party_id);
+      const userId = translator.toUUID(message.user_id);
+
+      const data = {
+        party_id: partyId,
+        user_id: userId,
+        content: message.content,
+        type: message.type,
+      };
+
+      const query = await inboxService.send(data);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
+      const result = processMessage(query.data);
+      io.to(message.party_id).emit("message", result);
+
+      return sendSuccess(res, result);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }
