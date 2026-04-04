@@ -4,7 +4,7 @@ import messageRouter from "@/routes/message";
 import { useUser } from "@/context/AuthContext";
 import { useSocket } from "@/context/SocketContext";
 import { toast } from "sonner";
-import { setHasUnread } from "@/store/inboxSlice";
+import { setHasUnread, setLastMessage } from "@/store/inboxSlice";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
@@ -57,10 +57,15 @@ export const subscribeToMessages = () => {
   useEffect(() => {
     if (!socket) return;
 
-    const handleNewMessage = () => {
-      console.log(pathnameRef.current);
+    const handleNewMessage = (payload: any) => {
+      dispatch(setLastMessage(payload));
 
-      if (pathnameRef.current.includes("/party")) return;
+      if (pathnameRef.current.includes(`/party/${payload.party_id}`)) return;
+
+      if (pathnameRef.current.includes("/party")) {
+        toast("Tienes nuevos mensajes");
+        return;
+      }
 
       toast("Tienes nuevos mensajes");
       dispatch(setHasUnread(true));

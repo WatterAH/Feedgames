@@ -137,6 +137,12 @@ class InboxController {
         type: message.type,
       };
 
+      const query = await inboxService.send(data);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
+      const result = processMessage(query.data);
+      io.to(message.party_id).emit("message", result);
+
       const party = await inboxService.find(partyId);
       if (party.error) return sendError(res, party.error.message, 400);
       if (!party.data) return sendError(res, "Not found", 404);
@@ -144,15 +150,11 @@ class InboxController {
       const dataParty = processParty(party.data, userId);
 
       dataParty.members.forEach((member: any) => {
-        if (member.id === message.user_id) return;
-        io.to(member.id).emit("new_message");
+        io.to(member.id).emit("new_message", {
+          party_id: message.party_id,
+          last_message: dataParty.last_message,
+        });
       });
-
-      const query = await inboxService.send(data);
-      if (query.error) return sendError(res, query.error.message, 400);
-      if (!query.data) return sendError(res, "Not found", 404);
-      const result = processMessage(query.data);
-      io.to(message.party_id).emit("message", result);
 
       return sendSuccess(res, result);
     } catch (error: any) {

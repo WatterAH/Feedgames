@@ -55,6 +55,13 @@ const inboxSlice = createSlice({
         party.me.last_read_at = new Date().toISOString();
       }
     },
+    setLastMessage: (state, action: { payload: any }) => {
+      const { party_id, last_message } = action.payload;
+      const party = state.parties.find((p) => p.id === party_id);
+      if (party) {
+        party.last_message = last_message;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(RESET_ALL, (state) => {
@@ -73,6 +80,7 @@ export const {
   addParty,
   setHasUnread,
   markAsRead,
+  setLastMessage,
 } = inboxSlice.actions;
 
 export default inboxSlice.reducer;
