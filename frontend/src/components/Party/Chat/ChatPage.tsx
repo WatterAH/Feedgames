@@ -33,7 +33,7 @@ const ChatPage: React.FC<Props> = ({ error, ...data }) => {
     <>
       <Title title="Party Chat" />
       <Card />
-      <div className="flex flex-col h-screen md:h-[90dvh] w-full max-w-2xl pt-20 pb-14 md:pt-3 md:mt-[11dvh] lg:pb-0 z-10 fixed bottom-0 md:bottom-auto">
+      <div className="flex flex-col h-dvh md:h-[90dvh] w-full max-w-2xl pt-20 pb-14 md:pt-3 md:mt-[11dvh] lg:pb-0 z-10 fixed bottom-0 md:bottom-auto">
         <ChatHeader {...data} />
         <div
           id="messages-list"

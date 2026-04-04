@@ -50,7 +50,9 @@ const ProfilePicture: React.FC<Props> = ({ userId, src, h, w, viewer }) => {
       fill
       priority
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      className={viewer ? `${imageClasses} cursor-pointer` : imageClasses}
+      className={
+        viewer ? `${imageClasses} cursor-pointer absolute` : imageClasses
+      }
     />
   );
 
@@ -64,7 +66,7 @@ const ProfilePicture: React.FC<Props> = ({ userId, src, h, w, viewer }) => {
       <div className="relative" style={containerStyle}>
         <div
           className={cn(
-            "w-full h-full rounded-full overflow-hidden",
+            "w-full h-full rounded-full overflow-hidden relative",
             imageUrl && "bg-(--loader)",
           )}
         >
