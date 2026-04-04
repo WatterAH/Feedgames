@@ -37,7 +37,7 @@ const MessageComposer: React.FC<Props> = ({ hookParty, ...party }) => {
   }
 
   return (
-    <form className="shrink-0 p-2 flex items-end gap-2 border border-(--border) bg-(--foreground) rounded-2xl shadow-2xl mb-4 mx-4">
+    <form className="shrink-0 p-2 flex items-end gap-2 border border-(--border) bg-(--foreground) rounded-2xl shadow-2xl mb-4 mx-0 md:mx-4">
       <input
         type="text"
         placeholder="Mensaje..."
