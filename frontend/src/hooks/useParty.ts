@@ -52,6 +52,7 @@ export const subscribeToMessages = () => {
     if (!socket) return;
 
     const handleNewMessage = () => {
+      console.log(pathname);
       if (pathname.includes("/party")) return;
       toast("Tienes nuevos mensajes");
       dispatch(setHasUnread(true));
