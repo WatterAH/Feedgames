@@ -41,7 +41,7 @@ class UserController {
 
       const result = processUser(user.data, "");
 
-      const token = await createAccessToken(result);
+      const token = await createAccessToken({ id: result.id });
       return sendSuccess(res, { user: result, token });
     } catch (error: any) {
       return sendError(res, error.message, 500);
@@ -89,7 +89,7 @@ class UserController {
       }
 
       const result = processUser(data, "");
-      const token = await createAccessToken(result);
+      const token = await createAccessToken({ id: result.id });
       return sendSuccess(res, { user: result, token });
     } catch (error: any) {
       return sendError(res, error.message, 500);
@@ -99,12 +99,18 @@ class UserController {
   async checkToken(req: Request, res: Response) {
     try {
       const token = req.params.token;
-      const user = await validateToken(token);
-      if (!user) {
-        return sendError(res, "Unauthorized", 401);
-      }
+      const data = await validateToken(token);
+      if (!data) return sendError(res, "Unauthorized", 401);
 
-      return sendSuccess(res, { user, token });
+      const userId = translator.toUUID(data.id);
+
+      const user = await userService.find(userId, "id");
+      if (user.error) return sendError(res, user.error.message, 400);
+      if (!user.data) return sendError(res, "Not found", 404);
+
+      const result = processUser(user.data, "");
+
+      return sendSuccess(res, { user: result, token });
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }

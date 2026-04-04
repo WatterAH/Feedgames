@@ -15,7 +15,7 @@ export const createAccessToken = (
   });
 };
 
-export const validateToken = (token: string): Promise<User | null> => {
+export const validateToken = (token: string): Promise<any | null> => {
   return new Promise((resolve) => {
     if (!token) {
       return resolve(null);
