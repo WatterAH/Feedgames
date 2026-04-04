@@ -13,6 +13,11 @@ export default async function Page({
 
   try {
     const party = await partyRouter.find(id, userId);
+
+    const hasAccess = party.me.id === userId;
+
+    if (!hasAccess) throw new Error("Unauthorized access");
+
     return <ChatPage {...party} />;
   } catch (error) {
     return <ChatPage {...defaultParty} error />;

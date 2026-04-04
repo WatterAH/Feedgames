@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Message } from "@/interfaces/Party";
+import { Message, Party } from "@/interfaces/Party";
 import messageRouter from "@/routes/message";
 import { useUser } from "@/context/AuthContext";
 import { useSocket } from "@/context/SocketContext";
 import { toast } from "sonner";
-import { setHasUnread, setLastMessage } from "@/store/inboxSlice";
+import { addParty, setHasUnread, setLastMessage } from "@/store/inboxSlice";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
@@ -75,6 +75,18 @@ export const subscribeToMessages = () => {
 
     return () => {
       socket.off("new_message", handleNewMessage);
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleParty = (payload: Party) => dispatch(addParty(payload));
+
+    socket.on("new_party", handleParty);
+
+    return () => {
+      socket.off("new_party", handleParty);
     };
   }, [socket]);
 };

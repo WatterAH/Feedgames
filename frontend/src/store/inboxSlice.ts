@@ -41,7 +41,8 @@ const inboxSlice = createSlice({
       state.loading = false;
     },
     addParty: (state, action) => {
-      if (state.parties.length != 0) {
+      const exists = state.parties.find((p) => p.id === action.payload.id);
+      if (!exists) {
         state.parties.unshift(action.payload);
       }
     },

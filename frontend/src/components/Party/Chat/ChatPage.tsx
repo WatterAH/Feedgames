@@ -13,6 +13,7 @@ import { useParty } from "@/hooks/useParty";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { markAsRead } from "@/store/inboxSlice";
+import Error from "@/components/Layout/Error";
 
 interface Props extends Party {
   error?: boolean;
@@ -44,17 +45,23 @@ const ChatPage: React.FC<Props> = ({ error, ...data }) => {
       <Title title="Party Chat" />
       <Card />
       <div className="flex flex-col mx-auto inset-x-0 h-dvh md:h-[90dvh] w-full max-w-2xl pt-20 pb-14 md:pt-3 md:mt-[11dvh] lg:pb-0 z-10 fixed bottom-0 md:bottom-auto">
-        <ChatHeader {...data} />
-        <div
-          id="messages-list"
-          className="flex-1 flex flex-col-reverse my-4 overflow-y-auto w-full"
-        >
-          <MessageList hookParty={party} {...data} />
-        </div>
+        {error ? (
+          <Error />
+        ) : (
+          <>
+            <ChatHeader {...data} />
+            <div
+              id="messages-list"
+              className="flex-1 flex flex-col-reverse my-4 overflow-y-auto w-full"
+            >
+              <MessageList hookParty={party} {...data} />
+            </div>
 
-        <div className="absolute bottom-0 w-full">
-          <MessageComposer hookParty={party} {...data} />
-        </div>
+            <div className="absolute bottom-0 w-full">
+              <MessageComposer hookParty={party} {...data} />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

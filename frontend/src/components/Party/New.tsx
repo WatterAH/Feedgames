@@ -19,6 +19,9 @@ import { toast } from "sonner";
 import partyRouter from "@/routes/party";
 import { BProgress } from "@bprogress/core";
 import { useRouter } from "next/navigation";
+import { AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { addParty } from "@/store/inboxSlice";
 
 const New = () => {
   const { user } = useUser();
@@ -27,12 +30,7 @@ const New = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState<string[]>([]);
   const router = useRouter();
-  const { resultsUsers, loadUsers } = useSearchUsers(
-    searchTerm,
-    user.id,
-    undefined,
-    3,
-  );
+  const searched = useSearchUsers(searchTerm, user.id, undefined, 3);
 
   const setUser = (id: string) => {
     if (users.includes(id)) {
@@ -41,17 +39,22 @@ const New = () => {
     setUsers([...users, id]);
   };
 
+  function reset() {
+    setUsers([]);
+    setSearchTerm("");
+    setOpen(false);
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
       setLoading(true);
-      const id = await partyRouter.create(user.id, users);
-      toast.success("Grupo creado exitosamente");
-      setUsers([]);
-      setSearchTerm("");
-      setOpen(false);
+      const party = await partyRouter.create(user.id, users);
+      toast.success("Uniendose al grupo...");
+
+      reset();
       BProgress.start();
-      router.push(`/party/${id}`);
+      router.push(`/party/${party.id}`);
     } catch (error: any) {
       toast.error(error.message || "Error al crear el grupo");
     } finally {
@@ -99,7 +102,7 @@ const New = () => {
                 placeholder="Buscar miembros..."
               />
               <div className="absolute right-4 top-3">
-                {loadUsers && <Loader color="dark" size="small" />}
+                {searched.loadUsers && <Loader color="dark" size="small" />}
               </div>
             </div>
           </div>
@@ -107,12 +110,14 @@ const New = () => {
           <div
             className={cn(
               "grid transition-all duration-300 ease-in-out w-full",
-              resultsUsers.length > 0 ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+              searched.resultsUsers.length > 0
+                ? "grid-rows-[1fr]"
+                : "grid-rows-[0fr]",
             )}
           >
             <div className="overflow-hidden">
               <div className="bg-(--background) border border-(--border) rounded-2xl mt-2 p-2 space-y-2">
-                {resultsUsers.map((user) => (
+                {searched.resultsUsers.map((user) => (
                   <UserResult
                     key={user.id}
                     {...user}

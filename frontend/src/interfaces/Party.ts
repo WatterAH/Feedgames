@@ -19,6 +19,7 @@ export interface Party {
     created_at: string;
   };
   me: {
+    id: string;
     last_read_at: string;
   };
 }
@@ -56,6 +57,7 @@ export const defaultParty: Party = {
   },
   members: [],
   me: {
+    id: "",
     last_read_at: "",
   },
 };

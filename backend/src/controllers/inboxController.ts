@@ -50,48 +50,47 @@ class InboxController {
 
   async create(req: Request, res: Response) {
     try {
-      const id = req.body.id as string;
-      const users = req.body.users as string[];
-      const userId = translator.toUUID(id);
-      userId;
+      const { id, users } = req.body;
 
       if (!users || users.length < 1) {
         return sendError(res, "At least 1 user is required", 400);
       }
 
-      const list = users.map((user) => translator.toUUID(user));
-      list.push(userId);
+      const ownerId = translator.toUUID(id);
+      const guestsIds = users.map((u: string) => translator.toUUID(u));
 
-      const existing = await inboxService.exists(list);
+      const members = Array.from(new Set([...guestsIds, ownerId]));
+
+      const existing = await inboxService.exists(members);
       if (existing.error) return sendError(res, existing.error.message, 400);
+
       if (existing.data) {
-        const id = translator.fromUUID(existing.data);
-        return sendSuccess(res, id);
+        const party = processParty(existing.data, ownerId);
+        return sendSuccess(res, party);
       }
 
-      const party = await inboxService.create({});
-      if (party.error) return sendError(res, party.error.message, 400);
-      if (!party.data) return sendError(res, "Not found", 404);
-
-      const membersToInsert: any[] = list.map((user) => ({
-        party_id: party.data!.id,
-        user_id: user,
-      }));
-      membersToInsert.push({
-        party_id: party.data!.id,
-        user_id: userId,
-        role: "admin",
-      });
+      const newParty = await inboxService.create({});
+      if (newParty.error) return sendError(res, newParty.error.message, 400);
+      if (!newParty.data) return sendError(res, "Not found", 404);
 
       await Promise.all(
-        membersToInsert.map((member) =>
-          inboxService.join(member.party_id, member.user_id),
-        ),
+        members.map((id) => {
+          const role = id === ownerId ? "admin" : "member";
+          return inboxService.join(newParty.data!.id, id, role);
+        }),
       );
 
-      const partyId = translator.fromUUID(party.data.id);
+      const final = await inboxService.find(newParty.data.id);
+      if (final.error) return sendError(res, final.error.message, 400);
+      if (!final.data) return sendError(res, "Not found after creation", 404);
 
-      return sendSuccess(res, partyId);
+      members.forEach((id: string) => {
+        const userId = translator.fromUUID(id);
+        io.to(userId).emit("new_party", processParty(final.data, id));
+      });
+
+      const party = processParty(final.data, ownerId);
+      return sendSuccess(res, party);
     } catch (error: any) {
       return sendError(res, error.message, 400);
     }
