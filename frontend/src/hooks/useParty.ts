@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Message } from "@/interfaces/Party";
 import messageRouter from "@/routes/message";
 import { useUser } from "@/context/AuthContext";
@@ -48,12 +48,20 @@ export const subscribeToMessages = () => {
   const dispatch: AppDispatch = useDispatch();
   const pathname = usePathname();
 
+  const pathnameRef = useRef(pathname);
+
+  useEffect(() => {
+    pathnameRef.current = pathname;
+  }, [pathname]);
+
   useEffect(() => {
     if (!socket) return;
 
     const handleNewMessage = () => {
-      console.log(pathname);
-      if (pathname.includes("/party")) return;
+      console.log(pathnameRef.current);
+
+      if (pathnameRef.current.includes("/party")) return;
+
       toast("Tienes nuevos mensajes");
       dispatch(setHasUnread(true));
     };
