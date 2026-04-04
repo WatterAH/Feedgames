@@ -1,4 +1,5 @@
 import shortUUID from "short-uuid";
+import messageRouter from "@/routes/message";
 import postRouter from "@/routes/post";
 import alertRouter from "@/routes/alerts";
 import { toast } from "sonner";
@@ -9,6 +10,7 @@ import { addMyPost } from "@/store/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { supabase } from "@/lib/db";
+import { setHasUnread } from "@/store/inboxSlice";
 
 const translator = shortUUID();
 
@@ -67,8 +69,11 @@ export const subscribeToAlerts = (userId: string) => {
       )
       .subscribe();
 
-    const hasUnread = async () => alertRouter.hasAlerts(userId);
-    hasUnread().then((value) => dispatch(setNewAlert(value)));
+    const hasAlerts = async () => alertRouter.hasAlerts(userId);
+    hasAlerts().then((value) => dispatch(setNewAlert(value)));
+
+    const hasParties = async () => messageRouter.hasUnread(userId);
+    hasParties().then((value) => dispatch(setHasUnread(value)));
 
     return () => {
       supabase.removeChannel(channel_alerts);

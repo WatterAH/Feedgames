@@ -51,7 +51,7 @@ const New = () => {
       setSearchTerm("");
       setOpen(false);
       BProgress.start();
-      router.push(`/inbox/${id}`);
+      router.push(`/party/${id}`);
     } catch (error: any) {
       toast.error(error.message || "Error al crear el grupo");
     } finally {

@@ -3,6 +3,7 @@ export const REMOVE_POST = "REMOVE_POST";
 export const ADD_POST = "ADD_POST";
 export const RESET_ALL = "RESET_ALL";
 export const UPDATE_POST = "UPDATE_POST";
+export const READ_PARTY = "READ_PARTY";
 
 type InteractionType = "like" | "save" | "unlike" | "unsave";
 
@@ -16,7 +17,7 @@ export interface UpdatePostInteractionAction {
 
 export const updatePostInteraction = (
   postId: string,
-  type: InteractionType
+  type: InteractionType,
 ) => ({
   type: UPDATE_POST_INTERACTION,
   payload: { postId, type },
@@ -34,6 +35,10 @@ export const deletePost = (postId: string) => ({
 
 export const resetAll = () => ({
   type: RESET_ALL,
+});
+
+export const readParty = () => ({
+  type: READ_PARTY,
 });
 
 export interface UpdatePostAction {

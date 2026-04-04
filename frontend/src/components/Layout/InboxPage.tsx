@@ -6,7 +6,7 @@ import Card from "./Card";
 import { useUser } from "@/context/AuthContext";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchParties } from "@/store/inboxSlice";
+import { fetchParties, setHasUnread } from "@/store/inboxSlice";
 import New from "../Party/New";
 import Search from "../Party/Search";
 import Party from "../Party/Party";
@@ -32,6 +32,10 @@ export default function InboxPage() {
       dispatch(fetchParties(user.id, 10));
     }
   };
+
+  useEffect(() => {
+    dispatch(setHasUnread(false));
+  }, [dispatch]);
 
   return (
     <>

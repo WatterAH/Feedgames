@@ -26,6 +26,7 @@ const MenuItems: React.FC<Props> = ({ handleOpen }) => {
   const { triggerAlert } = useAuthReminder();
   const pathname = usePathname();
   const newAlert = useSelector((state: RootState) => state.activity.newAlert);
+  const newMessage = useSelector((state: RootState) => state.inbox.hasUnread);
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
 
@@ -61,7 +62,7 @@ const MenuItems: React.FC<Props> = ({ handleOpen }) => {
       return triggerAlert("cantInbox");
     } else {
       BProgress.start();
-      return router.push("/inbox");
+      return router.push("/party");
     }
   }
 
@@ -71,22 +72,19 @@ const MenuItems: React.FC<Props> = ({ handleOpen }) => {
       <Item href="/search" currentPath={pathname} Icon={Search} />
       <Item href="" currentPath={pathname} Icon={SquarePen} onClick={create} />
       <Item
-        href="/inbox"
+        href="/party"
         currentPath={pathname}
         Icon={MessageCircle}
         onClick={inbox}
+        showBadge={newMessage}
       />
-      <div className="relative">
-        {newAlert && (
-          <div className="absolute z-20 right-2 top-1 bg-red-500 h-4 w-4 rounded-full"></div>
-        )}
-        <Item
-          href="/alerts"
-          currentPath={pathname}
-          Icon={BellRing}
-          onClick={notify}
-        />
-      </div>
+      <Item
+        href="/alerts"
+        currentPath={pathname}
+        Icon={BellRing}
+        onClick={notify}
+        showBadge={newAlert}
+      />
       <Item href="/me" currentPath={pathname} Icon={User} onClick={profile} />
     </ul>
   );

@@ -100,6 +100,7 @@ class InboxController {
   async messages(req: Request, res: Response) {
     try {
       const id = req.params.id as string;
+      const userId = req.query.userId as string;
       const rawlimit = req.query.limit as string;
       const rawpage = req.query.page as string;
 
@@ -110,6 +111,10 @@ class InboxController {
       const query = await inboxService.messages(partyId, limit, page);
       if (query.error) return sendError(res, query.error.message, 400);
       if (!query.data) return sendError(res, "Not found", 404);
+
+      if (page === 0) {
+        inboxService.markAsRead(partyId, translator.toUUID(userId));
+      }
 
       const result = query.data.map((message) => processMessage(message));
 
@@ -132,6 +137,17 @@ class InboxController {
         type: message.type,
       };
 
+      const party = await inboxService.find(partyId);
+      if (party.error) return sendError(res, party.error.message, 400);
+      if (!party.data) return sendError(res, "Not found", 404);
+
+      const dataParty = processParty(party.data, userId);
+
+      dataParty.members.forEach((member: any) => {
+        if (member.id === message.user_id) return;
+        io.to(member.id).emit("new_message");
+      });
+
       const query = await inboxService.send(data);
       if (query.error) return sendError(res, query.error.message, 400);
       if (!query.data) return sendError(res, "Not found", 404);
@@ -139,6 +155,45 @@ class InboxController {
       io.to(message.party_id).emit("message", result);
 
       return sendSuccess(res, result);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
+
+  async markAsRead(req: Request, res: Response) {
+    try {
+      const partyId = translator.toUUID(req.body.partyId as string);
+      const userId = translator.toUUID(req.body.userId as string);
+
+      await inboxService.markAsRead(partyId, userId);
+
+      return sendSuccess(res, true);
+    } catch (error: any) {
+      return sendError(res, error.message, 500);
+    }
+  }
+
+  async hasUnread(req: Request, res: Response) {
+    try {
+      const id = req.params.id as string;
+      const userId = translator.toUUID(id);
+
+      const query = await inboxService.hasUnread(userId);
+      if (query.error) return sendError(res, query.error.message, 400);
+      if (!query.data) return sendError(res, "Not found", 404);
+
+      const unread = query.data.some((party) => {
+        const myReadAt = party.me?.[0]?.last_read_at;
+        const lastMsgAt = party.last_message_at;
+
+        if (!lastMsgAt || !myReadAt) return false;
+
+        if (party.last_message_user_id === userId) return false;
+
+        return new Date(lastMsgAt) > new Date(myReadAt);
+      });
+
+      return sendSuccess(res, unread);
     } catch (error: any) {
       return sendError(res, error.message, 500);
     }

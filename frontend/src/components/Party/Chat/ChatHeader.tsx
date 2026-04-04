@@ -16,7 +16,7 @@ const ChatHeader: React.FC<Props> = (party) => {
   }
 
   return (
-    <div className="border-b pb-4 px-4 flex items-center justify-between">
+    <div className="border-b md pb-4 px-4 flex items-center justify-between">
       <div className="flex items-center">
         <Avatar {...party} />
         <div className="">

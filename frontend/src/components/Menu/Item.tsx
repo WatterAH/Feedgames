@@ -12,13 +12,20 @@ interface Props {
   Icon: typeof House;
   currentPath: string;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  showBadge?: boolean;
 }
 
-const Item: React.FC<Props> = ({ href, Icon, currentPath, onClick }) => {
+const Item: React.FC<Props> = ({
+  href,
+  Icon,
+  currentPath,
+  onClick,
+  showBadge,
+}) => {
   const { user } = useUser();
   const logged = user.id !== defaultUser.id;
-  const blocked = ["/me", "/alerts", "/inbox", ""].includes(href);
-  const isCurrentPage = currentPath === href;
+  const blocked = ["/me", "/alerts", "/party", ""].includes(href);
+  const isCurrentPage = !!href && currentPath.includes(href);
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -36,7 +43,11 @@ const Item: React.FC<Props> = ({ href, Icon, currentPath, onClick }) => {
   };
 
   return (
-    <Link href={logged || !blocked ? href : ""} onClick={handleClick}>
+    <Link
+      className="relative"
+      href={logged || !blocked ? href : ""}
+      onClick={handleClick}
+    >
       <li className="px-4 py-2 rounded-2xl transition-all duration-500 ease-out lg:hover:bg-(--hover) active:scale-75">
         <Icon
           className={cn(
@@ -45,6 +56,9 @@ const Item: React.FC<Props> = ({ href, Icon, currentPath, onClick }) => {
           )}
         />
       </li>
+      {showBadge && (
+        <div className="absolute z-20 right-2 top-1 bg-red-500 h-4 w-4 rounded-full" />
+      )}
     </Link>
   );
 };

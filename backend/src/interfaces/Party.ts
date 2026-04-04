@@ -3,8 +3,14 @@ export interface Party {
   name: string;
   theme: string;
   createed_at: string;
-  last_message: string;
-  last_message_at: string;
+  last_message: {
+    content: string;
+    created_at: string;
+    user: {
+      id: string;
+      name: string;
+    };
+  } | null;
 }
 
 export interface Message {

@@ -2,6 +2,7 @@ import { Party } from "@/interfaces/Party";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
 import partyRouter from "@/routes/party";
+import { RESET_ALL } from "./actions";
 
 interface InboxState {
   parties: Party[];
@@ -9,6 +10,7 @@ interface InboxState {
   error: string | null;
   hasMore: boolean;
   page: number;
+  hasUnread: boolean;
 }
 
 const initialState: InboxState = {
@@ -17,6 +19,7 @@ const initialState: InboxState = {
   error: null,
   hasMore: true,
   page: 0,
+  hasUnread: false,
 };
 
 const inboxSlice = createSlice({
@@ -42,6 +45,24 @@ const inboxSlice = createSlice({
         state.parties.unshift(action.payload);
       }
     },
+    setHasUnread: (state, action) => {
+      state.hasUnread = action.payload;
+    },
+    markAsRead: (state, action: { payload: string }) => {
+      const partyId = action.payload;
+      const party = state.parties.find((p) => p.id === partyId);
+      if (party && party.me) {
+        party.me.last_read_at = new Date().toISOString();
+      }
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(RESET_ALL, (state) => {
+      state.parties = [];
+      state.hasMore = true;
+      state.page = 0;
+    });
+    builder.addCase;
   },
 });
 
@@ -50,6 +71,8 @@ export const {
   fetchPartiesSuccess,
   fetchPartiesFailure,
   addParty,
+  setHasUnread,
+  markAsRead,
 } = inboxSlice.actions;
 
 export default inboxSlice.reducer;

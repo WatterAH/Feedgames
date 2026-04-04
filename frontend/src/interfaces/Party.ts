@@ -3,8 +3,6 @@ export interface Party {
   name: string;
   theme: string;
   createed_at: string;
-  last_message: string;
-  last_message_at: string;
   avatar: string | null;
   members: {
     id: string;
@@ -12,6 +10,14 @@ export interface Party {
     pfp: string | undefined;
     last_read_at: string;
   }[];
+  last_message: {
+    user: {
+      id: string;
+      name: string;
+    } | null;
+    content: string;
+    created_at: string;
+  };
   me: {
     last_read_at: string;
   };
@@ -40,8 +46,14 @@ export const defaultParty: Party = {
   theme: "",
   avatar: "",
   createed_at: "",
-  last_message: "",
-  last_message_at: "",
+  last_message: {
+    user: {
+      id: "",
+      name: "",
+    },
+    content: "",
+    created_at: "",
+  },
   members: [],
   me: {
     last_read_at: "",

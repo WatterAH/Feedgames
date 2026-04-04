@@ -1,13 +1,12 @@
 import React from "react";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 import { useUser } from "@/context/AuthContext";
 import { Message as MessageInterface } from "@/interfaces/Party";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 import ProfilePicture from "@/components/Profile/ProfilePicture";
 
 interface Props extends MessageInterface {
   isFirst: boolean;
-  isLast: boolean;
 }
 
 const Message: React.FC<Props> = (message) => {
@@ -33,7 +32,7 @@ const Message: React.FC<Props> = (message) => {
       {!isOwnMessage && (
         <div className="w-8 mr-2 shrink-0 flex items-end">
           {isFirst && (
-            <div className="w-8 h-8 rounded-full overflow-hidden mb-5">
+            <div className="w-8 h-8 rounded-full mb-5">
               <ProfilePicture h={32} w={32} src={user.pfp} userId={user.id} />
             </div>
           )}

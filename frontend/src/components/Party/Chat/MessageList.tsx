@@ -4,23 +4,33 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Message as MessageInterface, Party } from "@/interfaces/Party";
 import { useParty } from "@/hooks/useParty";
 import { useSocket } from "@/context/SocketContext";
+import { useUser } from "@/context/AuthContext";
+import messageRouter from "@/routes/message";
 
-interface Props extends Party {}
+interface Props extends Party {
+  hookParty: ReturnType<typeof useParty>;
+}
 
-const MessageList: React.FC<Props> = (party) => {
-  const { id } = party;
+const MessageList: React.FC<Props> = ({ hookParty, ...party }) => {
+  const { user } = useUser();
   const { socket } = useSocket();
-  const { messages, getMessages, hasMore, setMessages } = useParty(id);
+  const { messages, getMessages, hasMore, setMessages } = hookParty;
 
   const sorted = useMemo(() => {
     return messages.map((msg, i) => {
       const prev = messages[i - 1];
 
-      const isFirst = !prev || prev.user.id !== msg.user.id;
-      const isLast =
-        !messages[i + 1] || messages[i + 1].user.id !== msg.user.id;
+      const GROUPING_THRESHOLD_MS = 60 * 60 * 1000;
 
-      return { ...msg, isFirst, isLast };
+      const isFirst =
+        !prev ||
+        prev.user.id !== msg.user.id ||
+        Math.abs(
+          new Date(msg.created_at).getTime() -
+            new Date(prev.created_at).getTime(),
+        ) > GROUPING_THRESHOLD_MS;
+
+      return { ...msg, isFirst };
     });
   }, [messages]);
 
@@ -28,7 +38,9 @@ const MessageList: React.FC<Props> = (party) => {
     if (!socket) return;
 
     const handleMessage = (message: MessageInterface) => {
+      if (user.id === message.user_id) return;
       setMessages((prev) => [message, ...prev]);
+      messageRouter.markAsRead(party.id, user.id);
     };
 
     socket.on("message", handleMessage);
@@ -40,16 +52,16 @@ const MessageList: React.FC<Props> = (party) => {
 
   return (
     <InfiniteScroll
-      className="flex flex-col-reverse"
+      className="flex flex-col-reverse mb-16"
       scrollableTarget="messages-list"
       inverse={true}
       dataLength={messages.length}
       hasMore={hasMore}
       next={getMessages}
-      loader={<div>Cargando...</div>}
+      loader={<div />}
     >
-      {sorted.map((message) => (
-        <Message key={message.id} {...message} />
+      {sorted.map((message, i) => (
+        <Message key={i} {...message} />
       ))}
     </InfiniteScroll>
   );

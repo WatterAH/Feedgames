@@ -1,40 +1,49 @@
 import { useUser } from "@/context/AuthContext";
-import { Party } from "@/interfaces/Party";
+import { useParty } from "@/hooks/useParty";
+import { Message, Party } from "@/interfaces/Party";
 import messageRouter from "@/routes/message";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-interface Props extends Party {}
+interface Props extends Party {
+  hookParty: ReturnType<typeof useParty>;
+}
 
-const MessageComposer: React.FC<Props> = (party) => {
+const MessageComposer: React.FC<Props> = ({ hookParty, ...party }) => {
   const { id: party_id } = party;
   const { user } = useUser();
+  const { setMessages } = hookParty;
   const [content, setContent] = useState("");
 
   async function handleSendMessage() {
     if (!content) return;
+    setContent("");
+
+    const data: Partial<Message> = {
+      content,
+      user_id: user.id,
+      party_id,
+      type: "text",
+      created_at: new Date().toISOString(),
+      user: { ...user },
+    };
 
     try {
-      setContent("");
-      await messageRouter.send({
-        content,
-        user_id: user.id,
-        party_id,
-        type: "text",
-      });
+      setMessages((prev) => [data as Message, ...prev]);
+      await messageRouter.send(data);
     } catch (error: any) {
       toast.error(error.message);
     }
   }
 
   return (
-    <form className="shrink-0 p-2 flex items-end gap-2 border border-(--border) rounded-2xl shadow-2xl mb-4 mx-4">
+    <form className="shrink-0 p-2 flex items-end gap-2 border border-(--border) bg-(--foreground) rounded-2xl shadow-2xl mb-4 mx-4">
       <input
         type="text"
         placeholder="Mensaje..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className="flex-1 min-w-0 bg-transparent outline-none p-2 rounded-lg"
+        className="flex-1 min-w-0 outline-none p-2 rounded-lg)"
       />
       <button
         type="submit"

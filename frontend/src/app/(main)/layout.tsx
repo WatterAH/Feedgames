@@ -9,6 +9,7 @@ import { useToken } from "@/hooks/useAuth";
 import { defaultUser } from "@/interfaces/User";
 import { useSpring, animated } from "react-spring";
 import { subscribeToAlerts } from "@/hooks/useSupabaseEvents";
+import { subscribeToMessages } from "@/hooks/useParty";
 
 export default function MainLayout({
   children,
@@ -19,6 +20,7 @@ export default function MainLayout({
   const [creating, setCreating] = useState(false);
 
   subscribeToAlerts(user.id);
+  subscribeToMessages();
 
   const AnimatedDiv: React.FC<React.PropsWithChildren<any>> = animated.div;
   const loaderSpring = useSpring({

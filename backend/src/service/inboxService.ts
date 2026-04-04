@@ -6,7 +6,8 @@ class InboxService {
   private readonly query = `
   *,
   me:party_members!inner(user_id, last_read_at),
-  party_members(last_read_at, nickname, data:users(id, name, pfp))`;
+  party_members(last_read_at, nickname, data:users(id, name, pfp)),
+  last_author:users!last_message_user_id(id, name)`;
 
   async list(
     userId: string,
@@ -91,6 +92,30 @@ class InboxService {
       .insert({ party_id: partyId, user_id: userId, role });
 
     return !error;
+  }
+
+  async markAsRead(partyId: string, userId: string): Promise<boolean> {
+    const { error } = await supabase.rpc("mark_party_as_read", {
+      p_party_id: partyId,
+      p_user_id: userId,
+    });
+
+    return !error;
+  }
+
+  async hasUnread(
+    userId: string,
+  ): Promise<{ data: any[] | null; error: PostgrestError | null }> {
+    const { data, error } = await supabase
+      .from("parties")
+      .select(
+        `last_message_at,
+      last_message_user_id,
+      me:party_members!inner(last_read_at)`,
+      )
+      .eq("me.user_id", userId);
+
+    return { data, error };
   }
 }
 

@@ -87,22 +87,35 @@ export const processAlert = (notify: Alert) => {
 };
 
 export const processParty = (party: any, userId: string) => {
-  const { id, party_members, ...rest } = party;
+  const { id, party_members, me, last_author } = party;
 
   return {
     id: translator.fromUUID(id),
+    last_message: {
+      content: party.last_message_content,
+      created_at: party.last_message_at,
+      user: last_author
+        ? {
+            id: translator.fromUUID(last_author.id),
+            name: last_author.name,
+          }
+        : null,
+    },
     members: party_members
       .map((member: any) => {
         if (member.data.id === userId) return;
+
         return {
           id: translator.fromUUID(member.data.id),
           name: member.nickname || member.data.name,
           pfp: member.data.pfp,
-          last_read_at: member.last_read_at,
         };
       })
       .filter((member: any) => member),
-    ...rest,
+    me: {
+      id: translator.fromUUID(me[0].user_id),
+      last_read_at: me[0].last_read_at,
+    },
   };
 };
 
