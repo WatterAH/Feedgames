@@ -17,7 +17,7 @@ interface Props {
 const Item: React.FC<Props> = ({ href, Icon, currentPath, onClick }) => {
   const { user } = useUser();
   const logged = user.id !== defaultUser.id;
-  const blocked = ["/me", "/alerts", "/inbox"].includes(href);
+  const blocked = ["/me", "/alerts", "/inbox", ""].includes(href);
   const isCurrentPage = currentPath === href;
   const router = useRouter();
 
