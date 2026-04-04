@@ -32,7 +32,13 @@ const activitySlice = createSlice({
       state.error = null;
     },
     fetchAlertsSuccess: (state, action) => {
-      state.alerts = [...state.alerts, ...action.payload.notifications];
+      const newAlerts = action.payload.notifications.filter(
+        (incomingAlert: any) =>
+          !state.alerts.some(
+            (existingAlert) => existingAlert.id === incomingAlert.id,
+          ),
+      );
+      state.alerts = [...state.alerts, ...newAlerts];
       state.hasMore = action.payload.hasMore;
       state.page = action.payload.hasMore ? state.page + 1 : state.page;
       state.loading = false;
@@ -45,6 +51,12 @@ const activitySlice = createSlice({
       state.newAlert = action.payload;
     },
     addAlert: (state, action) => {
+      const exists = state.alerts.find(
+        (alert) => alert.id === action.payload.id,
+      );
+
+      if (exists) return;
+
       state.alerts.unshift(action.payload);
       state.newAlert = true;
     },

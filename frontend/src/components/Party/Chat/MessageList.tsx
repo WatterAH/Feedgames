@@ -52,7 +52,7 @@ const MessageList: React.FC<Props> = ({ hookParty, ...party }) => {
 
   return (
     <InfiniteScroll
-      className="flex flex-col-reverse mb-16"
+      className="flex flex-col-reverse"
       scrollableTarget="messages-list"
       inverse={true}
       dataLength={messages.length}

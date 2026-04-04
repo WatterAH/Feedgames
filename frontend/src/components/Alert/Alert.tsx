@@ -7,6 +7,7 @@ import { Heart, MessageCircle, UserRoundPlus } from "lucide-react";
 import { AlertInterface } from "@/interfaces/Alert";
 import { interval } from "@/lib/date";
 import { useRouter } from "next/navigation";
+import { stopPropagation } from "@/lib/utils";
 
 interface Props {
   data: AlertInterface;
@@ -85,7 +86,7 @@ const Notify: React.FC<Props> = ({ data }) => {
   return (
     <article className="flex flex-row p-4 gap-x-4 text-(--text) hover:cursor-pointer">
       <Link href={`/u/${userId}`} className="relative">
-        <ProfilePicture userId={userId} src={pfp} h={36} w={36} />
+        <ProfilePicture src={pfp} h={36} w={36} />
         <span className="absolute -right-2 top-5">{displayIcon()}</span>
       </Link>
       <div
@@ -109,7 +110,7 @@ const Notify: React.FC<Props> = ({ data }) => {
           </p>
         </section>
 
-        <section>
+        <section onClick={stopPropagation}>
           <Options alertId={id} />
         </section>
       </div>

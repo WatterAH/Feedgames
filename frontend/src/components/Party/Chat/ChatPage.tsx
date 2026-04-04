@@ -51,10 +51,9 @@ const ChatPage: React.FC<Props> = ({ error, ...data }) => {
           <>
             <ChatHeader {...data} />
 
-            {/* El flex-1 hará que este ocupe todo el espacio sobrante */}
             <div
               id="messages-list"
-              className="flex-1 flex flex-col-reverse overflow-y-auto w-full px-4"
+              className="flex-1 flex flex-col-reverse overflow-y-auto w-full px-4 mt-2"
             >
               <MessageList hookParty={party} {...data} />
             </div>

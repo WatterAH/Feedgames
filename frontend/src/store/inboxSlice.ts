@@ -31,10 +31,16 @@ const inboxSlice = createSlice({
       state.error = null;
     },
     fetchPartiesSuccess: (state, action) => {
-      state.parties = [...state.parties, ...action.payload.parties];
+      const newChats = action.payload.parties.filter(
+        (incomingParty: any) =>
+          !state.parties.some(
+            (existingParty) => existingParty.id === incomingParty.id,
+          ),
+      );
+      state.parties = [...state.parties, ...newChats];
       state.hasMore = action.payload.hasMore;
-      state.page = action.payload.hasMore ? state.page + 1 : state.page;
       state.loading = false;
+      state.page = action.payload.page;
     },
     fetchPartiesFailure: (state, action) => {
       state.error = action.payload;

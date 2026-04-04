@@ -21,7 +21,7 @@ const AlertPage = () => {
   );
 
   useEffect(() => {
-    if (user?.id && alerts.length == 0) {
+    if (user?.id && alerts.length < 15) {
       dispatch(fetchAlerts(user.id, 15));
     }
   }, [dispatch, user?.id, alerts.length]);

@@ -87,7 +87,11 @@ export const processAlert = (notify: Alert) => {
 };
 
 export const processParty = (party: any, userId: string) => {
-  const { id, party_members, me, last_author } = party;
+  const { id, party_members, last_author } = party;
+
+  const currentMember = party_members.find(
+    (member: any) => member.data.id === userId,
+  );
 
   return {
     id: translator.fromUUID(id),
@@ -112,10 +116,12 @@ export const processParty = (party: any, userId: string) => {
         };
       })
       .filter((member: any) => member),
-    me: {
-      id: translator.fromUUID(me[0].user_id),
-      last_read_at: me[0].last_read_at,
-    },
+    me: currentMember
+      ? {
+          id: translator.fromUUID(currentMember.data.id),
+          last_read_at: currentMember.last_read_at,
+        }
+      : null,
   };
 };
 

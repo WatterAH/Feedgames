@@ -2,7 +2,7 @@ export interface Party {
   id: string;
   name: string;
   theme: string;
-  createed_at: string;
+  created_at: string;
   last_message: {
     content: string;
     created_at: string;
@@ -11,6 +11,7 @@ export interface Party {
       name: string;
     };
   } | null;
+  party_members: any[];
 }
 
 export interface Message {

@@ -65,8 +65,11 @@ class InboxController {
       if (existing.error) return sendError(res, existing.error.message, 400);
 
       if (existing.data) {
-        const party = processParty(existing.data, ownerId);
-        return sendSuccess(res, party);
+        const party = await inboxService.find(existing.data);
+        if (party.error) return sendError(res, party.error.message, 400);
+        if (!party.data) return sendError(res, "Not found", 404);
+
+        return sendSuccess(res, processParty(party.data, ownerId));
       }
 
       const newParty = await inboxService.create({});
