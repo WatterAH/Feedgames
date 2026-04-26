@@ -66,6 +66,7 @@ class PostController {
       const posts = query.data.map((post) => processPost(post, requester));
       return sendSuccess(res, posts);
     } catch (error: any) {
+      console.log(error);
       return sendError(res, error.message, 500);
     }
   }
