@@ -11,6 +11,7 @@ const io = new SocketServer(server, {
       "http://localhost:3000",
       "https://feedgames.vercel.app",
       "http://192.168.1.70:19006",
+      "http://192.168.56.1:3000/",
     ],
   },
 });

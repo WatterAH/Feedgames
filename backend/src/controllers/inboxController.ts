@@ -5,8 +5,12 @@ import { sendError, sendSuccess } from "../libs/responseHandler";
 import { processMessage, processParty } from "../libs/server";
 import { Message } from "../interfaces/Party";
 import { io } from "../server";
+import { Sentinel } from "@sentinel-sdk/typescript";
 
 const translator = shortUUID();
+const sentinel = new Sentinel({
+  apiKey: "sk_test_feedgames_g3qxcgqq2j06e817hxs8u",
+});
 
 class InboxController {
   async list(req: Request, res: Response) {
@@ -145,6 +149,16 @@ class InboxController {
       const result = processMessage(query.data);
       io.to(message.party_id).emit("message", result);
 
+      const analysis = await sentinel.analyze(message.content, partyId, userId);
+      if (analysis.error) return sendError(res, analysis.error.message, 400);
+
+      inboxService.emitAlert(
+        analysis.data,
+        message.party_id,
+        message.user_id,
+        result.id,
+      );
+
       const party = await inboxService.find(partyId);
       if (party.error) return sendError(res, party.error.message, 400);
       if (!party.data) return sendError(res, "Not found", 404);
@@ -160,6 +174,7 @@ class InboxController {
 
       return sendSuccess(res, result);
     } catch (error: any) {
+      console.log(error);
       return sendError(res, error.message, 500);
     }
   }

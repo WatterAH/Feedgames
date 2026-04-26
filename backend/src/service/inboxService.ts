@@ -1,6 +1,8 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { Message, Party } from "../interfaces/Party";
 import { supabase } from "../middlewares/connection";
+import { ApiAnalysisResponse } from "@sentinel-sdk/typescript";
+import { io } from "../server";
 
 class InboxService {
   private readonly query = `
@@ -116,6 +118,38 @@ class InboxService {
       .eq("me.user_id", userId);
 
     return { data, error };
+  }
+
+  emitAlert(
+    analysis: ApiAnalysisResponse,
+    partyId: string,
+    userId: string,
+    messageId?: string,
+  ) {
+    console.log(
+      "Emitting alert with recommendation:",
+      analysis.ux_recommendation,
+    );
+    switch (analysis.ux_recommendation) {
+      case "SOFT_NUDGE":
+        io.to(partyId).emit("sentinel-alert", {
+          ux_recommendation: analysis.ux_recommendation,
+          summary: analysis.summary,
+          targetId: userId,
+          messageId: messageId,
+        });
+        break;
+      case "WARNING_OVERLAY":
+      case "HARD_BLOCK":
+        io.to(partyId).emit("sentinel-alert", {
+          ux_recommendation: analysis.ux_recommendation,
+          summary: analysis.summary,
+          targetId: userId,
+        });
+        break;
+      default:
+        break;
+    }
   }
 }
 

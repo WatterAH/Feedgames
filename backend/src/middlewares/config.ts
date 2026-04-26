@@ -13,6 +13,7 @@ const corsOptions: CorsOptions = {
     "http://192.168.0.6:3000",
     "https://feedgames.vercel.app",
     "http://192.168.1.70:19006",
+    "http://192.168.56.1:3000/",
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,

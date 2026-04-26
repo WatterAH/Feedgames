@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../../Layout/Title";
 import { Party } from "@/interfaces/Party";
 import Card from "../../Layout/Card";
@@ -14,6 +14,7 @@ import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { markAsRead } from "@/store/inboxSlice";
 import Error from "@/components/Layout/Error";
+import WarningOverlay from "../WarningOverlay";
 
 interface Props extends Party {
   error?: boolean;
@@ -25,6 +26,8 @@ const ChatPage: React.FC<Props> = ({ error, ...data }) => {
   const { socket } = useSocket();
   const party = useParty(id);
   const dispatch: AppDispatch = useDispatch();
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (!socket) return;
@@ -33,6 +36,29 @@ const ChatPage: React.FC<Props> = ({ error, ...data }) => {
 
     return () => {
       socket.emit("leave_party", { userId: user.id, partyId: id });
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleSentinelAlert = (data: {
+      summary: string;
+      ux_recommendation: string;
+      targetId: string;
+    }) => {
+      if (data.targetId == user.id) return;
+
+      if (["HARD_BLOCK", "WARNING_OVERLAY"].includes(data.ux_recommendation)) {
+        setMessage(data.summary);
+        setOpen(true);
+      }
+    };
+
+    socket.on("sentinel-alert", handleSentinelAlert);
+
+    return () => {
+      socket.off("sentinel-alert", handleSentinelAlert);
     };
   }, [socket]);
 
@@ -64,6 +90,8 @@ const ChatPage: React.FC<Props> = ({ error, ...data }) => {
           </>
         )}
       </div>
+
+      <WarningOverlay open={open} setOpen={setOpen} message={message} />
     </>
   );
 };

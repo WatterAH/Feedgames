@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { use, useEffect, useMemo } from "react";
 import Message from "./Message";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Message as MessageInterface, Party } from "@/interfaces/Party";
@@ -33,6 +33,38 @@ const MessageList: React.FC<Props> = ({ hookParty, ...party }) => {
       return { ...msg, isFirst };
     });
   }, [messages]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleSentinelAlert = (data: {
+      summary: string;
+      ux_recommendation: string;
+      targetId: string;
+      messageId: string;
+    }) => {
+      if (data.targetId == user.id) return;
+
+      if (["SOFT_NUDGE"].includes(data.ux_recommendation)) {
+        setMessages((prev) => {
+          return prev.map((msg) =>
+            msg.id === data.messageId
+              ? {
+                  ...msg,
+                  warning_overlay: "Te sientes incómodo con este mensaje?",
+                }
+              : msg,
+          );
+        });
+      }
+    };
+
+    socket.on("sentinel-alert", handleSentinelAlert);
+
+    return () => {
+      socket.off("sentinel-alert", handleSentinelAlert);
+    };
+  }, [socket]);
 
   useEffect(() => {
     if (!socket) return;

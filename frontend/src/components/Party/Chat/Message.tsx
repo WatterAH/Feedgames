@@ -4,12 +4,14 @@ import { format } from "date-fns";
 import { useUser } from "@/context/AuthContext";
 import { Message as MessageInterface } from "@/interfaces/Party";
 import ProfilePicture from "@/components/Profile/ProfilePicture";
+import { AlertTriangle } from "lucide-react";
 
 interface Props extends MessageInterface {
   isFirst: boolean;
+  warning_overlay?: string;
 }
 
-const Message: React.FC<Props> = (message) => {
+const Message: React.FC<Props> = ({ warning_overlay, ...message }) => {
   const { user: session } = useUser();
   const { content, user_id, user, created_at, type, isFirst } = message;
   const isOwnMessage = user_id === session.id;
@@ -40,17 +42,30 @@ const Message: React.FC<Props> = (message) => {
       )}
 
       <div
-        className={`flex flex-col ${isOwnMessage ? "items-end" : "items-start"} max-w-[75%]`}
+        className={cn(
+          "flex flex-col max-w-[75%]",
+          isOwnMessage ? "items-end" : "items-start",
+        )}
       >
         <div
-          className={cn("px-4 py-2.5 text-[15px] shadow-sm leading-relaxed", {
-            "text-(--foreground) bg-(--text) rounded-2xl rounded-br-sm":
-              isOwnMessage,
-            "bg-(--foreground) text-gray-100 border border-(--border) rounded-2xl rounded-bl-sm":
-              !isOwnMessage,
-          })}
+          className={cn(
+            "px-4 py-2.5 text-[15px] shadow-sm leading-relaxed overflow-hidden",
+            {
+              "text-(--foreground) bg-(--text) rounded-2xl rounded-br-sm":
+                isOwnMessage,
+              "bg-(--foreground) text-gray-100 border border-(--border) rounded-2xl rounded-bl-sm":
+                !isOwnMessage,
+            },
+          )}
         >
-          {content}
+          {warning_overlay && (
+            <div className="flex items-center gap-2 mb-2 px-2 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-[12px] font-medium">
+              <AlertTriangle size={14} className="shrink-0" />
+              <span>{warning_overlay}</span>
+            </div>
+          )}
+
+          <div className={cn(warning_overlay && "opacity-90")}>{content}</div>
         </div>
 
         {isFirst && (
